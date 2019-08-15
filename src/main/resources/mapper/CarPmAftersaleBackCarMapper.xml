@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmAftersaleBackCarMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleBackCar">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="auction_set_id" jdbcType="VARCHAR" property="auctionSetId" />
+    <result column="is_in_stock" jdbcType="VARCHAR" property="isInStock" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="audit_state" jdbcType="INTEGER" property="auditState" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, auction_set_id, is_in_stock, remark, audit_state, is_delete, create_user, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_aftersale_back_car
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_aftersale_back_car
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleBackCar">
+    insert into car_pm_aftersale_back_car (id, auction_id, auction_set_id, 
+      is_in_stock, remark, audit_state, 
+      is_delete, create_user, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{auctionSetId,jdbcType=VARCHAR}, 
+      #{isInStock,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{auditState,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleBackCar">
+    insert into car_pm_aftersale_back_car
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id,
+      </if>
+      <if test="isInStock != null">
+        is_in_stock,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isInStock != null">
+        #{isInStock,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleBackCar">
+    update car_pm_aftersale_back_car
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="isInStock != null">
+        is_in_stock = #{isInStock,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleBackCar">
+    update car_pm_aftersale_back_car
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      is_in_stock = #{isInStock,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

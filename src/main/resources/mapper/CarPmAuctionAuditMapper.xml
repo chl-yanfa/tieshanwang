@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmAuctionAuditMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmAuctionAudit">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="audit_flag" jdbcType="INTEGER" property="auditFlag" />
+    <result column="audit_flag_id" jdbcType="VARCHAR" property="auditFlagId" />
+    <result column="is_pass" jdbcType="INTEGER" property="isPass" />
+    <result column="no_pass_reason" jdbcType="VARCHAR" property="noPassReason" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ts" jdbcType="TIMESTAMP" property="ts" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, audit_flag, audit_flag_id, is_pass, no_pass_reason, is_delete, create_user, 
+    create_time, ts
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_auction_audit
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_auction_audit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAuctionAudit">
+    insert into car_pm_auction_audit (id, auction_id, audit_flag, 
+      audit_flag_id, is_pass, no_pass_reason, 
+      is_delete, create_user, create_time, 
+      ts)
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{auditFlag,jdbcType=INTEGER}, 
+      #{auditFlagId,jdbcType=VARCHAR}, #{isPass,jdbcType=INTEGER}, #{noPassReason,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{ts,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAuctionAudit">
+    insert into car_pm_auction_audit
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="auditFlag != null">
+        audit_flag,
+      </if>
+      <if test="auditFlagId != null">
+        audit_flag_id,
+      </if>
+      <if test="isPass != null">
+        is_pass,
+      </if>
+      <if test="noPassReason != null">
+        no_pass_reason,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFlag != null">
+        #{auditFlag,jdbcType=INTEGER},
+      </if>
+      <if test="auditFlagId != null">
+        #{auditFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null">
+        #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="noPassReason != null">
+        #{noPassReason,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAuctionAudit">
+    update car_pm_auction_audit
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditFlag != null">
+        audit_flag = #{auditFlag,jdbcType=INTEGER},
+      </if>
+      <if test="auditFlagId != null">
+        audit_flag_id = #{auditFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="isPass != null">
+        is_pass = #{isPass,jdbcType=INTEGER},
+      </if>
+      <if test="noPassReason != null">
+        no_pass_reason = #{noPassReason,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAuctionAudit">
+    update car_pm_auction_audit
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      audit_flag = #{auditFlag,jdbcType=INTEGER},
+      audit_flag_id = #{auditFlagId,jdbcType=VARCHAR},
+      is_pass = #{isPass,jdbcType=INTEGER},
+      no_pass_reason = #{noPassReason,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

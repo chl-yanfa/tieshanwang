@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmAftersaleScrapMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleScrap">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="auction_set_id" jdbcType="VARCHAR" property="auctionSetId" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="scrap_company" jdbcType="VARCHAR" property="scrapCompany" />
+    <result column="scrap_money" jdbcType="VARCHAR" property="scrapMoney" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="scrap_state" jdbcType="INTEGER" property="scrapState" />
+    <result column="submit_time" jdbcType="TIMESTAMP" property="submitTime" />
+    <result column="confirm_time" jdbcType="TIMESTAMP" property="confirmTime" />
+    <result column="confirm_remark" jdbcType="VARCHAR" property="confirmRemark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, auction_set_id, operator, scrap_company, scrap_money, remark, scrap_state, 
+    submit_time, confirm_time, confirm_remark, is_delete, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_aftersale_scrap
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_aftersale_scrap
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleScrap">
+    insert into car_pm_aftersale_scrap (id, auction_id, auction_set_id, 
+      operator, scrap_company, scrap_money, 
+      remark, scrap_state, submit_time, 
+      confirm_time, confirm_remark, is_delete, 
+      create_user, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{auctionSetId,jdbcType=VARCHAR}, 
+      #{operator,jdbcType=VARCHAR}, #{scrapCompany,jdbcType=VARCHAR}, #{scrapMoney,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{scrapState,jdbcType=INTEGER}, #{submitTime,jdbcType=TIMESTAMP}, 
+      #{confirmTime,jdbcType=TIMESTAMP}, #{confirmRemark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleScrap">
+    insert into car_pm_aftersale_scrap
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="scrapCompany != null">
+        scrap_company,
+      </if>
+      <if test="scrapMoney != null">
+        scrap_money,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="scrapState != null">
+        scrap_state,
+      </if>
+      <if test="submitTime != null">
+        submit_time,
+      </if>
+      <if test="confirmTime != null">
+        confirm_time,
+      </if>
+      <if test="confirmRemark != null">
+        confirm_remark,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapCompany != null">
+        #{scrapCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapMoney != null">
+        #{scrapMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapState != null">
+        #{scrapState,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null">
+        #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null">
+        #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmRemark != null">
+        #{confirmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleScrap">
+    update car_pm_aftersale_scrap
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapCompany != null">
+        scrap_company = #{scrapCompany,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapMoney != null">
+        scrap_money = #{scrapMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="scrapState != null">
+        scrap_state = #{scrapState,jdbcType=INTEGER},
+      </if>
+      <if test="submitTime != null">
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmTime != null">
+        confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="confirmRemark != null">
+        confirm_remark = #{confirmRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmAftersaleScrap">
+    update car_pm_aftersale_scrap
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      operator = #{operator,jdbcType=VARCHAR},
+      scrap_company = #{scrapCompany,jdbcType=VARCHAR},
+      scrap_money = #{scrapMoney,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      scrap_state = #{scrapState,jdbcType=INTEGER},
+      submit_time = #{submitTime,jdbcType=TIMESTAMP},
+      confirm_time = #{confirmTime,jdbcType=TIMESTAMP},
+      confirm_remark = #{confirmRemark,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

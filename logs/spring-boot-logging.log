@@ -1,0 +1,5 @@
+2019-08-15 16:19:32.814  INFO 10012 --- [main] com.tieshan.api.ApiApplicationTests      : Starting ApiApplicationTests on DESKTOP-JDVFMA3 with PID 10012 (started by RenZe in C:\Users\RenZe\Desktop\xxx\tieshanwang\tieshanwang\tieshanwangProject)
+2019-08-15 16:19:32.819  INFO 10012 --- [main] com.tieshan.api.ApiApplicationTests      : No active profile set, falling back to default profiles: default
+2019-08-15 16:19:36.675  INFO 10012 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-08-15 16:19:37.233  INFO 10012 --- [main] com.tieshan.api.ApiApplicationTests      : Started ApiApplicationTests in 5.036 seconds (JVM running for 6.965)
+2019-08-15 16:19:37.682  INFO 10012 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'

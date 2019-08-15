@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmProcedureRecordMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmProcedureRecord">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="procedure_id" jdbcType="VARCHAR" property="procedureId" />
+    <result column="applicant_id" jdbcType="VARCHAR" property="applicantId" />
+    <result column="transfer_invoice_id" jdbcType="INTEGER" property="transferInvoiceId" />
+    <result column="registration_id" jdbcType="INTEGER" property="registrationId" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="province_id" jdbcType="VARCHAR" property="provinceId" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="city_id" jdbcType="VARCHAR" property="cityId" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="area_id" jdbcType="VARCHAR" property="areaId" />
+    <result column="record_address" jdbcType="VARCHAR" property="recordAddress" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, procedure_id, applicant_id, transfer_invoice_id, registration_id, province, province_id, 
+    city, city_id, area, area_id, record_address, remark, is_delete, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_procedure_record
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_procedure_record
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmProcedureRecord">
+    insert into car_pm_procedure_record (id, procedure_id, applicant_id, 
+      transfer_invoice_id, registration_id, province, 
+      province_id, city, city_id, 
+      area, area_id, record_address, 
+      remark, is_delete, create_user, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{procedureId,jdbcType=VARCHAR}, #{applicantId,jdbcType=VARCHAR}, 
+      #{transferInvoiceId,jdbcType=INTEGER}, #{registrationId,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, 
+      #{provinceId,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{cityId,jdbcType=VARCHAR}, 
+      #{area,jdbcType=VARCHAR}, #{areaId,jdbcType=VARCHAR}, #{recordAddress,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmProcedureRecord">
+    insert into car_pm_procedure_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="procedureId != null">
+        procedure_id,
+      </if>
+      <if test="applicantId != null">
+        applicant_id,
+      </if>
+      <if test="transferInvoiceId != null">
+        transfer_invoice_id,
+      </if>
+      <if test="registrationId != null">
+        registration_id,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="provinceId != null">
+        province_id,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="cityId != null">
+        city_id,
+      </if>
+      <if test="area != null">
+        area,
+      </if>
+      <if test="areaId != null">
+        area_id,
+      </if>
+      <if test="recordAddress != null">
+        record_address,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="procedureId != null">
+        #{procedureId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantId != null">
+        #{applicantId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferInvoiceId != null">
+        #{transferInvoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="registrationId != null">
+        #{registrationId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordAddress != null">
+        #{recordAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmProcedureRecord">
+    update car_pm_procedure_record
+    <set>
+      <if test="procedureId != null">
+        procedure_id = #{procedureId,jdbcType=VARCHAR},
+      </if>
+      <if test="applicantId != null">
+        applicant_id = #{applicantId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferInvoiceId != null">
+        transfer_invoice_id = #{transferInvoiceId,jdbcType=INTEGER},
+      </if>
+      <if test="registrationId != null">
+        registration_id = #{registrationId,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceId != null">
+        province_id = #{provinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null">
+        city_id = #{cityId,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null">
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null">
+        area_id = #{areaId,jdbcType=VARCHAR},
+      </if>
+      <if test="recordAddress != null">
+        record_address = #{recordAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmProcedureRecord">
+    update car_pm_procedure_record
+    set procedure_id = #{procedureId,jdbcType=VARCHAR},
+      applicant_id = #{applicantId,jdbcType=VARCHAR},
+      transfer_invoice_id = #{transferInvoiceId,jdbcType=INTEGER},
+      registration_id = #{registrationId,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      province_id = #{provinceId,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=VARCHAR},
+      record_address = #{recordAddress,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

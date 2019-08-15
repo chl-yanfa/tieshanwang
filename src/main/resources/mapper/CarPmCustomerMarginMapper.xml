@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmCustomerMarginMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMargin">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="wallet_pledge" jdbcType="DECIMAL" property="walletPledge" />
+    <result column="wallet_pledge_freeze" jdbcType="DECIMAL" property="walletPledgeFreeze" />
+    <result column="transfer_ownership_pledge" jdbcType="DECIMAL" property="transferOwnershipPledge" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, wallet_pledge, wallet_pledge_freeze, transfer_ownership_pledge, is_delete, create_user, 
+    create_time, update_user, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_customer_margin
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_customer_margin
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMargin">
+    insert into car_pm_customer_margin (id, wallet_pledge, wallet_pledge_freeze, 
+      transfer_ownership_pledge, is_delete, create_user, 
+      create_time, update_user, update_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{walletPledge,jdbcType=DECIMAL}, #{walletPledgeFreeze,jdbcType=DECIMAL}, 
+      #{transferOwnershipPledge,jdbcType=DECIMAL}, #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMargin">
+    insert into car_pm_customer_margin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="walletPledge != null">
+        wallet_pledge,
+      </if>
+      <if test="walletPledgeFreeze != null">
+        wallet_pledge_freeze,
+      </if>
+      <if test="transferOwnershipPledge != null">
+        transfer_ownership_pledge,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="walletPledge != null">
+        #{walletPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="walletPledgeFreeze != null">
+        #{walletPledgeFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="transferOwnershipPledge != null">
+        #{transferOwnershipPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMargin">
+    update car_pm_customer_margin
+    <set>
+      <if test="walletPledge != null">
+        wallet_pledge = #{walletPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="walletPledgeFreeze != null">
+        wallet_pledge_freeze = #{walletPledgeFreeze,jdbcType=DECIMAL},
+      </if>
+      <if test="transferOwnershipPledge != null">
+        transfer_ownership_pledge = #{transferOwnershipPledge,jdbcType=DECIMAL},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMargin">
+    update car_pm_customer_margin
+    set wallet_pledge = #{walletPledge,jdbcType=DECIMAL},
+      wallet_pledge_freeze = #{walletPledgeFreeze,jdbcType=DECIMAL},
+      transfer_ownership_pledge = #{transferOwnershipPledge,jdbcType=DECIMAL},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

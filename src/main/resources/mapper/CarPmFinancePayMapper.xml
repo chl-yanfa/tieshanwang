@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmFinancePayMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmFinancePay">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="auction_set_id" jdbcType="VARCHAR" property="auctionSetId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="pay_handle" jdbcType="VARCHAR" property="payHandle" />
+    <result column="pay_bank" jdbcType="VARCHAR" property="payBank" />
+    <result column="pay_opening_bank" jdbcType="VARCHAR" property="payOpeningBank" />
+    <result column="pay_account" jdbcType="VARCHAR" property="payAccount" />
+    <result column="pay_money" jdbcType="DECIMAL" property="payMoney" />
+    <result column="pay_contact_phone" jdbcType="VARCHAR" property="payContactPhone" />
+    <result column="highest_price" jdbcType="DECIMAL" property="highestPrice" />
+    <result column="commission" jdbcType="DECIMAL" property="commission" />
+    <result column="other_price" jdbcType="DECIMAL" property="otherPrice" />
+    <result column="pay_voucher_id" jdbcType="INTEGER" property="payVoucherId" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, auction_set_id, type, mid, pay_handle, pay_bank, pay_opening_bank, 
+    pay_account, pay_money, pay_contact_phone, highest_price, commission, other_price, 
+    pay_voucher_id, remark, is_delete, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_finance_pay
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_finance_pay
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmFinancePay">
+    insert into car_pm_finance_pay (id, auction_id, auction_set_id, 
+      type, mid, pay_handle, 
+      pay_bank, pay_opening_bank, pay_account, 
+      pay_money, pay_contact_phone, highest_price, 
+      commission, other_price, pay_voucher_id, 
+      remark, is_delete, create_user, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{auctionSetId,jdbcType=VARCHAR}, 
+      #{type,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, #{payHandle,jdbcType=VARCHAR}, 
+      #{payBank,jdbcType=VARCHAR}, #{payOpeningBank,jdbcType=VARCHAR}, #{payAccount,jdbcType=VARCHAR}, 
+      #{payMoney,jdbcType=DECIMAL}, #{payContactPhone,jdbcType=VARCHAR}, #{highestPrice,jdbcType=DECIMAL}, 
+      #{commission,jdbcType=DECIMAL}, #{otherPrice,jdbcType=DECIMAL}, #{payVoucherId,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmFinancePay">
+    insert into car_pm_finance_pay
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="payHandle != null">
+        pay_handle,
+      </if>
+      <if test="payBank != null">
+        pay_bank,
+      </if>
+      <if test="payOpeningBank != null">
+        pay_opening_bank,
+      </if>
+      <if test="payAccount != null">
+        pay_account,
+      </if>
+      <if test="payMoney != null">
+        pay_money,
+      </if>
+      <if test="payContactPhone != null">
+        pay_contact_phone,
+      </if>
+      <if test="highestPrice != null">
+        highest_price,
+      </if>
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="otherPrice != null">
+        other_price,
+      </if>
+      <if test="payVoucherId != null">
+        pay_voucher_id,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="payHandle != null">
+        #{payHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="payBank != null">
+        #{payBank,jdbcType=VARCHAR},
+      </if>
+      <if test="payOpeningBank != null">
+        #{payOpeningBank,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null">
+        #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null">
+        #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payContactPhone != null">
+        #{payContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="highestPrice != null">
+        #{highestPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null">
+        #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="otherPrice != null">
+        #{otherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payVoucherId != null">
+        #{payVoucherId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmFinancePay">
+    update car_pm_finance_pay
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="payHandle != null">
+        pay_handle = #{payHandle,jdbcType=VARCHAR},
+      </if>
+      <if test="payBank != null">
+        pay_bank = #{payBank,jdbcType=VARCHAR},
+      </if>
+      <if test="payOpeningBank != null">
+        pay_opening_bank = #{payOpeningBank,jdbcType=VARCHAR},
+      </if>
+      <if test="payAccount != null">
+        pay_account = #{payAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="payMoney != null">
+        pay_money = #{payMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="payContactPhone != null">
+        pay_contact_phone = #{payContactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="highestPrice != null">
+        highest_price = #{highestPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="commission != null">
+        commission = #{commission,jdbcType=DECIMAL},
+      </if>
+      <if test="otherPrice != null">
+        other_price = #{otherPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="payVoucherId != null">
+        pay_voucher_id = #{payVoucherId,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmFinancePay">
+    update car_pm_finance_pay
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      mid = #{mid,jdbcType=VARCHAR},
+      pay_handle = #{payHandle,jdbcType=VARCHAR},
+      pay_bank = #{payBank,jdbcType=VARCHAR},
+      pay_opening_bank = #{payOpeningBank,jdbcType=VARCHAR},
+      pay_account = #{payAccount,jdbcType=VARCHAR},
+      pay_money = #{payMoney,jdbcType=DECIMAL},
+      pay_contact_phone = #{payContactPhone,jdbcType=VARCHAR},
+      highest_price = #{highestPrice,jdbcType=DECIMAL},
+      commission = #{commission,jdbcType=DECIMAL},
+      other_price = #{otherPrice,jdbcType=DECIMAL},
+      pay_voucher_id = #{payVoucherId,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

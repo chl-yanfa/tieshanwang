@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.CarPmCustomerMarginWaterMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMarginWater">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="operator_cash" jdbcType="VARCHAR" property="operatorCash" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="auction_no" jdbcType="VARCHAR" property="auctionNo" />
+    <result column="operator_type" jdbcType="INTEGER" property="operatorType" />
+    <result column="charge_order" jdbcType="VARCHAR" property="chargeOrder" />
+    <result column="charge_source" jdbcType="VARCHAR" property="chargeSource" />
+    <result column="pay_voucher_id" jdbcType="INTEGER" property="payVoucherId" />
+    <result column="is_refund" jdbcType="INTEGER" property="isRefund" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mid, operator_cash, memo, order_id, order_no, auction_no, operator_type, charge_order, 
+    charge_source, pay_voucher_id, is_refund, is_delete, create_user, create_time, update_user, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_customer_margin_water
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_customer_margin_water
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMarginWater">
+    insert into car_pm_customer_margin_water (id, mid, operator_cash, 
+      memo, order_id, order_no, 
+      auction_no, operator_type, charge_order, 
+      charge_source, pay_voucher_id, is_refund, 
+      is_delete, create_user, create_time, 
+      update_user, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, #{operatorCash,jdbcType=VARCHAR}, 
+      #{memo,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{auctionNo,jdbcType=VARCHAR}, #{operatorType,jdbcType=INTEGER}, #{chargeOrder,jdbcType=VARCHAR}, 
+      #{chargeSource,jdbcType=VARCHAR}, #{payVoucherId,jdbcType=INTEGER}, #{isRefund,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMarginWater">
+    insert into car_pm_customer_margin_water
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="operatorCash != null">
+        operator_cash,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="auctionNo != null">
+        auction_no,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="chargeOrder != null">
+        charge_order,
+      </if>
+      <if test="chargeSource != null">
+        charge_source,
+      </if>
+      <if test="payVoucherId != null">
+        pay_voucher_id,
+      </if>
+      <if test="isRefund != null">
+        is_refund,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCash != null">
+        #{operatorCash,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionNo != null">
+        #{auctionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="chargeOrder != null">
+        #{chargeOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeSource != null">
+        #{chargeSource,jdbcType=VARCHAR},
+      </if>
+      <if test="payVoucherId != null">
+        #{payVoucherId,jdbcType=INTEGER},
+      </if>
+      <if test="isRefund != null">
+        #{isRefund,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMarginWater">
+    update car_pm_customer_margin_water
+    <set>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCash != null">
+        operator_cash = #{operatorCash,jdbcType=VARCHAR},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionNo != null">
+        auction_no = #{auctionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        operator_type = #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="chargeOrder != null">
+        charge_order = #{chargeOrder,jdbcType=VARCHAR},
+      </if>
+      <if test="chargeSource != null">
+        charge_source = #{chargeSource,jdbcType=VARCHAR},
+      </if>
+      <if test="payVoucherId != null">
+        pay_voucher_id = #{payVoucherId,jdbcType=INTEGER},
+      </if>
+      <if test="isRefund != null">
+        is_refund = #{isRefund,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.CarPmCustomerMarginWater">
+    update car_pm_customer_margin_water
+    set mid = #{mid,jdbcType=VARCHAR},
+      operator_cash = #{operatorCash,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      auction_no = #{auctionNo,jdbcType=VARCHAR},
+      operator_type = #{operatorType,jdbcType=INTEGER},
+      charge_order = #{chargeOrder,jdbcType=VARCHAR},
+      charge_source = #{chargeSource,jdbcType=VARCHAR},
+      pay_voucher_id = #{payVoucherId,jdbcType=INTEGER},
+      is_refund = #{isRefund,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
