@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmPaimaiMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmPaimai">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="pmh_id" jdbcType="VARCHAR" property="pmhId" />
+    <result column="paimai_name" jdbcType="VARCHAR" property="paimaiName" />
+    <result column="paimai_start_time" jdbcType="TIMESTAMP" property="paimaiStartTime" />
+    <result column="paimai_finish_time" jdbcType="TIMESTAMP" property="paimaiFinishTime" />
+    <result column="single_time" jdbcType="INTEGER" property="singleTime" />
+    <result column="interval_time" jdbcType="INTEGER" property="intervalTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="paimai_state" jdbcType="INTEGER" property="paimaiState" />
+    <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="ts" jdbcType="TIMESTAMP" property="ts" />
+    <result column="auction_type" jdbcType="INTEGER" property="auctionType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, pmh_id, paimai_name, paimai_start_time, paimai_finish_time, single_time, interval_time, 
+    remark, paimai_state, publish_time, is_delete, create_user, create_time, ts, auction_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_paimai
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_paimai
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmPaimai">
+    insert into car_pm_paimai (id, pmh_id, paimai_name, 
+      paimai_start_time, paimai_finish_time, 
+      single_time, interval_time, remark, 
+      paimai_state, publish_time, is_delete, 
+      create_user, create_time, ts, 
+      auction_type)
+    values (#{id,jdbcType=VARCHAR}, #{pmhId,jdbcType=VARCHAR}, #{paimaiName,jdbcType=VARCHAR}, 
+      #{paimaiStartTime,jdbcType=TIMESTAMP}, #{paimaiFinishTime,jdbcType=TIMESTAMP}, 
+      #{singleTime,jdbcType=INTEGER}, #{intervalTime,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, 
+      #{paimaiState,jdbcType=INTEGER}, #{publishTime,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=BIT}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{ts,jdbcType=TIMESTAMP}, 
+      #{auctionType,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmPaimai">
+    insert into car_pm_paimai
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="pmhId != null">
+        pmh_id,
+      </if>
+      <if test="paimaiName != null">
+        paimai_name,
+      </if>
+      <if test="paimaiStartTime != null">
+        paimai_start_time,
+      </if>
+      <if test="paimaiFinishTime != null">
+        paimai_finish_time,
+      </if>
+      <if test="singleTime != null">
+        single_time,
+      </if>
+      <if test="intervalTime != null">
+        interval_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="paimaiState != null">
+        paimai_state,
+      </if>
+      <if test="publishTime != null">
+        publish_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="ts != null">
+        ts,
+      </if>
+      <if test="auctionType != null">
+        auction_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="pmhId != null">
+        #{pmhId,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiName != null">
+        #{paimaiName,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiStartTime != null">
+        #{paimaiStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paimaiFinishTime != null">
+        #{paimaiFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleTime != null">
+        #{singleTime,jdbcType=INTEGER},
+      </if>
+      <if test="intervalTime != null">
+        #{intervalTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiState != null">
+        #{paimaiState,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null">
+        #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auctionType != null">
+        #{auctionType,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmPaimai">
+    update car_pm_paimai
+    <set>
+      <if test="pmhId != null">
+        pmh_id = #{pmhId,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiName != null">
+        paimai_name = #{paimaiName,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiStartTime != null">
+        paimai_start_time = #{paimaiStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paimaiFinishTime != null">
+        paimai_finish_time = #{paimaiFinishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="singleTime != null">
+        single_time = #{singleTime,jdbcType=INTEGER},
+      </if>
+      <if test="intervalTime != null">
+        interval_time = #{intervalTime,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="paimaiState != null">
+        paimai_state = #{paimaiState,jdbcType=INTEGER},
+      </if>
+      <if test="publishTime != null">
+        publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ts != null">
+        ts = #{ts,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auctionType != null">
+        auction_type = #{auctionType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmPaimai">
+    update car_pm_paimai
+    set pmh_id = #{pmhId,jdbcType=VARCHAR},
+      paimai_name = #{paimaiName,jdbcType=VARCHAR},
+      paimai_start_time = #{paimaiStartTime,jdbcType=TIMESTAMP},
+      paimai_finish_time = #{paimaiFinishTime,jdbcType=TIMESTAMP},
+      single_time = #{singleTime,jdbcType=INTEGER},
+      interval_time = #{intervalTime,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      paimai_state = #{paimaiState,jdbcType=INTEGER},
+      publish_time = #{publishTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      ts = #{ts,jdbcType=TIMESTAMP},
+      auction_type = #{auctionType,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

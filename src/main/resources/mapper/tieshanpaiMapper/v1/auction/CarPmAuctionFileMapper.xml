@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionFileMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuctionFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="attachment_id" jdbcType="INTEGER" property="attachmentId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="pic_type" jdbcType="INTEGER" property="picType" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, file_type, attachment_id, sort, pic_type, is_delete, create_user, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_auction_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car_pm_auction_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuctionFile">
+    insert into car_pm_auction_file (id, auction_id, file_type, 
+      attachment_id, sort, pic_type, 
+      is_delete, create_user, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{auctionId,jdbcType=VARCHAR}, #{fileType,jdbcType=INTEGER}, 
+      #{attachmentId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{picType,jdbcType=INTEGER}, 
+      #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuctionFile">
+    insert into car_pm_auction_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="attachmentId != null">
+        attachment_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="picType != null">
+        pic_type,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentId != null">
+        #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="picType != null">
+        #{picType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuctionFile">
+    update car_pm_auction_file
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="picType != null">
+        pic_type = #{picType,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuctionFile">
+    update car_pm_auction_file
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      file_type = #{fileType,jdbcType=INTEGER},
+      attachment_id = #{attachmentId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      pic_type = #{picType,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

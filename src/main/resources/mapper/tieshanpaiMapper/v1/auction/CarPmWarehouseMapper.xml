@@ -1,0 +1,1337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmWarehouseMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehouse">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="car_card" jdbcType="VARCHAR" property="carCard" />
+    <result column="cc_province" jdbcType="VARCHAR" property="ccProvince" />
+    <result column="cc_province_id" jdbcType="VARCHAR" property="ccProvinceId" />
+    <result column="cc_city" jdbcType="VARCHAR" property="ccCity" />
+    <result column="cc_city_id" jdbcType="VARCHAR" property="ccCityId" />
+    <result column="cc_area" jdbcType="VARCHAR" property="ccArea" />
+    <result column="cc_area_id" jdbcType="VARCHAR" property="ccAreaId" />
+    <result column="car_card_address" jdbcType="VARCHAR" property="carCardAddress" />
+    <result column="key" jdbcType="VARCHAR" property="key" />
+    <result column="spare_key" jdbcType="VARCHAR" property="spareKey" />
+    <result column="k_province" jdbcType="VARCHAR" property="kProvince" />
+    <result column="k_province_id" jdbcType="VARCHAR" property="kProvinceId" />
+    <result column="k_city" jdbcType="VARCHAR" property="kCity" />
+    <result column="k_city_id" jdbcType="VARCHAR" property="kCityId" />
+    <result column="k_area" jdbcType="VARCHAR" property="kArea" />
+    <result column="k_area_id" jdbcType="VARCHAR" property="kAreaId" />
+    <result column="key_address" jdbcType="VARCHAR" property="keyAddress" />
+    <result column="key_remark" jdbcType="VARCHAR" property="keyRemark" />
+    <result column="s_province" jdbcType="VARCHAR" property="sProvince" />
+    <result column="s_province_id" jdbcType="VARCHAR" property="sProvinceId" />
+    <result column="s_city" jdbcType="VARCHAR" property="sCity" />
+    <result column="s_city_id" jdbcType="VARCHAR" property="sCityId" />
+    <result column="s_area" jdbcType="VARCHAR" property="sArea" />
+    <result column="s_area_id" jdbcType="VARCHAR" property="sAreaId" />
+    <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
+    <result column="store_space" jdbcType="VARCHAR" property="storeSpace" />
+    <result column="store_time" jdbcType="TIMESTAMP" property="storeTime" />
+    <result column="trailer_cost" jdbcType="DECIMAL" property="trailerCost" />
+    <result column="trailer_cost_pay" jdbcType="VARCHAR" property="trailerCostPay" />
+    <result column="voucher_id" jdbcType="INTEGER" property="voucherId" />
+    <result column="trailer_phone" jdbcType="VARCHAR" property="trailerPhone" />
+    <result column="origin_province" jdbcType="VARCHAR" property="originProvince" />
+    <result column="origin_province_id" jdbcType="VARCHAR" property="originProvinceId" />
+    <result column="origin_city" jdbcType="VARCHAR" property="originCity" />
+    <result column="origin_city_id" jdbcType="VARCHAR" property="originCityId" />
+    <result column="origin_address" jdbcType="VARCHAR" property="originAddress" />
+    <result column="distance" jdbcType="VARCHAR" property="distance" />
+    <result column="destination_province" jdbcType="VARCHAR" property="destinationProvince" />
+    <result column="destination_province_id" jdbcType="VARCHAR" property="destinationProvinceId" />
+    <result column="destination_city" jdbcType="VARCHAR" property="destinationCity" />
+    <result column="destination_city_id" jdbcType="VARCHAR" property="destinationCityId" />
+    <result column="destination_address" jdbcType="VARCHAR" property="destinationAddress" />
+    <result column="car_status" jdbcType="VARCHAR" property="carStatus" />
+    <result column="gearbox_type" jdbcType="VARCHAR" property="gearboxType" />
+    <result column="car_mileage" jdbcType="VARCHAR" property="carMileage" />
+    <result column="vin_is_damage" jdbcType="INTEGER" property="vinIsDamage" />
+    <result column="engine" jdbcType="VARCHAR" property="engine" />
+    <result column="gearbox" jdbcType="VARCHAR" property="gearbox" />
+    <result column="waterbox" jdbcType="VARCHAR" property="waterbox" />
+    <result column="condenser" jdbcType="VARCHAR" property="condenser" />
+    <result column="battery" jdbcType="VARCHAR" property="battery" />
+    <result column="aircondition_pump" jdbcType="VARCHAR" property="airconditionPump" />
+    <result column="motor" jdbcType="VARCHAR" property="motor" />
+    <result column="power_steering_pump" jdbcType="VARCHAR" property="powerSteeringPump" />
+    <result column="dynamo" jdbcType="VARCHAR" property="dynamo" />
+    <result column="ABS_pump" jdbcType="VARCHAR" property="absPump" />
+    <result column="three_way_catalytic_converter" jdbcType="VARCHAR" property="threeWayCatalyticConverter" />
+    <result column="exhaust_pipe" jdbcType="VARCHAR" property="exhaustPipe" />
+    <result column="compressor" jdbcType="VARCHAR" property="compressor" />
+    <result column="right_front_headlight" jdbcType="VARCHAR" property="rightFrontHeadlight" />
+    <result column="right_mirror" jdbcType="VARCHAR" property="rightMirror" />
+    <result column="right_front_door" jdbcType="VARCHAR" property="rightFrontDoor" />
+    <result column="right_rear_door" jdbcType="VARCHAR" property="rightRearDoor" />
+    <result column="right_rear_tail_light" jdbcType="VARCHAR" property="rightRearTailLight" />
+    <result column="left_front_headlight" jdbcType="VARCHAR" property="leftFrontHeadlight" />
+    <result column="left_mirror" jdbcType="VARCHAR" property="leftMirror" />
+    <result column="left_front_door" jdbcType="VARCHAR" property="leftFrontDoor" />
+    <result column="left_rear_door" jdbcType="VARCHAR" property="leftRearDoor" />
+    <result column="left_rear_tail_light" jdbcType="VARCHAR" property="leftRearTailLight" />
+    <result column="trunk" jdbcType="VARCHAR" property="trunk" />
+    <result column="spare_tire" jdbcType="VARCHAR" property="spareTire" />
+    <result column="vehicle_tools" jdbcType="VARCHAR" property="vehicleTools" />
+    <result column="triangle_indicator" jdbcType="VARCHAR" property="triangleIndicator" />
+    <result column="trim" jdbcType="VARCHAR" property="trim" />
+    <result column="dashboard" jdbcType="VARCHAR" property="dashboard" />
+    <result column="seat" jdbcType="VARCHAR" property="seat" />
+    <result column="DVD_CD" jdbcType="VARCHAR" property="dvdCd" />
+    <result column="voicebox" jdbcType="VARCHAR" property="voicebox" />
+    <result column="engine_computer" jdbcType="VARCHAR" property="engineComputer" />
+    <result column="gearbox_computer" jdbcType="VARCHAR" property="gearboxComputer" />
+    <result column="driving_computer" jdbcType="VARCHAR" property="drivingComputer" />
+    <result column="burglar_computer" jdbcType="VARCHAR" property="burglarComputer" />
+    <result column="gasbag_computer" jdbcType="VARCHAR" property="gasbagComputer" />
+    <result column="entertainment_computer" jdbcType="VARCHAR" property="entertainmentComputer" />
+    <result column="trouble_description" jdbcType="VARCHAR" property="troubleDescription" />
+    <result column="maintenance_manual" jdbcType="VARCHAR" property="maintenanceManual" />
+    <result column="operating_manual" jdbcType="VARCHAR" property="operatingManual" />
+    <result column="tyre_num" jdbcType="INTEGER" property="tyreNum" />
+    <result column="dismantling" jdbcType="VARCHAR" property="dismantling" />
+    <result column="dismantling_part" jdbcType="VARCHAR" property="dismantlingPart" />
+    <result column="two_accidents" jdbcType="VARCHAR" property="twoAccidents" />
+    <result column="two_accidents_remark" jdbcType="VARCHAR" property="twoAccidentsRemark" />
+    <result column="refit" jdbcType="VARCHAR" property="refit" />
+    <result column="refit_part" jdbcType="VARCHAR" property="refitPart" />
+    <result column="check_part" jdbcType="VARCHAR" property="checkPart" />
+    <result column="no_check_park" jdbcType="VARCHAR" property="noCheckPark" />
+    <result column="receiving_part" jdbcType="VARCHAR" property="receivingPart" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="salesman" jdbcType="VARCHAR" property="salesman" />
+    <result column="audit_state" jdbcType="INTEGER" property="auditState" />
+    <result column="is_warehouse" jdbcType="INTEGER" property="isWarehouse" />
+    <result column="is_print" jdbcType="INTEGER" property="isPrint" />
+    <result column="out_stock_time" jdbcType="TIMESTAMP" property="outStockTime" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, car_card, cc_province, cc_province_id, cc_city, cc_city_id, cc_area, 
+    cc_area_id, car_card_address, key, spare_key, k_province, k_province_id, k_city, 
+    k_city_id, k_area, k_area_id, key_address, key_remark, s_province, s_province_id, 
+    s_city, s_city_id, s_area, s_area_id, store_address, store_space, store_time, trailer_cost, 
+    trailer_cost_pay, voucher_id, trailer_phone, origin_province, origin_province_id, 
+    origin_city, origin_city_id, origin_address, distance, destination_province, destination_province_id, 
+    destination_city, destination_city_id, destination_address, car_status, gearbox_type, 
+    car_mileage, vin_is_damage, engine, gearbox, waterbox, condenser, battery, aircondition_pump, 
+    motor, power_steering_pump, dynamo, ABS_pump, three_way_catalytic_converter, exhaust_pipe, 
+    compressor, right_front_headlight, right_mirror, right_front_door, right_rear_door, 
+    right_rear_tail_light, left_front_headlight, left_mirror, left_front_door, left_rear_door, 
+    left_rear_tail_light, trunk, spare_tire, vehicle_tools, triangle_indicator, trim, 
+    dashboard, seat, DVD_CD, voicebox, engine_computer, gearbox_computer, driving_computer, 
+    burglar_computer, gasbag_computer, entertainment_computer, trouble_description, maintenance_manual, 
+    operating_manual, tyre_num, dismantling, dismantling_part, two_accidents, two_accidents_remark, 
+    refit, refit_part, check_part, no_check_park, receiving_part, remark, salesman, audit_state, 
+    is_warehouse, is_print, out_stock_time, is_delete, create_user, create_time, update_user, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_warehouse
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_warehouse
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehouse">
+    insert into car_pm_warehouse (id, auction_id, car_card, 
+      cc_province, cc_province_id, cc_city, 
+      cc_city_id, cc_area, cc_area_id, 
+      car_card_address, key, spare_key, 
+      k_province, k_province_id, k_city, 
+      k_city_id, k_area, k_area_id, 
+      key_address, key_remark, s_province, 
+      s_province_id, s_city, s_city_id, 
+      s_area, s_area_id, store_address, 
+      store_space, store_time, trailer_cost, 
+      trailer_cost_pay, voucher_id, trailer_phone, 
+      origin_province, origin_province_id, origin_city, 
+      origin_city_id, origin_address, distance, 
+      destination_province, destination_province_id, 
+      destination_city, destination_city_id, destination_address, 
+      car_status, gearbox_type, car_mileage, 
+      vin_is_damage, engine, gearbox, 
+      waterbox, condenser, battery, 
+      aircondition_pump, motor, power_steering_pump, 
+      dynamo, ABS_pump, three_way_catalytic_converter, 
+      exhaust_pipe, compressor, right_front_headlight, 
+      right_mirror, right_front_door, right_rear_door, 
+      right_rear_tail_light, left_front_headlight, 
+      left_mirror, left_front_door, left_rear_door, 
+      left_rear_tail_light, trunk, spare_tire, 
+      vehicle_tools, triangle_indicator, trim, 
+      dashboard, seat, DVD_CD, 
+      voicebox, engine_computer, gearbox_computer, 
+      driving_computer, burglar_computer, gasbag_computer, 
+      entertainment_computer, trouble_description, 
+      maintenance_manual, operating_manual, tyre_num, 
+      dismantling, dismantling_part, two_accidents, 
+      two_accidents_remark, refit, refit_part, 
+      check_part, no_check_park, receiving_part, 
+      remark, salesman, audit_state, 
+      is_warehouse, is_print, out_stock_time, 
+      is_delete, create_user, create_time, 
+      update_user, update_time)
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{carCard,jdbcType=VARCHAR}, 
+      #{ccProvince,jdbcType=VARCHAR}, #{ccProvinceId,jdbcType=VARCHAR}, #{ccCity,jdbcType=VARCHAR}, 
+      #{ccCityId,jdbcType=VARCHAR}, #{ccArea,jdbcType=VARCHAR}, #{ccAreaId,jdbcType=VARCHAR}, 
+      #{carCardAddress,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{spareKey,jdbcType=VARCHAR}, 
+      #{kProvince,jdbcType=VARCHAR}, #{kProvinceId,jdbcType=VARCHAR}, #{kCity,jdbcType=VARCHAR}, 
+      #{kCityId,jdbcType=VARCHAR}, #{kArea,jdbcType=VARCHAR}, #{kAreaId,jdbcType=VARCHAR}, 
+      #{keyAddress,jdbcType=VARCHAR}, #{keyRemark,jdbcType=VARCHAR}, #{sProvince,jdbcType=VARCHAR}, 
+      #{sProvinceId,jdbcType=VARCHAR}, #{sCity,jdbcType=VARCHAR}, #{sCityId,jdbcType=VARCHAR}, 
+      #{sArea,jdbcType=VARCHAR}, #{sAreaId,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, 
+      #{storeSpace,jdbcType=VARCHAR}, #{storeTime,jdbcType=TIMESTAMP}, #{trailerCost,jdbcType=DECIMAL}, 
+      #{trailerCostPay,jdbcType=VARCHAR}, #{voucherId,jdbcType=INTEGER}, #{trailerPhone,jdbcType=VARCHAR}, 
+      #{originProvince,jdbcType=VARCHAR}, #{originProvinceId,jdbcType=VARCHAR}, #{originCity,jdbcType=VARCHAR}, 
+      #{originCityId,jdbcType=VARCHAR}, #{originAddress,jdbcType=VARCHAR}, #{distance,jdbcType=VARCHAR}, 
+      #{destinationProvince,jdbcType=VARCHAR}, #{destinationProvinceId,jdbcType=VARCHAR}, 
+      #{destinationCity,jdbcType=VARCHAR}, #{destinationCityId,jdbcType=VARCHAR}, #{destinationAddress,jdbcType=VARCHAR}, 
+      #{carStatus,jdbcType=VARCHAR}, #{gearboxType,jdbcType=VARCHAR}, #{carMileage,jdbcType=VARCHAR}, 
+      #{vinIsDamage,jdbcType=INTEGER}, #{engine,jdbcType=VARCHAR}, #{gearbox,jdbcType=VARCHAR}, 
+      #{waterbox,jdbcType=VARCHAR}, #{condenser,jdbcType=VARCHAR}, #{battery,jdbcType=VARCHAR}, 
+      #{airconditionPump,jdbcType=VARCHAR}, #{motor,jdbcType=VARCHAR}, #{powerSteeringPump,jdbcType=VARCHAR}, 
+      #{dynamo,jdbcType=VARCHAR}, #{absPump,jdbcType=VARCHAR}, #{threeWayCatalyticConverter,jdbcType=VARCHAR}, 
+      #{exhaustPipe,jdbcType=VARCHAR}, #{compressor,jdbcType=VARCHAR}, #{rightFrontHeadlight,jdbcType=VARCHAR}, 
+      #{rightMirror,jdbcType=VARCHAR}, #{rightFrontDoor,jdbcType=VARCHAR}, #{rightRearDoor,jdbcType=VARCHAR}, 
+      #{rightRearTailLight,jdbcType=VARCHAR}, #{leftFrontHeadlight,jdbcType=VARCHAR}, 
+      #{leftMirror,jdbcType=VARCHAR}, #{leftFrontDoor,jdbcType=VARCHAR}, #{leftRearDoor,jdbcType=VARCHAR}, 
+      #{leftRearTailLight,jdbcType=VARCHAR}, #{trunk,jdbcType=VARCHAR}, #{spareTire,jdbcType=VARCHAR}, 
+      #{vehicleTools,jdbcType=VARCHAR}, #{triangleIndicator,jdbcType=VARCHAR}, #{trim,jdbcType=VARCHAR}, 
+      #{dashboard,jdbcType=VARCHAR}, #{seat,jdbcType=VARCHAR}, #{dvdCd,jdbcType=VARCHAR}, 
+      #{voicebox,jdbcType=VARCHAR}, #{engineComputer,jdbcType=VARCHAR}, #{gearboxComputer,jdbcType=VARCHAR}, 
+      #{drivingComputer,jdbcType=VARCHAR}, #{burglarComputer,jdbcType=VARCHAR}, #{gasbagComputer,jdbcType=VARCHAR}, 
+      #{entertainmentComputer,jdbcType=VARCHAR}, #{troubleDescription,jdbcType=VARCHAR}, 
+      #{maintenanceManual,jdbcType=VARCHAR}, #{operatingManual,jdbcType=VARCHAR}, #{tyreNum,jdbcType=INTEGER}, 
+      #{dismantling,jdbcType=VARCHAR}, #{dismantlingPart,jdbcType=VARCHAR}, #{twoAccidents,jdbcType=VARCHAR}, 
+      #{twoAccidentsRemark,jdbcType=VARCHAR}, #{refit,jdbcType=VARCHAR}, #{refitPart,jdbcType=VARCHAR}, 
+      #{checkPart,jdbcType=VARCHAR}, #{noCheckPark,jdbcType=VARCHAR}, #{receivingPart,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{salesman,jdbcType=VARCHAR}, #{auditState,jdbcType=INTEGER}, 
+      #{isWarehouse,jdbcType=INTEGER}, #{isPrint,jdbcType=INTEGER}, #{outStockTime,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUser,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehouse">
+    insert into car_pm_warehouse
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="carCard != null">
+        car_card,
+      </if>
+      <if test="ccProvince != null">
+        cc_province,
+      </if>
+      <if test="ccProvinceId != null">
+        cc_province_id,
+      </if>
+      <if test="ccCity != null">
+        cc_city,
+      </if>
+      <if test="ccCityId != null">
+        cc_city_id,
+      </if>
+      <if test="ccArea != null">
+        cc_area,
+      </if>
+      <if test="ccAreaId != null">
+        cc_area_id,
+      </if>
+      <if test="carCardAddress != null">
+        car_card_address,
+      </if>
+      <if test="key != null">
+        key,
+      </if>
+      <if test="spareKey != null">
+        spare_key,
+      </if>
+      <if test="kProvince != null">
+        k_province,
+      </if>
+      <if test="kProvinceId != null">
+        k_province_id,
+      </if>
+      <if test="kCity != null">
+        k_city,
+      </if>
+      <if test="kCityId != null">
+        k_city_id,
+      </if>
+      <if test="kArea != null">
+        k_area,
+      </if>
+      <if test="kAreaId != null">
+        k_area_id,
+      </if>
+      <if test="keyAddress != null">
+        key_address,
+      </if>
+      <if test="keyRemark != null">
+        key_remark,
+      </if>
+      <if test="sProvince != null">
+        s_province,
+      </if>
+      <if test="sProvinceId != null">
+        s_province_id,
+      </if>
+      <if test="sCity != null">
+        s_city,
+      </if>
+      <if test="sCityId != null">
+        s_city_id,
+      </if>
+      <if test="sArea != null">
+        s_area,
+      </if>
+      <if test="sAreaId != null">
+        s_area_id,
+      </if>
+      <if test="storeAddress != null">
+        store_address,
+      </if>
+      <if test="storeSpace != null">
+        store_space,
+      </if>
+      <if test="storeTime != null">
+        store_time,
+      </if>
+      <if test="trailerCost != null">
+        trailer_cost,
+      </if>
+      <if test="trailerCostPay != null">
+        trailer_cost_pay,
+      </if>
+      <if test="voucherId != null">
+        voucher_id,
+      </if>
+      <if test="trailerPhone != null">
+        trailer_phone,
+      </if>
+      <if test="originProvince != null">
+        origin_province,
+      </if>
+      <if test="originProvinceId != null">
+        origin_province_id,
+      </if>
+      <if test="originCity != null">
+        origin_city,
+      </if>
+      <if test="originCityId != null">
+        origin_city_id,
+      </if>
+      <if test="originAddress != null">
+        origin_address,
+      </if>
+      <if test="distance != null">
+        distance,
+      </if>
+      <if test="destinationProvince != null">
+        destination_province,
+      </if>
+      <if test="destinationProvinceId != null">
+        destination_province_id,
+      </if>
+      <if test="destinationCity != null">
+        destination_city,
+      </if>
+      <if test="destinationCityId != null">
+        destination_city_id,
+      </if>
+      <if test="destinationAddress != null">
+        destination_address,
+      </if>
+      <if test="carStatus != null">
+        car_status,
+      </if>
+      <if test="gearboxType != null">
+        gearbox_type,
+      </if>
+      <if test="carMileage != null">
+        car_mileage,
+      </if>
+      <if test="vinIsDamage != null">
+        vin_is_damage,
+      </if>
+      <if test="engine != null">
+        engine,
+      </if>
+      <if test="gearbox != null">
+        gearbox,
+      </if>
+      <if test="waterbox != null">
+        waterbox,
+      </if>
+      <if test="condenser != null">
+        condenser,
+      </if>
+      <if test="battery != null">
+        battery,
+      </if>
+      <if test="airconditionPump != null">
+        aircondition_pump,
+      </if>
+      <if test="motor != null">
+        motor,
+      </if>
+      <if test="powerSteeringPump != null">
+        power_steering_pump,
+      </if>
+      <if test="dynamo != null">
+        dynamo,
+      </if>
+      <if test="absPump != null">
+        ABS_pump,
+      </if>
+      <if test="threeWayCatalyticConverter != null">
+        three_way_catalytic_converter,
+      </if>
+      <if test="exhaustPipe != null">
+        exhaust_pipe,
+      </if>
+      <if test="compressor != null">
+        compressor,
+      </if>
+      <if test="rightFrontHeadlight != null">
+        right_front_headlight,
+      </if>
+      <if test="rightMirror != null">
+        right_mirror,
+      </if>
+      <if test="rightFrontDoor != null">
+        right_front_door,
+      </if>
+      <if test="rightRearDoor != null">
+        right_rear_door,
+      </if>
+      <if test="rightRearTailLight != null">
+        right_rear_tail_light,
+      </if>
+      <if test="leftFrontHeadlight != null">
+        left_front_headlight,
+      </if>
+      <if test="leftMirror != null">
+        left_mirror,
+      </if>
+      <if test="leftFrontDoor != null">
+        left_front_door,
+      </if>
+      <if test="leftRearDoor != null">
+        left_rear_door,
+      </if>
+      <if test="leftRearTailLight != null">
+        left_rear_tail_light,
+      </if>
+      <if test="trunk != null">
+        trunk,
+      </if>
+      <if test="spareTire != null">
+        spare_tire,
+      </if>
+      <if test="vehicleTools != null">
+        vehicle_tools,
+      </if>
+      <if test="triangleIndicator != null">
+        triangle_indicator,
+      </if>
+      <if test="trim != null">
+        trim,
+      </if>
+      <if test="dashboard != null">
+        dashboard,
+      </if>
+      <if test="seat != null">
+        seat,
+      </if>
+      <if test="dvdCd != null">
+        DVD_CD,
+      </if>
+      <if test="voicebox != null">
+        voicebox,
+      </if>
+      <if test="engineComputer != null">
+        engine_computer,
+      </if>
+      <if test="gearboxComputer != null">
+        gearbox_computer,
+      </if>
+      <if test="drivingComputer != null">
+        driving_computer,
+      </if>
+      <if test="burglarComputer != null">
+        burglar_computer,
+      </if>
+      <if test="gasbagComputer != null">
+        gasbag_computer,
+      </if>
+      <if test="entertainmentComputer != null">
+        entertainment_computer,
+      </if>
+      <if test="troubleDescription != null">
+        trouble_description,
+      </if>
+      <if test="maintenanceManual != null">
+        maintenance_manual,
+      </if>
+      <if test="operatingManual != null">
+        operating_manual,
+      </if>
+      <if test="tyreNum != null">
+        tyre_num,
+      </if>
+      <if test="dismantling != null">
+        dismantling,
+      </if>
+      <if test="dismantlingPart != null">
+        dismantling_part,
+      </if>
+      <if test="twoAccidents != null">
+        two_accidents,
+      </if>
+      <if test="twoAccidentsRemark != null">
+        two_accidents_remark,
+      </if>
+      <if test="refit != null">
+        refit,
+      </if>
+      <if test="refitPart != null">
+        refit_part,
+      </if>
+      <if test="checkPart != null">
+        check_part,
+      </if>
+      <if test="noCheckPark != null">
+        no_check_park,
+      </if>
+      <if test="receivingPart != null">
+        receiving_part,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="salesman != null">
+        salesman,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="isWarehouse != null">
+        is_warehouse,
+      </if>
+      <if test="isPrint != null">
+        is_print,
+      </if>
+      <if test="outStockTime != null">
+        out_stock_time,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="carCard != null">
+        #{carCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ccProvince != null">
+        #{ccProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="ccProvinceId != null">
+        #{ccProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccCity != null">
+        #{ccCity,jdbcType=VARCHAR},
+      </if>
+      <if test="ccCityId != null">
+        #{ccCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccArea != null">
+        #{ccArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ccAreaId != null">
+        #{ccAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="carCardAddress != null">
+        #{carCardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="spareKey != null">
+        #{spareKey,jdbcType=VARCHAR},
+      </if>
+      <if test="kProvince != null">
+        #{kProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="kProvinceId != null">
+        #{kProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kCity != null">
+        #{kCity,jdbcType=VARCHAR},
+      </if>
+      <if test="kCityId != null">
+        #{kCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="kArea != null">
+        #{kArea,jdbcType=VARCHAR},
+      </if>
+      <if test="kAreaId != null">
+        #{kAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyAddress != null">
+        #{keyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="keyRemark != null">
+        #{keyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sProvince != null">
+        #{sProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="sProvinceId != null">
+        #{sProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sCity != null">
+        #{sCity,jdbcType=VARCHAR},
+      </if>
+      <if test="sCityId != null">
+        #{sCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="sArea != null">
+        #{sArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sAreaId != null">
+        #{sAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null">
+        #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSpace != null">
+        #{storeSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTime != null">
+        #{storeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trailerCost != null">
+        #{trailerCost,jdbcType=DECIMAL},
+      </if>
+      <if test="trailerCostPay != null">
+        #{trailerCostPay,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherId != null">
+        #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="trailerPhone != null">
+        #{trailerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="originProvince != null">
+        #{originProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="originProvinceId != null">
+        #{originProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="originCity != null">
+        #{originCity,jdbcType=VARCHAR},
+      </if>
+      <if test="originCityId != null">
+        #{originCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="originAddress != null">
+        #{originAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null">
+        #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null">
+        #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvinceId != null">
+        #{destinationProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null">
+        #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCityId != null">
+        #{destinationCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationAddress != null">
+        #{destinationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carStatus != null">
+        #{carStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="gearboxType != null">
+        #{gearboxType,jdbcType=VARCHAR},
+      </if>
+      <if test="carMileage != null">
+        #{carMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="vinIsDamage != null">
+        #{vinIsDamage,jdbcType=INTEGER},
+      </if>
+      <if test="engine != null">
+        #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="gearbox != null">
+        #{gearbox,jdbcType=VARCHAR},
+      </if>
+      <if test="waterbox != null">
+        #{waterbox,jdbcType=VARCHAR},
+      </if>
+      <if test="condenser != null">
+        #{condenser,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null">
+        #{battery,jdbcType=VARCHAR},
+      </if>
+      <if test="airconditionPump != null">
+        #{airconditionPump,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null">
+        #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="powerSteeringPump != null">
+        #{powerSteeringPump,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamo != null">
+        #{dynamo,jdbcType=VARCHAR},
+      </if>
+      <if test="absPump != null">
+        #{absPump,jdbcType=VARCHAR},
+      </if>
+      <if test="threeWayCatalyticConverter != null">
+        #{threeWayCatalyticConverter,jdbcType=VARCHAR},
+      </if>
+      <if test="exhaustPipe != null">
+        #{exhaustPipe,jdbcType=VARCHAR},
+      </if>
+      <if test="compressor != null">
+        #{compressor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFrontHeadlight != null">
+        #{rightFrontHeadlight,jdbcType=VARCHAR},
+      </if>
+      <if test="rightMirror != null">
+        #{rightMirror,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFrontDoor != null">
+        #{rightFrontDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightRearDoor != null">
+        #{rightRearDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightRearTailLight != null">
+        #{rightRearTailLight,jdbcType=VARCHAR},
+      </if>
+      <if test="leftFrontHeadlight != null">
+        #{leftFrontHeadlight,jdbcType=VARCHAR},
+      </if>
+      <if test="leftMirror != null">
+        #{leftMirror,jdbcType=VARCHAR},
+      </if>
+      <if test="leftFrontDoor != null">
+        #{leftFrontDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="leftRearDoor != null">
+        #{leftRearDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="leftRearTailLight != null">
+        #{leftRearTailLight,jdbcType=VARCHAR},
+      </if>
+      <if test="trunk != null">
+        #{trunk,jdbcType=VARCHAR},
+      </if>
+      <if test="spareTire != null">
+        #{spareTire,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTools != null">
+        #{vehicleTools,jdbcType=VARCHAR},
+      </if>
+      <if test="triangleIndicator != null">
+        #{triangleIndicator,jdbcType=VARCHAR},
+      </if>
+      <if test="trim != null">
+        #{trim,jdbcType=VARCHAR},
+      </if>
+      <if test="dashboard != null">
+        #{dashboard,jdbcType=VARCHAR},
+      </if>
+      <if test="seat != null">
+        #{seat,jdbcType=VARCHAR},
+      </if>
+      <if test="dvdCd != null">
+        #{dvdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="voicebox != null">
+        #{voicebox,jdbcType=VARCHAR},
+      </if>
+      <if test="engineComputer != null">
+        #{engineComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="gearboxComputer != null">
+        #{gearboxComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingComputer != null">
+        #{drivingComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="burglarComputer != null">
+        #{burglarComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="gasbagComputer != null">
+        #{gasbagComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="entertainmentComputer != null">
+        #{entertainmentComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleDescription != null">
+        #{troubleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceManual != null">
+        #{maintenanceManual,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingManual != null">
+        #{operatingManual,jdbcType=VARCHAR},
+      </if>
+      <if test="tyreNum != null">
+        #{tyreNum,jdbcType=INTEGER},
+      </if>
+      <if test="dismantling != null">
+        #{dismantling,jdbcType=VARCHAR},
+      </if>
+      <if test="dismantlingPart != null">
+        #{dismantlingPart,jdbcType=VARCHAR},
+      </if>
+      <if test="twoAccidents != null">
+        #{twoAccidents,jdbcType=VARCHAR},
+      </if>
+      <if test="twoAccidentsRemark != null">
+        #{twoAccidentsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="refit != null">
+        #{refit,jdbcType=VARCHAR},
+      </if>
+      <if test="refitPart != null">
+        #{refitPart,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPart != null">
+        #{checkPart,jdbcType=VARCHAR},
+      </if>
+      <if test="noCheckPark != null">
+        #{noCheckPark,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPart != null">
+        #{receivingPart,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isWarehouse != null">
+        #{isWarehouse,jdbcType=INTEGER},
+      </if>
+      <if test="isPrint != null">
+        #{isPrint,jdbcType=INTEGER},
+      </if>
+      <if test="outStockTime != null">
+        #{outStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehouse">
+    update car_pm_warehouse
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="carCard != null">
+        car_card = #{carCard,jdbcType=VARCHAR},
+      </if>
+      <if test="ccProvince != null">
+        cc_province = #{ccProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="ccProvinceId != null">
+        cc_province_id = #{ccProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccCity != null">
+        cc_city = #{ccCity,jdbcType=VARCHAR},
+      </if>
+      <if test="ccCityId != null">
+        cc_city_id = #{ccCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="ccArea != null">
+        cc_area = #{ccArea,jdbcType=VARCHAR},
+      </if>
+      <if test="ccAreaId != null">
+        cc_area_id = #{ccAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="carCardAddress != null">
+        car_card_address = #{carCardAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null">
+        key = #{key,jdbcType=VARCHAR},
+      </if>
+      <if test="spareKey != null">
+        spare_key = #{spareKey,jdbcType=VARCHAR},
+      </if>
+      <if test="kProvince != null">
+        k_province = #{kProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="kProvinceId != null">
+        k_province_id = #{kProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="kCity != null">
+        k_city = #{kCity,jdbcType=VARCHAR},
+      </if>
+      <if test="kCityId != null">
+        k_city_id = #{kCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="kArea != null">
+        k_area = #{kArea,jdbcType=VARCHAR},
+      </if>
+      <if test="kAreaId != null">
+        k_area_id = #{kAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="keyAddress != null">
+        key_address = #{keyAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="keyRemark != null">
+        key_remark = #{keyRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="sProvince != null">
+        s_province = #{sProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="sProvinceId != null">
+        s_province_id = #{sProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="sCity != null">
+        s_city = #{sCity,jdbcType=VARCHAR},
+      </if>
+      <if test="sCityId != null">
+        s_city_id = #{sCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="sArea != null">
+        s_area = #{sArea,jdbcType=VARCHAR},
+      </if>
+      <if test="sAreaId != null">
+        s_area_id = #{sAreaId,jdbcType=VARCHAR},
+      </if>
+      <if test="storeAddress != null">
+        store_address = #{storeAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="storeSpace != null">
+        store_space = #{storeSpace,jdbcType=VARCHAR},
+      </if>
+      <if test="storeTime != null">
+        store_time = #{storeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="trailerCost != null">
+        trailer_cost = #{trailerCost,jdbcType=DECIMAL},
+      </if>
+      <if test="trailerCostPay != null">
+        trailer_cost_pay = #{trailerCostPay,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherId != null">
+        voucher_id = #{voucherId,jdbcType=INTEGER},
+      </if>
+      <if test="trailerPhone != null">
+        trailer_phone = #{trailerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="originProvince != null">
+        origin_province = #{originProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="originProvinceId != null">
+        origin_province_id = #{originProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="originCity != null">
+        origin_city = #{originCity,jdbcType=VARCHAR},
+      </if>
+      <if test="originCityId != null">
+        origin_city_id = #{originCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="originAddress != null">
+        origin_address = #{originAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="distance != null">
+        distance = #{distance,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvince != null">
+        destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationProvinceId != null">
+        destination_province_id = #{destinationProvinceId,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCity != null">
+        destination_city = #{destinationCity,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationCityId != null">
+        destination_city_id = #{destinationCityId,jdbcType=VARCHAR},
+      </if>
+      <if test="destinationAddress != null">
+        destination_address = #{destinationAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="carStatus != null">
+        car_status = #{carStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="gearboxType != null">
+        gearbox_type = #{gearboxType,jdbcType=VARCHAR},
+      </if>
+      <if test="carMileage != null">
+        car_mileage = #{carMileage,jdbcType=VARCHAR},
+      </if>
+      <if test="vinIsDamage != null">
+        vin_is_damage = #{vinIsDamage,jdbcType=INTEGER},
+      </if>
+      <if test="engine != null">
+        engine = #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="gearbox != null">
+        gearbox = #{gearbox,jdbcType=VARCHAR},
+      </if>
+      <if test="waterbox != null">
+        waterbox = #{waterbox,jdbcType=VARCHAR},
+      </if>
+      <if test="condenser != null">
+        condenser = #{condenser,jdbcType=VARCHAR},
+      </if>
+      <if test="battery != null">
+        battery = #{battery,jdbcType=VARCHAR},
+      </if>
+      <if test="airconditionPump != null">
+        aircondition_pump = #{airconditionPump,jdbcType=VARCHAR},
+      </if>
+      <if test="motor != null">
+        motor = #{motor,jdbcType=VARCHAR},
+      </if>
+      <if test="powerSteeringPump != null">
+        power_steering_pump = #{powerSteeringPump,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamo != null">
+        dynamo = #{dynamo,jdbcType=VARCHAR},
+      </if>
+      <if test="absPump != null">
+        ABS_pump = #{absPump,jdbcType=VARCHAR},
+      </if>
+      <if test="threeWayCatalyticConverter != null">
+        three_way_catalytic_converter = #{threeWayCatalyticConverter,jdbcType=VARCHAR},
+      </if>
+      <if test="exhaustPipe != null">
+        exhaust_pipe = #{exhaustPipe,jdbcType=VARCHAR},
+      </if>
+      <if test="compressor != null">
+        compressor = #{compressor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFrontHeadlight != null">
+        right_front_headlight = #{rightFrontHeadlight,jdbcType=VARCHAR},
+      </if>
+      <if test="rightMirror != null">
+        right_mirror = #{rightMirror,jdbcType=VARCHAR},
+      </if>
+      <if test="rightFrontDoor != null">
+        right_front_door = #{rightFrontDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightRearDoor != null">
+        right_rear_door = #{rightRearDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="rightRearTailLight != null">
+        right_rear_tail_light = #{rightRearTailLight,jdbcType=VARCHAR},
+      </if>
+      <if test="leftFrontHeadlight != null">
+        left_front_headlight = #{leftFrontHeadlight,jdbcType=VARCHAR},
+      </if>
+      <if test="leftMirror != null">
+        left_mirror = #{leftMirror,jdbcType=VARCHAR},
+      </if>
+      <if test="leftFrontDoor != null">
+        left_front_door = #{leftFrontDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="leftRearDoor != null">
+        left_rear_door = #{leftRearDoor,jdbcType=VARCHAR},
+      </if>
+      <if test="leftRearTailLight != null">
+        left_rear_tail_light = #{leftRearTailLight,jdbcType=VARCHAR},
+      </if>
+      <if test="trunk != null">
+        trunk = #{trunk,jdbcType=VARCHAR},
+      </if>
+      <if test="spareTire != null">
+        spare_tire = #{spareTire,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleTools != null">
+        vehicle_tools = #{vehicleTools,jdbcType=VARCHAR},
+      </if>
+      <if test="triangleIndicator != null">
+        triangle_indicator = #{triangleIndicator,jdbcType=VARCHAR},
+      </if>
+      <if test="trim != null">
+        trim = #{trim,jdbcType=VARCHAR},
+      </if>
+      <if test="dashboard != null">
+        dashboard = #{dashboard,jdbcType=VARCHAR},
+      </if>
+      <if test="seat != null">
+        seat = #{seat,jdbcType=VARCHAR},
+      </if>
+      <if test="dvdCd != null">
+        DVD_CD = #{dvdCd,jdbcType=VARCHAR},
+      </if>
+      <if test="voicebox != null">
+        voicebox = #{voicebox,jdbcType=VARCHAR},
+      </if>
+      <if test="engineComputer != null">
+        engine_computer = #{engineComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="gearboxComputer != null">
+        gearbox_computer = #{gearboxComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="drivingComputer != null">
+        driving_computer = #{drivingComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="burglarComputer != null">
+        burglar_computer = #{burglarComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="gasbagComputer != null">
+        gasbag_computer = #{gasbagComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="entertainmentComputer != null">
+        entertainment_computer = #{entertainmentComputer,jdbcType=VARCHAR},
+      </if>
+      <if test="troubleDescription != null">
+        trouble_description = #{troubleDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="maintenanceManual != null">
+        maintenance_manual = #{maintenanceManual,jdbcType=VARCHAR},
+      </if>
+      <if test="operatingManual != null">
+        operating_manual = #{operatingManual,jdbcType=VARCHAR},
+      </if>
+      <if test="tyreNum != null">
+        tyre_num = #{tyreNum,jdbcType=INTEGER},
+      </if>
+      <if test="dismantling != null">
+        dismantling = #{dismantling,jdbcType=VARCHAR},
+      </if>
+      <if test="dismantlingPart != null">
+        dismantling_part = #{dismantlingPart,jdbcType=VARCHAR},
+      </if>
+      <if test="twoAccidents != null">
+        two_accidents = #{twoAccidents,jdbcType=VARCHAR},
+      </if>
+      <if test="twoAccidentsRemark != null">
+        two_accidents_remark = #{twoAccidentsRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="refit != null">
+        refit = #{refit,jdbcType=VARCHAR},
+      </if>
+      <if test="refitPart != null">
+        refit_part = #{refitPart,jdbcType=VARCHAR},
+      </if>
+      <if test="checkPart != null">
+        check_part = #{checkPart,jdbcType=VARCHAR},
+      </if>
+      <if test="noCheckPark != null">
+        no_check_park = #{noCheckPark,jdbcType=VARCHAR},
+      </if>
+      <if test="receivingPart != null">
+        receiving_part = #{receivingPart,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="salesman != null">
+        salesman = #{salesman,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isWarehouse != null">
+        is_warehouse = #{isWarehouse,jdbcType=INTEGER},
+      </if>
+      <if test="isPrint != null">
+        is_print = #{isPrint,jdbcType=INTEGER},
+      </if>
+      <if test="outStockTime != null">
+        out_stock_time = #{outStockTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehouse">
+    update car_pm_warehouse
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      car_card = #{carCard,jdbcType=VARCHAR},
+      cc_province = #{ccProvince,jdbcType=VARCHAR},
+      cc_province_id = #{ccProvinceId,jdbcType=VARCHAR},
+      cc_city = #{ccCity,jdbcType=VARCHAR},
+      cc_city_id = #{ccCityId,jdbcType=VARCHAR},
+      cc_area = #{ccArea,jdbcType=VARCHAR},
+      cc_area_id = #{ccAreaId,jdbcType=VARCHAR},
+      car_card_address = #{carCardAddress,jdbcType=VARCHAR},
+      key = #{key,jdbcType=VARCHAR},
+      spare_key = #{spareKey,jdbcType=VARCHAR},
+      k_province = #{kProvince,jdbcType=VARCHAR},
+      k_province_id = #{kProvinceId,jdbcType=VARCHAR},
+      k_city = #{kCity,jdbcType=VARCHAR},
+      k_city_id = #{kCityId,jdbcType=VARCHAR},
+      k_area = #{kArea,jdbcType=VARCHAR},
+      k_area_id = #{kAreaId,jdbcType=VARCHAR},
+      key_address = #{keyAddress,jdbcType=VARCHAR},
+      key_remark = #{keyRemark,jdbcType=VARCHAR},
+      s_province = #{sProvince,jdbcType=VARCHAR},
+      s_province_id = #{sProvinceId,jdbcType=VARCHAR},
+      s_city = #{sCity,jdbcType=VARCHAR},
+      s_city_id = #{sCityId,jdbcType=VARCHAR},
+      s_area = #{sArea,jdbcType=VARCHAR},
+      s_area_id = #{sAreaId,jdbcType=VARCHAR},
+      store_address = #{storeAddress,jdbcType=VARCHAR},
+      store_space = #{storeSpace,jdbcType=VARCHAR},
+      store_time = #{storeTime,jdbcType=TIMESTAMP},
+      trailer_cost = #{trailerCost,jdbcType=DECIMAL},
+      trailer_cost_pay = #{trailerCostPay,jdbcType=VARCHAR},
+      voucher_id = #{voucherId,jdbcType=INTEGER},
+      trailer_phone = #{trailerPhone,jdbcType=VARCHAR},
+      origin_province = #{originProvince,jdbcType=VARCHAR},
+      origin_province_id = #{originProvinceId,jdbcType=VARCHAR},
+      origin_city = #{originCity,jdbcType=VARCHAR},
+      origin_city_id = #{originCityId,jdbcType=VARCHAR},
+      origin_address = #{originAddress,jdbcType=VARCHAR},
+      distance = #{distance,jdbcType=VARCHAR},
+      destination_province = #{destinationProvince,jdbcType=VARCHAR},
+      destination_province_id = #{destinationProvinceId,jdbcType=VARCHAR},
+      destination_city = #{destinationCity,jdbcType=VARCHAR},
+      destination_city_id = #{destinationCityId,jdbcType=VARCHAR},
+      destination_address = #{destinationAddress,jdbcType=VARCHAR},
+      car_status = #{carStatus,jdbcType=VARCHAR},
+      gearbox_type = #{gearboxType,jdbcType=VARCHAR},
+      car_mileage = #{carMileage,jdbcType=VARCHAR},
+      vin_is_damage = #{vinIsDamage,jdbcType=INTEGER},
+      engine = #{engine,jdbcType=VARCHAR},
+      gearbox = #{gearbox,jdbcType=VARCHAR},
+      waterbox = #{waterbox,jdbcType=VARCHAR},
+      condenser = #{condenser,jdbcType=VARCHAR},
+      battery = #{battery,jdbcType=VARCHAR},
+      aircondition_pump = #{airconditionPump,jdbcType=VARCHAR},
+      motor = #{motor,jdbcType=VARCHAR},
+      power_steering_pump = #{powerSteeringPump,jdbcType=VARCHAR},
+      dynamo = #{dynamo,jdbcType=VARCHAR},
+      ABS_pump = #{absPump,jdbcType=VARCHAR},
+      three_way_catalytic_converter = #{threeWayCatalyticConverter,jdbcType=VARCHAR},
+      exhaust_pipe = #{exhaustPipe,jdbcType=VARCHAR},
+      compressor = #{compressor,jdbcType=VARCHAR},
+      right_front_headlight = #{rightFrontHeadlight,jdbcType=VARCHAR},
+      right_mirror = #{rightMirror,jdbcType=VARCHAR},
+      right_front_door = #{rightFrontDoor,jdbcType=VARCHAR},
+      right_rear_door = #{rightRearDoor,jdbcType=VARCHAR},
+      right_rear_tail_light = #{rightRearTailLight,jdbcType=VARCHAR},
+      left_front_headlight = #{leftFrontHeadlight,jdbcType=VARCHAR},
+      left_mirror = #{leftMirror,jdbcType=VARCHAR},
+      left_front_door = #{leftFrontDoor,jdbcType=VARCHAR},
+      left_rear_door = #{leftRearDoor,jdbcType=VARCHAR},
+      left_rear_tail_light = #{leftRearTailLight,jdbcType=VARCHAR},
+      trunk = #{trunk,jdbcType=VARCHAR},
+      spare_tire = #{spareTire,jdbcType=VARCHAR},
+      vehicle_tools = #{vehicleTools,jdbcType=VARCHAR},
+      triangle_indicator = #{triangleIndicator,jdbcType=VARCHAR},
+      trim = #{trim,jdbcType=VARCHAR},
+      dashboard = #{dashboard,jdbcType=VARCHAR},
+      seat = #{seat,jdbcType=VARCHAR},
+      DVD_CD = #{dvdCd,jdbcType=VARCHAR},
+      voicebox = #{voicebox,jdbcType=VARCHAR},
+      engine_computer = #{engineComputer,jdbcType=VARCHAR},
+      gearbox_computer = #{gearboxComputer,jdbcType=VARCHAR},
+      driving_computer = #{drivingComputer,jdbcType=VARCHAR},
+      burglar_computer = #{burglarComputer,jdbcType=VARCHAR},
+      gasbag_computer = #{gasbagComputer,jdbcType=VARCHAR},
+      entertainment_computer = #{entertainmentComputer,jdbcType=VARCHAR},
+      trouble_description = #{troubleDescription,jdbcType=VARCHAR},
+      maintenance_manual = #{maintenanceManual,jdbcType=VARCHAR},
+      operating_manual = #{operatingManual,jdbcType=VARCHAR},
+      tyre_num = #{tyreNum,jdbcType=INTEGER},
+      dismantling = #{dismantling,jdbcType=VARCHAR},
+      dismantling_part = #{dismantlingPart,jdbcType=VARCHAR},
+      two_accidents = #{twoAccidents,jdbcType=VARCHAR},
+      two_accidents_remark = #{twoAccidentsRemark,jdbcType=VARCHAR},
+      refit = #{refit,jdbcType=VARCHAR},
+      refit_part = #{refitPart,jdbcType=VARCHAR},
+      check_part = #{checkPart,jdbcType=VARCHAR},
+      no_check_park = #{noCheckPark,jdbcType=VARCHAR},
+      receiving_part = #{receivingPart,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      salesman = #{salesman,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=INTEGER},
+      is_warehouse = #{isWarehouse,jdbcType=INTEGER},
+      is_print = #{isPrint,jdbcType=INTEGER},
+      out_stock_time = #{outStockTime,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

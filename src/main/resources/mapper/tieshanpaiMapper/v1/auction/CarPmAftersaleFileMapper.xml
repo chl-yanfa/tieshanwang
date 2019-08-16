@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAftersaleFileMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleFile">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="file_type" jdbcType="INTEGER" property="fileType" />
+    <result column="parent_id" jdbcType="VARCHAR" property="parentId" />
+    <result column="attachment_id" jdbcType="INTEGER" property="attachmentId" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, file_type, parent_id, attachment_id, sort, is_delete, create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_aftersale_file
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from car_pm_aftersale_file
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleFile">
+    insert into car_pm_aftersale_file (id, file_type, parent_id, 
+      attachment_id, sort, is_delete, 
+      create_user, create_time)
+    values (#{id,jdbcType=INTEGER}, #{fileType,jdbcType=INTEGER}, #{parentId,jdbcType=VARCHAR}, 
+      #{attachmentId,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleFile">
+    insert into car_pm_aftersale_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="fileType != null">
+        file_type,
+      </if>
+      <if test="parentId != null">
+        parent_id,
+      </if>
+      <if test="attachmentId != null">
+        attachment_id,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="fileType != null">
+        #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleFile">
+    update car_pm_aftersale_file
+    <set>
+      <if test="fileType != null">
+        file_type = #{fileType,jdbcType=INTEGER},
+      </if>
+      <if test="parentId != null">
+        parent_id = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentId != null">
+        attachment_id = #{attachmentId,jdbcType=INTEGER},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleFile">
+    update car_pm_aftersale_file
+    set file_type = #{fileType,jdbcType=INTEGER},
+      parent_id = #{parentId,jdbcType=VARCHAR},
+      attachment_id = #{attachmentId,jdbcType=INTEGER},
+      sort = #{sort,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

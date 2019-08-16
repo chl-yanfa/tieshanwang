@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAftersaleAdjustPriceMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleAdjustPrice">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
+    <result column="auction_set_id" jdbcType="VARCHAR" property="auctionSetId" />
+    <result column="car_price_type" jdbcType="VARCHAR" property="carPriceType" />
+    <result column="car_price_value" jdbcType="VARCHAR" property="carPriceValue" />
+    <result column="car_price_after" jdbcType="VARCHAR" property="carPriceAfter" />
+    <result column="commission_type" jdbcType="VARCHAR" property="commissionType" />
+    <result column="commission_value" jdbcType="VARCHAR" property="commissionValue" />
+    <result column="commission_after" jdbcType="VARCHAR" property="commissionAfter" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="audit_state" jdbcType="INTEGER" property="auditState" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, auction_id, auction_set_id, car_price_type, car_price_value, car_price_after, 
+    commission_type, commission_value, commission_after, remark, audit_state, is_delete, 
+    create_user, create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_aftersale_adjust_price
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_aftersale_adjust_price
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleAdjustPrice">
+    insert into car_pm_aftersale_adjust_price (id, auction_id, auction_set_id, 
+      car_price_type, car_price_value, car_price_after, 
+      commission_type, commission_value, commission_after, 
+      remark, audit_state, is_delete, 
+      create_user, create_time)
+    values (#{id,jdbcType=VARCHAR}, #{auctionId,jdbcType=VARCHAR}, #{auctionSetId,jdbcType=VARCHAR}, 
+      #{carPriceType,jdbcType=VARCHAR}, #{carPriceValue,jdbcType=VARCHAR}, #{carPriceAfter,jdbcType=VARCHAR}, 
+      #{commissionType,jdbcType=VARCHAR}, #{commissionValue,jdbcType=VARCHAR}, #{commissionAfter,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{auditState,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleAdjustPrice">
+    insert into car_pm_aftersale_adjust_price
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id,
+      </if>
+      <if test="carPriceType != null">
+        car_price_type,
+      </if>
+      <if test="carPriceValue != null">
+        car_price_value,
+      </if>
+      <if test="carPriceAfter != null">
+        car_price_after,
+      </if>
+      <if test="commissionType != null">
+        commission_type,
+      </if>
+      <if test="commissionValue != null">
+        commission_value,
+      </if>
+      <if test="commissionAfter != null">
+        commission_after,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceType != null">
+        #{carPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceValue != null">
+        #{carPriceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceAfter != null">
+        #{carPriceAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionType != null">
+        #{commissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionValue != null">
+        #{commissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionAfter != null">
+        #{commissionAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleAdjustPrice">
+    update car_pm_aftersale_adjust_price
+    <set>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
+      <if test="auctionSetId != null">
+        auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceType != null">
+        car_price_type = #{carPriceType,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceValue != null">
+        car_price_value = #{carPriceValue,jdbcType=VARCHAR},
+      </if>
+      <if test="carPriceAfter != null">
+        car_price_after = #{carPriceAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionType != null">
+        commission_type = #{commissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionValue != null">
+        commission_value = #{commissionValue,jdbcType=VARCHAR},
+      </if>
+      <if test="commissionAfter != null">
+        commission_after = #{commissionAfter,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersaleAdjustPrice">
+    update car_pm_aftersale_adjust_price
+    set auction_id = #{auctionId,jdbcType=VARCHAR},
+      auction_set_id = #{auctionSetId,jdbcType=VARCHAR},
+      car_price_type = #{carPriceType,jdbcType=VARCHAR},
+      car_price_value = #{carPriceValue,jdbcType=VARCHAR},
+      car_price_after = #{carPriceAfter,jdbcType=VARCHAR},
+      commission_type = #{commissionType,jdbcType=VARCHAR},
+      commission_value = #{commissionValue,jdbcType=VARCHAR},
+      commission_after = #{commissionAfter,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

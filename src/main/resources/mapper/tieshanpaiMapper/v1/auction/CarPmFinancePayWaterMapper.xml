@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmFinancePayWaterMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmFinancePayWater">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="mid" jdbcType="VARCHAR" property="mid" />
+    <result column="order_id" jdbcType="VARCHAR" property="orderId" />
+    <result column="order_no" jdbcType="VARCHAR" property="orderNo" />
+    <result column="operator_cash" jdbcType="VARCHAR" property="operatorCash" />
+    <result column="operator_type" jdbcType="INTEGER" property="operatorType" />
+    <result column="memo" jdbcType="VARCHAR" property="memo" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, mid, order_id, order_no, operator_cash, operator_type, memo, is_delete, create_user, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_finance_pay_water
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_finance_pay_water
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmFinancePayWater">
+    insert into car_pm_finance_pay_water (id, mid, order_id, 
+      order_no, operator_cash, operator_type, 
+      memo, is_delete, create_user, 
+      create_time)
+    values (#{id,jdbcType=VARCHAR}, #{mid,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, 
+      #{orderNo,jdbcType=VARCHAR}, #{operatorCash,jdbcType=VARCHAR}, #{operatorType,jdbcType=INTEGER}, 
+      #{memo,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIT}, #{createUser,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmFinancePayWater">
+    insert into car_pm_finance_pay_water
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="mid != null">
+        mid,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="operatorCash != null">
+        operator_cash,
+      </if>
+      <if test="operatorType != null">
+        operator_type,
+      </if>
+      <if test="memo != null">
+        memo,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCash != null">
+        #{operatorCash,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmFinancePayWater">
+    update car_pm_finance_pay_water
+    <set>
+      <if test="mid != null">
+        mid = #{mid,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorCash != null">
+        operator_cash = #{operatorCash,jdbcType=VARCHAR},
+      </if>
+      <if test="operatorType != null">
+        operator_type = #{operatorType,jdbcType=INTEGER},
+      </if>
+      <if test="memo != null">
+        memo = #{memo,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmFinancePayWater">
+    update car_pm_finance_pay_water
+    set mid = #{mid,jdbcType=VARCHAR},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=VARCHAR},
+      operator_cash = #{operatorCash,jdbcType=VARCHAR},
+      operator_type = #{operatorType,jdbcType=INTEGER},
+      memo = #{memo,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

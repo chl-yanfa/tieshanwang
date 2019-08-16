@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmWarehousePlacingMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehousePlacing">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="stock_id" jdbcType="VARCHAR" property="stockId" />
+    <result column="car_pm_model" jdbcType="VARCHAR" property="carPmModel" />
+    <result column="license_num" jdbcType="VARCHAR" property="licenseNum" />
+    <result column="car_pm_placing" jdbcType="VARCHAR" property="carPmPlacing" />
+    <result column="car_pm_placing_time" jdbcType="TIMESTAMP" property="carPmPlacingTime" />
+    <result column="key_placing" jdbcType="VARCHAR" property="keyPlacing" />
+    <result column="key_placing_time" jdbcType="TIMESTAMP" property="keyPlacingTime" />
+    <result column="license_placing" jdbcType="VARCHAR" property="licensePlacing" />
+    <result column="license_placing_time" jdbcType="TIMESTAMP" property="licensePlacingTime" />
+    <result column="amount" jdbcType="VARCHAR" property="amount" />
+    <result column="placing_reason" jdbcType="VARCHAR" property="placingReason" />
+    <result column="proposer" jdbcType="VARCHAR" property="proposer" />
+    <result column="audit_state" jdbcType="INTEGER" property="auditState" />
+    <result column="is_delete" jdbcType="BIT" property="isDelete" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, stock_id, car_pm_model, license_num, car_pm_placing, car_pm_placing_time, key_placing, 
+    key_placing_time, license_placing, license_placing_time, amount, placing_reason, 
+    proposer, audit_state, is_delete, create_user, create_time, update_user, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from car_pm_warehouse_placing
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from car_pm_warehouse_placing
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehousePlacing">
+    insert into car_pm_warehouse_placing (id, stock_id, car_pm_model, 
+      license_num, car_pm_placing, car_pm_placing_time, 
+      key_placing, key_placing_time, license_placing, 
+      license_placing_time, amount, placing_reason, 
+      proposer, audit_state, is_delete, 
+      create_user, create_time, update_user, 
+      update_time)
+    values (#{id,jdbcType=VARCHAR}, #{stockId,jdbcType=VARCHAR}, #{carPmModel,jdbcType=VARCHAR}, 
+      #{licenseNum,jdbcType=VARCHAR}, #{carPmPlacing,jdbcType=VARCHAR}, #{carPmPlacingTime,jdbcType=TIMESTAMP}, 
+      #{keyPlacing,jdbcType=VARCHAR}, #{keyPlacingTime,jdbcType=TIMESTAMP}, #{licensePlacing,jdbcType=VARCHAR}, 
+      #{licensePlacingTime,jdbcType=TIMESTAMP}, #{amount,jdbcType=VARCHAR}, #{placingReason,jdbcType=VARCHAR}, 
+      #{proposer,jdbcType=VARCHAR}, #{auditState,jdbcType=INTEGER}, #{isDelete,jdbcType=BIT}, 
+      #{createUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehousePlacing">
+    insert into car_pm_warehouse_placing
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stockId != null">
+        stock_id,
+      </if>
+      <if test="carPmModel != null">
+        car_pm_model,
+      </if>
+      <if test="licenseNum != null">
+        license_num,
+      </if>
+      <if test="carPmPlacing != null">
+        car_pm_placing,
+      </if>
+      <if test="carPmPlacingTime != null">
+        car_pm_placing_time,
+      </if>
+      <if test="keyPlacing != null">
+        key_placing,
+      </if>
+      <if test="keyPlacingTime != null">
+        key_placing_time,
+      </if>
+      <if test="licensePlacing != null">
+        license_placing,
+      </if>
+      <if test="licensePlacingTime != null">
+        license_placing_time,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="placingReason != null">
+        placing_reason,
+      </if>
+      <if test="proposer != null">
+        proposer,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="stockId != null">
+        #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmModel != null">
+        #{carPmModel,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNum != null">
+        #{licenseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmPlacing != null">
+        #{carPmPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmPlacingTime != null">
+        #{carPmPlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keyPlacing != null">
+        #{keyPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="keyPlacingTime != null">
+        #{keyPlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licensePlacing != null">
+        #{licensePlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlacingTime != null">
+        #{licensePlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="placingReason != null">
+        #{placingReason,jdbcType=VARCHAR},
+      </if>
+      <if test="proposer != null">
+        #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehousePlacing">
+    update car_pm_warehouse_placing
+    <set>
+      <if test="stockId != null">
+        stock_id = #{stockId,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmModel != null">
+        car_pm_model = #{carPmModel,jdbcType=VARCHAR},
+      </if>
+      <if test="licenseNum != null">
+        license_num = #{licenseNum,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmPlacing != null">
+        car_pm_placing = #{carPmPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="carPmPlacingTime != null">
+        car_pm_placing_time = #{carPmPlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="keyPlacing != null">
+        key_placing = #{keyPlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="keyPlacingTime != null">
+        key_placing_time = #{keyPlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licensePlacing != null">
+        license_placing = #{licensePlacing,jdbcType=VARCHAR},
+      </if>
+      <if test="licensePlacingTime != null">
+        license_placing_time = #{licensePlacingTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=VARCHAR},
+      </if>
+      <if test="placingReason != null">
+        placing_reason = #{placingReason,jdbcType=VARCHAR},
+      </if>
+      <if test="proposer != null">
+        proposer = #{proposer,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=INTEGER},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmWarehousePlacing">
+    update car_pm_warehouse_placing
+    set stock_id = #{stockId,jdbcType=VARCHAR},
+      car_pm_model = #{carPmModel,jdbcType=VARCHAR},
+      license_num = #{licenseNum,jdbcType=VARCHAR},
+      car_pm_placing = #{carPmPlacing,jdbcType=VARCHAR},
+      car_pm_placing_time = #{carPmPlacingTime,jdbcType=TIMESTAMP},
+      key_placing = #{keyPlacing,jdbcType=VARCHAR},
+      key_placing_time = #{keyPlacingTime,jdbcType=TIMESTAMP},
+      license_placing = #{licensePlacing,jdbcType=VARCHAR},
+      license_placing_time = #{licensePlacingTime,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=VARCHAR},
+      placing_reason = #{placingReason,jdbcType=VARCHAR},
+      proposer = #{proposer,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=INTEGER},
+      is_delete = #{isDelete,jdbcType=BIT},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
