@@ -16,7 +16,7 @@ import java.util.Map;
 public interface TraOfferWaterMapper {
 
     //保存出价记录
-    String createTraOfferWater(TraOfferWaterVo waterDto);
+    int createTraOfferWater(TraOfferWaterVo waterDto);
 
     //获取我对某个订单的最高价 -不区分报价和竞价
     int getMaxBidAmountByUser(TraOrderVo traOrder);

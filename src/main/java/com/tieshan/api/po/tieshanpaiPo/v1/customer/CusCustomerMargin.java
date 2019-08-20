@@ -13,7 +13,7 @@ public class CusCustomerMargin {
     private String   uid;
     private String    uname;
     private String    mobile;
-    private BigDecimal walletPledge;
+    private BigDecimal walletPledge;  //保证金余额
     private BigDecimal walletPledgeFreeze;
     private Integer  usableMargin;
     private BigDecimal transferOwnershipPledge;
@@ -131,5 +131,28 @@ public class CusCustomerMargin {
     }
     public void setMemberCode(String memberCode) {
         this.memberCode = memberCode;
+    }
+
+    @Override
+    public String toString() {
+        return "CusCustomerMargin{" +
+                "id=" + id +
+                ", uid='" + uid + '\'' +
+                ", uname='" + uname + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", walletPledge=" + walletPledge +
+                ", walletPledgeFreeze=" + walletPledgeFreeze +
+                ", usableMargin=" + usableMargin +
+                ", transferOwnershipPledge=" + transferOwnershipPledge +
+                ", status=" + status +
+                ", createTime=" + createTime +
+                ", createUser='" + createUser + '\'' +
+                ", updateTime=" + updateTime +
+                ", updateUser='" + updateUser + '\'' +
+                ", deleteTag='" + deleteTag + '\'' +
+                ", freezeAmount=" + freezeAmount +
+                ", orderId='" + orderId + '\'' +
+                ", memberCode='" + memberCode + '\'' +
+                '}';
     }
 }

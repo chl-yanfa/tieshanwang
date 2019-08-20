@@ -310,4 +310,45 @@ public class OrderInfoVo {
     public void setOrderNo(String orderNo) {
         this.orderNo = orderNo;
     }
+
+    @Override
+    public String toString() {
+        return "OrderInfoVo{" +
+                "sysDate=" + sysDate +
+                ", id='" + id + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", orderNo='" + orderNo + '\'' +
+                ", carCode='" + carCode + '\'' +
+                ", license='" + license + '\'' +
+                ", holdpriceIn=" + holdpriceIn +
+                ", holdpriceOut=" + holdpriceOut +
+                ", auctionPriceIn=" + auctionPriceIn +
+                ", auctionPriceOut=" + auctionPriceOut +
+                ", tenderTime=" + tenderTime +
+                ", tenderOverTime=" + tenderOverTime +
+                ", competeTime=" + competeTime +
+                ", competeOverTime=" + competeOverTime +
+                ", orderStatus='" + orderStatus + '\'' +
+                ", upsetPriceShow='" + upsetPriceShow + '\'' +
+                ", areaLimit='" + areaLimit + '\'' +
+                ", isSubsidy='" + isSubsidy + '\'' +
+                ", parentOrderId='" + parentOrderId + '\'' +
+                ", isHistory='" + isHistory + '\'' +
+                ", auctionModel='" + auctionModel + '\'' +
+                ", platformCosta=" + platformCosta +
+                ", bidMaxpriceIn=" + bidMaxpriceIn +
+                ", bidMaxpriceOut=" + bidMaxpriceOut +
+                ", bidMaxpriceUnlimited=" + bidMaxpriceUnlimited +
+                ", bidMaxpriceInStr='" + bidMaxpriceInStr + '\'' +
+                ", bidMaxpriceOutStr='" + bidMaxpriceOutStr + '\'' +
+                ", bidMaxpriceUnlimitedStr='" + bidMaxpriceUnlimitedStr + '\'' +
+                ", promisesType='" + promisesType + '\'' +
+                ", bidTimes=" + bidTimes +
+                ", surplusTime=" + surplusTime +
+                ", roundState='" + roundState + '\'' +
+                ", memberCode='" + memberCode + '\'' +
+                ", myQuotePrice=" + myQuotePrice +
+                ", auctionCashDeposit=" + auctionCashDeposit +
+                '}';
+    }
 }

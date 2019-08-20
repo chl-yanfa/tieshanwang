@@ -55,18 +55,32 @@ public class BidServiceimple implements BidService {
 		String dd = DateUtil.formatDate(new Date(), "yyyy/MM/dd HH:mm:ss:SSS");
 		ResultVO<String> result = new ResultVO<String>();
 		OrderInfoVo order = bidMapper.getOrderInfo(bidDto);
+
+		order.setAuctionCashDeposit(new BigDecimal("999999"));  //demo 手动设置保证金
+
+
+		System.out.println("测试数据："+order);
 		if(order ==null){
 			result.setReturnCode(Constants.RETURN_CODE_DATA_NULL);
 			return result;
 		}
 		//	int FREEZEAMOUNT_MIN = Integer.parseInt(AuthorizationUtil.getInstance().getString("FREEZEAMOUNT_MIN"));
-		BigDecimal FREEZEAMOUNT_MIN = order.getAuctionCashDeposit();
+		BigDecimal FREEZEAMOUNT_MIN = order.getAuctionCashDeposit();  //获得用户拥有的保证金
+		System.out.println("测试数据1："+FREEZEAMOUNT_MIN);
 		bidDto.setFreezeAmount(FREEZEAMOUNT_MIN.intValue());
 		bidDto.setOrderNo(order.getOrderNo());
+		System.out.println("测试数据2："+bidDto.getMemberCode());
 		CusCustomerMargin cusCustomerMargin = new CusCustomerMargin();
 		cusCustomerMargin.setUid(bidDto.getMemberCode());
+
+		cusCustomerMargin.setDeleteTag("0"); //demo 手动设置为非冻结
+
 		cusCustomerMargin = cusCustomerMarginMapper.getCusCustomerMarginByMember(cusCustomerMargin);
-		int cha = cusCustomerMargin.getWalletPledge().compareTo(FREEZEAMOUNT_MIN);
+		System.out.println("测试数据3:"+cusCustomerMargin);
+
+		int cha = cusCustomerMargin.getWalletPledge().compareTo(FREEZEAMOUNT_MIN);  //判断用户拥有的保证金是否大于当前订单所需要的保证金
+		System.out.println("测试数据4:"+cha);  //1.大于 0.等于 -1 小于
+		System.out.println("测试数据5:"+order.getMemberCode());    //获得拍卖人id,来自sys_client
 		if(!bidDto.getMemberCode().equals(order.getMemberCode())){
 			if (null == cusCustomerMargin || cha == -1 ) {
 				result.setReturnCode(Constants.MARGIN_LESS);
@@ -74,12 +88,14 @@ public class BidServiceimple implements BidService {
 			}
 		}
 		bidDto.setSysDate(order.getSysDate());
-		ResultVO<String> res = bidCheck(bidDto, order);
+		ResultVO<String> res = bidCheck(bidDto, order); //检查拍卖
+		System.out.println("测试数据6:"+res);
 		if(!res.getReturnCode().equals(Constants.RETURN_CODE_SUCCESS)){
 			return res;
 		}
 		String bidType = bidDto.getBidType();
 		if(Constants.BID_TYPE_BIDDING.equals(bidType)){
+			System.out.println("进入逻辑2!");
 			result = toBid(bidDto, order);
 			return result;
 		}
@@ -97,7 +113,11 @@ public class BidServiceimple implements BidService {
 	public ResultVO<String> bidCheck(BidVo bidDto, OrderInfoVo order) {
 		ResultVO<String> result = new ResultVO<String>();
 		String bidType = bidDto.getBidType();
+		System.out.println("这是传进来的竞拍状态!!"+bidType);
 		if (Constants.BID_TYPE_BIDDING.equals(bidType)) {
+
+			System.out.println("该订单所拥有的订单状态为:"+order.getOrderStatus()+"20为在竞拍");
+
 			if (!order.getOrderStatus().equals(Constants.ORDER_STATUS_AUCTIONING)) {
 				result.setReturnCode(Constants.QUOTEPRICE_NOT_SUPPORT);
 				return result;
@@ -107,28 +127,35 @@ public class BidServiceimple implements BidService {
 			//不是现场拍检查出价次数
 
 			int newPrice = bidDto.getBidAmount();
+			System.out.println("你对订单的出价金额为:"+newPrice);
 			int maxPrice = 0;
 			maxPrice = order.getBidMaxpriceUnlimited();
+			System.out.println("当前订单的最高价为:"+maxPrice);
 			//最小加价幅度
 			int addExtent = Integer.valueOf(AuthorizationUtil.getInstance().getString("ADD_EXTENT"));
+			System.out.println("该订单的最小加价幅度为："+addExtent);
 			//新价和最高价比较
 			if(newPrice <= maxPrice){
+				System.out.println("错误1");
 				result.setReturnCode(Constants.PRICE_VERY_LOW);
 				result.setPrice(maxPrice);
 				result.setMemberCode((order.getMemberCode()).substring(1));
 				return result;
 				//最小加价幅度判断
 			}else if((newPrice-maxPrice) < addExtent){
+				System.out.println("错误2");
 				result.setReturnCode(Constants.NOT_SMALLEST_INCREASE);
 				return result;
 			}
 			// 开始时间判断
 			if (order.getSysDate().before(order.getCompeteTime())) {
+				System.out.println("错误3");
 				result.setReturnCode(Constants.NOT_START);
 				return result;
 			}
 			// 结束时间判断
-			if (order.getSysDate().after(order.getCompeteOverTime())) {
+			if (order.getSysDate().after(order.getCompeteOverTime())) {  //当前时间大于竞拍时间 说明竞拍时间已过
+				System.out.println("错误4");
 				result.setReturnCode(Constants.ENDED);
 				return result;
 			}
@@ -176,7 +203,9 @@ public class BidServiceimple implements BidService {
 	 */
 	@Override
 	public String biePrice(BidVo bidDto, OrderInfoVo order) {
+		//开始操作"当前出价最高表"
 		TraHighestBid traHighestBid = new TraHighestBid();
+		traHighestBid.setId(Identities.uuid2());
 		traHighestBid.setOrderId(bidDto.getOrderId());
 		traHighestBid.setCarCode(bidDto.getCarCode());
 		traHighestBid.setBidType(bidDto.getBidType());
@@ -190,6 +219,7 @@ public class BidServiceimple implements BidService {
 		traHighestBid.setOrderNo(bidDto.getOrderNo());
 
 		if (highestBid != null) {
+			System.out.println("进入出价最高非空!");
 			if (highestBid.getMaximumPrice() < bidDto.getBidAmount()) {
 				highestBid.setTs(bidDto.getSysDate());
 				highestBid.setCarCode(traHighestBid.getCarCode());
@@ -212,12 +242,12 @@ public class BidServiceimple implements BidService {
 				traHighestBidMapper.updateTraHighestBidByCar(highestBid);
 			}
 		}else {
+			System.out.println("进入出价最高是空!");
 			//最小加价幅度
-			traHighestBid.setMargin(-bidDto.getFreezeAmount());
+			traHighestBid.setMargin(-bidDto.getFreezeAmount());  //扣除保证金
 			//不是现场拍才冻结保证金
 			// 冻结当前会员保证金
 			cusCustomerMargin(bidDto);
-
 			traHighestBidMapper.createTraHighestBid(traHighestBid);
 		}
 
@@ -282,7 +312,9 @@ public class BidServiceimple implements BidService {
 		cusCustomerMarginMapper.freezeCusCustomerMargin(cusCustomerMargin);
 
 		// 保存冻结流水
+
 		CusCustomerMarginWater customerMarginWater = new CusCustomerMarginWater();
+		customerMarginWater.setId(Identities.uuid2());
 		customerMarginWater.setMemberCode(String.valueOf(bidDto.getMemberCode()));
 		customerMarginWater.setOrderId(bidDto.getOrderId());
 		customerMarginWater.setCarCode(bidDto.getCarCode());
@@ -293,7 +325,7 @@ public class BidServiceimple implements BidService {
 		customerMarginWater.setOperatorType(Constants.MARGIN_WATER_OPERATOR_TYPE_MARGIN);
 		customerMarginWater.setDeleteTag(Constants.DELETE_FLAG_NO);
 		customerMarginWater.setTimeliness(bidDto.getTimeliness());
-		customerMarginWater.setMemo("出价冻结！订单编号："+bidDto.getOrderNo()+",车辆编号："+bidDto.getCarCode());
+		customerMarginWater.setMemo("出价冻结！订单编号："+bidDto.getOrderNo()+",拍品编号："+bidDto.getCarCode());
 		cusCustomerMarginWaterMapper.createCusCustomerMarginWater(customerMarginWater);
 	}
 
@@ -334,6 +366,7 @@ public class BidServiceimple implements BidService {
 		waterDto.setDeleteTag(Constants.DELETE_FLAG_NO);
 		waterDto.setTimeliness(bidDto.getTimeliness());
 		waterDto.setOrderNo(bidDto.getOrderNo());
+		waterDto.setId(Identities.uuid2());
 		traOfferWaterMapper.createTraOfferWater(waterDto);
 	}
 

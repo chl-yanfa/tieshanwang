@@ -3,8 +3,11 @@ package com.tieshan.api.service.tieshanpaiService.v1.auction.impl;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionMapper;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,4 +61,23 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         res.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
         return res;
     }
+
+    @Override
+    public ResultVO<Paimai> getPaimaiList(PaimaiVo paimai) {
+        ResultVO<Paimai> result = new ResultVO<Paimai>();
+        List<Paimai> paimaiList = carPmAuctionMapper.getPaimaiListByPage(paimai);
+        int total = carPmAuctionMapper.getPaimaiListTotal(paimai);
+        result.setRows(paimaiList);
+        result.setTotal(total);
+        return result;
+    }
+
+    @Override
+    public ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy) {
+        ResultVO<AuctionCar> res = new ResultVO<AuctionCar>();
+        List<AuctionCar> list = carPmAuctionMapper.getAuctionCarList(pmhId,pmOrderBy);
+        res.setRows(list);
+        return res;
+    }
+
 }

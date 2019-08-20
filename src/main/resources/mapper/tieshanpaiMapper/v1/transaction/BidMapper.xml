@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper">
+
+    <resultMap id="OrderInfoVo" type="com.tieshan.api.vo.tieshanpaiVo.v1.transaction.OrderInfoVo">
+
+
+    </resultMap>
+    <!--
+        获取订单信息
+    -->
+    <select id="getOrderInfo" resultMap="OrderInfoVo" parameterType="com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo">
+	 	SELECT SYSDATE()               as sysDate,
+		       T.ID                    as ordedId,
+		       T.AUCTION_ID            as pmCarId,
+		       T.AUCTION_START_TIME    as competeTime,
+		       T.AUCTION_END_TIME      as competeOverTime,
+		       T.ORDER_STATE           as orderStatus,
+		       T.IS_HISTORY            as isHistory,
+		       T.ORDER_NO              as orderNo,
+		       T.AUCTION_CASH_DEPOSIT  as auctionCashDeposit,
+		       TIME_TO_SEC(TIMEDIFF(T.AUCTION_END_TIME,SYSDATE())) as surplusTime,
+		       (SELECT CONCAT_WS('U',MAX(HB.BID_AMOUNT), HB.MID)
+			             FROM car_pm_offer_water HB
+			             WHERE HB.IS_DELETE = 0
+			             AND HB.ORDER_ID = T.id)   as  bidMaxpriceUnlimitedStr
+		  FROM  car_pm_auction_set T
+          WHERE T.is_delete = 0
+          AND   T.ID=#{orderId};
+
+
+	</select>
+
+
+</mapper>

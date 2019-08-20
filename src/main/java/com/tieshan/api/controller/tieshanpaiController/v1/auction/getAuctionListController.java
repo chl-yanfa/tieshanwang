@@ -3,9 +3,12 @@ package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.SessionUtil;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -18,13 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author ningrz
+ * @author ningrz 拍卖相关控制器
  * @version 1.0
  * @date 2019/8/15 17:57
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "v1/newapi_tieshanpai/auction/")
-public class getLotListController {
+public class getAuctionListController {
 
     @Autowired
     CarPmAuctionService carPmAuctionService;
@@ -32,10 +36,13 @@ public class getLotListController {
     @Autowired
     private BidService bidService;
 
-    private static Log log = LogFactory.getLog(getLotListController.class);
+    private static Log log = LogFactory.getLog(getAuctionListController.class);
 
     /**
-     * 拍卖列表
+     *
+     * @param auction 根据条件获取拍品列表 CarPmAuctionVo auction
+     * @param request
+     * @return
      */
     @RequestMapping(value = "/queryList", method = RequestMethod.POST)
     public Object ListPage(@RequestBody CarPmAuctionVo auction, HttpServletRequest request){
@@ -63,20 +70,24 @@ public class getLotListController {
 
 
     /**
-     * 拍卖详情
+     *
+     * @param id 拍品唯一id
+     * @return
      */
     @RequestMapping(value = "/getAuctionInfo", method = RequestMethod.GET)
-    @ResponseBody
     public ResultVO<CarPmAuctionVo> getAuctionInfo(String id){
         return carPmAuctionService.getAuctionInfo(id);
     }
 
 
     /**
-     * 竞价
+     *
+     * @param bidVo 竞价传递参数
+     * @param request
+     * @param response
+     * @return
      */
     @RequestMapping(value = "/quoteprice", method = RequestMethod.POST)
-    @ResponseBody
     public synchronized Object quoteprice_new(BidVo bidVo, HttpServletRequest request, HttpServletResponse response){
         long s = System.currentTimeMillis();
         ResultVO<String> res = new ResultVO<String>();
@@ -99,7 +110,7 @@ public class getLotListController {
             }
             bidVo.setMemberCode(memberCode);
             bidVo.setRealName(realName);
-            res = bidService.bid(bidVo);
+            res = bidService.bid(bidVo);  //进入service
         }catch(Exception e){
             log.error("出价错误："+e.toString());
             res.setReturnCode(Constants.RETURN_CODE_SYSTEM_FAIL);// 200000系统错误
@@ -108,6 +119,29 @@ public class getLotListController {
         long e = System.currentTimeMillis();
         log.info("=================出价耗时："+(e-s)+"毫秒");
         return res;
+    }
+
+
+    /**
+     *
+     * @param paimai 根据条件获取拍卖会列表信息
+     * @return
+     */
+    @RequestMapping(value = "/getPaimaiList", method = RequestMethod.POST)
+    public ResultVO<Paimai> getPaimaiList(PaimaiVo paimai) {
+        return carPmAuctionService.getPaimaiList(paimai);
+    }
+
+    /**
+     *
+     * @param pmhId 拍卖会id
+     * @param pmOrderBy 排序参数
+     * @return
+     */
+    @RequestMapping(value = "/getAuctionCarList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy) {
+        return carPmAuctionService.getAuctionCarList(pmhId,pmOrderBy);
     }
 
 }
