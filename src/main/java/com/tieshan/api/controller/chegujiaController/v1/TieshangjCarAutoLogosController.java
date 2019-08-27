@@ -1,8 +1,8 @@
-package com.tieshan.api.controller.chegujiaController;
-import com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos;
-import com.tieshan.api.po.chegujiaPo.bo.EncapsulationBO;
-import com.tieshan.api.po.chegujiaPo.bo.EncapsulationsBO;
-import com.tieshan.api.service.chegujiaService.TieshangjCarAutoLogosService;
+package com.tieshan.api.controller.chegujiaController.v1;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos;
+import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
+import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationsBO;
+import com.tieshan.api.service.chegujiaService.v1.TieshangjCarAutoLogosService;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import net.sourceforge.pinyin4j.PinyinHelper;
@@ -22,6 +22,7 @@ import java.util.Comparator;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "v1/autologos/")
 public class TieshangjCarAutoLogosController {
     @Autowired
     private TieshangjCarAutoLogosService tieshangjCarAutoLogosService;

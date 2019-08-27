@@ -1,8 +1,6 @@
-package com.tieshan.api.controller.chegujiaController;
-
-import com.tieshan.api.po.chegujiaPo.TieshangjCarModel;
-import com.tieshan.api.po.chegujiaPo.bo.EncapsulationBO;
-import com.tieshan.api.service.chegujiaService.TieshangjCarModelService;
+package com.tieshan.api.controller.chegujiaController.v1;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel;
+import com.tieshan.api.service.chegujiaService.v1.TieshangjCarModelService;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RestController
+@RequestMapping(value = "v1/carmodel/")
 public class TieshangjCarModelController {
     @Autowired
     private TieshangjCarModelService tieshangjCarModelService;

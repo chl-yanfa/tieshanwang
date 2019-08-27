@@ -1,21 +1,16 @@
-package com.tieshan.api.controller.chegujiaController.chegujiaAdminController;
-
-import com.tieshan.api.po.chegujiaPo.TieshangjCarModel;
-import com.tieshan.api.po.chegujiaPo.TieshangjCarPiece;
-import com.tieshan.api.po.chegujiaPo.TieshangjCarPieces;
-import com.tieshan.api.po.chegujiaPo.bo.EncapsulationBO;
-import com.tieshan.api.po.chegujiaPo.bo.EncapsulationsBO;
-import com.tieshan.api.service.chegujiaService.TieshangjCarPieceService;
-import com.tieshan.api.service.chegujiaService.TieshangjCarPiecesService;
+package com.tieshan.api.controller.chegujiaController.v1.chegujiaAdminController;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
+import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
+import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPieceService;
+import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPiecesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

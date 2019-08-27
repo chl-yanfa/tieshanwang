@@ -1,7 +1,7 @@
-package com.tieshan.api.controller.shortMessageApiController;
+package com.tieshan.api.controller.shortMessageApiController.v1;
 
-import com.tieshan.api.po.shortMessageApiPo.TbVerificationCode;
-import com.tieshan.api.service.shortMessageApiService.TbVerificationCodeService;
+import com.tieshan.api.po.shortMessageApiPo.v1.TbVerificationCode;
+import com.tieshan.api.service.shortMessageApiService.v1.TbVerificationCodeService;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
