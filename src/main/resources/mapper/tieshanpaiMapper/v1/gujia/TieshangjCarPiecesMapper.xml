@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarPiecesMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarPieces">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="car_piece_id" jdbcType="INTEGER" property="carPieceId" />
+    <result column="car_model_tiema" jdbcType="VARCHAR" property="carModelTiema" />
+    <result column="old_money" jdbcType="VARCHAR" property="oldMoney" />
+    <result column="demolition_money" jdbcType="VARCHAR" property="demolitionMoney" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+      <association property="tieshangjCarPiece" javaType="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
+          <result column="piece_name" jdbcType="VARCHAR" property="pieceName"/>
+      </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, car_piece_id, car_model_tiema, old_money, demolition_money, created_by, created_time, 
+    updated_by, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tieshangj_car_pieces
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tieshangj_car_pieces
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPieces">
+    insert into tieshangj_car_pieces (id, car_piece_id, car_model_tiema, 
+      old_money, demolition_money, created_by, 
+      created_time, updated_by, updated_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{carPieceId,jdbcType=INTEGER}, #{carModelTiema,jdbcType=VARCHAR}, 
+      #{oldMoney,jdbcType=VARCHAR}, #{demolitionMoney,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPieces">
+    insert into tieshangj_car_pieces
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carPieceId != null">
+        car_piece_id,
+      </if>
+      <if test="carModelTiema != null">
+        car_model_tiema,
+      </if>
+      <if test="oldMoney != null">
+        old_money,
+      </if>
+      <if test="demolitionMoney != null">
+        demolition_money,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carPieceId != null">
+        #{carPieceId,jdbcType=INTEGER},
+      </if>
+      <if test="carModelTiema != null">
+        #{carModelTiema,jdbcType=VARCHAR},
+      </if>
+      <if test="oldMoney != null">
+        #{oldMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="demolitionMoney != null">
+        #{demolitionMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPieces">
+    update tieshangj_car_pieces
+    <set>
+      <if test="carPieceId != null">
+        car_piece_id = #{carPieceId,jdbcType=INTEGER},
+      </if>
+      <if test="carModelTiema != null">
+        car_model_tiema = #{carModelTiema,jdbcType=VARCHAR},
+      </if>
+      <if test="oldMoney != null">
+        old_money = #{oldMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="demolitionMoney != null">
+        demolition_money = #{demolitionMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectMoneyNullBorF" resultType="java.lang.String">
+        SELECT
+            ${chaiorjiu}
+        FROM
+            `tieshangj_car_pieces`
+        WHERE
+            car_piece_id = #{chejianId}
+        AND car_model_tiema = #{tiema}
+  </select>
+  <select id="selectSumMoneyOne" resultType="java.lang.String">
+        SELECT
+	        sum(${chaiorjiu})
+      FROM
+          `tieshangj_car_pieces`
+      WHERE
+        car_piece_id != #{chejianId1}
+        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3}
+        and  car_model_tiema = #{tiema}
+  </select>
+  <select id="selectSumMoneyTwo" resultType="java.lang.String">
+        SELECT
+            sum(${chaiorjiu})
+        FROM
+            `tieshangj_car_pieces`
+        WHERE
+            car_piece_id != #{chejianId1}
+            AND car_piece_id != #{chejianId2}
+            and  car_model_tiema = #{tiema}
+  </select>
+  <select id="selectSumMoneyThree" resultType="java.lang.String">
+        SELECT
+            sum(${chaiorjiu})
+        FROM
+            `tieshangj_car_pieces`
+        WHERE
+           car_piece_id NOT BETWEEN #{chejianId1}
+            AND #{chejianId2}
+            AND car_piece_id NOT BETWEEN #{chejianId3}
+            AND #{chejianId4}
+            and car_model_tiema = #{tiema}
+  </select>
+  <select id="selectMoneyWaste" resultType="java.lang.String">
+        SELECT
+	        sum(w.w_money*ww.weight)
+        FROM
+          tieshangj_car_waste w
+          INNER JOIN tieshangj_car_waste_weight ww ON w.id = ww.w_id
+        where ww.c_tiema=#{tiema}
+  </select>
+  <select id="selectEr" resultMap="BaseResultMap">
+       SELECT
+        p.piece_name,
+        ps.id,
+        ps.old_money,
+        ps.demolition_money,
+        ps.car_model_tiema
+      FROM
+        `tieshangj_car_pieces` ps
+        INNER JOIN tieshangj_car_piece p ON ps.car_piece_id = p.id where p.parent_id=#{fuId} and ps.car_model_tiema=#{tiema}
+  </select>
+</mapper>

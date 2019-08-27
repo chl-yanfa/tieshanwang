@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.homePageMapper.CarPmAuctionOrderDealSerachMapper">
+    <resultMap id="Base" type="com.tieshan.api.po.homePagePo.bo.CarPmAuctionOrderDealSerach">
+        <id 	column="id" 				property="id" />
+        <result column="name" 				property="name" />
+        <result column="imgpath" 			property="imgpath" />
+		<result column="type" 				property="type" />
+    </resultMap>
+    <select id="queryListName" resultMap="Base">
+        ( SELECT
+            a.id AS id,
+            a.full_name AS name,
+            ta.storage_path AS imgpath,
+            "铁扇拍" as type
+            FROM
+		car_pm_auction a
+		INNER JOIN car_pm_auction_file f ON a.id = f.auction_id
+		INNER JOIN tb_attachment ta ON f.attachment_id = ta.id
+	        WHERE
+	         a.full_name like CONCAT('%',#{name},'%')
+	         and a.auction_state in ('2','4','5','8')
+	ORDER BY
+		a.update_time DESC
+	) UNION ALL
+	(
+	SELECT
+		csod.id AS id,
+		csod.car_model_number AS name,
+		ta.storage_path AS imgpath,
+		"车报废" as type
+	FROM
+		car_scrap_order_deal csod
+		LEFT JOIN tb_attachment ta ON csod.head_img_id = ta.id
+	where csod.car_model_number like CONCAT('%',#{name},'%')
+	ORDER BY
+	csod.createtime DESC
+	)
+    </select>
+
+</mapper>

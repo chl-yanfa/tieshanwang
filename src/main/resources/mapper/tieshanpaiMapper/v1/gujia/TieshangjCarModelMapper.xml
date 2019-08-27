@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarModelMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="car_name" jdbcType="VARCHAR" property="carName" />
+    <result column="car_crew_id" jdbcType="INTEGER" property="carCrewId" />
+    <result column="iron_code" jdbcType="VARCHAR" property="ironCode" />
+    <result column="money" jdbcType="VARCHAR" property="money" />
+    <result column="displacement" jdbcType="VARCHAR" property="displacement" />
+    <result column="body_structure" jdbcType="VARCHAR" property="bodyStructure" />
+    <result column="type_transmission" jdbcType="VARCHAR" property="typeTransmission" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos">
+      <result column="a_name" jdbcType="VARCHAR" property="aName"/>
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, car_name, car_crew_id, iron_code, money, displacement, body_structure, type_transmission, 
+    created_by, created_time, updated_by, updated_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tieshangj_car_model
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tieshangj_car_model
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+    insert into tieshangj_car_model (id, car_name, car_crew_id, 
+      iron_code, money, displacement, 
+      body_structure, type_transmission, created_by, 
+      created_time, updated_by, updated_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{carName,jdbcType=VARCHAR}, #{carCrewId,jdbcType=INTEGER}, 
+      #{ironCode,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{displacement,jdbcType=VARCHAR}, 
+      #{bodyStructure,jdbcType=VARCHAR}, #{typeTransmission,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+    insert into tieshangj_car_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="carName != null">
+        car_name,
+      </if>
+      <if test="carCrewId != null">
+        car_crew_id,
+      </if>
+      <if test="ironCode != null">
+        iron_code,
+      </if>
+      <if test="money != null">
+        money,
+      </if>
+      <if test="displacement != null">
+        displacement,
+      </if>
+      <if test="bodyStructure != null">
+        body_structure,
+      </if>
+      <if test="typeTransmission != null">
+        type_transmission,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="carName != null">
+        #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carCrewId != null">
+        #{carCrewId,jdbcType=INTEGER},
+      </if>
+      <if test="ironCode != null">
+        #{ironCode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null">
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStructure != null">
+        #{bodyStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTransmission != null">
+        #{typeTransmission,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+    update tieshangj_car_model
+    <set>
+      <if test="carName != null">
+        car_name = #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carCrewId != null">
+        car_crew_id = #{carCrewId,jdbcType=INTEGER},
+      </if>
+      <if test="ironCode != null">
+        iron_code = #{ironCode,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null">
+        money = #{money,jdbcType=VARCHAR},
+      </if>
+      <if test="displacement != null">
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStructure != null">
+        body_structure = #{bodyStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="typeTransmission != null">
+        type_transmission = #{typeTransmission,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectCheXiId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+   SELECT
+        m.id,
+        m.car_name,
+        m.iron_code
+    FROM
+        tieshangj_car_model m
+        INNER JOIN tieshangj_car_train_crew g ON m.car_crew_id = g.id
+        INNER JOIN tieshangj_car_vehicle_system s ON s.id = g.vehice_system_id
+    WHERE
+	    s.id = #{chexiId}  order by car_name asc
+  </select>
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+          l.a_name,
+          s.v_name,
+          m.id,
+          m.car_name,
+          m.iron_code,
+          m.money,
+          m.displacement,
+          m.body_structure,
+          m.type_transmission,
+          m.updated_time
+        FROM
+          tieshangj_car_model m
+          INNER JOIN tieshangj_car_train_crew c ON m.car_crew_id = c.id
+          INNER JOIN tieshangj_car_vehicle_system s ON c.vehice_system_id = s.id
+          INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
+          INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
+    <where>
+      <if test="brandName!=null and brandName!=''">
+        and l.a_name = #{brandName}
+      </if>
+      <if test="carModelName!=null and carModelName!=''">
+        and m.car_name like CONCAT('%',#{carModelName},'%')
+      </if>
+    </where>
+    limit #{page},#{pagesize}
+  </select>
+  <select id="selectAllCount" parameterType="map" resultType="Integer">
+    SELECT
+    count(m.id)
+    FROM
+    tieshangj_car_model m
+    INNER JOIN tieshangj_car_train_crew c ON m.car_crew_id = c.id
+    INNER JOIN tieshangj_car_vehicle_system s ON c.vehice_system_id = s.id
+    INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
+    INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
+    <where>
+      <if test="purchasePrice!=null and purchasePrice!=''">
+        and l.a_name = #{purchasePrice}
+      </if>
+      <if test="createdBy!=null and createdBy!=''">
+        and m.car_name like CONCAT('%',#{vinCode},'%')
+      </if>
+    </where>
+  </select>
+</mapper>
