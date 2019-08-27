@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.chegujiaMapper;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
 
-import com.tieshan.api.po.chegujiaPo.TieshangjCityInfo;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo;
 
 import java.util.List;
 

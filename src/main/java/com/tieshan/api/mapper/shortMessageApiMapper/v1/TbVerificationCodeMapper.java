@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.shortMessageApiMapper;
+package com.tieshan.api.mapper.homePageMapper.v1;
 
-import com.tieshan.api.po.shortMessageApiPo.TbVerificationCode;
+import com.tieshan.api.po.shortMessageApiPo.v1.TbVerificationCode;
 
 import java.util.Map;
 

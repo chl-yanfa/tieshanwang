@@ -1,5 +1,6 @@
-package com.tieshan.api.mapper.homePageMapper;
-import com.tieshan.api.po.homePagePo.bo.CarPmAuctionOrderDealSerach;
+package com.tieshan.api.mapper.homePageMapper.v1;
+import com.tieshan.api.po.homePagePo.bo.v1.CarPmAuctionOrderDealSerach;
+
 import java.util.List;
 
 public interface CarPmAuctionOrderDealSerachMapper {

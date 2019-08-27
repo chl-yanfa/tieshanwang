@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.homePageMapper;
+package com.tieshan.api.mapper.homePageMapper.v1;
 
-import com.tieshan.api.po.homePagePo.bo.CarScrapOrderDealBO;
+import com.tieshan.api.po.homePagePo.bo.v1.CarScrapOrderDealBO;
 
 import java.util.List;
 

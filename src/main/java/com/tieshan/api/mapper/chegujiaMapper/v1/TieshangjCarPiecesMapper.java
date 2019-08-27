@@ -1,14 +1,12 @@
-package com.tieshan.api.mapper.chegujiaMapper;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
 
-import com.tieshan.api.po.chegujiaPo.TieshangjCarPieces;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface TieshangjCarPiecesMapper {
-    int deleteByPrimaryKey(Integer id);
 
-    int insert(TieshangjCarPieces record);
 
     int insertSelective(TieshangjCarPieces record);
 

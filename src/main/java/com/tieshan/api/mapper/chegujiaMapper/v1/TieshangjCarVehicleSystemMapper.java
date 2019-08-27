@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.chegujiaMapper;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
 
-import com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem;
 
 import java.util.List;
 

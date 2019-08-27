@@ -1,6 +1,5 @@
-package com.tieshan.api.mapper.chegujiaMapper;
-
-import com.tieshan.api.po.chegujiaPo.TieshangjCarRegionalArtificial;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarRegionalArtificial;
 import org.apache.ibatis.annotations.Param;
 
 public interface TieshangjCarRegionalArtificialMapper {

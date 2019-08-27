@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.chegujiaMapper;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
 
-import com.tieshan.api.po.chegujiaPo.TieshangjCarProfit;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit;
 
 public interface TieshangjCarProfitMapper {
     int deleteByPrimaryKey(Integer id);

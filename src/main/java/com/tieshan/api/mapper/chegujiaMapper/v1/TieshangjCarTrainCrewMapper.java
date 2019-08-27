@@ -1,6 +1,6 @@
-package com.tieshan.api.mapper.chegujiaMapper;
+package com.tieshan.api.mapper.chegujiaMapper.v1;
 
-import com.tieshan.api.po.chegujiaPo.TieshangjCarTrainCrew;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarTrainCrew;
 
 public interface TieshangjCarTrainCrewMapper {
     int deleteByPrimaryKey(Integer id);
