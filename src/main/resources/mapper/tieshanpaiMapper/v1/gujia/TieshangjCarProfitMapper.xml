@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarProfitMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarProfit">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarProfitMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="car_tiema" jdbcType="VARCHAR" property="carTiema" />
     <result column="profit" jdbcType="VARCHAR" property="profit" />
@@ -23,7 +23,7 @@
     delete from tieshangj_car_profit
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarProfit">
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit">
     insert into tieshangj_car_profit (id, car_tiema, profit, 
       created_by, created_time, updated_by, 
       updated_time)
@@ -31,7 +31,7 @@
       #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarProfit">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit">
     insert into tieshangj_car_profit
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarProfit">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit">
     update tieshangj_car_profit
     <set>
       <if test="carTiema != null">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarAutoLogosMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarAutoLogosMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="a_name" jdbcType="VARCHAR" property="aName" />
     <result column="a_alias" jdbcType="VARCHAR" property="aAlias" />
@@ -24,7 +24,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
 
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
     insert into tieshangj_car_auto_logos
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
     update tieshangj_car_auto_logos
     <set>
       <if test="aName != null">

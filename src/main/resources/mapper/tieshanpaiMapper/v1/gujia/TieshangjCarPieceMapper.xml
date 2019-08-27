@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarPieceMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarPieceMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="piece_name" jdbcType="VARCHAR" property="pieceName" />
     <result column="levels" jdbcType="INTEGER" property="levels" />
@@ -20,19 +20,7 @@
     from tieshangj_car_piece
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tieshangj_car_piece
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
-    insert into tieshangj_car_piece (id, piece_name, levels, 
-      parent_id, created_by, created_time, 
-      updated_by, updated_time)
-    values (#{id,jdbcType=INTEGER}, #{pieceName,jdbcType=VARCHAR}, #{levels,jdbcType=INTEGER}, 
-      #{parentId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece">
     insert into tieshangj_car_piece
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +75,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece">
     update tieshangj_car_piece
     <set>
       <if test="pieceName != null">
@@ -114,17 +102,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarPiece">
-    update tieshangj_car_piece
-    set piece_name = #{pieceName,jdbcType=VARCHAR},
-      levels = #{levels,jdbcType=INTEGER},
-      parent_id = #{parentId,jdbcType=INTEGER},
-      created_by = #{createdBy,jdbcType=VARCHAR},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_by = #{updatedBy,jdbcType=VARCHAR},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
   <select id="selectYi"  resultMap="BaseResultMap">
     select id,piece_name from tieshangj_car_piece where levels=#{levels}
   </select>

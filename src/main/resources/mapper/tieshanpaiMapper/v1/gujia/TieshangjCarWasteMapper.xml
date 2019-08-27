@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarWasteMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarWaste">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarWasteMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="w_name" jdbcType="VARCHAR" property="wName" />
     <result column="w_money" jdbcType="VARCHAR" property="wMoney" />
@@ -24,7 +24,7 @@
     delete from tieshangj_car_waste
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarWaste">
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste">
     insert into tieshangj_car_waste (id, w_name, w_money, 
       car_model_id, created_by, created_time, 
       updated_by, updated_time)
@@ -32,7 +32,7 @@
       #{carModelId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
       #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarWaste">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste">
     insert into tieshangj_car_waste
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarWaste">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste">
     update tieshangj_car_waste
     <set>
       <if test="wName != null">
@@ -114,7 +114,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarWaste">
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste">
     update tieshangj_car_waste
     set w_name = #{wName,jdbcType=VARCHAR},
       w_money = #{wMoney,jdbcType=VARCHAR},

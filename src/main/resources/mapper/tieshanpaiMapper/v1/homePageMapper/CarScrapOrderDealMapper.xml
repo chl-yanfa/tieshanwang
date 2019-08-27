@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.homePageMapper.CarScrapOrderDealMapper">
-	<resultMap id="BaseResultMap" type="com.tieshan.api.po.homePagePo.bo.CarScrapOrderDealBO">
+<mapper namespace="com.tieshan.api.mapper.homePageMapper.v1.CarScrapOrderDealMapper">
+	<resultMap id="BaseResultMap" type="com.tieshan.api.po.homePagePo.bo.v1.CarScrapOrderDealBO">
 		<id column="id" 						property="id" />
 	    <result column="order_no" 				property="orderNo" />
 	    <result column="order_type" 			property="orderType" />
@@ -21,7 +21,7 @@
 	    <result column="description" 			property="description" />
 	    <result column="head_img_url" 			property="headImgUrl" />
 	</resultMap>
-	<resultMap id="carScrapOrderDealBO" type="com.tieshan.api.po.homePagePo.bo.CarScrapOrderDealBO">
+	<resultMap id="carScrapOrderDealBO" type="com.tieshan.api.po.homePagePo.bo.v1.CarScrapOrderDealBO">
 		<id column="id" 						property="id" />
 	    <result column="order_no" 				property="orderNo" />
 	    <result column="order_type" 			property="orderType" />
@@ -42,7 +42,7 @@
 	    <result column="head_img_url" 			property="headImgUrl" />
 	    
 	    <collection property="attachmentList" 
-	    	ofType="com.tieshan.api.po.homePagePo.bo.CarScrapOrderDealAttachmentBO"
+	    	ofType="com.tieshan.api.po.homePagePo.bo.v1.CarScrapOrderDealAttachmentBO"
 	    	column="order_deal_id=id"
 			select="getAttachmentList">
 		</collection>

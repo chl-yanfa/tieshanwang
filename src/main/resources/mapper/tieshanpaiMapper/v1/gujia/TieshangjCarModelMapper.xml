@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarModelMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarModelMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="car_name" jdbcType="VARCHAR" property="carName" />
     <result column="car_crew_id" jdbcType="INTEGER" property="carCrewId" />
@@ -14,7 +14,7 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
-    <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.TieshangjCarAutoLogos">
+    <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
       <result column="a_name" jdbcType="VARCHAR" property="aName"/>
     </association>
   </resultMap>
@@ -28,23 +28,7 @@
     from tieshangj_car_model
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tieshangj_car_model
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
-    insert into tieshangj_car_model (id, car_name, car_crew_id, 
-      iron_code, money, displacement, 
-      body_structure, type_transmission, created_by, 
-      created_time, updated_by, updated_time
-      )
-    values (#{id,jdbcType=INTEGER}, #{carName,jdbcType=VARCHAR}, #{carCrewId,jdbcType=INTEGER}, 
-      #{ironCode,jdbcType=VARCHAR}, #{money,jdbcType=VARCHAR}, #{displacement,jdbcType=VARCHAR}, 
-      #{bodyStructure,jdbcType=VARCHAR}, #{typeTransmission,jdbcType=VARCHAR}, #{createdBy,jdbcType=VARCHAR}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
     insert into tieshangj_car_model
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -123,7 +107,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarModel">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
     update tieshangj_car_model
     <set>
       <if test="carName != null">

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarVehicleSystemMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarVehicleSystemMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="v_name" jdbcType="VARCHAR" property="vName" />
     <result column="brand_id" jdbcType="INTEGER" property="brandId" />
@@ -23,7 +23,7 @@
     delete from tieshangj_car_vehicle_system
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem">
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
     insert into tieshangj_car_vehicle_system (id, v_name, brand_id, 
       created_by, created_time, updated_by, 
       updated_time)
@@ -31,7 +31,7 @@
       #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedBy,jdbcType=VARCHAR}, 
       #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
     insert into tieshangj_car_vehicle_system
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
     update tieshangj_car_vehicle_system
     <set>
       <if test="vName != null">
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarVehicleSystem">
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
     update tieshangj_car_vehicle_system
     set v_name = #{vName,jdbcType=VARCHAR},
       brand_id = #{brandId,jdbcType=INTEGER},

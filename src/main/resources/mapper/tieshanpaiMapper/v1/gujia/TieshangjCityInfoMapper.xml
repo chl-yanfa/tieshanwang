@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCityInfoMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCityInfo">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCityInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo">
     <result column="citycode" jdbcType="INTEGER" property="citycode" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
     <result column="provincecode" jdbcType="INTEGER" property="provincecode" />
     <result column="city_namecn" jdbcType="VARCHAR" property="cityNamecn" />
   </resultMap>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCityInfo">
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo">
     insert into tieshangj_city_info (citycode, sort, provincecode, 
       city_namecn)
     values (#{citycode,jdbcType=INTEGER}, #{sort,jdbcType=INTEGER}, #{provincecode,jdbcType=INTEGER}, 
       #{cityNamecn,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCityInfo">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo">
     insert into tieshangj_city_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="citycode != null">

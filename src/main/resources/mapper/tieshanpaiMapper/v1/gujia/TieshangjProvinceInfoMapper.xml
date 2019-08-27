@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjProvinceInfoMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjProvinceInfo">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjProvinceInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjProvinceInfo">
     <result column="provincecode" jdbcType="VARCHAR" property="provincecode" />
     <result column="namecn" jdbcType="VARCHAR" property="namecn" />
     <result column="countrycode" jdbcType="VARCHAR" property="countrycode" />
     <result column="sort" jdbcType="INTEGER" property="sort" />
   </resultMap>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjProvinceInfo">
+  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjProvinceInfo">
     insert into tieshangj_province_info (provincecode, namecn, countrycode, 
       sort)
     values (#{provincecode,jdbcType=VARCHAR}, #{namecn,jdbcType=VARCHAR}, #{countrycode,jdbcType=VARCHAR}, 
       #{sort,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjProvinceInfo">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjProvinceInfo">
     insert into tieshangj_province_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="provincecode != null">

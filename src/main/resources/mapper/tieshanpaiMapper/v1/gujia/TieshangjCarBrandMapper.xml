@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarBrandMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarBrand">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarBrandMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="b_name" jdbcType="VARCHAR" property="bName" />
     <result column="b_initials" jdbcType="VARCHAR" property="bInitials" />
@@ -20,19 +20,9 @@
     from tieshangj_car_brand
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tieshangj_car_brand
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarBrand">
-    insert into tieshangj_car_brand (id, b_name, b_initials, 
-      auto_logosz_id, created_by, created_time, 
-      updated_by, updated_time)
-    values (#{id,jdbcType=INTEGER}, #{bName,jdbcType=VARCHAR}, #{bInitials,jdbcType=VARCHAR}, 
-      #{autoLogoszId,jdbcType=INTEGER}, #{createdBy,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updatedBy,jdbcType=VARCHAR}, #{updatedTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarBrand">
+
+
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand">
     insert into tieshangj_car_brand
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +77,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarBrand">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand">
     update tieshangj_car_brand
     <set>
       <if test="bName != null">
@@ -114,17 +104,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarBrand">
-    update tieshangj_car_brand
-    set b_name = #{bName,jdbcType=VARCHAR},
-      b_initials = #{bInitials,jdbcType=VARCHAR},
-      auto_logosz_id = #{autoLogoszId,jdbcType=INTEGER},
-      created_by = #{createdBy,jdbcType=VARCHAR},
-      created_time = #{createdTime,jdbcType=TIMESTAMP},
-      updated_by = #{updatedBy,jdbcType=VARCHAR},
-      updated_time = #{updatedTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
   <select id="selectCBId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select id,b_name
     from tieshangj_car_brand

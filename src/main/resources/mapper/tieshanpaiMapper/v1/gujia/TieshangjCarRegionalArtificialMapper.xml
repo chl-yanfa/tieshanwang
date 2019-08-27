@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.TieshangjCarRegionalArtificialMapper">
-  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.TieshangjCarRegionalArtificial">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.TieshangjCarRegionalArtificialMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarRegionalArtificial">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="car_tid" jdbcType="INTEGER" property="carTid" />
     <result column="province_id" jdbcType="INTEGER" property="provinceId" />
@@ -26,7 +26,7 @@
     delete from tieshangj_car_regional_artificial
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarRegionalArtificial">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarRegionalArtificial">
     insert into tieshangj_car_regional_artificial
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.TieshangjCarRegionalArtificial">
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarRegionalArtificial">
     update tieshangj_car_regional_artificial
     <set>
       <if test="carTid != null">
