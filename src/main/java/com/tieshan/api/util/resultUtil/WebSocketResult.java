@@ -11,6 +11,8 @@ public class WebSocketResult {
 
     private String totalPrice;
 
+    private String realPrice;
+
     private String startTimeCount;
 
     private String endTimeCount;
@@ -20,6 +22,9 @@ public class WebSocketResult {
     private String orderStateS;
 
     private String cid;
+
+    private String uid;
+
 
     public String getAuction() {
         return auction;
@@ -77,16 +82,34 @@ public class WebSocketResult {
         this.cid = cid;
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getRealPrice() {
+        return realPrice;
+    }
+
+    public void setRealPrice(String realPrice) {
+        this.realPrice = realPrice;
+    }
+
     @Override
     public String toString() {
         return "WebSocketResult{" +
                 "auction='" + auction + '\'' +
                 ", totalPrice='" + totalPrice + '\'' +
+                ", realPrice='" + realPrice + '\'' +
                 ", startTimeCount='" + startTimeCount + '\'' +
                 ", endTimeCount='" + endTimeCount + '\'' +
                 ", orderState='" + orderState + '\'' +
                 ", orderStateS='" + orderStateS + '\'' +
                 ", cid='" + cid + '\'' +
+                ", uid='" + uid + '\'' +
                 '}';
     }
 }

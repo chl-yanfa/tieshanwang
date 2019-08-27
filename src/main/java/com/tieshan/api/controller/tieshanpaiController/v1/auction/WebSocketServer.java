@@ -1,6 +1,7 @@
 package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -80,16 +81,17 @@ public class WebSocketServer {
      * @param message 客户端发送过来的消息*/
     @OnMessage
     public void onMessage(String message, Session session) {
-        log.info("收到来自窗口"+sid+"的信息:"+message);
+
         SimpleDateFormat sb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         WebSocketResult wb =  JSONObject.toJavaObject(JSONObject.parseObject(message), WebSocketResult.class);
-        System.out.println("这是："+wb.getCid());
+        log.info("收到来自窗口"+sid+"的信息:"+message);
         try{
             BidMapper bidMapper =  (BidMapper) WebsocketConnUtil.getApplicationContext().getBean(BidMapper.class);
             CarPmAuctionMapper carPmAuctionMapper =  (CarPmAuctionMapper) WebsocketConnUtil.getApplicationContext().getBean(CarPmAuctionMapper.class);
 
             CarPmAuctionVo auctionDto = carPmAuctionMapper.getAuctionInfoByWS(wb.getCid());
-            System.out.println("auctionDto在这里:"+auctionDto);
+            BigDecimal realPrice = auctionDto.getHighestPrice().add(auctionDto.getOtherPrice()).add(auctionDto.getCommission());
+
             OrderInfoVo ov =  bidMapper.getOrderInfoResultByWS(wb.getCid());
             WebSocketResult webs = new WebSocketResult();
             switch (ov.getOrderStatus()){
@@ -111,13 +113,12 @@ public class WebSocketServer {
             webs.setStartTimeCount(sb.format(ov.getCompeteTime()));
             webs.setEndTimeCount(sb.format(ov.getCompeteOverTime()));
             webs.setOrderState(ov.getOrderStatus());
-            System.out.println("最终结果是:"+JSONObject.toJSONString(webs));
-
+            webs.setRealPrice(realPrice==null?"0":realPrice.toString());
             //群发消息
             for (WebSocketServer item : webSocketSet) {
                 try {
                     //item.sendMessage(message);
-                    item.sendInfo(JSONObject.toJSONString(webs),wb.getCid());
+                    item.sendInfo(JSONObject.toJSONString(webs),wb.getUid());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -148,16 +149,17 @@ public class WebSocketServer {
     /**
      * 群发自定义消息
      * */
-    public static void sendInfo(String message,@PathParam("sid") String sid) throws IOException {
-        log.info("推送消息到窗口"+sid+"，推送内容:"+message);
+    public static void sendInfo(String message,@PathParam("uid") String uid) throws IOException {
+        log.info("推送消息到窗口"+uid+"，推送内容:"+message);
         for (WebSocketServer item : webSocketSet) {
             try {
-                //这里可以设定只推送给这个sid的，为null则全部推送
-                if(sid==null) {
-                    item.sendMessage(message);
-                }else if(item.sid.equals(sid)){
+                //这里可以设定只推送给这个uid的
+                if(uid!=null) {
                     item.sendMessage(message);
                 }
+//                else if(item.sid.equals(uid)){
+//                    item.sendMessage(message);
+//                }
             } catch (IOException e) {
                 continue;
             }

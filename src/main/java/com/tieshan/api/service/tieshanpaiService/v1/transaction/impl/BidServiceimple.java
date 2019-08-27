@@ -173,7 +173,7 @@ public class BidServiceimple implements BidService {
 			//竞价
 			if (Constants.BID_TYPE_BIDDING.equals(bidDto.getBidType())) {
 				cometContent = biePrice(bidDto,order);// 调用出竞价接口
-				WebSocketServer.sendInfo(cometContent,bidDto.getCarCode());
+				WebSocketServer.sendInfo(cometContent,bidDto.getMemberCode());
 				// 推送消息
 				//CometUtil.pushMsg(Constants.COMET_TYPE_NEWPRICE,cometContent);
 			}

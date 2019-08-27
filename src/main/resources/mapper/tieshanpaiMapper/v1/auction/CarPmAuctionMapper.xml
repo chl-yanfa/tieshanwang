@@ -431,11 +431,11 @@
         <include refid="ListIf" />
     </select>
 
-    <select id="getHeightPrice" parameterType="java.lang.String" resultType="java.lang.Integer">
+    <select id="getHeightPrice" parameterType="java.lang.String" resultType="int">
         select
         (
         SELECT
-            MAX( HB.BID_AMOUNT )
+            COALESCE(MAX(HB.BID_AMOUNT),'0')
         FROM
             car_pm_offer_water HB
         WHERE
