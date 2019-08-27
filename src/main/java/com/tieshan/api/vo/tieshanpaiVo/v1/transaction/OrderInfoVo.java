@@ -43,7 +43,7 @@ public class OrderInfoVo {
     private String roundState;
     private String memberCode;
     private Integer myQuotePrice = 0;	//我的最高报价
-    private BigDecimal auctionCashDeposit ;
+    private BigDecimal auctionCashDeposit; //拍卖保证金
 
 
 

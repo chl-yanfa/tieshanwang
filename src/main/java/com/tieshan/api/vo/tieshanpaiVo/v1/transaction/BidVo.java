@@ -10,7 +10,7 @@ public class BidVo {
 	private String orderId;
 	private String orderNo;
 	private String promisesType;
-	private Integer bidAmount = 0;
+	private Integer bidAmount = 0; //用户出价金额
 	private Date bidTime;
 	private String bidWay;
 	private String deleteTag;

@@ -17,7 +17,7 @@
 		       T.AUCTION_ID            as pmCarId,
 		       T.AUCTION_START_TIME    as competeTime,
 		       T.AUCTION_END_TIME      as competeOverTime,
-		       T.ORDER_STATE           as orderStatus,
+		       A.auction_state           as orderStatus,
 		       T.IS_HISTORY            as isHistory,
 		       T.ORDER_NO              as orderNo,
 		       T.AUCTION_CASH_DEPOSIT  as auctionCashDeposit,
@@ -27,6 +27,8 @@
 			             WHERE HB.IS_DELETE = 0
 			             AND HB.ORDER_ID = T.id)   as  bidMaxpriceUnlimitedStr
 		  FROM  car_pm_auction_set T
+		  	left join car_pm_auction A
+			on T.auction_id = A.id
           WHERE T.is_delete = 0
           AND   T.ID=#{orderId};
 
@@ -34,4 +36,28 @@
 	</select>
 
 
+
+	<select id="getOrderInfoResultByWS" resultMap="OrderInfoVo" parameterType="java.lang.String">
+	 	SELECT SYSDATE()               as sysDate,
+		       T.ID                    as ordedId,
+		       T.AUCTION_ID            as pmCarId,
+		       T.AUCTION_START_TIME    as competeTime,
+		       T.AUCTION_END_TIME      as competeOverTime,
+		       A.auction_state           as orderStatus,
+		       T.IS_HISTORY            as isHistory,
+		       T.ORDER_NO              as orderNo,
+		       T.AUCTION_CASH_DEPOSIT  as auctionCashDeposit,
+		       TIME_TO_SEC(TIMEDIFF(T.AUCTION_END_TIME,SYSDATE())) as surplusTime,
+		       (SELECT CONCAT_WS('U',MAX(HB.BID_AMOUNT), HB.MID)
+			             FROM car_pm_offer_water HB
+			             WHERE HB.IS_DELETE = 0
+			             AND HB.ORDER_ID = T.id)   as  bidMaxpriceUnlimitedStr
+		  FROM  car_pm_auction_set T
+		  	left join car_pm_auction A
+			on T.auction_id = A.id
+          WHERE T.is_delete = 0
+          AND   A.auction_no=#{auctionNo};
+
+
+	</select>
 </mapper>

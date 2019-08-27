@@ -108,6 +108,8 @@ public class CarPmAuctionVo {
 
     private BigDecimal totalPrice;				//当前合手价
 
+    private BigDecimal realPrice;           //实际付款金额
+
     private List<CarScrapOrderAutopartsVo> autopartsList;    //配件列表
 
     private Date sysDate;
@@ -121,6 +123,12 @@ public class CarPmAuctionVo {
     private Date recoveryTime;               //回收时间
 
     private Date settlementTime;             //结算时间
+
+
+    private String startDate;  //拍品开始时间_字符串
+
+    private String endDate; //拍品结束时间_字符串
+
 
     public String getId() {
         return id;
@@ -446,5 +454,85 @@ public class CarPmAuctionVo {
     public void setAuctionFileList(List<CarPmAuctionFileVo> auctionFileList) {
         this.auctionFileList = auctionFileList;
     }
+    public BigDecimal getRealPrice() {
+        return realPrice;
+    }
+    public void setRealPrice(BigDecimal realPrice) {
+        this.realPrice = realPrice;
+    }
+    public String getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+    public String getEndDate() {
+        return endDate;
+    }
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
 
+    @Override
+    public String toString() {
+        return "CarPmAuctionVo{" +
+                "id='" + id + '\'' +
+                ", dealMid='" + dealMid + '\'' +
+                ", orderId='" + orderId + '\'' +
+                ", orderNo='" + orderNo + '\'' +
+                ", dealTime=" + dealTime +
+                ", payTime=" + payTime +
+                ", takeCarTime=" + takeCarTime +
+                ", auctionType=" + auctionType +
+                ", auctionTypeS='" + auctionTypeS + '\'' +
+                ", auctionNo='" + auctionNo + '\'' +
+                ", vin='" + vin + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", lotAreas='" + lotAreas + '\'' +
+                ", lotAreasId=" + lotAreasId +
+                ", lotAreasArr=" + lotAreasArr +
+                ", auctionTypeArr=" + auctionTypeArr +
+                ", productionDate=" + productionDate +
+                ", isHasKey='" + isHasKey + '\'' +
+                ", description='" + description + '\'' +
+                ", buyRequirement='" + buyRequirement + '\'' +
+                ", lookContacts='" + lookContacts + '\'' +
+                ", lookContactNumber='" + lookContactNumber + '\'' +
+                ", lookAddress='" + lookAddress + '\'' +
+                ", lookCoordinate='" + lookCoordinate + '\'' +
+                ", bidNotice='" + bidNotice + '\'' +
+                ", specialNotice='" + specialNotice + '\'' +
+                ", isDelete=" + isDelete +
+                ", createTime=" + createTime +
+                ", createUser='" + createUser + '\'' +
+                ", startingPrice=" + startingPrice +
+                ", orderState='" + orderState + '\'' +
+                ", orderStateS='" + orderStateS + '\'' +
+                ", commission=" + commission +
+                ", otherPrice=" + otherPrice +
+                ", auctionFileList=" + auctionFileList +
+                ", imgPath='" + imgPath + '\'' +
+                ", pageNum=" + pageNum +
+                ", rows=" + rows +
+                ", auctionStartTime=" + auctionStartTime +
+                ", auctionEndTime=" + auctionEndTime +
+                ", type=" + type +
+                ", lotPartsCount=" + lotPartsCount +
+                ", partsWeight='" + partsWeight + '\'' +
+                ", delaySecond=" + delaySecond +
+                ", highestPrice=" + highestPrice +
+                ", totalPrice=" + totalPrice +
+                ", realPrice=" + realPrice +
+                ", autopartsList=" + autopartsList +
+                ", sysDate=" + sysDate +
+                ", carNumber='" + carNumber + '\'' +
+                ", partsCount=" + partsCount +
+                ", orderAmount=" + orderAmount +
+                ", recoveryTime=" + recoveryTime +
+                ", settlementTime=" + settlementTime +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                '}';
+    }
 }

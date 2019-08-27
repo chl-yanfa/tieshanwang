@@ -1,7 +1,10 @@
 package com.tieshan.api.service.tieshanpaiService.v1.transaction.impl;
 
 
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.tieshan.api.common.tieshanpaiCommon.v1.*;
+import com.tieshan.api.controller.tieshanpaiController.v1.auction.WebSocketServer;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginWaterMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper;
@@ -12,6 +15,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.customer.CusCustomerMargin;
 import com.tieshan.api.po.tieshanpaiPo.v1.customer.CusCustomerMarginWater;
 import com.tieshan.api.po.tieshanpaiPo.v1.transaction.TraHighestBid;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
+import com.tieshan.api.util.resultUtil.WebSocketResult;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.OrderInfoVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.TraOfferWaterVo;
@@ -45,6 +49,7 @@ public class BidServiceimple implements BidService {
 	private TraOfferWaterMapper traOfferWaterMapper;
 
 
+
 	/**
 	 * 竞价
 	 * @param bidDto
@@ -56,50 +61,39 @@ public class BidServiceimple implements BidService {
 		ResultVO<String> result = new ResultVO<String>();
 		OrderInfoVo order = bidMapper.getOrderInfo(bidDto);
 
-		order.setAuctionCashDeposit(new BigDecimal("999999"));  //demo 手动设置保证金
-
-
-		System.out.println("测试数据："+order);
 		if(order ==null){
 			result.setReturnCode(Constants.RETURN_CODE_DATA_NULL);
+			result.setReturnMsg("未找到该拍品！");
 			return result;
 		}
 		//	int FREEZEAMOUNT_MIN = Integer.parseInt(AuthorizationUtil.getInstance().getString("FREEZEAMOUNT_MIN"));
-		BigDecimal FREEZEAMOUNT_MIN = order.getAuctionCashDeposit();  //获得用户拥有的保证金
-		System.out.println("测试数据1："+FREEZEAMOUNT_MIN);
+		BigDecimal FREEZEAMOUNT_MIN = order.getAuctionCashDeposit();
 		bidDto.setFreezeAmount(FREEZEAMOUNT_MIN.intValue());
 		bidDto.setOrderNo(order.getOrderNo());
-		System.out.println("测试数据2："+bidDto.getMemberCode());
+
 		CusCustomerMargin cusCustomerMargin = new CusCustomerMargin();
 		cusCustomerMargin.setUid(bidDto.getMemberCode());
-
 		cusCustomerMargin.setDeleteTag("0"); //demo 手动设置为非冻结
-
 		cusCustomerMargin = cusCustomerMarginMapper.getCusCustomerMarginByMember(cusCustomerMargin);
-		System.out.println("测试数据3:"+cusCustomerMargin);
 
 		int cha = cusCustomerMargin.getWalletPledge().compareTo(FREEZEAMOUNT_MIN);  //判断用户拥有的保证金是否大于当前订单所需要的保证金
-		System.out.println("测试数据4:"+cha);  //1.大于 0.等于 -1 小于
-		System.out.println("测试数据5:"+order.getMemberCode());    //获得拍卖人id,来自sys_client
 		if(!bidDto.getMemberCode().equals(order.getMemberCode())){
 			if (null == cusCustomerMargin || cha == -1 ) {
 				result.setReturnCode(Constants.MARGIN_LESS);
+				result.setReturnMsg("保证金余额不足！请充值！");
 				return result;
 			}
 		}
 		bidDto.setSysDate(order.getSysDate());
 		ResultVO<String> res = bidCheck(bidDto, order); //检查拍卖
-		System.out.println("测试数据6:"+res);
 		if(!res.getReturnCode().equals(Constants.RETURN_CODE_SUCCESS)){
 			return res;
 		}
 		String bidType = bidDto.getBidType();
 		if(Constants.BID_TYPE_BIDDING.equals(bidType)){
-			System.out.println("进入逻辑2!");
 			result = toBid(bidDto, order);
 			return result;
 		}
-
 		return result;
 	}
 
@@ -113,13 +107,11 @@ public class BidServiceimple implements BidService {
 	public ResultVO<String> bidCheck(BidVo bidDto, OrderInfoVo order) {
 		ResultVO<String> result = new ResultVO<String>();
 		String bidType = bidDto.getBidType();
-		System.out.println("这是传进来的竞拍状态!!"+bidType);
+		System.out.println("这个订单在pm_auction_set中的订单状态为:"+order.getOrderStatus());
 		if (Constants.BID_TYPE_BIDDING.equals(bidType)) {
-
-			System.out.println("该订单所拥有的订单状态为:"+order.getOrderStatus()+"20为在竞拍");
-
 			if (!order.getOrderStatus().equals(Constants.ORDER_STATUS_AUCTIONING)) {
 				result.setReturnCode(Constants.QUOTEPRICE_NOT_SUPPORT);
+				result.setReturnMsg("当前订单状态，不支持此次出价方式!");
 				return result;
 			}
 			//是否已暂停
@@ -127,41 +119,40 @@ public class BidServiceimple implements BidService {
 			//不是现场拍检查出价次数
 
 			int newPrice = bidDto.getBidAmount();
-			System.out.println("你对订单的出价金额为:"+newPrice);
 			int maxPrice = 0;
 			maxPrice = order.getBidMaxpriceUnlimited();
-			System.out.println("当前订单的最高价为:"+maxPrice);
 			//最小加价幅度
 			int addExtent = Integer.valueOf(AuthorizationUtil.getInstance().getString("ADD_EXTENT"));
-			System.out.println("该订单的最小加价幅度为："+addExtent);
 			//新价和最高价比较
 			if(newPrice <= maxPrice){
-				System.out.println("错误1");
 				result.setReturnCode(Constants.PRICE_VERY_LOW);
+				result.setReturnMsg("当前报价过低!");
 				result.setPrice(maxPrice);
 				result.setMemberCode((order.getMemberCode()).substring(1));
 				return result;
 				//最小加价幅度判断
 			}else if((newPrice-maxPrice) < addExtent){
-				System.out.println("错误2");
 				result.setReturnCode(Constants.NOT_SMALLEST_INCREASE);
+				result.setReturnMsg("未达到最小出价幅度!");
 				return result;
 			}
 			// 开始时间判断
 			if (order.getSysDate().before(order.getCompeteTime())) {
-				System.out.println("错误3");
 				result.setReturnCode(Constants.NOT_START);
+				result.setReturnMsg("报价未开始!");
 				return result;
 			}
-			// 结束时间判断
-			if (order.getSysDate().after(order.getCompeteOverTime())) {  //当前时间大于竞拍时间 说明竞拍时间已过
-				System.out.println("错误4");
-				result.setReturnCode(Constants.ENDED);
-				return result;
-			}
+			System.out.println("竞拍时间为:"+order.getCompeteOverTime());
+//			// 结束时间判断
+//			if (order.getSysDate().after(order.getCompeteOverTime())) {  //当前时间大于竞拍时间 说明竞拍时间已过
+//				result.setReturnCode(Constants.ENDED);
+//			    result.setReturnMsg("报价已开始");
+//				return result;
+//			}
 			// 报价
 		}
 		result.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+		result.setReturnMsg("出价成功！");
 		return result;
 	}
 
@@ -182,15 +173,19 @@ public class BidServiceimple implements BidService {
 			//竞价
 			if (Constants.BID_TYPE_BIDDING.equals(bidDto.getBidType())) {
 				cometContent = biePrice(bidDto,order);// 调用出竞价接口
+				WebSocketServer.sendInfo(cometContent,bidDto.getCarCode());
 				// 推送消息
-				CometUtil.pushMsg(Constants.COMET_TYPE_NEWPRICE,cometContent);
+				//CometUtil.pushMsg(Constants.COMET_TYPE_NEWPRICE,cometContent);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setReturnCode(Constants.RETURN_CODE_SYSTEM_FAIL);// 200000系统错误
+			res.setReturnCode("系统错误！");
 			return res;
 		}
 		res.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+		res.setReturnMsg("出价成功!");
+
 		return res;
 	}
 
@@ -219,7 +214,6 @@ public class BidServiceimple implements BidService {
 		traHighestBid.setOrderNo(bidDto.getOrderNo());
 
 		if (highestBid != null) {
-			System.out.println("进入出价最高非空!");
 			if (highestBid.getMaximumPrice() < bidDto.getBidAmount()) {
 				highestBid.setTs(bidDto.getSysDate());
 				highestBid.setCarCode(traHighestBid.getCarCode());
@@ -376,37 +370,52 @@ public class BidServiceimple implements BidService {
 		if(null != bidDto.getOrderId()){
 			orderId = bidDto.getOrderId();
 		}
-		StringBuffer content = new StringBuffer(orderId);
-		content.append("|");
-		content.append(bidDto.getMemberCode());
-		content.append("|");
-		content.append(bidDto.getBidType());
-		content.append("|");
-		content.append(bidDto.getBidAmount());
-		content.append("|");
-		content.append(bidDto.getPromisesType());
-		content.append("|");
-		content.append(endsecond);
-		content.append("|");
-		content.append(bidDto.getBidWay());
-		content.append("|");
-		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		content.append(format.format(bidDto.getSysDate()));
-		content.append("|");
-		content.append(bidDto.getCarCode());
-		content.append("|");
-		content.append("");
-		content.append("|");
-		content.append(bidDto.getAddExtent());
-		content.append("|");
-		content.append(bidDto.getBidAmount());
-		content.append("|");
-		content.append(bidDto.getTimeliness());//数据有效性
-		content.append("|");
-		content.append(bidDto.getMemberNum());//商户编号，如：1号商户，2号商户
-		content.append("|");
-		content.append(bidDto.getRealName());//商户真实姓名
-		return content.toString();
+		OrderInfoVo order = bidMapper.getOrderInfo(bidDto);
+		SimpleDateFormat sb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		//根据orderId
+		WebSocketResult wb = new WebSocketResult();
+		wb.setAuction("paimai");
+		wb.setTotalPrice(bidDto.getBidAmount().toString());
+		wb.setStartTimeCount(sb.format(order.getCompeteTime()));
+		wb.setEndTimeCount(sb.format(order.getCompeteOverTime()));
+		wb.setOrderState(order.getOrderStatus());
+		switch (order.getOrderStatus()){
+			case "2":
+				wb.setOrderStateS("等待竞拍");
+				break;
+			case "4":
+				wb.setOrderStateS("正在竞拍");
+				break;
+			case "5":
+				wb.setOrderStateS("成交");
+				break;
+			case "8":
+				wb.setOrderStateS("流拍");
+				break;
+		}
+		return JSONObject.toJSONString(wb);
+//		content.append("|");
+//		content.append(endsecond);
+//		content.append("|");
+//		content.append(bidDto.getBidWay());
+//		content.append("|");
+//		DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+//		content.append(format.format(bidDto.getSysDate()));
+//		content.append("|");
+//		content.append(bidDto.getCarCode());
+//		content.append("|");
+//		content.append("");
+//		content.append("|");
+//		content.append(bidDto.getAddExtent());
+//		content.append("|");
+//		content.append(bidDto.getBidAmount());
+//		content.append("|");
+//		content.append(bidDto.getTimeliness());//数据有效性
+//		content.append("|");
+//		content.append(bidDto.getMemberNum());//商户编号，如：1号商户，2号商户
+//		content.append("|");
+//		content.append(bidDto.getRealName());//商户真实姓名
+//		return content.toString();
 	}
 }
 

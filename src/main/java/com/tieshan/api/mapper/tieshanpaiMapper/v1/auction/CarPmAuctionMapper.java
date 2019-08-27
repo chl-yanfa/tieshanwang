@@ -4,9 +4,12 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface CarPmAuctionMapper{
@@ -22,4 +25,9 @@ public interface CarPmAuctionMapper{
     int getPaimaiListTotal(PaimaiVo paimai);
 
     List<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
+
+    int updateSinglePiece(@Param("smap")Map smap);
+
+    CarPmAuctionVo getAuctionInfoByWS(@Param("auctionNo")String auctionNo);
+
 }

@@ -13,6 +13,7 @@ public class AuctionCar {
     private String auctionNo;			//拍品编号
     private String fullName;			//拍品名称
     private String fullType;            //拍品类型
+    private String singleTime;          //要添加的秒数
     private String lotAreas;
     private String vehicleBrand;		//品牌
     private String vehicleType;			//车型
@@ -39,6 +40,10 @@ public class AuctionCar {
     private BigDecimal otherPrice=BigDecimal.ZERO;			//最终其他费用
     private BigDecimal commission=BigDecimal.ZERO;	//最终佣金
     private BigDecimal totalPrice=BigDecimal.ZERO;			//总计
+    private String timeCount;   //单个拍品开始时间
+    private String timeEndCount; //单个拍品结束时间
+    private String auctionStartTime;  //拍卖会开始时间
+    private String oneSecond; //距离单个拍品开始的秒数
     public String getAuctionId() {
         return auctionId;
     }
@@ -224,5 +229,77 @@ public class AuctionCar {
     }
     public void setFullType(String fullType) {
         this.fullType = fullType;
+    }
+    public String getTimeCount() {
+        return timeCount;
+    }
+    public void setTimeCount(String timeCount) {
+        this.timeCount = timeCount;
+    }
+    public String getSingleTime() {
+        return singleTime;
+    }
+    public void setSingleTime(String singleTime) {
+        this.singleTime = singleTime;
+    }
+    public String getAuctionStartTime() {
+        return auctionStartTime;
+    }
+    public void setAuctionStartTime(String auctionStartTime) {
+        this.auctionStartTime = auctionStartTime;
+    }
+    public String getTimeEndCount() {
+        return timeEndCount;
+    }
+    public void setTimeEndCount(String timeEndCount) {
+        this.timeEndCount = timeEndCount;
+    }
+    public String getOneSecond() {
+        return oneSecond;
+    }
+    public void setOneSecond(String oneSecond) {
+        this.oneSecond = oneSecond;
+    }
+
+    @Override
+    public String toString() {
+        return "AuctionCar{" +
+                "auctionId='" + auctionId + '\'' +
+                ", auctionSetId='" + auctionSetId + '\'' +
+                ", auctionNo='" + auctionNo + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", fullType='" + fullType + '\'' +
+                ", singleTime='" + singleTime + '\'' +
+                ", lotAreas='" + lotAreas + '\'' +
+                ", vehicleBrand='" + vehicleBrand + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", vehicleSystem='" + vehicleSystem + '\'' +
+                ", licenseNumber='" + licenseNumber + '\'' +
+                ", pmhId='" + pmhId + '\'' +
+                ", pmOrder=" + pmOrder +
+                ", orderStateS='" + orderStateS + '\'' +
+                ", orderState='" + orderState + '\'' +
+                ", dealMid='" + dealMid + '\'' +
+                ", dealMember='" + dealMember + '\'' +
+                ", startingPrice=" + startingPrice +
+                ", curPrice=" + curPrice +
+                ", reservePrice=" + reservePrice +
+                ", auctionCashDeposit=" + auctionCashDeposit +
+                ", imgPath='" + imgPath + '\'' +
+                ", auctionTypeFlag=" + auctionTypeFlag +
+                ", vin='" + vin + '\'' +
+                ", parkAddress='" + parkAddress + '\'' +
+                ", phone='" + phone + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", jointPrice=" + jointPrice +
+                ", highestPrice=" + highestPrice +
+                ", otherPrice=" + otherPrice +
+                ", commission=" + commission +
+                ", totalPrice=" + totalPrice +
+                ", timeCount='" + timeCount + '\'' +
+                ", timeEndCount='" + timeEndCount + '\'' +
+                ", auctionStartTime='" + auctionStartTime + '\'' +
+                ", oneSecond='" + oneSecond + '\'' +
+                '}';
     }
 }

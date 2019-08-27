@@ -64,7 +64,8 @@ public class Constants {
 	/** 出价类型-竞价*/
 	public final static String BID_TYPE_BIDDING = "0";
 	
-	public final static String ORDER_STATUS_AUCTIONING   =  "20"; //竞拍中
+//	public final static String ORDER_STATUS_AUCTIONING   =  "20"; //竞拍中
+	public final static String ORDER_STATUS_AUCTIONING   =  "4";
 	
 	/** 承诺类型-不限 */
 	public final static String PROMISES_TYPE_UNLIMITED = "2";

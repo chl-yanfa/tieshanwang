@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -75,8 +78,9 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/getAuctionInfo", method = RequestMethod.GET)
-    public ResultVO<CarPmAuctionVo> getAuctionInfo(String id){
-        return carPmAuctionService.getAuctionInfo(id);
+    public ResultVO<CarPmAuctionVo> getAuctionInfo(String id,String timeCount,String timeEndCount){
+        ResultVO<CarPmAuctionVo> cvo = carPmAuctionService.getAuctionInfo(id);
+        return cvo;
     }
 
 
@@ -92,21 +96,26 @@ public class getAuctionListController {
         long s = System.currentTimeMillis();
         ResultVO<String> res = new ResultVO<String>();
         try{
-            //是否为空验证
+            //验证出价金额是否为空
             if(bidVo.getBidAmount()==null){
                 res.setReturnCode(Constants.PRICE_NOT_NULL);
                 return res;
             }
-            String memberCode = String.valueOf(bidVo.getMemberCode());
-            String realName = SessionUtil.getRealName();
+            String memberCode = String.valueOf(bidVo.getMemberCode());  //获得用户的会员id sys_client
+            String realName = SessionUtil.getRealName(); //获得用户的真实姓名
+
+            //获取不到会员id和真实姓名就去request域中拿
             if(memberCode == null || "".equals(memberCode)){
                 memberCode = request.getParameter("memberCode");
                 Object object = request.getAttribute("realName");
                 realName = (String) (object == null?"":object);
-                if (memberCode == null || "".equals(memberCode)) {
+                if (memberCode == null || "".equals(memberCode)) {  // 500_error 会员id为空
                     res.setReturnCode(Constants.RETURN_CODE_PARAMETER_NULL);
                     return res;
                 }
+            }
+            if(realName==null || realName.equals("")){
+                realName=bidVo.getRealName();
             }
             bidVo.setMemberCode(memberCode);
             bidVo.setRealName(realName);
@@ -120,6 +129,22 @@ public class getAuctionListController {
         log.info("=================出价耗时："+(e-s)+"毫秒");
         return res;
     }
+
+//
+//    @RequestMapping(value ="/socket/push/{cid}",method = RequestMethod.POST)
+//    public ResultVO<String> pushToWeb(@PathVariable String cid,String message) {
+//        ResultVO<String> demoResult = new ResultVO<String>();
+//        try {
+//            WebSocketServer.sendInfo(message,cid);
+//            demoResult.setReturnCode("success");
+//            demoResult.setReturnMsg("推送消息成功!");
+//        } catch (IOException e) {
+//            demoResult.setReturnCode("error");
+//            demoResult.setReturnMsg("推送消息失败!");
+//            e.printStackTrace();
+//        }
+//        return demoResult;
+//    }
 
 
     /**

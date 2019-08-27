@@ -109,19 +109,5 @@ public class ResultVO<T> {
 		this.memberCode = memberCode;
 	}
 
-	@Override
-	public String toString() {
-		return "ResultVO{" +
-				"returnCode='" + returnCode + '\'' +
-				", returnMsg='" + returnMsg + '\'' +
-				", rows=" + rows +
-				", rows1=" + rows1 +
-				", rows2=" + rows2 +
-				", price=" + price +
-				", memberCode='" + memberCode + '\'' +
-				", total=" + total +
-				", entity=" + entity +
-				", flag='" + flag + '\'' +
-				'}';
-	}
+
 }

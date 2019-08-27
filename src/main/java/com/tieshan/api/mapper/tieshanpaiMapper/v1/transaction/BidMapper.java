@@ -2,6 +2,7 @@ package com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction;
 
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.OrderInfoVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -13,4 +14,6 @@ import org.springframework.stereotype.Repository;
 public interface BidMapper {
 
     OrderInfoVo getOrderInfo(BidVo bidDto);
+
+    OrderInfoVo getOrderInfoResultByWS(@Param("auctionNo")String auctionNo);
 }

@@ -36,6 +36,7 @@ public class Paimai {
     private Integer isDelete;
     private String weekDay;
     private String startTime;  //开始时间
+    private String imgPath;                //列表头像
     public String getId() {
         return id;
     }
@@ -189,5 +190,11 @@ public class Paimai {
     }
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+    public String getImgPath() {
+        return imgPath;
+    }
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 }
