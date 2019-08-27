@@ -89,6 +89,7 @@ public class WebSocketServer {
             CarPmAuctionMapper carPmAuctionMapper =  (CarPmAuctionMapper) WebsocketConnUtil.getApplicationContext().getBean(CarPmAuctionMapper.class);
 
             CarPmAuctionVo auctionDto = carPmAuctionMapper.getAuctionInfoByWS(wb.getCid());
+            System.out.println("auctionDto在这里:"+auctionDto);
             OrderInfoVo ov =  bidMapper.getOrderInfoResultByWS(wb.getCid());
             WebSocketResult webs = new WebSocketResult();
             switch (ov.getOrderStatus()){
@@ -106,7 +107,7 @@ public class WebSocketServer {
                     break;
             }
             webs.setAuction("xintiao");
-            webs.setTotalPrice(auctionDto.getHighestPrice().toString());
+            webs.setTotalPrice((auctionDto.getHighestPrice()==null)?"0":auctionDto.getHighestPrice().toString());
             webs.setStartTimeCount(sb.format(ov.getCompeteTime()));
             webs.setEndTimeCount(sb.format(ov.getCompeteOverTime()));
             webs.setOrderState(ov.getOrderStatus());
@@ -115,7 +116,7 @@ public class WebSocketServer {
             //群发消息
             for (WebSocketServer item : webSocketSet) {
                 try {
-                    item.sendMessage(message);
+                    //item.sendMessage(message);
                     item.sendInfo(JSONObject.toJSONString(webs),wb.getCid());
                 } catch (IOException e) {
                     e.printStackTrace();

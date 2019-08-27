@@ -431,6 +431,26 @@
         <include refid="ListIf" />
     </select>
 
+    <select id="getHeightPrice" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+        (
+        SELECT
+            MAX( HB.BID_AMOUNT )
+        FROM
+            car_pm_offer_water HB
+        WHERE
+            HB.is_delete = 0
+            AND HB.ORDER_ID = cpas.id
+        )
+        FROM
+            car_pm_auction cpa
+            LEFT JOIN car_pm_auction_set cpas ON cpa.id = cpas.auction_id
+        WHERE
+            cpa.id = #{auctionId}
+            AND cpas.is_delete = 0
+            AND cpas.is_history = 0
+    </select>
+
     <select id="getAuctionInfoByWS" resultMap="auction" parameterType="java.lang.String">
 		SELECT
 		    SYSDATE() as sysDate,

@@ -30,4 +30,6 @@ public interface CarPmAuctionMapper{
 
     CarPmAuctionVo getAuctionInfoByWS(@Param("auctionNo")String auctionNo);
 
+    int getHeightPrice(@Param("auctionId")String auctionId);
+
 }

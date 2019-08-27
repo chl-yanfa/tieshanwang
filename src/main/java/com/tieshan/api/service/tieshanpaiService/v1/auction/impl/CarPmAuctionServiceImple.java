@@ -121,6 +121,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                         String reStr = sdf.format(dt);
                         list.get(i).setTimeCount(reStr); //重新定义各个拍品的开始时间
 
+
                         Date dateEnd = sdf.parse(list.get(i).getTimeCount());
                         Calendar rightEnd = Calendar.getInstance();
                         rightEnd.setTime(dateEnd);
@@ -156,8 +157,9 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 }else{
                     list.get(i).setOneSecond("-1");
                 }
+                System.out.println("第"+(i+1)+"个拍品的auctionNo为:"+list.get(i).getAuctionId());
+                list.get(i).setCurPrice(new BigDecimal(carPmAuctionMapper.getHeightPrice(list.get(i).getAuctionId())));
             }
-
 //            for(int a=0; a<list.size(); a++){
 //                if(list.get(a).getOrderState()=="2" || list.get(a).getOrderState().equals("2")){
 //                    Date goRunTime = sdf.parse(list.get(a).getTimeCount());
