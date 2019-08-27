@@ -1,4 +1,4 @@
-package com.tieshan.api.po.homePagePo.bo;
+package com.tieshan.api.po.homePagePo.bo.v1;
 
 import java.io.Serializable;
 import java.util.Date;

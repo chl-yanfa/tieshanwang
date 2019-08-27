@@ -1,14 +1,18 @@
-package com.tieshan.api.po.chegujiaPo;
+package com.tieshan.api.po.chegujiaPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarVehicleSystem implements Serializable {
+public class TieshangjCarRegionalArtificial implements Serializable {
     private Integer id;
 
-    private String vName;
+    private Integer carTid;
 
-    private Integer brandId;
+    private Integer provinceId;
+
+    private Integer cityId;
+
+    private String adjustmentNum;
 
     private String createdBy;
 
@@ -28,20 +32,36 @@ public class TieshangjCarVehicleSystem implements Serializable {
         this.id = id;
     }
 
-    public String getvName() {
-        return vName;
+    public Integer getCarTid() {
+        return carTid;
     }
 
-    public void setvName(String vName) {
-        this.vName = vName == null ? null : vName.trim();
+    public void setCarTid(Integer carTid) {
+        this.carTid = carTid;
     }
 
-    public Integer getBrandId() {
-        return brandId;
+    public Integer getProvinceId() {
+        return provinceId;
     }
 
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAdjustmentNum() {
+        return adjustmentNum;
+    }
+
+    public void setAdjustmentNum(String adjustmentNum) {
+        this.adjustmentNum = adjustmentNum == null ? null : adjustmentNum.trim();
     }
 
     public String getCreatedBy() {

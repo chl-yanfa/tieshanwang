@@ -1,14 +1,14 @@
-package com.tieshan.api.po.chegujiaPo;
+package com.tieshan.api.po.chegujiaPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarProfit implements Serializable {
+public class TieshangjCarAutoLogos implements Serializable {
     private Integer id;
 
-    private String carTiema;
+    private String aName;
 
-    private String profit;
+    private String aAlias;
 
     private String createdBy;
 
@@ -28,20 +28,20 @@ public class TieshangjCarProfit implements Serializable {
         this.id = id;
     }
 
-    public String getCarTiema() {
-        return carTiema;
+    public String getaName() {
+        return aName;
     }
 
-    public void setCarTiema(String carTiema) {
-        this.carTiema = carTiema == null ? null : carTiema.trim();
+    public void setaName(String aName) {
+        this.aName = aName == null ? null : aName.trim();
     }
 
-    public String getProfit() {
-        return profit;
+    public String getaAlias() {
+        return aAlias;
     }
 
-    public void setProfit(String profit) {
-        this.profit = profit == null ? null : profit.trim();
+    public void setaAlias(String aAlias) {
+        this.aAlias = aAlias == null ? null : aAlias.trim();
     }
 
     public String getCreatedBy() {

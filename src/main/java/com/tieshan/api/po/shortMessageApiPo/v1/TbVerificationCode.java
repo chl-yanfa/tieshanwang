@@ -1,4 +1,4 @@
-package com.tieshan.api.po.shortMessageApiPo;
+package com.tieshan.api.po.shortMessageApiPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;

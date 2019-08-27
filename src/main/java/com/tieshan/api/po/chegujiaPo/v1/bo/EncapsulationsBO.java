@@ -1,4 +1,4 @@
-package com.tieshan.api.po.chegujiaPo.bo;
+package com.tieshan.api.po.chegujiaPo.v1.bo;
 
 import java.io.Serializable;
 

@@ -1,6 +1,5 @@
-package com.tieshan.api.po.chegujiaPo.bo;
-
-import com.tieshan.api.po.chegujiaPo.TieshangjCarPieces;
+package com.tieshan.api.po.chegujiaPo.v1.bo;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
 
 import java.io.Serializable;
 import java.util.ArrayList;

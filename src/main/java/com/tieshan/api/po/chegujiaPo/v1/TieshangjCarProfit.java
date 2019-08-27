@@ -1,16 +1,14 @@
-package com.tieshan.api.po.chegujiaPo;
+package com.tieshan.api.po.chegujiaPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarWasteWeight implements Serializable {
+public class TieshangjCarProfit implements Serializable {
     private Integer id;
 
-    private Integer wId;
+    private String carTiema;
 
-    private String cTiema;
-
-    private String weight;
+    private String profit;
 
     private String createdBy;
 
@@ -30,28 +28,20 @@ public class TieshangjCarWasteWeight implements Serializable {
         this.id = id;
     }
 
-    public Integer getwId() {
-        return wId;
+    public String getCarTiema() {
+        return carTiema;
     }
 
-    public void setwId(Integer wId) {
-        this.wId = wId;
+    public void setCarTiema(String carTiema) {
+        this.carTiema = carTiema == null ? null : carTiema.trim();
     }
 
-    public String getcTiema() {
-        return cTiema;
+    public String getProfit() {
+        return profit;
     }
 
-    public void setcTiema(String cTiema) {
-        this.cTiema = cTiema == null ? null : cTiema.trim();
-    }
-
-    public String getWeight() {
-        return weight;
-    }
-
-    public void setWeight(String weight) {
-        this.weight = weight == null ? null : weight.trim();
+    public void setProfit(String profit) {
+        this.profit = profit == null ? null : profit.trim();
     }
 
     public String getCreatedBy() {

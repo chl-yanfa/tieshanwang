@@ -1,18 +1,14 @@
-package com.tieshan.api.po.chegujiaPo;
+package com.tieshan.api.po.chegujiaPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarRegionalArtificial implements Serializable {
+public class TieshangjCarTrainCrew implements Serializable {
     private Integer id;
 
-    private Integer carTid;
+    private String tName;
 
-    private Integer provinceId;
-
-    private Integer cityId;
-
-    private String adjustmentNum;
+    private Integer vehiceSystemId;
 
     private String createdBy;
 
@@ -32,36 +28,20 @@ public class TieshangjCarRegionalArtificial implements Serializable {
         this.id = id;
     }
 
-    public Integer getCarTid() {
-        return carTid;
+    public String gettName() {
+        return tName;
     }
 
-    public void setCarTid(Integer carTid) {
-        this.carTid = carTid;
+    public void settName(String tName) {
+        this.tName = tName == null ? null : tName.trim();
     }
 
-    public Integer getProvinceId() {
-        return provinceId;
+    public Integer getVehiceSystemId() {
+        return vehiceSystemId;
     }
 
-    public void setProvinceId(Integer provinceId) {
-        this.provinceId = provinceId;
-    }
-
-    public Integer getCityId() {
-        return cityId;
-    }
-
-    public void setCityId(Integer cityId) {
-        this.cityId = cityId;
-    }
-
-    public String getAdjustmentNum() {
-        return adjustmentNum;
-    }
-
-    public void setAdjustmentNum(String adjustmentNum) {
-        this.adjustmentNum = adjustmentNum == null ? null : adjustmentNum.trim();
+    public void setVehiceSystemId(Integer vehiceSystemId) {
+        this.vehiceSystemId = vehiceSystemId;
     }
 
     public String getCreatedBy() {

@@ -1,14 +1,15 @@
-package com.tieshan.api.po.chegujiaPo;
-
+package com.tieshan.api.po.chegujiaPo.v1;
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarTrainCrew implements Serializable {
+public class TieshangjCarWasteWeight implements Serializable {
     private Integer id;
 
-    private String tName;
+    private Integer wId;
 
-    private Integer vehiceSystemId;
+    private String cTiema;
+
+    private String weight;
 
     private String createdBy;
 
@@ -28,20 +29,28 @@ public class TieshangjCarTrainCrew implements Serializable {
         this.id = id;
     }
 
-    public String gettName() {
-        return tName;
+    public Integer getwId() {
+        return wId;
     }
 
-    public void settName(String tName) {
-        this.tName = tName == null ? null : tName.trim();
+    public void setwId(Integer wId) {
+        this.wId = wId;
     }
 
-    public Integer getVehiceSystemId() {
-        return vehiceSystemId;
+    public String getcTiema() {
+        return cTiema;
     }
 
-    public void setVehiceSystemId(Integer vehiceSystemId) {
-        this.vehiceSystemId = vehiceSystemId;
+    public void setcTiema(String cTiema) {
+        this.cTiema = cTiema == null ? null : cTiema.trim();
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight == null ? null : weight.trim();
     }
 
     public String getCreatedBy() {

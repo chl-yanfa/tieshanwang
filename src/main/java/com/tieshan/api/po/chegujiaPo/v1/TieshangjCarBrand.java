@@ -1,16 +1,16 @@
-package com.tieshan.api.po.chegujiaPo;
+package com.tieshan.api.po.chegujiaPo.v1;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class TieshangjCarPiece implements Serializable {
+public class TieshangjCarBrand implements Serializable {
     private Integer id;
 
-    private String pieceName;
+    private String bName;
 
-    private Integer levels;
+    private String bInitials;
 
-    private Integer parentId;
+    private Integer autoLogoszId;
 
     private String createdBy;
 
@@ -30,28 +30,28 @@ public class TieshangjCarPiece implements Serializable {
         this.id = id;
     }
 
-    public String getPieceName() {
-        return pieceName;
+    public String getbName() {
+        return bName;
     }
 
-    public void setPieceName(String pieceName) {
-        this.pieceName = pieceName == null ? null : pieceName.trim();
+    public void setbName(String bName) {
+        this.bName = bName == null ? null : bName.trim();
     }
 
-    public Integer getLevels() {
-        return levels;
+    public String getbInitials() {
+        return bInitials;
     }
 
-    public void setLevels(Integer levels) {
-        this.levels = levels;
+    public void setbInitials(String bInitials) {
+        this.bInitials = bInitials == null ? null : bInitials.trim();
     }
 
-    public Integer getParentId() {
-        return parentId;
+    public Integer getAutoLogoszId() {
+        return autoLogoszId;
     }
 
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
+    public void setAutoLogoszId(Integer autoLogoszId) {
+        this.autoLogoszId = autoLogoszId;
     }
 
     public String getCreatedBy() {
