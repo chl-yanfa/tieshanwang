@@ -1,5 +1,6 @@
 package com.tieshan.api.service.shortMessageApiService.v1.impl;
-import com.tieshan.api.mapper.homePageMapper.v1.TbVerificationCodeMapper;
+
+import com.tieshan.api.mapper.shortMessageApiMapper.v1.TbVerificationCodeMapper;
 import com.tieshan.api.po.shortMessageApiPo.v1.TbVerificationCode;
 import com.tieshan.api.service.shortMessageApiService.v1.TbVerificationCodeService;
 import com.tieshan.api.util.shortMessage.SmsSender;

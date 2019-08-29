@@ -11,7 +11,17 @@ public class TieshangjCarProfitServiceImpl implements TieshangjCarProfitService 
     @Autowired
     private TieshangjCarProfitMapper tieshangjCarProfitMapper;
     @Override
-    public TieshangjCarProfit selectLiRun(String tiema) {
+    public String selectLiRun(String tiema) {
         return tieshangjCarProfitMapper.selectLiRun(tiema);
+    }
+
+    @Override
+    public TieshangjCarProfit selectTie(String tiema) {
+        return tieshangjCarProfitMapper.selectTie(tiema);
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(TieshangjCarProfit record) {
+        return tieshangjCarProfitMapper.updateByPrimaryKeySelective(record);
     }
 }

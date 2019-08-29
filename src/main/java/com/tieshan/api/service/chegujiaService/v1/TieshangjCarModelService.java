@@ -11,4 +11,8 @@ public interface TieshangjCarModelService {
     List<TieshangjCarModel> selectAll(Map map);
     //根据条件查看车型(动态查询)---数量
     Integer selectAllCount(Map map);
+    //根据铁码查看车型
+    String selectByPrimarytiema(String tiema);
+    //根据车型id查看车辆信息
+    TieshangjCarModel selectByPrimaryKey(Integer id);
 }

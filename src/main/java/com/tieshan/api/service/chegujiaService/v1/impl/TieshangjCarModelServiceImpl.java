@@ -27,5 +27,15 @@ public class TieshangjCarModelServiceImpl implements TieshangjCarModelService {
         return tieshangjCarModelMapper.selectAllCount(map);
     }
 
+    @Override
+    public String selectByPrimarytiema(String tiema) {
+        return tieshangjCarModelMapper.selectByPrimarytiema(tiema);
+    }
+
+    @Override
+    public TieshangjCarModel selectByPrimaryKey(Integer id) {
+        return tieshangjCarModelMapper.selectByPrimaryKey(id);
+    }
+
 
 }
