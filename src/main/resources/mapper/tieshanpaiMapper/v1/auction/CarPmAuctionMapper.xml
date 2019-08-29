@@ -44,6 +44,13 @@
         <association property="imgPath" column="auctionId=id" javaType="String" select="getHeadImgByAuctionId"/>
     </resultMap>
 
+    <resultMap id="resultEnd" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo">
+        <result column="pmh_id" 	    property="pmhId" />
+        <result column="pmh_end_time" 	    property="pmhEndTime" />
+        <result column="pp_id" 	    property="ppId" />
+        <result column="pp_end_time" 	    property="ppEndTime" />
+    </resultMap>
+
     <resultMap id="auction" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo">
         <id 	column="id" 					property="id" />
         <result column="auction_type" 			property="auctionType" />
@@ -295,6 +302,71 @@
 	    SIAS.other_price,
 	    SIA.look_address park_address
 	</sql>
+
+    <select id="getEndTime" resultMap="resultEnd">
+        <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
+
+        SELECT
+        v.pmh_id,
+        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count ) SECOND ) AS pmh_end_time,
+        v.pp_id,
+        v.pp_end_time
+        FROM
+        (
+        SELECT
+        cs.single_time AS time_single,
+        cs.interval_time AS time_interval,
+        cs.pmh_id AS pmh_id,
+        count( 1 ) AS pp_count,
+        cp.paimai_start_time AS pm_start_time,
+        cs.auction_end_time AS pp_end_time,
+        cs.auction_id AS pp_id
+        FROM
+        car_pm_auction_set cs
+        LEFT JOIN car_pm_paimai cp ON cs.pmh_id = cp.pmh_id
+        WHERE
+        cs.pmh_id IN (
+        SELECT
+        b.pmh_id
+        FROM
+        car_pm_auction a
+        LEFT JOIN car_pm_auction_set b ON a.id = b.auction_id
+        LEFT JOIN car_pm_paimai c ON b.pmh_id = c.pmh_id
+        WHERE
+        <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
+        AND c.paimai_state = 1
+        GROUP BY
+        b.auction_end_time
+        ORDER BY
+        b.auction_end_time
+        )
+        AND cs.auction_id IN (
+        SELECT
+        a.id
+        FROM
+        car_pm_auction a
+        LEFT JOIN car_pm_auction_set b ON a.id = b.auction_id
+        WHERE
+        <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
+        AND a.auction_state = 4
+        GROUP BY
+        b.auction_end_time
+        ORDER BY
+        b.auction_end_time DESC
+        )
+        GROUP BY
+        cs.pmh_id
+        HAVING
+        cs.single_time > 0
+        ORDER BY
+        cs.single_time DESC
+        ) v
+        WHERE
+        v.pm_start_time IS NOT NULL
+        ORDER BY
+        pmh_end_time DESC
+
+    </select>
 
     <select id="findAuction" resultMap="auctionList">
         select

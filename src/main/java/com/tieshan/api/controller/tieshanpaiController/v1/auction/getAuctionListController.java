@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -129,23 +126,6 @@ public class getAuctionListController {
         log.info("=================出价耗时："+(e-s)+"毫秒");
         return res;
     }
-
-//
-//    @RequestMapping(value ="/socket/push/{cid}",method = RequestMethod.POST)
-//    public ResultVO<String> pushToWeb(@PathVariable String cid,String message) {
-//        ResultVO<String> demoResult = new ResultVO<String>();
-//        try {
-//            WebSocketServer.sendInfo(message,cid);
-//            demoResult.setReturnCode("success");
-//            demoResult.setReturnMsg("推送消息成功!");
-//        } catch (IOException e) {
-//            demoResult.setReturnCode("error");
-//            demoResult.setReturnMsg("推送消息失败!");
-//            e.printStackTrace();
-//        }
-//        return demoResult;
-//    }
-
 
     /**
      *

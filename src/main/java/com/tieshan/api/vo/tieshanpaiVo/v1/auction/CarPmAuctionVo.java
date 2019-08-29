@@ -129,6 +129,15 @@ public class CarPmAuctionVo {
 
     private String endDate; //拍品结束时间_字符串
 
+    private String pmhId;
+
+    private String pmhEndTime;
+
+    private String ppId;
+
+    private String ppEndTime;
+
+
 
     public String getId() {
         return id;
@@ -472,6 +481,30 @@ public class CarPmAuctionVo {
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+    public String getPmhId() {
+        return pmhId;
+    }
+    public void setPmhId(String pmhId) {
+        this.pmhId = pmhId;
+    }
+    public String getPmhEndTime() {
+        return pmhEndTime;
+    }
+    public void setPmhEndTime(String pmhEndTime) {
+        this.pmhEndTime = pmhEndTime;
+    }
+    public String getPpId() {
+        return ppId;
+    }
+    public void setPpId(String ppId) {
+        this.ppId = ppId;
+    }
+    public String getPpEndTime() {
+        return ppEndTime;
+    }
+    public void setPpEndTime(String ppEndTime) {
+        this.ppEndTime = ppEndTime;
+    }
 
     @Override
     public String toString() {
@@ -533,6 +566,10 @@ public class CarPmAuctionVo {
                 ", settlementTime=" + settlementTime +
                 ", startDate='" + startDate + '\'' +
                 ", endDate='" + endDate + '\'' +
+                ", pmhId='" + pmhId + '\'' +
+                ", pmhEndTime='" + pmhEndTime + '\'' +
+                ", ppId='" + ppId + '\'' +
+                ", ppEndTime='" + ppEndTime + '\'' +
                 '}';
     }
 }

@@ -32,4 +32,6 @@ public interface CarPmAuctionMapper{
 
     int getHeightPrice(@Param("auctionId")String auctionId);
 
+    List<CarPmAuctionVo> getEndTime();
+
 }

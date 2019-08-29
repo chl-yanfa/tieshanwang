@@ -24,4 +24,6 @@ public interface CarPmAuctionService {
     ResultVO<Paimai> getPaimaiList(PaimaiVo paimai);
 
     ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
+
+    List<CarPmAuctionVo> getEndTime();
 }

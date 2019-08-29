@@ -181,4 +181,9 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         res.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
         return res;
     }
+
+    @Override
+    public List<CarPmAuctionVo> getEndTime() {
+        return carPmAuctionMapper.getEndTime();
+    }
 }
