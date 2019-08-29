@@ -6,7 +6,7 @@ public class ResultUtil {
     public static ApiResult success(Object resultmsg){
         ApiResult msg=new ApiResult();
         msg.setCode(200);
-        msg.setMsg("请求成功");
+        msg.setMsg("success");
         msg.setData(resultmsg);
         return msg;
     }
