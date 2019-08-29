@@ -5,12 +5,14 @@
         <id 	column="id" 				property="id" />
         <result column="name" 				property="name" />
         <result column="imgpath" 			property="imgpath" />
+		<result column="ordertype" 				property="orderType" />
 		<result column="type" 				property="type" />
     </resultMap>
     <select id="queryListName" resultMap="Base">
         ( SELECT
             a.id AS id,
             a.full_name AS name,
+            "无" as ordertype,
             ta.storage_path AS imgpath,
             "铁扇拍" as type
             FROM
@@ -27,6 +29,7 @@
 	SELECT
 		csod.id AS id,
 		csod.car_model_number AS name,
+		csod.order_type as ordertype,
 		ta.storage_path AS imgpath,
 		"车报废" as type
 	FROM

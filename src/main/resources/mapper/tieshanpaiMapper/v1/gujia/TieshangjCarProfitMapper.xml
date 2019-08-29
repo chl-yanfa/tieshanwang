@@ -104,8 +104,13 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="selectLiRun" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectLiRun" parameterType="java.lang.String" resultType="java.lang.String">
     select profit
+    from tieshangj_car_profit
+    where car_tiema = #{tiema}
+  </select>
+  <select id="selectTie" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
     from tieshangj_car_profit
     where car_tiema = #{tiema}
   </select>

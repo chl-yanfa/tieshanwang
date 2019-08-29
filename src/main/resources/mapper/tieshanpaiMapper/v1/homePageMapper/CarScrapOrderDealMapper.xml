@@ -50,7 +50,7 @@
 
 	<select id="queryList" resultMap="BaseResultMap">
 		select
-			csod.*,ta.storage_path head_img_url
+			csod.*,ta.storage_path head_img_url,"已成交" as zt,FLOOR( 500 + RAND() * (1000 - 500)) as liulan
 		from 
 			car_scrap_order_deal csod left join tb_attachment ta on csod.head_img_id = ta.id
 		order by 

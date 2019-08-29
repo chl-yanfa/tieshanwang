@@ -14,19 +14,39 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="zbzl" jdbcType="VARCHAR" property="zbzl" />
+    <result column="jyid" jdbcType="VARCHAR" property="jyid" />
     <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
       <result column="a_name" jdbcType="VARCHAR" property="aName"/>
+    </association>
+    <association property="tieshangjCarVehicleSystem" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
+      <result column="v_name" jdbcType="VARCHAR" property="vName"/>
+    </association>
+    <association property="tieshangjCarBrand" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand">
+      <result column="b_name" jdbcType="VARCHAR" property="bName"/>
     </association>
   </resultMap>
   <sql id="Base_Column_List">
     id, car_name, car_crew_id, iron_code, money, displacement, body_structure, type_transmission, 
-    created_by, created_time, updated_by, updated_time
+    created_by, created_time, updated_by, updated_time,zbzl,jyid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
+        SELECT
+          b.b_name,
+          s.v_name,
+          m.*
+        FROM
+          tieshangj_car_model m
+          INNER JOIN tieshangj_car_train_crew c ON m.car_crew_id = c.id
+          INNER JOIN tieshangj_car_vehicle_system s ON c.vehice_system_id = s.id
+          INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
+          INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
+        where m.id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimarytiema" parameterType="java.lang.String" resultType="java.lang.String">
+    select zbzl
     from tieshangj_car_model
-    where id = #{id,jdbcType=INTEGER}
+    where iron_code = #{tiema}
   </select>
   <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
     insert into tieshangj_car_model
@@ -67,6 +87,12 @@
       <if test="updatedTime != null">
         updated_time,
       </if>
+      <if test="zbzl != null">
+        zbzl,
+      </if>
+      <if test="jyid != null">
+        jyid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -104,6 +130,12 @@
       </if>
       <if test="updatedTime != null">
         #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zbzl != null">
+        #{zbzl,jdbcType=VARCHAR},
+      </if>
+      <if test="jyid != null">
+        #{jyid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -143,6 +175,12 @@
       <if test="updatedTime != null">
         updated_time = #{updatedTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="zbzl != null">
+        zbzl = #{zbzl,jdbcType=VARCHAR},
+      </if>
+      <if test="jyid != null">
+        zbzl = #{jyid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -161,7 +199,7 @@
   </select>
   <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
         SELECT
-          l.a_name,
+          b.b_name,
           s.v_name,
           m.id,
           m.car_name,
@@ -178,13 +216,14 @@
           INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
           INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
     <where>
-      <if test="brandName!=null and brandName!=''">
-        and l.a_name = #{brandName}
+      <if test="brandId!=null and brandId!=''">
+        and l.id = #{brandId}
       </if>
       <if test="carModelName!=null and carModelName!=''">
         and m.car_name like CONCAT('%',#{carModelName},'%')
       </if>
     </where>
+    order by b.b_name
     limit #{page},#{pagesize}
   </select>
   <select id="selectAllCount" parameterType="map" resultType="Integer">
@@ -197,11 +236,11 @@
     INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
     INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
     <where>
-      <if test="purchasePrice!=null and purchasePrice!=''">
-        and l.a_name = #{purchasePrice}
+      <if test="brandId!=null and brandId!=''">
+        and l.id = #{brandId}
       </if>
-      <if test="createdBy!=null and createdBy!=''">
-        and m.car_name like CONCAT('%',#{vinCode},'%')
+      <if test="carModelName!=null and carModelName!=''">
+        and m.car_name like CONCAT('%',#{carModelName},'%')
       </if>
     </where>
   </select>
