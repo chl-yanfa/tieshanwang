@@ -44,6 +44,8 @@ public class OrderInfoVo {
     private String memberCode;
     private Integer myQuotePrice = 0;	//我的最高报价
     private BigDecimal auctionCashDeposit; //拍卖保证金
+    private BigDecimal commission;
+    private BigDecimal otherPrice;
 
 
 
@@ -311,44 +313,19 @@ public class OrderInfoVo {
         this.orderNo = orderNo;
     }
 
-    @Override
-    public String toString() {
-        return "OrderInfoVo{" +
-                "sysDate=" + sysDate +
-                ", id='" + id + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", orderNo='" + orderNo + '\'' +
-                ", carCode='" + carCode + '\'' +
-                ", license='" + license + '\'' +
-                ", holdpriceIn=" + holdpriceIn +
-                ", holdpriceOut=" + holdpriceOut +
-                ", auctionPriceIn=" + auctionPriceIn +
-                ", auctionPriceOut=" + auctionPriceOut +
-                ", tenderTime=" + tenderTime +
-                ", tenderOverTime=" + tenderOverTime +
-                ", competeTime=" + competeTime +
-                ", competeOverTime=" + competeOverTime +
-                ", orderStatus='" + orderStatus + '\'' +
-                ", upsetPriceShow='" + upsetPriceShow + '\'' +
-                ", areaLimit='" + areaLimit + '\'' +
-                ", isSubsidy='" + isSubsidy + '\'' +
-                ", parentOrderId='" + parentOrderId + '\'' +
-                ", isHistory='" + isHistory + '\'' +
-                ", auctionModel='" + auctionModel + '\'' +
-                ", platformCosta=" + platformCosta +
-                ", bidMaxpriceIn=" + bidMaxpriceIn +
-                ", bidMaxpriceOut=" + bidMaxpriceOut +
-                ", bidMaxpriceUnlimited=" + bidMaxpriceUnlimited +
-                ", bidMaxpriceInStr='" + bidMaxpriceInStr + '\'' +
-                ", bidMaxpriceOutStr='" + bidMaxpriceOutStr + '\'' +
-                ", bidMaxpriceUnlimitedStr='" + bidMaxpriceUnlimitedStr + '\'' +
-                ", promisesType='" + promisesType + '\'' +
-                ", bidTimes=" + bidTimes +
-                ", surplusTime=" + surplusTime +
-                ", roundState='" + roundState + '\'' +
-                ", memberCode='" + memberCode + '\'' +
-                ", myQuotePrice=" + myQuotePrice +
-                ", auctionCashDeposit=" + auctionCashDeposit +
-                '}';
+    public BigDecimal getCommission() {
+        return commission;
+    }
+
+    public void setCommission(BigDecimal commission) {
+        this.commission = commission;
+    }
+
+    public BigDecimal getOtherPrice() {
+        return otherPrice;
+    }
+
+    public void setOtherPrice(BigDecimal otherPrice) {
+        this.otherPrice = otherPrice;
     }
 }

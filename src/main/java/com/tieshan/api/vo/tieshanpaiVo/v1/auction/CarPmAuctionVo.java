@@ -74,15 +74,15 @@ public class CarPmAuctionVo {
 
     private String createUser;
 
-    private BigDecimal startingPrice;     //起拍价
+    private BigDecimal startingPrice=BigDecimal.ZERO;     //起拍价
 
     private String orderState;           //订单状态id
 
     private String orderStateS;          //订单状态名称
 
-    private BigDecimal commission;        //佣金
+    private BigDecimal commission=BigDecimal.ZERO;        //佣金
 
-    private BigDecimal otherPrice;        //其他费用
+    private BigDecimal otherPrice=BigDecimal.ZERO;        //其他费用
 
     private List<CarPmAuctionFileVo> auctionFileList;    //图片集合
 
@@ -104,11 +104,11 @@ public class CarPmAuctionVo {
 
     private Integer delaySecond = 0;			//系统延时秒数
 
-    private BigDecimal highestPrice;			//当前出价最高价
+    private BigDecimal highestPrice=BigDecimal.ZERO;			//当前出价最高价
 
-    private BigDecimal totalPrice;				//当前合手价
+    private BigDecimal totalPrice=BigDecimal.ZERO;				//当前合手价
 
-    private BigDecimal realPrice;           //实际付款金额
+    private BigDecimal realPrice=BigDecimal.ZERO;           //实际付款金额
 
     private List<CarScrapOrderAutopartsVo> autopartsList;    //配件列表
 
@@ -118,7 +118,7 @@ public class CarPmAuctionVo {
 
     private Integer partsCount;              //配件数量
 
-    private BigDecimal orderAmount;          //订单金额
+    private BigDecimal orderAmount=BigDecimal.ZERO;          //订单金额
 
     private Date recoveryTime;               //回收时间
 

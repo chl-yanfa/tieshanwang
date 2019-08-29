@@ -703,13 +703,13 @@
             SIP.publish_time,
             case
                 date_format(SIP.paimai_start_time,'%w')
-                when 1 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周一')
-                when 2 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周二')
-                when 3 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周三')
-                when 4 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周四')
-                when 5 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周五')
-                when 6 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周六')
-                when 7 then CONCAT(SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))),' ','周日')
+                when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
             END	as weekday,
             SIP.create_user,
             SIP.create_time,
@@ -758,7 +758,7 @@
         </if>
         group by SIP.pmh_id
         order by FIELD(SIP.paimai_state,1,3,0,2),
-        SIP.paimai_start_time desc
+        SIP.paimai_start_time
         limit
         ${page}, ${rows}
     </select>

@@ -2,9 +2,8 @@ package com.tieshan.api.service.tieshanpaiService.v1.transaction.impl;
 
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.JSONSerializer;
 import com.tieshan.api.common.tieshanpaiCommon.v1.*;
-import com.tieshan.api.controller.tieshanpaiController.v1.auction.WebSocketServer;
+import com.tieshan.api.controller.tieshanpaiController.v1.auction.SocketServer;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginWaterMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper;
@@ -22,12 +21,9 @@ import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.TraOfferWaterVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.TraOrderVo;
 import org.apache.http.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -173,7 +169,7 @@ public class BidServiceimple implements BidService {
 			//竞价
 			if (Constants.BID_TYPE_BIDDING.equals(bidDto.getBidType())) {
 				cometContent = biePrice(bidDto,order);// 调用出竞价接口
-				WebSocketServer.sendInfo(cometContent,bidDto.getMemberCode());
+				SocketServer.sendToUser(cometContent,bidDto.getMemberCode()+"_"+bidDto.getCarCode());
 				// 推送消息
 				//CometUtil.pushMsg(Constants.COMET_TYPE_NEWPRICE,cometContent);
 			}
@@ -239,6 +235,7 @@ public class BidServiceimple implements BidService {
 			System.out.println("进入出价最高是空!");
 			//最小加价幅度
 			traHighestBid.setMargin(-bidDto.getFreezeAmount());  //扣除保证金
+			traHighestBid.setId(Identities.uuid2());
 			//不是现场拍才冻结保证金
 			// 冻结当前会员保证金
 			cusCustomerMargin(bidDto);
@@ -289,6 +286,7 @@ public class BidServiceimple implements BidService {
 		cusCustomerMarginWater.setDeleteTag(Constants.DELETE_FLAG_NO);
 		cusCustomerMarginWater.setTimeliness(highestBid.getTimeliness());
 		cusCustomerMarginWater.setMemo("出价被超时解冻！订单编号："+bidDto.getOrderNo()+",车辆编号：" + highestBid.getCarCode());
+		cusCustomerMarginWater.setId(Identities.uuid2());
 		cusCustomerMarginWaterMapper.createCusCustomerMarginWater(cusCustomerMarginWater);
 	}
 
@@ -371,6 +369,8 @@ public class BidServiceimple implements BidService {
 			orderId = bidDto.getOrderId();
 		}
 		OrderInfoVo order = bidMapper.getOrderInfo(bidDto);
+		OrderInfoVo ob = bidMapper.getOrderInfoByWS(bidDto.getOrderId());
+		BigDecimal realPrice = new BigDecimal(ob.getBidMaxpriceUnlimited()).add(ob.getCommission()).add(ob.getOtherPrice());
 		SimpleDateFormat sb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//根据orderId
 		WebSocketResult wb = new WebSocketResult();
@@ -379,6 +379,8 @@ public class BidServiceimple implements BidService {
 		wb.setStartTimeCount(sb.format(order.getCompeteTime()));
 		wb.setEndTimeCount(sb.format(order.getCompeteOverTime()));
 		wb.setOrderState(order.getOrderStatus());
+		wb.setRealPrice(realPrice.toString());
+		//未添加合手价
 		switch (order.getOrderStatus()){
 			case "2":
 				wb.setOrderStateS("等待竞拍");

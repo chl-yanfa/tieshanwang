@@ -31,10 +31,32 @@
 			on T.auction_id = A.id
           WHERE T.is_delete = 0
           AND   T.ID=#{orderId};
-
-
 	</select>
 
+
+	<!--
+        获取auction=paimai 的合手价
+    -->
+	<select id="getOrderInfoByWS" resultMap="OrderInfoVo" parameterType="com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo">
+		SELECT
+			T.commission as commission,
+			T.other_price as otherPrice,
+			(
+			SELECT
+				 MAX(HB.BID_AMOUNT)
+			 from
+				car_pm_offer_water HB
+			WHERE
+				HB.IS_DELETE = 0
+				AND HB.ORDER_ID = T.id
+			) AS bidMaxpriceUnlimitedStr
+		FROM
+			car_pm_auction_set T
+			LEFT JOIN car_pm_auction A ON T.auction_id = A.id
+		WHERE
+			T.is_delete = 0
+			 and T.ID=#{orderId}
+	</select>
 
 
 	<select id="getOrderInfoResultByWS" resultMap="OrderInfoVo" parameterType="java.lang.String">

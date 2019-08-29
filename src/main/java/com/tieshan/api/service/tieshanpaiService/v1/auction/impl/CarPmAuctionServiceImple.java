@@ -157,7 +157,6 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 }else{
                     list.get(i).setOneSecond("-1");
                 }
-                System.out.println("第"+(i+1)+"个拍品的auctionNo为:"+list.get(i).getAuctionId());
                 int result = carPmAuctionMapper.getHeightPrice(list.get(i).getAuctionId());
                 list.get(i).setCurPrice(new BigDecimal(result>0?result:-1));
             }
