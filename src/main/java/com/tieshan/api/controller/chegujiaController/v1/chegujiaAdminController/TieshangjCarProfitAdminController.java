@@ -1,9 +1,13 @@
 package com.tieshan.api.controller.chegujiaController.v1.chegujiaAdminController;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit;
 import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPieceService;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPiecesService;
+import com.tieshan.api.service.chegujiaService.v1.TieshangjCarProfitService;
+import com.tieshan.api.util.resultUtil.ApiResult;
+import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,11 +19,14 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping(value = "v1/carprofi/")
 public class TieshangjCarProfitAdminController {
     @Autowired
     private TieshangjCarPieceService tieshangjCarPieceService;
     @Autowired
     private TieshangjCarPiecesService tieshangjCarPiecesService;
+    @Autowired
+    private TieshangjCarProfitService tieshangjCarProfitService;
     @RequestMapping(value = "selectPiece",method = RequestMethod.GET)
     @ResponseBody
     public Object selectPiece(HttpServletRequest request, Map map){
@@ -37,5 +44,23 @@ public class TieshangjCarProfitAdminController {
         }
 
         return encapsulationBOS;
+    }
+    //根据铁码查询系数
+    @RequestMapping(value = "selectProfi",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult selectProfi(HttpServletRequest request){
+        String tiema=request.getParameter("tiema");
+        TieshangjCarProfit tieshangjCarProfit=tieshangjCarProfitService.selectTie(tiema);
+        return ResultUtil.success(tieshangjCarProfit);
+    }
+    //修改
+    @RequestMapping(value = "updateProfi",method = RequestMethod.PUT)
+    @ResponseBody
+    public ApiResult updateProfi(HttpServletRequest request,TieshangjCarProfit tieshangjCarProfit){
+        int num=tieshangjCarProfitService.updateByPrimaryKeySelective(tieshangjCarProfit);
+        if(num>0){
+            return ResultUtil.success("修改成功");
+        }
+        return ResultUtil.error(500,"修改失败");
     }
 }
