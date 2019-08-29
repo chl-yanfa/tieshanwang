@@ -2,10 +2,10 @@ package com.tieshan.api.mapper.chegujiaMapper.v1;
 
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste;
 
-public interface TieshangjCarWasteMapper {
-    int deleteByPrimaryKey(Integer id);
+import java.util.List;
 
-    int insert(TieshangjCarWaste record);
+public interface TieshangjCarWasteMapper {
+
 
     int insertSelective(TieshangjCarWaste record);
 
@@ -13,5 +13,7 @@ public interface TieshangjCarWasteMapper {
 
     int updateByPrimaryKeySelective(TieshangjCarWaste record);
 
-    int updateByPrimaryKey(TieshangjCarWaste record);
+    List<TieshangjCarWaste> selectAll();
+
+
 }

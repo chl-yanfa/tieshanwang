@@ -12,8 +12,8 @@ public interface TieshangjCarProfitMapper {
     TieshangjCarProfit selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(TieshangjCarProfit record);
-
-
     //根据车型铁码查询利润系数
-    TieshangjCarProfit selectLiRun(String tiema);
+    String selectLiRun(String tiema);
+    //根据铁码查询数据
+    TieshangjCarProfit selectTie(String tiema);
 }

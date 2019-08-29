@@ -1,4 +1,4 @@
-package com.tieshan.api.mapper.homePageMapper.v1;
+package com.tieshan.api.mapper.shortMessageApiMapper.v1;
 
 import com.tieshan.api.po.shortMessageApiPo.v1.TbVerificationCode;
 

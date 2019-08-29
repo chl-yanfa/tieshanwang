@@ -18,4 +18,6 @@ public interface TieshangjCarModelMapper {
     List<TieshangjCarModel> selectAll(Map map);
     //根据条件查看车型(动态查询)---数量
     Integer selectAllCount(Map map);
+    //根据铁码查看车型
+    String selectByPrimarytiema(String tiema);
 }
