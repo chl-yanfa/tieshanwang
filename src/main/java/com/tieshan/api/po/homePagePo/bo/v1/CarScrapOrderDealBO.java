@@ -48,6 +48,10 @@ public class CarScrapOrderDealBO {
 
     private Integer isremove;
 
+    private String liulan;
+
+    private String zt;
+
     private List<CarScrapOrderDealAttachmentBO> attachmentList;
 
     public String getId() {
@@ -200,6 +204,22 @@ public class CarScrapOrderDealBO {
 
     public void setIsremove(Integer isremove) {
         this.isremove = isremove;
+    }
+
+    public String getLiulan() {
+        return liulan;
+    }
+
+    public void setLiulan(String liulan) {
+        this.liulan = liulan;
+    }
+
+    public String getZt() {
+        return zt;
+    }
+
+    public void setZt(String zt) {
+        this.zt = zt;
     }
 
     public List<CarScrapOrderDealAttachmentBO> getAttachmentList() {

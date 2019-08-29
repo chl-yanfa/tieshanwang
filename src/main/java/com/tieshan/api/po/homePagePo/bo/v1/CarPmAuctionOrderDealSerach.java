@@ -12,6 +12,8 @@ public class CarPmAuctionOrderDealSerach implements Serializable {
 
     private String type;
 
+    private String orderType;
+
     public String getId() {
         return id;
     }
@@ -42,5 +44,13 @@ public class CarPmAuctionOrderDealSerach implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
     }
 }

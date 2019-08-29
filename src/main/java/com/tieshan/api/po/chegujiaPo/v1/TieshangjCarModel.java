@@ -28,7 +28,15 @@ public class TieshangjCarModel implements Serializable {
 
     private Date updatedTime;
 
+    private String zbzl;
+
+    private String jyid;
+
     private TieshangjCarAutoLogos tieshangjCarAutoLogos;
+
+    private TieshangjCarVehicleSystem tieshangjCarVehicleSystem;
+
+    private TieshangjCarBrand tieshangjCarBrand;
 
     private static final long serialVersionUID = 1L;
 
@@ -128,11 +136,43 @@ public class TieshangjCarModel implements Serializable {
         this.updatedTime = updatedTime;
     }
 
+    public String getZbzl() {
+        return zbzl;
+    }
+
+    public void setZbzl(String zbzl) {
+        this.zbzl = zbzl;
+    }
+
+    public String getJyid() {
+        return jyid;
+    }
+
+    public void setJyid(String jyid) {
+        this.jyid = jyid;
+    }
+
     public TieshangjCarAutoLogos getTieshangjCarAutoLogos() {
         return tieshangjCarAutoLogos;
     }
 
     public void setTieshangjCarAutoLogos(TieshangjCarAutoLogos tieshangjCarAutoLogos) {
         this.tieshangjCarAutoLogos = tieshangjCarAutoLogos;
+    }
+
+    public TieshangjCarVehicleSystem getTieshangjCarVehicleSystem() {
+        return tieshangjCarVehicleSystem;
+    }
+
+    public void setTieshangjCarVehicleSystem(TieshangjCarVehicleSystem tieshangjCarVehicleSystem) {
+        this.tieshangjCarVehicleSystem = tieshangjCarVehicleSystem;
+    }
+
+    public TieshangjCarBrand getTieshangjCarBrand() {
+        return tieshangjCarBrand;
+    }
+
+    public void setTieshangjCarBrand(TieshangjCarBrand tieshangjCarBrand) {
+        this.tieshangjCarBrand = tieshangjCarBrand;
     }
 }

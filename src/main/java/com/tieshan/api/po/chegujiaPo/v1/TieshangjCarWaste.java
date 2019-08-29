@@ -1,4 +1,5 @@
 package com.tieshan.api.po.chegujiaPo.v1;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,7 +8,13 @@ public class TieshangjCarWaste implements Serializable {
 
     private String wName;
 
-    private String wMoney;
+    private String demolitionMoney;
+
+    private String demolitionXi;
+
+    private String oldMoney;
+
+    private String oldXi;
 
     private Integer carModelId;
 
@@ -37,12 +44,36 @@ public class TieshangjCarWaste implements Serializable {
         this.wName = wName == null ? null : wName.trim();
     }
 
-    public String getwMoney() {
-        return wMoney;
+    public String getDemolitionMoney() {
+        return demolitionMoney;
     }
 
-    public void setwMoney(String wMoney) {
-        this.wMoney = wMoney == null ? null : wMoney.trim();
+    public void setDemolitionMoney(String demolitionMoney) {
+        this.demolitionMoney = demolitionMoney == null ? null : demolitionMoney.trim();
+    }
+
+    public String getDemolitionXi() {
+        return demolitionXi;
+    }
+
+    public void setDemolitionXi(String demolitionXi) {
+        this.demolitionXi = demolitionXi == null ? null : demolitionXi.trim();
+    }
+
+    public String getOldMoney() {
+        return oldMoney;
+    }
+
+    public void setOldMoney(String oldMoney) {
+        this.oldMoney = oldMoney == null ? null : oldMoney.trim();
+    }
+
+    public String getOldXi() {
+        return oldXi;
+    }
+
+    public void setOldXi(String oldXi) {
+        this.oldXi = oldXi == null ? null : oldXi.trim();
     }
 
     public Integer getCarModelId() {
