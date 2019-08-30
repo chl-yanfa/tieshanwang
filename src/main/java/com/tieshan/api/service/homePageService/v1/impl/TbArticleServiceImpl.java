@@ -19,4 +19,9 @@ public class TbArticleServiceImpl implements TbArticleService {
     public List<TbArticle> selectHomePage(Map map) {
         return tbArticleMapper.selectHomePage(map);
     }
+
+    @Override
+    public TbArticle selectByPrimaryKey(Integer id) {
+        return tbArticleMapper.selectByPrimaryKey(id);
+    }
 }

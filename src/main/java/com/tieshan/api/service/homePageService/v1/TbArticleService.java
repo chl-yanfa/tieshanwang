@@ -7,4 +7,5 @@ import java.util.Map;
 
 public interface TbArticleService {
     List<TbArticle> selectHomePage(Map map);
+    TbArticle selectByPrimaryKey(Integer id);
 }
