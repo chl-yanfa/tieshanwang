@@ -34,11 +34,11 @@ public class TieshangjCarBrandController {
         Integer autoLogoId=Integer.parseInt(request.getParameter("autoLogoId"));
         List<TieshangjCarBrand> list=tieshangjCarBrandService.selectCBId(autoLogoId);
         List<EncapsulationBO> encapsulationBOS = new ArrayList<EncapsulationBO>();
+        //声明key
+        String key = "brandKey_" +autoLogoId;
         //redis
         ValueOperations<String, List<EncapsulationBO>> operations = redisTemplate.opsForValue();
         for (TieshangjCarBrand tieshangjCarBrand : list) {
-            //声明key
-            String key = "brandKey_" + tieshangjCarBrand.getId();
             //判断key
             boolean hasKey = redisTemplate.hasKey(key);
             if (hasKey) {
@@ -61,11 +61,10 @@ public class TieshangjCarBrandController {
                     dsbo.setChildren(dictionaryBOs);
                 }
                 encapsulationBOS.add(dsbo);
-                // 写入缓存
-                operations.set(key, encapsulationBOS, 5, TimeUnit.HOURS);
             }
-
         }
+        // 写入缓存
+        operations.set(key, encapsulationBOS, 5, TimeUnit.HOURS);
         return ResultUtil.success(encapsulationBOS);
     }
 }

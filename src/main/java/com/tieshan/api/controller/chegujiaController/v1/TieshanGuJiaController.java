@@ -1,6 +1,4 @@
 package com.tieshan.api.controller.chegujiaController.v1;
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel;
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste;
 import com.tieshan.api.service.chegujiaService.v1.*;
 import com.tieshan.api.service.shortMessageApiService.v1.TbVerificationCodeService;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "v1/gu/")
 public class TieshanGuJiaController {
