@@ -82,16 +82,16 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         paimai.setPage(pageNum);
 
         ResultVO<Paimai> result = new ResultVO<Paimai>();
-        List<Paimai> paimaiRealList = new ArrayList<Paimai>();
         List<Paimai> paimaiList = carPmAuctionMapper.getPaimaiListByPage(paimai);
-        for (int i=0;i<paimaiList.size();i++){
-            if(paimaiList.get(i).getAuctionCount()>0){
-                paimaiRealList.add(paimaiList.get(i));
-            }
-        }
-//        int total = carPmAuctionMapper.getPaimaiListTotal(paimai);
-        result.setRows(paimaiRealList);
-        result.setTotal(paimaiRealList.size());
+//        List<Paimai> paimaiRealList = new ArrayList<Paimai>();
+//        for (int i=0;i<paimaiList.size();i++){
+//            if(paimaiList.get(i).getAuctionCount()>0){
+//                paimaiRealList.add(paimaiList.get(i));
+//            }
+//        }
+        int total = carPmAuctionMapper.getPaimaiListTotal(paimai);
+        result.setRows(paimaiList);
+        result.setTotal(total);
         result.setReturnCode(Constants.RETURN_CODE_SUCCESS);
         result.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
         return result;
@@ -158,7 +158,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                     list.get(i).setOneSecond("-1");
                 }
                 int result = carPmAuctionMapper.getHeightPrice(list.get(i).getAuctionId());
-                list.get(i).setCurPrice(new BigDecimal(result>0?result:-1));
+                list.get(i).setCurPrice(new BigDecimal(result>0?result:0));
             }
 //            for(int a=0; a<list.size(); a++){
 //                if(list.get(a).getOrderState()=="2" || list.get(a).getOrderState().equals("2")){

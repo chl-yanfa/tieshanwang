@@ -304,11 +304,9 @@
 	</sql>
 
     <select id="getEndTime" resultMap="resultEnd">
-        <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
-
         SELECT
         v.pmh_id,
-        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count ) SECOND ) AS pmh_end_time,
+        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count-1) SECOND ) AS pmh_end_time,
         v.pp_id,
         v.pp_end_time
         FROM
@@ -365,7 +363,6 @@
         v.pm_start_time IS NOT NULL
         ORDER BY
         pmh_end_time DESC
-
     </select>
 
     <select id="findAuction" resultMap="auctionList">
@@ -829,6 +826,7 @@
             AND SIP.paimai_state = #{paimaiState}
         </if>
         group by SIP.pmh_id
+        having auction_count>0
         order by FIELD(SIP.paimai_state,1,3,0,2),
         SIP.paimai_start_time
         limit
@@ -883,27 +881,21 @@
         when 0 then '等待发布'
         when 1 then '正在竞拍'
         when 2 then '竞拍结束'
+        when 3 then '等待竞拍'
         end
         AS paimai_states,
         DATE_FORMAT(SIP.paimai_start_time, '%H:%i') as starttime,
         SIP.publish_time,
         case
-        date_format(SIP.publish_time,'%w')
-        when 1 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周一')
-        when 2 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周二')
-        when 3 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周三')
-        when 4 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周四')
-        when 5 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周五')
-        when 6 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周六')
-        when 7 then CONCAT(SUBSTRING(publish_time,3,2),'-0',MONTH(publish_time),'-',
-        if(LENGTH(DAY(publish_time))>1,DAY(publish_time),CONCAT('0',DAY(publish_time))),' ','周日')
-        END as weekday,
+        date_format(SIP.paimai_start_time,'%w')
+        when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        END	as weekday,
         SIP.create_user,
         SIP.create_time,
         SIP.is_delete,
@@ -945,12 +937,14 @@
         WHERE
         SIP.is_delete=0
         and DATE(SIP.paimai_start_time) >= date(SYSDATE())
-        <include refid="ListIfPaiMai"/>
+        <include refid="ListIfPaiMai" />
         <if test="paimaiState != null">
             AND SIP.paimai_state = #{paimaiState}
         </if>
-        order by FIELD(SIP.paimai_state,1,0,2),
-        SIP.paimai_start_time desc
+        group by SIP.pmh_id
+        having auction_count>0
+        order by FIELD(SIP.paimai_state,1,3,0,2),
+        SIP.paimai_start_time
         )v
     </select>
 
