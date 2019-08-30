@@ -42,4 +42,9 @@ public class TieshangjCarPiecesServiceImpl implements TieshangjCarPiecesService 
         return tieshangjCarPiecesMapper.selectEr(tiema,fuId);
     }
 
+    @Override
+    public Long updateHytemplateBatch(List<TieshangjCarPieces> hytemplateList) {
+        return tieshangjCarPiecesMapper.updateHytemplateBatch(hytemplateList);
+    }
+
 }

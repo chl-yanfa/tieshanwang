@@ -17,4 +17,5 @@ public interface TieshangjCarPiecesService {
     String selectMoneyWaste(String tiema);
     //根据车型查看件
     List<TieshangjCarPieces> selectEr(@Param("tiema") String tiema, @Param("fuId") String fuId);
+    Long updateHytemplateBatch(@Param(value = "hytemplateList")List<TieshangjCarPieces> hytemplateList);
 }

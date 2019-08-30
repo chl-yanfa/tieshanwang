@@ -26,4 +26,6 @@ public interface TieshangjCarPiecesMapper {
     String selectSumMoneyThree(@Param("chejianId1") String chejianId1,@Param("chejianId2") String chejianId2,@Param("chejianId3") String chejianId3,@Param("chejianId4")String chejianId4,@Param("tiema") String tiema,@Param("chaiorjiu") String chaiorjiu);
     //查询废料价格之和
     String selectMoneyWaste(String tiema);
+    //批量修改
+    Long updateHytemplateBatch(@Param(value = "hytemplateList")List<TieshangjCarPieces> hytemplateList);
 }
