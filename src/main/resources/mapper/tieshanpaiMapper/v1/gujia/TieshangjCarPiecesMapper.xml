@@ -177,4 +177,38 @@
         `tieshangj_car_pieces` ps
         INNER JOIN tieshangj_car_piece p ON ps.car_piece_id = p.id where p.parent_id=#{fuId} and ps.car_model_tiema=#{tiema}
   </select>
+    <update id="updateHytemplateBatch" parameterType="java.util.List">
+        <foreach collection="hytemplateList" item="hytemplate" index="index" open="" close="" separator=";">
+            update tieshangj_car_pieces
+            <set>
+                <if test="hytemplate.carPieceId != null">
+                    car_piece_id = #{hytemplate.carPieceId,jdbcType=INTEGER},
+                </if>
+                <if test="hytemplate.carModelTiema != null">
+                    car_model_tiema = #{hytemplate.carModelTiema,jdbcType=VARCHAR},
+                </if>
+                <if test="hytemplate.oldMoney != null">
+                    old_money = #{hytemplate.oldMoney,jdbcType=VARCHAR},
+                </if>
+                <if test="hytemplate.demolitionMoney != null">
+                    demolition_money = #{hytemplate.demolitionMoney,jdbcType=VARCHAR},
+                </if>
+                <if test="hytemplate.createdBy != null">
+                    created_by = #{hytemplate.createdBy,jdbcType=VARCHAR},
+                </if>
+                <if test="hytemplate.createdTime != null">
+                    created_time = #{hytemplate.createdTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="hytemplate.updatedBy != null">
+                    updated_by = #{hytemplate.updatedBy,jdbcType=VARCHAR},
+                </if>
+                <if test="hytemplate.updatedTime != null">
+                    updated_time = #{hytemplate.updatedTime,jdbcType=TIMESTAMP},
+                </if>
+            </set>
+            <where>
+                where id = #{hytemplate.id,jdbcType=INTEGER}
+            </where>
+        </foreach>
+    </update>
 </mapper>
