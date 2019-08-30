@@ -135,6 +135,11 @@
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.0.0</version>
         </dependency>
+        <!-- thymeleaf-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
