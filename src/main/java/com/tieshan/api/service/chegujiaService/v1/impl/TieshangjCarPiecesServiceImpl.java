@@ -47,4 +47,9 @@ public class TieshangjCarPiecesServiceImpl implements TieshangjCarPiecesService 
         return tieshangjCarPiecesMapper.updateHytemplateBatch(hytemplateList);
     }
 
+    @Override
+    public Integer countSelectTiema(String tiema) {
+        return tieshangjCarPiecesMapper.countSelectTiema(tiema);
+    }
+
 }

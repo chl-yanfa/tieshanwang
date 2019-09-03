@@ -37,5 +37,25 @@ public class TieshangjCarModelServiceImpl implements TieshangjCarModelService {
         return tieshangjCarModelMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<TieshangjCarModel> selectAlls() {
+        return tieshangjCarModelMapper.selectAlls();
+    }
+
+    @Override
+    public int updateByPrimaryKeySelective(TieshangjCarModel record) {
+        return tieshangjCarModelMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public int updateByHe(TieshangjCarModel record) {
+        return tieshangjCarModelMapper.updateByHe(record);
+    }
+
+    @Override
+    public String selectTieMaByJYid(String jyid) {
+        return tieshangjCarModelMapper.selectTieMaByJYid(jyid);
+    }
+
 
 }

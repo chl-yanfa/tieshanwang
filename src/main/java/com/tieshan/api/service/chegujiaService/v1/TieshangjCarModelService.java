@@ -15,4 +15,10 @@ public interface TieshangjCarModelService {
     String selectByPrimarytiema(String tiema);
     //根据车型id查看车辆信息
     TieshangjCarModel selectByPrimaryKey(Integer id);
+    List<TieshangjCarModel> selectAlls();
+    int updateByPrimaryKeySelective(TieshangjCarModel record);
+    //根据合并编码修改weight
+    int updateByHe(TieshangjCarModel record);
+    //根据精友id查询tiema
+    String selectTieMaByJYid(String jyid);
 }

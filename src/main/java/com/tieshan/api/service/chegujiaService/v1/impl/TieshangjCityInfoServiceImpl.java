@@ -16,4 +16,9 @@ public class TieshangjCityInfoServiceImpl implements TieshangjCityInfoService {
     public List<TieshangjCityInfo> selectProvid(String Pid) {
         return tieshangjCityInfoMapper.selectProvid(Pid);
     }
+
+    @Override
+    public TieshangjCityInfo selectbyId(String cid) {
+        return tieshangjCityInfoMapper.selectbyId(cid);
+    }
 }

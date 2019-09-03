@@ -18,4 +18,5 @@ public interface TieshangjCarPiecesService {
     //根据车型查看件
     List<TieshangjCarPieces> selectEr(@Param("tiema") String tiema, @Param("fuId") String fuId);
     Long updateHytemplateBatch(@Param(value = "hytemplateList")List<TieshangjCarPieces> hytemplateList);
+    Integer countSelectTiema(String tiema);
 }
