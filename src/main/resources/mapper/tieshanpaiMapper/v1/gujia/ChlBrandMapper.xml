@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlBrandMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="brname" jdbcType="VARCHAR" property="brname" />
+    <result column="brname_alias" jdbcType="VARCHAR" property="brnameAlias" />
+    <result column="initials" jdbcType="VARCHAR" property="initials" />
+    <result column="br_introduce" jdbcType="VARCHAR" property="brIntroduce" />
+    <result column="country" jdbcType="INTEGER" property="country" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="category" jdbcType="INTEGER" property="category" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="brand_code" jdbcType="VARCHAR" property="brandCode" />
+    <result column="auto_logosz_id" jdbcType="INTEGER" property="autoLogoszId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, brname, brname_alias, initials, br_introduce, country, state, category, logo, 
+    created_by, created_time, updated_by, updated_time, brand_code, auto_logosz_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chl_brand
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand">
+    update chl_brand
+    <set>
+      <if test="brname != null">
+        brname = #{brname,jdbcType=VARCHAR},
+      </if>
+      <if test="brnameAlias != null">
+        brname_alias = #{brnameAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="initials != null">
+        initials = #{initials,jdbcType=VARCHAR},
+      </if>
+      <if test="brIntroduce != null">
+        br_introduce = #{brIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null">
+        country = #{country,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=INTEGER},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="brandCode != null">
+        brand_code = #{brandCode,jdbcType=VARCHAR},
+      </if>
+      <if test="autoLogoszId != null">
+        auto_logosz_id = #{autoLogoszId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectCBId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select ID, brname
+    from chl_brand
+    where auto_logosz_id = #{ALId} order by brname
+  </select>
+</mapper>

@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlCarModelMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="vin_code" jdbcType="VARCHAR" property="vinCode" />
+    <result column="model_name" jdbcType="VARCHAR" property="modelName" />
+    <result column="brand_id" jdbcType="INTEGER" property="brandId" />
+    <result column="series_id" jdbcType="INTEGER" property="seriesId" />
+    <result column="sub_series_id" jdbcType="INTEGER" property="subSeriesId" />
+    <result column="displacement" jdbcType="VARCHAR" property="displacement" />
+    <result column="model_year" jdbcType="VARCHAR" property="modelYear" />
+    <result column="drive_type" jdbcType="VARCHAR" property="driveType" />
+    <result column="engine" jdbcType="VARCHAR" property="engine" />
+    <result column="body_structure" jdbcType="VARCHAR" property="bodyStructure" />
+    <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice" />
+    <result column="range_of_service" jdbcType="VARCHAR" property="rangeOfService" />
+    <result column="range_of_pickup" jdbcType="VARCHAR" property="rangeOfPickup" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
+    <result column="created_by" jdbcType="VARCHAR" property="createdBy" />
+    <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
+    <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <result column="delete_state" jdbcType="INTEGER" property="deleteState" />
+    <result column="part_num" jdbcType="VARCHAR" property="partNum" />
+    <result column="called" jdbcType="VARCHAR" property="called" />
+    <result column="car_alias" jdbcType="VARCHAR" property="carAlias" />
+    <result column="car_year" jdbcType="VARCHAR" property="carYear" />
+    <result column="dynamic" jdbcType="VARCHAR" property="dynamic" />
+    <result column="drives" jdbcType="VARCHAR" property="drives" />
+    <result column="seat_num" jdbcType="VARCHAR" property="seatNum" />
+    <result column="emission_standard" jdbcType="VARCHAR" property="emissionStandard" />
+    <result column="configure_level" jdbcType="VARCHAR" property="configureLevel" />
+    <result column="cylinder" jdbcType="VARCHAR" property="cylinder" />
+    <result column="engine_valve_num" jdbcType="VARCHAR" property="engineValveNum" />
+    <result column="transmission" jdbcType="VARCHAR" property="transmission" />
+    <result column="wheelbase" jdbcType="VARCHAR" property="wheelbase" />
+    <result column="cardoorNum" jdbcType="VARCHAR" property="cardoornum" />
+    <result column="supply" jdbcType="VARCHAR" property="supply" />
+    <result column="inlet" jdbcType="VARCHAR" property="inlet" />
+    <result column="power" jdbcType="VARCHAR" property="power" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="car_type_id" jdbcType="INTEGER" property="carTypeId" />
+    <result column="alias_id" jdbcType="VARCHAR" property="aliasId" />
+    <result column="tiema" jdbcType="VARCHAR" property="tiema" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    <result column="json" jdbcType="LONGVARCHAR" property="json" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, vin_code, model_name, brand_id, series_id, sub_series_id, displacement, model_year, 
+    drive_type, engine, body_structure, purchase_price, range_of_service, range_of_pickup, 
+    status, created_time, created_by, updated_by, updated_time, delete_state, part_num, 
+    called, car_alias, car_year, dynamic, drives, seat_num, emission_standard, configure_level, 
+    cylinder, engine_valve_num, transmission, wheelbase, cardoorNum, supply, inlet, power, 
+    remarks, car_type_id, alias_id, tiema
+  </sql>
+  <sql id="Blob_Column_List">
+    json
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from chl_car_model
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    insert into chl_car_model
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="vinCode != null">
+        vin_code,
+      </if>
+      <if test="modelName != null">
+        model_name,
+      </if>
+      <if test="brandId != null">
+        brand_id,
+      </if>
+      <if test="seriesId != null">
+        series_id,
+      </if>
+      <if test="subSeriesId != null">
+        sub_series_id,
+      </if>
+      <if test="displacement != null">
+        displacement,
+      </if>
+      <if test="modelYear != null">
+        model_year,
+      </if>
+      <if test="driveType != null">
+        drive_type,
+      </if>
+      <if test="engine != null">
+        engine,
+      </if>
+      <if test="bodyStructure != null">
+        body_structure,
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price,
+      </if>
+      <if test="rangeOfService != null">
+        range_of_service,
+      </if>
+      <if test="rangeOfPickup != null">
+        range_of_pickup,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createdTime != null">
+        created_time,
+      </if>
+      <if test="createdBy != null">
+        created_by,
+      </if>
+      <if test="updatedBy != null">
+        updated_by,
+      </if>
+      <if test="updatedTime != null">
+        updated_time,
+      </if>
+      <if test="deleteState != null">
+        delete_state,
+      </if>
+      <if test="partNum != null">
+        part_num,
+      </if>
+      <if test="called != null">
+        called,
+      </if>
+      <if test="carAlias != null">
+        car_alias,
+      </if>
+      <if test="carYear != null">
+        car_year,
+      </if>
+      <if test="dynamic != null">
+        dynamic,
+      </if>
+      <if test="drives != null">
+        drives,
+      </if>
+      <if test="seatNum != null">
+        seat_num,
+      </if>
+      <if test="emissionStandard != null">
+        emission_standard,
+      </if>
+      <if test="configureLevel != null">
+        configure_level,
+      </if>
+      <if test="cylinder != null">
+        cylinder,
+      </if>
+      <if test="engineValveNum != null">
+        engine_valve_num,
+      </if>
+      <if test="transmission != null">
+        transmission,
+      </if>
+      <if test="wheelbase != null">
+        wheelbase,
+      </if>
+      <if test="cardoornum != null">
+        cardoorNum,
+      </if>
+      <if test="supply != null">
+        supply,
+      </if>
+      <if test="inlet != null">
+        inlet,
+      </if>
+      <if test="power != null">
+        power,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="carTypeId != null">
+        car_type_id,
+      </if>
+      <if test="aliasId != null">
+        alias_id,
+      </if>
+      <if test="tiema != null">
+        tiema,
+      </if>
+      <if test="json != null">
+        json,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="vinCode != null">
+        #{vinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null">
+        #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null">
+        #{seriesId,jdbcType=INTEGER},
+      </if>
+      <if test="subSeriesId != null">
+        #{subSeriesId,jdbcType=INTEGER},
+      </if>
+      <if test="displacement != null">
+        #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="modelYear != null">
+        #{modelYear,jdbcType=VARCHAR},
+      </if>
+      <if test="driveType != null">
+        #{driveType,jdbcType=VARCHAR},
+      </if>
+      <if test="engine != null">
+        #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStructure != null">
+        #{bodyStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rangeOfService != null">
+        #{rangeOfService,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeOfPickup != null">
+        #{rangeOfPickup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteState != null">
+        #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="partNum != null">
+        #{partNum,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null">
+        #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="carAlias != null">
+        #{carAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="carYear != null">
+        #{carYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamic != null">
+        #{dynamic,jdbcType=VARCHAR},
+      </if>
+      <if test="drives != null">
+        #{drives,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNum != null">
+        #{seatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="emissionStandard != null">
+        #{emissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="configureLevel != null">
+        #{configureLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cylinder != null">
+        #{cylinder,jdbcType=VARCHAR},
+      </if>
+      <if test="engineValveNum != null">
+        #{engineValveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="transmission != null">
+        #{transmission,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelbase != null">
+        #{wheelbase,jdbcType=VARCHAR},
+      </if>
+      <if test="cardoornum != null">
+        #{cardoornum,jdbcType=VARCHAR},
+      </if>
+      <if test="supply != null">
+        #{supply,jdbcType=VARCHAR},
+      </if>
+      <if test="inlet != null">
+        #{inlet,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null">
+        #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="carTypeId != null">
+        #{carTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="aliasId != null">
+        #{aliasId,jdbcType=VARCHAR},
+      </if>
+      <if test="tiema != null">
+        #{tiema,jdbcType=VARCHAR},
+      </if>
+      <if test="json != null">
+        #{json,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    update chl_car_model
+    <set>
+      <if test="vinCode != null">
+        vin_code = #{vinCode,jdbcType=VARCHAR},
+      </if>
+      <if test="modelName != null">
+        model_name = #{modelName,jdbcType=VARCHAR},
+      </if>
+      <if test="brandId != null">
+        brand_id = #{brandId,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null">
+        series_id = #{seriesId,jdbcType=INTEGER},
+      </if>
+      <if test="subSeriesId != null">
+        sub_series_id = #{subSeriesId,jdbcType=INTEGER},
+      </if>
+      <if test="displacement != null">
+        displacement = #{displacement,jdbcType=VARCHAR},
+      </if>
+      <if test="modelYear != null">
+        model_year = #{modelYear,jdbcType=VARCHAR},
+      </if>
+      <if test="driveType != null">
+        drive_type = #{driveType,jdbcType=VARCHAR},
+      </if>
+      <if test="engine != null">
+        engine = #{engine,jdbcType=VARCHAR},
+      </if>
+      <if test="bodyStructure != null">
+        body_structure = #{bodyStructure,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasePrice != null">
+        purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="rangeOfService != null">
+        range_of_service = #{rangeOfService,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeOfPickup != null">
+        range_of_pickup = #{rangeOfPickup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createdTime != null">
+        created_time = #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createdBy != null">
+        created_by = #{createdBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedBy != null">
+        updated_by = #{updatedBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedTime != null">
+        updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deleteState != null">
+        delete_state = #{deleteState,jdbcType=INTEGER},
+      </if>
+      <if test="partNum != null">
+        part_num = #{partNum,jdbcType=VARCHAR},
+      </if>
+      <if test="called != null">
+        called = #{called,jdbcType=VARCHAR},
+      </if>
+      <if test="carAlias != null">
+        car_alias = #{carAlias,jdbcType=VARCHAR},
+      </if>
+      <if test="carYear != null">
+        car_year = #{carYear,jdbcType=VARCHAR},
+      </if>
+      <if test="dynamic != null">
+        dynamic = #{dynamic,jdbcType=VARCHAR},
+      </if>
+      <if test="drives != null">
+        drives = #{drives,jdbcType=VARCHAR},
+      </if>
+      <if test="seatNum != null">
+        seat_num = #{seatNum,jdbcType=VARCHAR},
+      </if>
+      <if test="emissionStandard != null">
+        emission_standard = #{emissionStandard,jdbcType=VARCHAR},
+      </if>
+      <if test="configureLevel != null">
+        configure_level = #{configureLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="cylinder != null">
+        cylinder = #{cylinder,jdbcType=VARCHAR},
+      </if>
+      <if test="engineValveNum != null">
+        engine_valve_num = #{engineValveNum,jdbcType=VARCHAR},
+      </if>
+      <if test="transmission != null">
+        transmission = #{transmission,jdbcType=VARCHAR},
+      </if>
+      <if test="wheelbase != null">
+        wheelbase = #{wheelbase,jdbcType=VARCHAR},
+      </if>
+      <if test="cardoornum != null">
+        cardoorNum = #{cardoornum,jdbcType=VARCHAR},
+      </if>
+      <if test="supply != null">
+        supply = #{supply,jdbcType=VARCHAR},
+      </if>
+      <if test="inlet != null">
+        inlet = #{inlet,jdbcType=VARCHAR},
+      </if>
+      <if test="power != null">
+        power = #{power,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="carTypeId != null">
+        car_type_id = #{carTypeId,jdbcType=INTEGER},
+      </if>
+      <if test="aliasId != null">
+        alias_id = #{aliasId,jdbcType=VARCHAR},
+      </if>
+      <if test="tiema != null">
+        tiema = #{tiema,jdbcType=VARCHAR},
+      </if>
+      <if test="json != null">
+        json = #{json,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    update chl_car_model
+    set vin_code = #{vinCode,jdbcType=VARCHAR},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      series_id = #{seriesId,jdbcType=INTEGER},
+      sub_series_id = #{subSeriesId,jdbcType=INTEGER},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      model_year = #{modelYear,jdbcType=VARCHAR},
+      drive_type = #{driveType,jdbcType=VARCHAR},
+      engine = #{engine,jdbcType=VARCHAR},
+      body_structure = #{bodyStructure,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      range_of_service = #{rangeOfService,jdbcType=VARCHAR},
+      range_of_pickup = #{rangeOfPickup,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      delete_state = #{deleteState,jdbcType=INTEGER},
+      part_num = #{partNum,jdbcType=VARCHAR},
+      called = #{called,jdbcType=VARCHAR},
+      car_alias = #{carAlias,jdbcType=VARCHAR},
+      car_year = #{carYear,jdbcType=VARCHAR},
+      dynamic = #{dynamic,jdbcType=VARCHAR},
+      drives = #{drives,jdbcType=VARCHAR},
+      seat_num = #{seatNum,jdbcType=VARCHAR},
+      emission_standard = #{emissionStandard,jdbcType=VARCHAR},
+      configure_level = #{configureLevel,jdbcType=VARCHAR},
+      cylinder = #{cylinder,jdbcType=VARCHAR},
+      engine_valve_num = #{engineValveNum,jdbcType=VARCHAR},
+      transmission = #{transmission,jdbcType=VARCHAR},
+      wheelbase = #{wheelbase,jdbcType=VARCHAR},
+      cardoorNum = #{cardoornum,jdbcType=VARCHAR},
+      supply = #{supply,jdbcType=VARCHAR},
+      inlet = #{inlet,jdbcType=VARCHAR},
+      power = #{power,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      car_type_id = #{carTypeId,jdbcType=INTEGER},
+      alias_id = #{aliasId,jdbcType=VARCHAR},
+      tiema = #{tiema,jdbcType=VARCHAR},
+      json = #{json,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    update chl_car_model
+    set vin_code = #{vinCode,jdbcType=VARCHAR},
+      model_name = #{modelName,jdbcType=VARCHAR},
+      brand_id = #{brandId,jdbcType=INTEGER},
+      series_id = #{seriesId,jdbcType=INTEGER},
+      sub_series_id = #{subSeriesId,jdbcType=INTEGER},
+      displacement = #{displacement,jdbcType=VARCHAR},
+      model_year = #{modelYear,jdbcType=VARCHAR},
+      drive_type = #{driveType,jdbcType=VARCHAR},
+      engine = #{engine,jdbcType=VARCHAR},
+      body_structure = #{bodyStructure,jdbcType=VARCHAR},
+      purchase_price = #{purchasePrice,jdbcType=DECIMAL},
+      range_of_service = #{rangeOfService,jdbcType=VARCHAR},
+      range_of_pickup = #{rangeOfPickup,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      created_time = #{createdTime,jdbcType=TIMESTAMP},
+      created_by = #{createdBy,jdbcType=VARCHAR},
+      updated_by = #{updatedBy,jdbcType=VARCHAR},
+      updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+      delete_state = #{deleteState,jdbcType=INTEGER},
+      part_num = #{partNum,jdbcType=VARCHAR},
+      called = #{called,jdbcType=VARCHAR},
+      car_alias = #{carAlias,jdbcType=VARCHAR},
+      car_year = #{carYear,jdbcType=VARCHAR},
+      dynamic = #{dynamic,jdbcType=VARCHAR},
+      drives = #{drives,jdbcType=VARCHAR},
+      seat_num = #{seatNum,jdbcType=VARCHAR},
+      emission_standard = #{emissionStandard,jdbcType=VARCHAR},
+      configure_level = #{configureLevel,jdbcType=VARCHAR},
+      cylinder = #{cylinder,jdbcType=VARCHAR},
+      engine_valve_num = #{engineValveNum,jdbcType=VARCHAR},
+      transmission = #{transmission,jdbcType=VARCHAR},
+      wheelbase = #{wheelbase,jdbcType=VARCHAR},
+      cardoorNum = #{cardoornum,jdbcType=VARCHAR},
+      supply = #{supply,jdbcType=VARCHAR},
+      inlet = #{inlet,jdbcType=VARCHAR},
+      power = #{power,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      car_type_id = #{carTypeId,jdbcType=INTEGER},
+      alias_id = #{aliasId,jdbcType=VARCHAR},
+      tiema = #{tiema,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectModelVin" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        SELECT
+	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year,m.vin_code
+        FROM
+	        chl_car_model m
+	    where m.vin_code=#{vin}  order by car_year desc
+  </select>
+  <select id="selectCheXiId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        SELECT
+	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year
+        FROM
+	        chl_car_model m
+	    INNER JOIN chl_car_model_group g ON m.sub_series_id = g.id
+	    INNER JOIN chl_car_model_series s ON s.id = g.vehice_system_id
+	    where s.id=#{serid}  order by car_year desc
+  </select>
+</mapper>
