@@ -48,4 +48,7 @@
     SELECT citycode,city_namecn FROM `tieshangj_city_info`
     where provincecode=#{Pid} order by sort asc
   </select>
+  <select id="selectbyId" resultMap="BaseResultMap">
+    SELECT * from tieshangj_city_info where citycode=#{cid}
+  </select>
 </mapper>

@@ -211,4 +211,11 @@
             </where>
         </foreach>
     </update>
+    <select id="countSelectTiema" resultType="java.lang.String">
+        SELECT
+	        count(id)
+        FROM
+          tieshangj_car_pieces
+        where car_model_tiema=#{tiema}
+  </select>
 </mapper>

@@ -16,6 +16,8 @@
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="zbzl" jdbcType="VARCHAR" property="zbzl" />
     <result column="jyid" jdbcType="VARCHAR" property="jyid" />
+    <result column="jyjson" jdbcType="VARCHAR" property="jyjson" />
+    <result column="mergecode" jdbcType="VARCHAR" property="mergecode" />
     <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
       <result column="a_name" jdbcType="VARCHAR" property="aName"/>
     </association>
@@ -28,7 +30,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, car_name, car_crew_id, iron_code, money, displacement, body_structure, type_transmission, 
-    created_by, created_time, updated_by, updated_time,zbzl,jyid
+    created_by, created_time, updated_by, updated_time,zbzl,jyid,jyjson,mergecode
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         SELECT
@@ -93,6 +95,9 @@
       <if test="jyid != null">
         jyid,
       </if>
+      <if test="jyjson != null">
+        jyjson,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -137,6 +142,9 @@
       <if test="jyid != null">
         #{jyid,jdbcType=VARCHAR},
       </if>
+      <if test="jyjson != null">
+        #{jyjson,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
@@ -180,6 +188,9 @@
       </if>
       <if test="jyid != null">
         zbzl = #{jyid,jdbcType=VARCHAR},
+      </if>
+      <if test="jyjson != null">
+        jyjson = #{jyjson,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -243,5 +254,18 @@
         and m.car_name like CONCAT('%',#{carModelName},'%')
       </if>
     </where>
+  </select>
+  <select id="selectAlls" resultMap="BaseResultMap">
+    select jyid,id,mergecode,zbzl from tieshangj_car_model group by mergecode
+  </select>
+  <update id="updateByHe" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel">
+    update tieshangj_car_model
+    set zbzl = #{zbzl,jdbcType=VARCHAR}
+    where mergecode = #{mergecode,jdbcType=VARCHAR}
+  </update>
+  <select id="selectTieMaByJYid" parameterType="java.lang.String" resultType="java.lang.String">
+    select iron_code
+    from tieshangj_car_model
+    where jyid = #{jyid}
   </select>
 </mapper>
