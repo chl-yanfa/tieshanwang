@@ -32,6 +32,10 @@ public class TieshangjCarModel implements Serializable {
 
     private String jyid;
 
+    private String jyjson;
+
+    private String mergecode;
+
     private TieshangjCarAutoLogos tieshangjCarAutoLogos;
 
     private TieshangjCarVehicleSystem tieshangjCarVehicleSystem;
@@ -174,5 +178,21 @@ public class TieshangjCarModel implements Serializable {
 
     public void setTieshangjCarBrand(TieshangjCarBrand tieshangjCarBrand) {
         this.tieshangjCarBrand = tieshangjCarBrand;
+    }
+
+    public String getJyjson() {
+        return jyjson;
+    }
+
+    public void setJyjson(String jyjson) {
+        this.jyjson = jyjson;
+    }
+
+    public String getMergecode() {
+        return mergecode;
+    }
+
+    public void setMergecode(String mergecode) {
+        this.mergecode = mergecode;
     }
 }
