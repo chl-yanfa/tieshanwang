@@ -1,17 +1,29 @@
 package com.tieshan.api.controller.chegujiaController.v1;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo;
+import com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory;
 import com.tieshan.api.service.chegujiaService.v1.*;
 import com.tieshan.api.service.shortMessageApiService.v1.TbVerificationCodeService;
+import com.tieshan.api.util.httpUtil.HttpClient;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping(value = "v1/gu/")
 public class TieshanGuJiaController {
@@ -27,11 +39,59 @@ public class TieshanGuJiaController {
     private TieshangjCarWasteService tieshangjCarWasteService;
     @Autowired
     private TieshangjCarModelService tieshangjCarModelService;
+    @Autowired
+    private TieshangjHistoryService tieshangjHistoryService;
+    @Autowired
+    private TieshangjCityInfoService tieshangjCityInfoService;
     @RequestMapping(value = "gujia",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult gujia(HttpServletRequest request){
-        String carModelTiema=request.getParameter("carModelTiema");//获得车型铁码
+        String jyid=request.getParameter("jyid");//精友id
+        String type=request.getParameter("type");
         String pid=request.getParameter("pid");//获得省份id
+        String carNumberId=request.getParameter("carNumberId");//车型id
+        String moderyers=request.getParameter("moderyers");//年款
+        String cityId=request.getParameter("cityId");//城市id
+        String Mileage=request.getParameter("Mileage");
+        String carModelName=request.getParameter("carModelName");
+        String createBy=request.getParameter("createBy");
+        String carModelTiema="";
+        TieshangjCityInfo cityInfo=tieshangjCityInfoService.selectbyId(cityId);
+        if(type.equals("1")){
+            //APP
+            //根据精友id查询对应铁码
+             carModelTiema=tieshangjCarModelService.selectTieMaByJYid(jyid);
+            //if铁码不为空
+            if(StringUtils.isNotBlank(carModelTiema)){
+                //判断该铁码车型是否需要调用一次估价（判断拆旧件表是否存在）
+                Integer count=tieshangjCarPiecesService.countSelectTiema(carModelTiema);
+                if(count<=0){
+                    //调用一次估价
+                   Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn());
+                   if(map.get("code").equals("200")){
+                       return ResultUtil.success(map.get("data"));
+                   }else if((map.get("code").equals("201"))){
+                       return ResultUtil.error(201,"该车型尚不能估值");
+                   }else if((map.get("code").equals("500"))){
+                       return ResultUtil.error(500,"系统内部错误");
+                   }
+                }
+            }else{
+                //调用一次估价
+                Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn());
+                if(map.get("code").equals("200")){
+                    return ResultUtil.success(map.get("data"));
+                }else if((map.get("code").equals("201"))){
+                    return ResultUtil.error(201,"该车型尚不能估值");
+                }else if((map.get("code").equals("500"))){
+                    return ResultUtil.error(500,"系统内部错误");
+                }
+            }
+        }else if(type.equals("2")){
+            //pc
+             carModelTiema=request.getParameter("carModelTiema");//获得车型铁码mvn
+        }
+
         //第一步*****************计算拆车间之和
         String chaiFDJmoney=tieshangjCarPiecesService.selectMoneyNullBorF("2",carModelTiema,"demolition_money");//查询车型拆车件发动机总成价格是否为空
         String chaiBSXmoney=tieshangjCarPiecesService.selectMoneyNullBorF("18",carModelTiema,"demolition_money");//查询车型拆车件变速箱价格是否为空
@@ -147,13 +207,106 @@ public class TieshanGuJiaController {
         System.out.println("旧车件之和："+sumMoneyJius);
         System.out.println("废料拆："+chaifeiMoney);
         System.out.println("废料旧："+oldfeiMoney);
-        System.out.println("区域系数："+Profit);
-        System.out.println("人工调整数："+arnums);
+        System.out.println("系数："+Profit);
+        System.out.println("区域人工调整数："+arnums);
         //计算公式：（（拆车件之和+废料拆+旧车件之和+废料旧）/2）*利润系数 土 区域调整数
         BigDecimal sum=((sumMoneyChais.add(chaifeiMoney).add(sumMoneyJius).add(oldfeiMoney)).divide(num,2,BigDecimal.ROUND_HALF_UP)).multiply(Profit).add(arnums);
         /*BigDecimal sum=((((sumMoneyChais.add(sumMoneyJius)).divide(num,2,BigDecimal.ROUND_HALF_UP)).add(moneyWastes)).multiply(Profit)).add(arnums);*/
         sum=sum.setScale(2, BigDecimal.ROUND_HALF_UP);
         return ResultUtil.success(sum);
 
+    }
+    public Map oldGuJia(String carNumberId,String moderyers,String cityId,String Mileage,String pid,String carModelName,String createBy,String cityname){
+        MultiValueMap<String, String> params=new LinkedMultiValueMap<>();
+        HttpHeaders headers=new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        String jieguo=HttpClient.sendGetRequest("http://10.0.0.210:18061/ctselect?carNumberId="+carNumberId+"&"+"moderyers="+moderyers,params,headers);
+        JSONObject jobj = JSON.parseObject(jieguo);
+        String code=jobj.get("code").toString();
+        Map map=new HashMap();
+        if(code.equals("200")){
+            String cheng=jobj.getJSONObject("data").get("cheng").toString();
+            String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
+            JSONObject jobj2 = JSON.parseObject(jieguo2);
+            String code2=jobj2.get("code").toString();
+            String data=jobj2.get("data").toString();
+            if(code2.equals("200")){
+                if(data.equals("0")){
+                    //该车型不能估值
+                    map.put("code","201");
+                    map.put("data","该车型尚不能估值");
+                    return map;
+                }else{
+                    String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
+                    JSONObject jobj3 = JSON.parseObject(jieguo3);
+                    String code3=jobj3.get("code").toString();
+                    System.out.println(jobj3);
+                    if(code3.equals("200")){
+                        String data3=jobj3.getJSONObject("data").get("bad").toString();
+                        BigDecimal chengb = new BigDecimal(cheng).setScale(2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal datab = new BigDecimal(data3).setScale(2, BigDecimal.ROUND_HALF_UP);
+                        BigDecimal result=chengb.multiply(datab);
+                        TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                        tieshangjHistory.setCarModelName(carModelName);
+                        tieshangjHistory.setCreateTime(new Date());
+                        tieshangjHistory.setCreateBy(createBy);
+                        tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityname);
+                        tieshangjHistory.setFruit(result.toString());
+                        tieshangjHistory.setType("1");
+                        tieshangjHistoryService.insertSelective(tieshangjHistory);
+                        map.put("code","200");
+                        map.put("data",result);
+                        return map;
+                    }
+                    System.out.println("结果："+jieguo3);
+                }
+            }
+                     /*if(state.equals("1")){
+                         String xi=jobj.getJSONObject("data").getJSONObject("chlCarmodelGroupFixedvalueCt").get("value").toString();
+                         String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
+                         JSONObject jobj2 = JSON.parseObject(jieguo2);
+                         String code2=jobj2.get("code").toString();
+                         String data=jobj2.get("data").toString();
+                         if(code2.equals("200")){
+                            if(data.equals("0")){
+                                //该车型不能估值
+                                return ResultUtil.error(201,"该车型尚不能估值");
+                            }else{
+                                String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
+                                JSONObject jobj3 = JSON.parseObject(jieguo3);
+                                String code3=jobj3.get("code").toString();
+                                if(code3.equals("200")){
+                                    String data3=jobj3.getJSONObject("jobj3").get("bad").toString();
+                                    return ResultUtil.success(data3);
+                                }
+                                System.out.println("结果："+jieguo3);
+                            }
+                         }
+                     }else{
+                         String cheng=jobj.getJSONObject("data").get("cheng").toString();
+                         String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
+                         JSONObject jobj2 = JSON.parseObject(jieguo2);
+                         String code2=jobj2.get("code").toString();
+                         String data=jobj2.get("data").toString();
+                         if(code2.equals("200")){
+                             if(data.equals("0")){
+                                 //该车型不能估值
+                                 return ResultUtil.error(201,"该车型尚不能估值");
+                             }else{
+                                 String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
+                                 JSONObject jobj3 = JSON.parseObject(jieguo3);
+                                 String code3=jobj3.get("code").toString();
+                                 if(code3.equals("200")){
+                                     String data3=jobj3.getJSONObject("jobj3").get("bad").toString();
+                                     return ResultUtil.success(data3);
+                                 }
+                                 System.out.println("结果："+jieguo3);
+                             }
+                         }
+                     }*/
+        }
+        map.put("code","500");
+        map.put("data","系统出现错误");
+        return map;
     }
 }
