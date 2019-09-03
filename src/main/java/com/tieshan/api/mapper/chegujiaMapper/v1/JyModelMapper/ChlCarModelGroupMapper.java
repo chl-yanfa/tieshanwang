@@ -1,0 +1,17 @@
+package com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper;
+
+import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelGroup;
+
+public interface ChlCarModelGroupMapper {
+    int deleteByPrimaryKey(Integer id);
+
+    int insert(ChlCarModelGroup record);
+
+    int insertSelective(ChlCarModelGroup record);
+
+    ChlCarModelGroup selectByPrimaryKey(Integer id);
+
+    int updateByPrimaryKeySelective(ChlCarModelGroup record);
+
+    int updateByPrimaryKey(ChlCarModelGroup record);
+}

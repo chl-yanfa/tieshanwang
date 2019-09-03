@@ -28,4 +28,6 @@ public interface TieshangjCarPiecesMapper {
     String selectMoneyWaste(String tiema);
     //批量修改
     Long updateHytemplateBatch(@Param(value = "hytemplateList")List<TieshangjCarPieces> hytemplateList);
+
+    Integer countSelectTiema(String tiema);
 }

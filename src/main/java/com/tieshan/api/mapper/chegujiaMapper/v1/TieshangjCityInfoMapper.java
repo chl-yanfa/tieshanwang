@@ -10,4 +10,6 @@ public interface TieshangjCityInfoMapper {
     int insertSelective(TieshangjCityInfo record);
     //根据省份id查看城市
     List<TieshangjCityInfo> selectProvid(String Pid);
+    //根据省份id查看城市
+    TieshangjCityInfo selectbyId(String cid);
 }

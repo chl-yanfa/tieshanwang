@@ -20,4 +20,9 @@ public interface TieshangjCarModelMapper {
     Integer selectAllCount(Map map);
     //根据铁码查看车型
     String selectByPrimarytiema(String tiema);
+    List<TieshangjCarModel> selectAlls();
+    //根据合并编码修改weight
+    int updateByHe(TieshangjCarModel record);
+    //根据精友id查询tiema
+    String selectTieMaByJYid(String jyid);
 }
