@@ -345,6 +345,7 @@
         ) v
         WHERE
         v.pm_start_time IS NOT NULL
+        having <![CDATA[pmh_end_time <= SYSDATE()]]>
         ORDER BY
         pmh_end_time DESC
     </select>

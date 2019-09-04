@@ -206,8 +206,9 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         for (CarPmResultVo paipin: paipinList ) {
             if(paipin.getThisPrice()>paipin.getRetainPrice()){
                 chopPaipinList.add(paipin);
+            }else{
+                outPaipinList.add(paipin);
             }
-            outPaipinList.add(paipin);
         }
             successResult.put("pmh", pmhList);
             successResult.put("qiepai", chopPaipinList);
