@@ -2,10 +2,10 @@ package com.tieshan.api.mapper.chegujiaMapper.v1;
 
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory;
 
-public interface TieshangjHistoryMapper {
-    int deleteByPrimaryKey(Integer id);
+import java.util.List;
 
-    int insert(TieshangjHistory record);
+public interface TieshangjHistoryMapper {
+
 
     int insertSelective(TieshangjHistory record);
 
@@ -13,5 +13,7 @@ public interface TieshangjHistoryMapper {
 
     int updateByPrimaryKeySelective(TieshangjHistory record);
 
-    int updateByPrimaryKey(TieshangjHistory record);
+    List<TieshangjHistory> selectAll();
+
+
 }

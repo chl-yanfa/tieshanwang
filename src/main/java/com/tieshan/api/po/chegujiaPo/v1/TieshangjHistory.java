@@ -20,6 +20,7 @@ public class TieshangjHistory implements Serializable {
 
     private String tu;
 
+    private String jyid;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -84,5 +85,13 @@ public class TieshangjHistory implements Serializable {
 
     public void setTu(String tu) {
         this.tu = tu == null ? null : tu.trim();
+    }
+
+    public String getJyid() {
+        return jyid;
+    }
+
+    public void setJyid(String jyid) {
+        this.jyid = jyid;
     }
 }

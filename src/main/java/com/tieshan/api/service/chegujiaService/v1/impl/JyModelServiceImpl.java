@@ -48,4 +48,16 @@ public class JyModelServiceImpl implements JyModelService {
     public List<ChlCarModel> selectModelVin(String vin) {
         return chlCarModelMapper.selectModelVin(vin);
     }
+
+    @Override
+    public ChlCarModel selectModelJyid(String jyid) {
+        return chlCarModelMapper.selectModelJyid(jyid);
+    }
+
+    @Override
+    public int updateVinByJyid(ChlCarModel record) {
+        return chlCarModelMapper.updateVinByJyid(record);
+    }
+
+
 }

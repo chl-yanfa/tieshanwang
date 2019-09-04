@@ -20,4 +20,8 @@ public interface ChlCarModelMapper {
     List<ChlCarModel> selectModelVin(String vin);
     //根据车系id查看车型
     List<ChlCarModel> selectCheXiId(Integer chexiId);
+    //查询该精友id是否存在
+    ChlCarModel selectModelJyid(String jyid);
+    //根据精友id修改车型vin()
+    int updateVinByJyid(ChlCarModel record);
 }

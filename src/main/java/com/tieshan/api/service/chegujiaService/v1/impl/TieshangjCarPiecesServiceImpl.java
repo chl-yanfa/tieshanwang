@@ -23,14 +23,30 @@ public class TieshangjCarPiecesServiceImpl implements TieshangjCarPiecesService 
     }
 
     @Override
-    public String selectSumMoneyTwo(String chejianId1, String chejianId2, String tiema,String chaiorjiu) {
-        return tieshangjCarPiecesMapper.selectSumMoneyTwo(chejianId1,chejianId2,tiema,chaiorjiu);
+    public String selectSumMoneyTwo(String chejianId1, String chejianId2, String chejianId3, String chejianId4, String tiema, String chaiorjiu) {
+        return tieshangjCarPiecesMapper.selectSumMoneyTwo(chejianId1,chejianId2,chejianId3,chejianId4,tiema,chaiorjiu);
     }
 
     @Override
-    public String selectSumMoneyThree(String chejianId1, String chejianId2, String chejianId3, String chejianId4, String tiema,String chaiorjiu) {
-        return tieshangjCarPiecesMapper.selectSumMoneyThree(chejianId1,chejianId2,chejianId3,chejianId4,tiema,chaiorjiu);
+    public String selectSumMoneyThree(String chejianId1, String chejianId2, String chejianId3, String tiema, String chaiorjiu) {
+        return tieshangjCarPiecesMapper.selectSumMoneyThree(chejianId1,chejianId2,chejianId3,tiema,chaiorjiu);
     }
+
+    @Override
+    public String selectSumMoneyFour(String chejianId1, String chejianId2, String chejianId3, String chejianId4, String tiema, String chaiorjiu) {
+        return tieshangjCarPiecesMapper.selectSumMoneyFour(chejianId1,chejianId2,chejianId3,chejianId4,tiema,chaiorjiu);
+    }
+
+    @Override
+    public String selectSumMoneyFive(String chejianId1, String chejianId2, String chejianId3, String chejianId4, String tiema, String chaiorjiu) {
+        return tieshangjCarPiecesMapper.selectSumMoneyFive(chejianId1,chejianId2,chejianId3,chejianId4,tiema,chaiorjiu);
+    }
+
+    @Override
+    public String selectSumMoneySix(String chejianId1, String chejianId2, String chejianId3, String chejianId4, String chejianId5, String tiema, String chaiorjiu) {
+        return tieshangjCarPiecesMapper.selectSumMoneySix(chejianId1,chejianId2,chejianId3,chejianId4,chejianId5,tiema,chaiorjiu);
+    }
+
 
     @Override
     public String selectMoneyWaste(String tiema) {

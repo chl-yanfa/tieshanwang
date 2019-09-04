@@ -18,4 +18,8 @@ public interface JyModelService {
     List<ChlCarModel> selectCheXiId(Integer chexiId);
     //查询该vin是否存在
     List<ChlCarModel> selectModelVin(String vin);
+    //查询该精友id是否存在
+    ChlCarModel selectModelJyid(String jyid);
+    //根据精友id修改车型vin()
+    int updateVinByJyid(ChlCarModel record);
 }

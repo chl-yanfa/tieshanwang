@@ -6,6 +6,8 @@ import com.tieshan.api.service.chegujiaService.v1.TieshangjHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TieshangjHistoryServiceImpl implements TieshangjHistoryService {
     @Autowired
@@ -13,5 +15,10 @@ public class TieshangjHistoryServiceImpl implements TieshangjHistoryService {
     @Override
     public int insertSelective(TieshangjHistory record) {
         return tieshangjHistoryMapper.insertSelective(record);
+    }
+
+    @Override
+    public List<TieshangjHistory> selectAll() {
+        return tieshangjHistoryMapper.selectAll();
     }
 }
