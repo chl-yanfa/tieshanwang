@@ -2,7 +2,7 @@ package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
 
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 获得所有结束的拍品和拍卖会
@@ -26,8 +27,8 @@ public class getEndTimeController {
 
 
     @RequestMapping(value = "getEndTimeList",method = RequestMethod.GET)
-    public List<CarPmAuctionVo> getEndTimeList(){
-        return carPmAuctionService.getEndTime();
+    public Map<String,List<CarPmResultVo>> getEndTimeList(){
+        return carPmAuctionService.getEndResult();
     }
 
 }

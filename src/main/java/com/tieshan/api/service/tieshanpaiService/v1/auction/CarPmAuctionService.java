@@ -4,9 +4,11 @@ import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author ningrz
@@ -25,5 +27,5 @@ public interface CarPmAuctionService {
 
     ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
 
-    List<CarPmAuctionVo> getEndTime();
+    Map<String,List<CarPmResultVo>> getEndResult();
 }

@@ -7,6 +7,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author ningrz
@@ -183,7 +185,35 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
     }
 
     @Override
-    public List<CarPmAuctionVo> getEndTime() {
-        return carPmAuctionMapper.getEndTime();
+    public Map<String,List<CarPmResultVo>> getEndResult() {
+
+
+        //获取所有快要结束拍卖会
+        List<CarPmResultVo> pmhList = carPmAuctionMapper.getIngPmh();
+
+        //获取所有正在竞拍状态下、并且结束时间小于当前时间的拍品
+        List<CarPmResultVo> paipinList = carPmAuctionMapper.getIngPaiPin();
+
+        //切拍列表
+        List<CarPmResultVo> chopPaipinList = new ArrayList<>();
+
+        //流拍列表
+        List<CarPmResultVo> outPaipinList = new ArrayList<>();
+
+
+        Map<String, List<CarPmResultVo>> successResult = new HashMap<>();
+
+        for (CarPmResultVo paipin: paipinList ) {
+            if(paipin.getThisPrice()>paipin.getRetainPrice()){
+                chopPaipinList.add(paipin);
+            }
+            outPaipinList.add(paipin);
+        }
+            successResult.put("pmh", pmhList);
+            successResult.put("qiepai", chopPaipinList);
+            successResult.put("liupai", outPaipinList);
+            return successResult;
+        }
+
     }
-}
+

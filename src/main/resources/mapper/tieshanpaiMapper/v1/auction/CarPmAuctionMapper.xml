@@ -49,6 +49,8 @@
         <result column="pmh_end_time" 	    property="pmhEndTime" />
         <result column="pp_id" 	    property="ppId" />
         <result column="pp_end_time" 	    property="ppEndTime" />
+        <result column="retain_price" 	    property="retainPrice" />
+        <result column="this_price" 	    property="thisPrice" />
     </resultMap>
 
     <resultMap id="auction" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo">
@@ -303,22 +305,19 @@
 	    SIA.look_address park_address
 	</sql>
 
-    <select id="getEndTime" resultMap="resultEnd">
+
+    <select id="getIngPmh" resultMap="resultEnd">
         SELECT
         v.pmh_id,
-        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count-1) SECOND ) AS pmh_end_time,
-        v.pp_id,
-        v.pp_end_time
+        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count ) SECOND ) AS pmh_end_time
         FROM
         (
         SELECT
         cs.single_time AS time_single,
         cs.interval_time AS time_interval,
         cs.pmh_id AS pmh_id,
-        count( 1 ) AS pp_count,
-        cp.paimai_start_time AS pm_start_time,
-        cs.auction_end_time AS pp_end_time,
-        cs.auction_id AS pp_id
+        count(1) AS pp_count,
+        cp.paimai_start_time AS pm_start_time
         FROM
         car_pm_auction_set cs
         LEFT JOIN car_pm_paimai cp ON cs.pmh_id = cp.pmh_id
@@ -329,24 +328,9 @@
         FROM
         car_pm_auction a
         LEFT JOIN car_pm_auction_set b ON a.id = b.auction_id
-        LEFT JOIN car_pm_paimai c ON b.pmh_id = c.pmh_id
         WHERE
         <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
-        AND c.paimai_state = 1
-        GROUP BY
-        b.auction_end_time
-        ORDER BY
-        b.auction_end_time
-        )
-        AND cs.auction_id IN (
-        SELECT
-        a.id
-        FROM
-        car_pm_auction a
-        LEFT JOIN car_pm_auction_set b ON a.id = b.auction_id
-        WHERE
-        <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
-        AND a.auction_state = 4
+        AND a.auction_state in (5,8)
         GROUP BY
         b.auction_end_time
         ORDER BY
@@ -363,6 +347,44 @@
         v.pm_start_time IS NOT NULL
         ORDER BY
         pmh_end_time DESC
+    </select>
+
+
+
+    <select id="getIngPaiPin" resultMap="resultEnd">
+        select
+        (
+        SELECT
+        COALESCE(MAX(HB.BID_AMOUNT),'0')
+        FROM
+        car_pm_offer_water HB
+        WHERE
+        HB.is_delete = 0
+        AND HB.ORDER_ID = cpas.id
+        ) as this_price,
+        cpa.id as pp_id,
+        cpas.reserve_price as retain_price,
+        cpas.auction_end_time as pp_end_time
+        FROM
+        car_pm_auction cpa
+        LEFT JOIN car_pm_auction_set cpas ON cpa.id = cpas.auction_id
+        WHERE
+        cpa.id in(
+        SELECT
+        a.id
+        FROM
+        car_pm_auction a
+        LEFT JOIN car_pm_auction_set b ON a.id = b.auction_id
+        WHERE
+         <![CDATA[ b.auction_end_time <= DATE_FORMAT( SYSDATE(), '%Y-%m-%d %H:%i:%s' ) ]]>
+        AND a.auction_state = 4
+        GROUP BY
+        b.auction_end_time
+        ORDER BY
+        b.auction_end_time DESC
+        )
+        AND cpas.is_delete = 0
+        AND cpas.is_history = 0
     </select>
 
     <select id="findAuction" resultMap="auctionList">

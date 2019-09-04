@@ -3,6 +3,7 @@ package com.tieshan.api.mapper.tieshanpaiMapper.v1.auction;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -32,6 +33,9 @@ public interface CarPmAuctionMapper{
 
     int getHeightPrice(@Param("auctionId")String auctionId);
 
-    List<CarPmAuctionVo> getEndTime();
+    List<CarPmResultVo> getIngPaiPin();
+
+    List<CarPmResultVo> getIngPmh();
+
 
 }
