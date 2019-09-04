@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +44,10 @@ public class TieshanGuJiaController {
     private TieshangjHistoryService tieshangjHistoryService;
     @Autowired
     private TieshangjCityInfoService tieshangjCityInfoService;
+    private String ip="http://api2.chehulian.com:";
+    /*private String ip="http://10.0.0.210:";*/
+    private String port="18061";
+
     @RequestMapping(value = "gujia",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult gujia(HttpServletRequest request){
@@ -51,12 +56,18 @@ public class TieshanGuJiaController {
         String pid=request.getParameter("pid");//获得省份id
         String carNumberId=request.getParameter("carNumberId");//车型id
         String moderyers=request.getParameter("moderyers");//年款
+        if(StringUtils.isNotBlank(moderyers)){
+            if(moderyers.equals("2019")){
+                moderyers="2018";
+            }
+        }
         String cityId=request.getParameter("cityId");//城市id
-        String Mileage=request.getParameter("Mileage");
-        String carModelName=request.getParameter("carModelName");
-        String createBy=request.getParameter("createBy");
+        String Mileage=request.getParameter("Mileage");//里程
+        String carModelName=request.getParameter("carModelName");//车型名称
+        String createBy=request.getParameter("createBy");//创建人
         String carModelTiema="";
         TieshangjCityInfo cityInfo=tieshangjCityInfoService.selectbyId(cityId);
+        System.out.println("type:"+type);
         if(type.equals("1")){
             //APP
             //根据精友id查询对应铁码
@@ -64,10 +75,11 @@ public class TieshanGuJiaController {
             //if铁码不为空
             if(StringUtils.isNotBlank(carModelTiema)){
                 //判断该铁码车型是否需要调用一次估价（判断拆旧件表是否存在）
+                System.out.println(carModelTiema);
                 Integer count=tieshangjCarPiecesService.countSelectTiema(carModelTiema);
                 if(count<=0){
                     //调用一次估价
-                   Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn());
+                   Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid);
                    if(map.get("code").equals("200")){
                        return ResultUtil.success(map.get("data"));
                    }else if((map.get("code").equals("201"))){
@@ -78,7 +90,7 @@ public class TieshanGuJiaController {
                 }
             }else{
                 //调用一次估价
-                Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn());
+                Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid);
                 if(map.get("code").equals("200")){
                     return ResultUtil.success(map.get("data"));
                 }else if((map.get("code").equals("201"))){
@@ -95,11 +107,37 @@ public class TieshanGuJiaController {
         //第一步*****************计算拆车间之和
         String chaiFDJmoney=tieshangjCarPiecesService.selectMoneyNullBorF("2",carModelTiema,"demolition_money");//查询车型拆车件发动机总成价格是否为空
         String chaiBSXmoney=tieshangjCarPiecesService.selectMoneyNullBorF("18",carModelTiema,"demolition_money");//查询车型拆车件变速箱价格是否为空
+        String chaiBSXmoney2=tieshangjCarPiecesService.selectMoneyNullBorF("19",carModelTiema,"demolition_money");//查询车型拆车件变速箱价格是否为空
         System.out.println("chaiFDJmoney:"+chaiFDJmoney);
         System.out.println("chaiBSXmoney:"+chaiBSXmoney);
         String sumMoneyChai="";
         String sumMoneyJiu="";
-        if((StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney))){
+        if(((StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiBSXmoney2)))){
+            System.out.println("拆车件发动机总成价格为空，拆车件(自动)变速箱价格不为空，拆车件(手动)变速箱价格为空，");
+            //1.if旧车件发动机总成价格为空，旧车件变速箱价格不为空
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"demolition_money");
+        }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
+            //2.if旧车件变速箱价格为空，旧车件发动机总长价格不为空
+            System.out.println("拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格为空，拆车件发动机总长价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyTwo("2","18","19","33",carModelTiema,"demolition_money");
+        }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
+            //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
+            System.out.println("拆车件发动机总成价格为空，拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyThree("2","18","19",carModelTiema,"demolition_money");
+        }else if((StringUtils.isNotBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
+            //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
+            System.out.println("拆车件(自动)变速箱价格不为空，拆车件(手动)变速箱价格为空，拆车件发动机总成价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFour("2","19","24","33",carModelTiema,"demolition_money");
+        }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney2))){
+            //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
+            System.out.println("拆车件发动机总成价格为空，拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFive("2","20","24","18",carModelTiema,"demolition_money");
+        }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney2))){
+            //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
+            System.out.println("拆车件(自动)变速箱价格为空，拆车件(手动)变速箱价格不为空，拆车件发动机总成价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneySix("2","20","24","18","33",carModelTiema,"demolition_money");
+        }
+        /*if((StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney))){
             System.out.println("拆车件发动机总成价格为空，拆车件变速箱价格不为空");
             //1.if拆车件发动机总成价格为空，拆车件变速箱价格不为空
             sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"demolition_money");
@@ -115,26 +153,38 @@ public class TieshanGuJiaController {
             //4.if拆车件变速箱价格不为空，拆车件发动机总成价格不为空
             System.out.println("拆车件变速箱价格不为空，拆车件发动机总成价格不为空");
             sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyThree("3","16","19","24",carModelTiema,"demolition_money");
-        }
+        }*/
         //第二步****************计算旧车件之和
         String jiuFDJmoney=tieshangjCarPiecesService.selectMoneyNullBorF("2",carModelTiema,"old_money");;//查询车型旧车件发动机总成价格是否为空
-        String jiuBSXmoney=tieshangjCarPiecesService.selectMoneyNullBorF("18",carModelTiema,"old_money");//查询车型旧车件变速箱价格是否为空
-        if(((StringUtils.isBlank(jiuFDJmoney)&&StringUtils.isNotBlank(jiuBSXmoney)))){
-            System.out.println("旧车件发动机总成价格为空，旧车件变速箱价格不为空");
+        String jiuBSXmoney=tieshangjCarPiecesService.selectMoneyNullBorF("18",carModelTiema,"old_money");//查询车型旧车件(自动)变速箱价格是否为空
+        String jiuBSXmoney2=tieshangjCarPiecesService.selectMoneyNullBorF("19",carModelTiema,"old_money");//查询车型旧车件(手动)变速箱价格是否为空
+        System.out.println("jiuFDJmoney:"+jiuFDJmoney);
+        System.out.println("jiuBSXmoney:"+jiuBSXmoney);
+        System.out.println("jiuBSXmoney2:"+jiuBSXmoney2);
+        if(((StringUtils.isBlank(jiuFDJmoney)&&StringUtils.isNotBlank(jiuBSXmoney)&&StringUtils.isBlank(jiuBSXmoney2)))){
+            System.out.println("旧车件发动机总成价格为空，旧车件(自动)变速箱价格不为空，旧车件(手动)变速箱价格为空，");
             //1.if旧车件发动机总成价格为空，旧车件变速箱价格不为空
             sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"old_money");
-        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isNotBlank(jiuFDJmoney))){
+        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isNotBlank(jiuFDJmoney)&&StringUtils.isBlank(jiuBSXmoney2))){
             //2.if旧车件变速箱价格为空，旧车件发动机总长价格不为空
-            System.out.println("旧车件变速箱价格为空，旧车件发动机总长价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyOne("18","3","16",carModelTiema,"old_money");
-        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isBlank(jiuFDJmoney))){
+            System.out.println("旧车件（自动）变速箱价格为空，旧车件(手动)变速箱价格为空，旧车件发动机总长价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyTwo("2","18","19","33",carModelTiema,"old_money");
+        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isBlank(jiuFDJmoney)&&StringUtils.isBlank(jiuBSXmoney2))){
             //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
-            System.out.println("旧车件发动机总成价格为空，旧车件变速箱价格为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyTwo("2","18",carModelTiema,"old_money");
-        }else if((StringUtils.isNotBlank(jiuBSXmoney)&&StringUtils.isNotBlank(jiuFDJmoney))){
+            System.out.println("旧车件发动机总成价格为空，旧车件（自动）变速箱价格为空，旧车件(手动)变速箱价格为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyThree("2","18","19",carModelTiema,"old_money");
+        }else if((StringUtils.isNotBlank(jiuBSXmoney)&&StringUtils.isNotBlank(jiuFDJmoney)&&StringUtils.isBlank(jiuBSXmoney2))){
             //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
-            System.out.println("旧车件变速箱价格不为空，旧车件发动机总成价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyThree("3","16","19","24",carModelTiema,"old_money");
+            System.out.println("旧车件(自动)变速箱价格不为空，旧车件(手动)变速箱价格为空，旧车件发动机总成价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFour("2","19","24","33",carModelTiema,"old_money");
+        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isBlank(jiuFDJmoney)&&StringUtils.isNotBlank(jiuBSXmoney2))){
+            //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
+            System.out.println("旧车件发动机总成价格为空，旧车件（自动）变速箱价格为空，旧车件(手动)变速箱价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFive("2","20","24","18",carModelTiema,"old_money");
+        }else if((StringUtils.isBlank(jiuBSXmoney)&&StringUtils.isNotBlank(jiuFDJmoney)&&StringUtils.isNotBlank(jiuBSXmoney2))){
+            //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
+            System.out.println("旧车件(自动)变速箱价格为空，旧车件(手动)变速箱价格不为空，旧车件发动机总成价格不为空");
+            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneySix("2","20","24","18","33",carModelTiema,"old_money");
         }
         //第三步****************查询废料价格
         //1.查询废料价格
@@ -213,20 +263,32 @@ public class TieshanGuJiaController {
         BigDecimal sum=((sumMoneyChais.add(chaifeiMoney).add(sumMoneyJius).add(oldfeiMoney)).divide(num,2,BigDecimal.ROUND_HALF_UP)).multiply(Profit).add(arnums);
         /*BigDecimal sum=((((sumMoneyChais.add(sumMoneyJius)).divide(num,2,BigDecimal.ROUND_HALF_UP)).add(moneyWastes)).multiply(Profit)).add(arnums);*/
         sum=sum.setScale(2, BigDecimal.ROUND_HALF_UP);
+        if(type.equals("1")){
+            TieshangjHistory tieshangjHistory=new TieshangjHistory();
+            tieshangjHistory.setCarModelName(carModelName);
+            tieshangjHistory.setCreateTime(new Date());
+            tieshangjHistory.setCreateBy(createBy);
+            tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityInfo.getCityNamecn());
+            tieshangjHistory.setFruit(sum.toString());
+            tieshangjHistory.setType("2");
+            tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
+            tieshangjHistory.setJyid(jyid);
+            tieshangjHistoryService.insertSelective(tieshangjHistory);
+        }
         return ResultUtil.success(sum);
 
     }
-    public Map oldGuJia(String carNumberId,String moderyers,String cityId,String Mileage,String pid,String carModelName,String createBy,String cityname){
+    public Map oldGuJia(String carNumberId,String moderyers,String cityId,String Mileage,String pid,String carModelName,String createBy,String cityname,String jyid){
         MultiValueMap<String, String> params=new LinkedMultiValueMap<>();
         HttpHeaders headers=new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        String jieguo=HttpClient.sendGetRequest("http://10.0.0.210:18061/ctselect?carNumberId="+carNumberId+"&"+"moderyers="+moderyers,params,headers);
+        String jieguo=HttpClient.sendGetRequest(ip+port+"/ctselect?carNumberId="+carNumberId+"&"+"moderyers="+moderyers,params,headers);
         JSONObject jobj = JSON.parseObject(jieguo);
         String code=jobj.get("code").toString();
         Map map=new HashMap();
         if(code.equals("200")){
             String cheng=jobj.getJSONObject("data").get("cheng").toString();
-            String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
+            String jieguo2=HttpClient.sendGetRequest(ip+port+"/selectCountModelRatio?id="+carNumberId,params,headers);
             JSONObject jobj2 = JSON.parseObject(jieguo2);
             String code2=jobj2.get("code").toString();
             String data=jobj2.get("data").toString();
@@ -237,7 +299,7 @@ public class TieshanGuJiaController {
                     map.put("data","该车型尚不能估值");
                     return map;
                 }else{
-                    String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
+                    String jieguo3=HttpClient.sendGetRequest(ip+port+"/calculation2?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
                     JSONObject jobj3 = JSON.parseObject(jieguo3);
                     String code3=jobj3.get("code").toString();
                     System.out.println(jobj3);
@@ -246,16 +308,21 @@ public class TieshanGuJiaController {
                         BigDecimal chengb = new BigDecimal(cheng).setScale(2, BigDecimal.ROUND_HALF_UP);
                         BigDecimal datab = new BigDecimal(data3).setScale(2, BigDecimal.ROUND_HALF_UP);
                         BigDecimal result=chengb.multiply(datab);
+                        double results = result.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+                        DecimalFormat df = new DecimalFormat("#0.00");
+                        System.out.println("results:"+df.format(results));
                         TieshangjHistory tieshangjHistory=new TieshangjHistory();
                         tieshangjHistory.setCarModelName(carModelName);
                         tieshangjHistory.setCreateTime(new Date());
                         tieshangjHistory.setCreateBy(createBy);
                         tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityname);
-                        tieshangjHistory.setFruit(result.toString());
+                        tieshangjHistory.setFruit(String.valueOf(df.format(results)));
                         tieshangjHistory.setType("1");
+                        tieshangjHistory.setTu("http://hbimg.b0.upaiyun.com/dc8cdc8d3569e7710f24e7e6dbeecf61d1a7100c34869-sgKcVk_fw658");
+                        tieshangjHistory.setJyid(jyid);
                         tieshangjHistoryService.insertSelective(tieshangjHistory);
                         map.put("code","200");
-                        map.put("data",result);
+                        map.put("data",results);
                         return map;
                     }
                     System.out.println("结果："+jieguo3);
@@ -308,5 +375,15 @@ public class TieshanGuJiaController {
         map.put("code","500");
         map.put("data","系统出现错误");
         return map;
+    }
+    //查询里程
+    @RequestMapping(value = "selectLicheng",method = RequestMethod.GET)
+    @ResponseBody
+    public Object selectLicheng(HttpServletRequest request){
+        MultiValueMap<String, String> params=new LinkedMultiValueMap<>();
+        HttpHeaders headers=new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectAllMileage",params,headers);
+        return jieguo3;
     }
 }

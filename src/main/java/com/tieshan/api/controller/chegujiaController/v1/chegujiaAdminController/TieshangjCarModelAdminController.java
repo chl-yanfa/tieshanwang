@@ -27,7 +27,7 @@ public class TieshangjCarModelAdminController {
         String pagesize=request.getParameter("pagesize");//每页显示数量
         map.put("carModelName",carModelName);
         map.put("brandId",brandId);
-        map.put("page",Integer.parseInt(page));
+        map.put("page",(Integer.parseInt(page)-1)*Integer.parseInt(pagesize));
         map.put("pagesize",Integer.parseInt(pagesize));
         List<TieshangjCarModel> list=tieshangjCarModelService.selectAll(map);
         Integer num=tieshangjCarModelService.selectAllCount(map);
