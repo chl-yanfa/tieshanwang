@@ -38,8 +38,8 @@ public class HomePageController {
         //4.轮播图
         List<String>list=new ArrayList<>();
         list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B3.jpg");
-        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B1.jpg");
-        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B2.jpg");
+        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B4.jpg");
+        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B5.jpg");
         map.put("carousel",list);
         //5.新闻公告
         Map xinwen=new HashMap();

@@ -65,6 +65,7 @@ public class TieshanGuJiaController {
         String Mileage=request.getParameter("Mileage");//里程
         String carModelName=request.getParameter("carModelName");//车型名称
         String createBy=request.getParameter("createBy");//创建人
+        String phone=request.getParameter("phone");//手机号
         String carModelTiema="";
         TieshangjCityInfo cityInfo=tieshangjCityInfoService.selectbyId(cityId);
         System.out.println("type:"+type);
@@ -79,7 +80,7 @@ public class TieshanGuJiaController {
                 Integer count=tieshangjCarPiecesService.countSelectTiema(carModelTiema);
                 if(count<=0){
                     //调用一次估价
-                   Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid);
+                   Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid,phone);
                    if(map.get("code").equals("200")){
                        return ResultUtil.success(map.get("data"));
                    }else if((map.get("code").equals("201"))){
@@ -90,7 +91,7 @@ public class TieshanGuJiaController {
                 }
             }else{
                 //调用一次估价
-                Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid);
+                Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid,phone);
                 if(map.get("code").equals("200")){
                     return ResultUtil.success(map.get("data"));
                 }else if((map.get("code").equals("201"))){
@@ -273,12 +274,13 @@ public class TieshanGuJiaController {
             tieshangjHistory.setType("2");
             tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
             tieshangjHistory.setJyid(jyid);
+            tieshangjHistory.setPhone(phone);
             tieshangjHistoryService.insertSelective(tieshangjHistory);
         }
         return ResultUtil.success(sum);
 
     }
-    public Map oldGuJia(String carNumberId,String moderyers,String cityId,String Mileage,String pid,String carModelName,String createBy,String cityname,String jyid){
+    public Map oldGuJia(String carNumberId,String moderyers,String cityId,String Mileage,String pid,String carModelName,String createBy,String cityname,String jyid,String phone){
         MultiValueMap<String, String> params=new LinkedMultiValueMap<>();
         HttpHeaders headers=new HttpHeaders();
         headers.add("Content-Type", "application/json");
@@ -320,6 +322,7 @@ public class TieshanGuJiaController {
                         tieshangjHistory.setType("1");
                         tieshangjHistory.setTu("http://hbimg.b0.upaiyun.com/dc8cdc8d3569e7710f24e7e6dbeecf61d1a7100c34869-sgKcVk_fw658");
                         tieshangjHistory.setJyid(jyid);
+                        tieshangjHistory.setPhone(phone);
                         tieshangjHistoryService.insertSelective(tieshangjHistory);
                         map.put("code","200");
                         map.put("data",results);

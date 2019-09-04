@@ -21,6 +21,8 @@ public class TieshangjHistory implements Serializable {
     private String tu;
 
     private String jyid;
+
+    private String phone;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -93,5 +95,13 @@ public class TieshangjHistory implements Serializable {
 
     public void setJyid(String jyid) {
         this.jyid = jyid;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
