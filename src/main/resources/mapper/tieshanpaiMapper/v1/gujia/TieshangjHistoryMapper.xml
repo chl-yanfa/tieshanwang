@@ -11,9 +11,10 @@
     <result column="car_model_name" jdbcType="VARCHAR" property="carModelName" />
     <result column="tu" jdbcType="VARCHAR" property="tu" />
     <result column="jyid" jdbcType="VARCHAR" property="jyid" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, create_by, create_time, type, fruit, factors, car_model_name, tu,jyid
+    id, create_by, create_time, type, fruit, factors, car_model_name, tu,jyid,phone
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -51,6 +52,9 @@
       <if test="jyid != null">
         jyid,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -79,6 +83,9 @@
       </if>
       <if test="jyid != null">
         #{jyid,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
