@@ -128,35 +128,65 @@
   </select>
   <select id="selectSumMoneyOne" resultType="java.lang.String">
         SELECT
-	        sum(${chaiorjiu})
+	       sum(${chaiorjiu})
       FROM
           `tieshangj_car_pieces`
       WHERE
         car_piece_id != #{chejianId1}
-        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3}
+        AND car_piece_id  not BETWEEN #{chejianId2} and  #{chejianId3}
         and  car_model_tiema = #{tiema}
+
   </select>
   <select id="selectSumMoneyTwo" resultType="java.lang.String">
-        SELECT
+            SELECT
             sum(${chaiorjiu})
         FROM
             `tieshangj_car_pieces`
         WHERE
-            car_piece_id != #{chejianId1}
-            AND car_piece_id != #{chejianId2}
+            car_piece_id not BETWEEN '3' and '16'
+            AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3} and car_piece_id!=#{chejianId4}
             and  car_model_tiema = #{tiema}
   </select>
   <select id="selectSumMoneyThree" resultType="java.lang.String">
         SELECT
-            sum(${chaiorjiu})
-        FROM
-            `tieshangj_car_pieces`
-        WHERE
-           car_piece_id NOT BETWEEN #{chejianId1}
-            AND #{chejianId2}
-            AND car_piece_id NOT BETWEEN #{chejianId3}
-            AND #{chejianId4}
-            and car_model_tiema = #{tiema}
+	      sum(${chaiorjiu})
+      FROM
+          `tieshangj_car_pieces`
+      WHERE
+        car_piece_id !=#{chejianId1}
+        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3}
+        and  car_model_tiema = #{tiema}
+  </select>
+    <select id="selectSumMoneyFour" resultType="java.lang.String">
+        SELECT
+	       sum(${chaiorjiu})
+      FROM
+          `tieshangj_car_pieces`
+      WHERE
+        car_piece_id not BETWEEN '3' and '16'
+        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3} and car_piece_id!=#{chejianId4}
+        and  car_model_tiema = #{tiema}
+  </select>
+    <select id="selectSumMoneyFive" resultType="java.lang.String">
+        SELECT
+	       sum(${chaiorjiu})
+      FROM
+          `tieshangj_car_pieces`
+      WHERE
+        car_piece_id !=#{chejianId1}
+        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3} and car_piece_id!=#{chejianId4}
+        and  car_model_tiema = #{tiema}
+  </select>
+    <select id="selectSumMoneySix" resultType="java.lang.String">
+       SELECT
+	       sum(${chaiorjiu})
+      FROM
+          `tieshangj_car_pieces`
+      WHERE
+        car_piece_id not BETWEEN '3' and '16'
+        AND car_piece_id  not BETWEEN #{chejianId2} and #{chejianId3} and car_piece_id!=#{chejianId4} and car_piece_id!=#{chejianId5}
+        and  car_model_tiema = #{tiema}
+
   </select>
   <select id="selectMoneyWaste" resultType="java.lang.String">
         SELECT
@@ -211,7 +241,7 @@
             </where>
         </foreach>
     </update>
-    <select id="countSelectTiema" resultType="java.lang.String">
+    <select id="countSelectTiema" resultType="java.lang.Integer">
         SELECT
 	        count(id)
         FROM

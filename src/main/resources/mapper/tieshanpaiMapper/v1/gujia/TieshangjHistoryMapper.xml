@@ -10,9 +10,10 @@
     <result column="factors" jdbcType="VARCHAR" property="factors" />
     <result column="car_model_name" jdbcType="VARCHAR" property="carModelName" />
     <result column="tu" jdbcType="VARCHAR" property="tu" />
+    <result column="jyid" jdbcType="VARCHAR" property="jyid" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, create_by, create_time, type, fruit, factors, car_model_name, tu
+    id, create_by, create_time, type, fruit, factors, car_model_name, tu,jyid
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,18 +21,6 @@
     from tieshangj_history
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tieshangj_history
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory">
-    insert into tieshangj_history (id, create_by, create_time, 
-      type, fruit, factors, 
-      car_model_name, tu)
-    values (#{id,jdbcType=INTEGER}, #{createBy,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
-      #{type,jdbcType=VARCHAR}, #{fruit,jdbcType=VARCHAR}, #{factors,jdbcType=VARCHAR}, 
-      #{carModelName,jdbcType=VARCHAR}, #{tu,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory">
     insert into tieshangj_history
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -59,6 +48,9 @@
       <if test="tu != null">
         tu,
       </if>
+      <if test="jyid != null">
+        jyid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -84,6 +76,9 @@
       </if>
       <if test="tu != null">
         #{tu,jdbcType=VARCHAR},
+      </if>
+      <if test="jyid != null">
+        #{jyid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -114,15 +109,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory">
-    update tieshangj_history
-    set create_by = #{createBy,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=VARCHAR},
-      fruit = #{fruit,jdbcType=VARCHAR},
-      factors = #{factors,jdbcType=VARCHAR},
-      car_model_name = #{carModelName,jdbcType=VARCHAR},
-      tu = #{tu,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select *
+    from tieshangj_history order by create_time desc limit 2
+  </select>
 </mapper>

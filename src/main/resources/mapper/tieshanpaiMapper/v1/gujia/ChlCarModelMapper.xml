@@ -550,6 +550,13 @@
 	        chl_car_model m
 	    where m.vin_code=#{vin}  order by car_year desc
   </select>
+  <select id="selectModelJyid" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        SELECT
+	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year,m.vin_code,m.alias_id
+        FROM
+	        chl_car_model m
+	    where m.alias_id=#{jyid}
+  </select>
   <select id="selectCheXiId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
         SELECT
 	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year
@@ -559,4 +566,9 @@
 	    INNER JOIN chl_car_model_series s ON s.id = g.vehice_system_id
 	    where s.id=#{serid}  order by car_year desc
   </select>
+  <update id="updateVinByJyid" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
+    update chl_car_model
+    set vin_code = #{vinCode,jdbcType=VARCHAR}
+    where alias_id = #{aliasId,jdbcType=VARCHAR}
+  </update>
 </mapper>
