@@ -57,5 +57,10 @@ public class TieshangjCarModelServiceImpl implements TieshangjCarModelService {
         return tieshangjCarModelMapper.selectTieMaByJYid(jyid);
     }
 
+    @Override
+    public String countByTieMa(String tiema) {
+        return tieshangjCarModelMapper.countByTieMa(tiema);
+    }
+
 
 }

@@ -21,4 +21,5 @@ public interface TieshangjCarModelService {
     int updateByHe(TieshangjCarModel record);
     //根据精友id查询tiema
     String selectTieMaByJYid(String jyid);
+    String countByTieMa(String tiema);
 }

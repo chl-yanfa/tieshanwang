@@ -1,6 +1,4 @@
 package com.tieshan.api.controller.chegujiaController.v1;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarModelService;
 import com.tieshan.api.util.jyInterfaceUtil.jySelectId;
@@ -15,16 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static com.tieshan.api.util.jyInterfaceUtil.jySelectId.analysis;

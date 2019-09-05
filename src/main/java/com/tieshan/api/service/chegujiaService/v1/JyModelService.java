@@ -22,4 +22,8 @@ public interface JyModelService {
     ChlCarModel selectModelJyid(String jyid);
     //根据精友id修改车型vin()
     int updateVinByJyid(ChlCarModel record);
+    //根据车组名称查看车组id
+    Integer selectByName(String name);
+    int insertSelective(ChlCarModel record);
+    ChlCarModel selectByPrimaryKey(Integer id);
 }

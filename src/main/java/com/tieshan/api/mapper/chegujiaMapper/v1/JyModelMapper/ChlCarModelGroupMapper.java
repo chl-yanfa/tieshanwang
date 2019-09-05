@@ -14,4 +14,6 @@ public interface ChlCarModelGroupMapper {
     int updateByPrimaryKeySelective(ChlCarModelGroup record);
 
     int updateByPrimaryKey(ChlCarModelGroup record);
+    //根据车组名称查看车组id
+    Integer selectByName(String name);
 }

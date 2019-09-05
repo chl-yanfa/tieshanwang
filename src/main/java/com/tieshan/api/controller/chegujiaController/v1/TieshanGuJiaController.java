@@ -1,6 +1,7 @@
 package com.tieshan.api.controller.chegujiaController.v1;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCityInfo;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory;
@@ -44,6 +45,8 @@ public class TieshanGuJiaController {
     private TieshangjHistoryService tieshangjHistoryService;
     @Autowired
     private TieshangjCityInfoService tieshangjCityInfoService;
+    @Autowired
+    private JyModelService jyModelService;
     private String ip="http://api2.chehulian.com:";
     /*private String ip="http://10.0.0.210:";*/
     private String port="18061";
@@ -72,7 +75,8 @@ public class TieshanGuJiaController {
         if(type.equals("1")){
             //APP
             //根据精友id查询对应铁码
-             carModelTiema=tieshangjCarModelService.selectTieMaByJYid(jyid);
+             ChlCarModel chlCarModel =jyModelService.selectByPrimaryKey(Integer.parseInt(carNumberId));
+            carModelTiema=tieshangjCarModelService.countByTieMa(chlCarModel.getTiema());
             //if铁码不为空
             if(StringUtils.isNotBlank(carModelTiema)){
                 //判断该铁码车型是否需要调用一次估价（判断拆旧件表是否存在）

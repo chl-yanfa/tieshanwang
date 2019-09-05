@@ -1,9 +1,7 @@
 package com.tieshan.api.controller.chegujiaController.v1;
 
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjHistory;
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjProvinceInfo;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjHistoryService;
-import com.tieshan.api.util.jyInterfaceUtil.jySelectId;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.springframework.beans.factory.annotation.Autowired;

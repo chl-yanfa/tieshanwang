@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -41,6 +42,7 @@ public class JyModelController {
     @ResponseBody
     public ApiResult selectModelVin(HttpServletRequest request){
         String vin=request.getParameter("vin");
+        vin="LFV2B21K9D3504459";
         //查询该vin是否存在
         List<ChlCarModel>list=jyModelService.selectModelVin(vin);
         if(list.size()==0){
@@ -242,8 +244,8 @@ public class JyModelController {
                 String kindredPriceTax = (String)key1.get("kindredPriceTax");
                 String letStand = (String)key1.get("letStand");
                 String listPrice = (String)key1.get("listPrice");
-                String listPriceTax = (String)key1.get("listPriceTax");
-                String marketDate = (String)key1.get("marketDate");
+                String listPriceTax = (String)key1.get("listPriceTax");//厂家指导价
+                String marketDate = (String)key1.get("marketDate");//上市年份
                 String newClassNameTwo = (String)key1.get("newClassNameTwo");
                 String power = (String)key1.get("power");
                 String powerType = (String)key1.get("powerType");
@@ -253,7 +255,7 @@ public class JyModelController {
                 String remark = (String)key1.get("remark");//备注
                 String riskFlag = (String)key1.get("riskFlag");
                 String roz = (String)key1.get("roz");//燃油标号
-                String seat = (String)key1.get("seat");
+                String seat = (String)key1.get("seat");//座位数
                 String standardName = (String)key1.get("standardName");
                 String standardname2 = (String)key1.get("standardname2");
                 String stopDate = (String)key1.get("stopDate");//停产日期
@@ -282,6 +284,45 @@ public class JyModelController {
                 ChlCarModel chlCarModel=jyModelService.selectModelJyid(sb2);
                 if(chlCarModel==null){
                     //if该车型不存在，新增一条车型
+                    chlCarModel.setVinCode(vin);
+                    chlCarModel.setDisplacement(displacement);
+                    chlCarModel.setModelYear(marketDate);
+                    chlCarModel.setDriveType(gearboxType);
+                    chlCarModel.setEngine(engineModel);
+                    chlCarModel.setBodyStructure(bodyType);
+                    BigDecimal b = new BigDecimal(listPriceTax);
+                    chlCarModel.setPurchasePrice(b.setScale(2, BigDecimal.ROUND_DOWN));
+                    chlCarModel.setRangeOfService("0");
+                    chlCarModel.setRangeOfPickup("0");
+                    chlCarModel.setStatus(1);
+                    chlCarModel.setCreatedTime(new Date());
+                    chlCarModel.setCreatedBy("vin接口新增");
+                    chlCarModel.setUpdatedBy("vin接口新增");
+                    chlCarModel.setUpdatedTime(new Date());
+                    chlCarModel.setDeleteState(0);
+                    chlCarModel.setPartNum("401");
+                    chlCarModel.setCalled(vehicleName);
+                    chlCarModel.setCarYear(yearPattern);
+                    chlCarModel.setDynamic(powerType);
+                    chlCarModel.setDrives(drivenType);
+                    chlCarModel.setSeatNum(seat);
+                    chlCarModel.setEmissionStandard(effluentStandard);
+                    chlCarModel.setConfigureLevel(cfgLevel);
+                    chlCarModel.setCylinder(arrayType);
+                    chlCarModel.setEngineValveNum(valveNum);
+                    chlCarModel.setTransmission(gearNum);
+                    chlCarModel.setWheelbase(wheelbase);
+                    chlCarModel.setCardoornum(cms);
+                    chlCarModel.setSupply(supplyOil);
+                    chlCarModel.setCarAlias(vehicleAlias);
+                    chlCarModel.setPower(power);
+                    chlCarModel.setRemarks(remark);
+                    chlCarModel.setAliasId(sb2);
+                    Integer groupIds=jyModelService.selectByName(groupName);
+                    if(groupIds>0){
+                        chlCarModel.setSubSeriesId(groupIds);
+                    }
+                    jyModelService.insertSelective(chlCarModel);
                     System.out.println("该车型不存在，新增一条车型");
                 }else {
                     //if该车型存在，为车型添加vin(修改车型信息)

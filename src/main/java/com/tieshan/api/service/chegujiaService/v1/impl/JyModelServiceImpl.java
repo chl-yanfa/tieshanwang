@@ -1,9 +1,6 @@
 package com.tieshan.api.service.chegujiaService.v1.impl;
 
-import com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlAutoLogosMapper;
-import com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlBrandMapper;
-import com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlCarModelMapper;
-import com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.ChlCarModelSeriesMapper;
+import com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper.*;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlAutoLogos;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
@@ -24,6 +21,8 @@ public class JyModelServiceImpl implements JyModelService {
     private ChlCarModelSeriesMapper chlCarModelSeriesMapper;
     @Autowired
     private ChlCarModelMapper chlCarModelMapper;
+    @Autowired
+    private ChlCarModelGroupMapper chlCarModelGroupMapper;
     @Override
     public List<ChlAutoLogos> selectAll() {
         return chlAutoLogosMapper.selectAll();
@@ -57,6 +56,21 @@ public class JyModelServiceImpl implements JyModelService {
     @Override
     public int updateVinByJyid(ChlCarModel record) {
         return chlCarModelMapper.updateVinByJyid(record);
+    }
+
+    @Override
+    public Integer selectByName(String name) {
+        return chlCarModelGroupMapper.selectByName(name);
+    }
+
+    @Override
+    public int insertSelective(ChlCarModel record) {
+        return chlCarModelMapper.insertSelective(record);
+    }
+
+    @Override
+    public ChlCarModel selectByPrimaryKey(Integer id) {
+        return chlCarModelMapper.selectByPrimaryKey(id);
     }
 
 
