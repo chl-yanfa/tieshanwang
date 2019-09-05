@@ -240,7 +240,8 @@
          on ppset.auction_id = pp.id
         where
          DATE_FORMAT(paimai_start_time,'%Y-%m-%d')=DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
-        order by ppset.pm_order
+        order by
+         SUBSTRING(pp.auction_no,12,3)
     </select>
 
 
