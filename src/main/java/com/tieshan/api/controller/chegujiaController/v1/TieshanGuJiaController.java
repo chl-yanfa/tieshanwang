@@ -118,50 +118,34 @@ public class TieshanGuJiaController {
         String chaiBSXmoney2=tieshangjCarPiecesService.selectMoneyNullBorF("19",carModelTiema,"demolition_money");//查询车型拆车件变速箱价格是否为空
         System.out.println("chaiFDJmoney:"+chaiFDJmoney);
         System.out.println("chaiBSXmoney:"+chaiBSXmoney);
+        System.out.println("chaiBSXmoney2:"+chaiBSXmoney2);
         String sumMoneyChai="";
         String sumMoneyJiu="";
         if(((StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiBSXmoney2)))){
             System.out.println("拆车件发动机总成价格为空，拆车件(自动)变速箱价格不为空，拆车件(手动)变速箱价格为空，");
             //1.if旧车件发动机总成价格为空，旧车件变速箱价格不为空
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"demolition_money");
         }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
             //2.if旧车件变速箱价格为空，旧车件发动机总长价格不为空
             System.out.println("拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格为空，拆车件发动机总长价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyTwo("2","18","19","33",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyTwo("2","18","19","33",carModelTiema,"demolition_money");
         }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
             //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
             System.out.println("拆车件发动机总成价格为空，拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyThree("2","18","19",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyThree("2","18","19",carModelTiema,"demolition_money");
         }else if((StringUtils.isNotBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isBlank(chaiBSXmoney2))){
             //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
             System.out.println("拆车件(自动)变速箱价格不为空，拆车件(手动)变速箱价格为空，拆车件发动机总成价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFour("2","19","24","33",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyFour("2","19","24","33",carModelTiema,"demolition_money");
         }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney2))){
             //3.if旧车件发动机总成价格为空，旧车件变速箱价格为空
             System.out.println("拆车件发动机总成价格为空，拆车件（自动）变速箱价格为空，拆车件(手动)变速箱价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneyFive("2","20","24","18",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyFive("2","20","24","18",carModelTiema,"demolition_money");
         }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney2))){
             //4.if旧车件变速箱价格不为空，旧车件发动机总成价格不为空
             System.out.println("拆车件(自动)变速箱价格为空，拆车件(手动)变速箱价格不为空，拆车件发动机总成价格不为空");
-            sumMoneyJiu=tieshangjCarPiecesService.selectSumMoneySix("2","20","24","18","33",carModelTiema,"demolition_money");
+            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneySix("2","20","24","18","33",carModelTiema,"demolition_money");
         }
-        /*if((StringUtils.isBlank(chaiFDJmoney)&&StringUtils.isNotBlank(chaiBSXmoney))){
-            System.out.println("拆车件发动机总成价格为空，拆车件变速箱价格不为空");
-            //1.if拆车件发动机总成价格为空，拆车件变速箱价格不为空
-            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyOne("2","19","24",carModelTiema,"demolition_money");
-        }else if((StringUtils.isBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiFDJmoney))){
-            //2.if拆车件变速箱价格为空，拆车件发动机总长价格不为空
-            System.out.println("拆车件变速箱价格为空，拆车件发动机总长价格不为空");
-            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyOne("18","3","16",carModelTiema,"demolition_money");
-        }else if((StringUtils.isBlank(chaiBSXmoney)&&(StringUtils.isBlank(chaiFDJmoney)))){
-            //3.if拆车件发动机总成价格为空，拆车件变速箱价格为空
-            System.out.println("拆车件发动机总成价格为空，拆车件变速箱价格为空");
-            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyTwo("2","18",carModelTiema,"demolition_money");
-        }else if((StringUtils.isNotBlank(chaiBSXmoney)&&StringUtils.isNotBlank(chaiBSXmoney))){
-            //4.if拆车件变速箱价格不为空，拆车件发动机总成价格不为空
-            System.out.println("拆车件变速箱价格不为空，拆车件发动机总成价格不为空");
-            sumMoneyChai=tieshangjCarPiecesService.selectSumMoneyThree("3","16","19","24",carModelTiema,"demolition_money");
-        }*/
         //第二步****************计算旧车件之和
         String jiuFDJmoney=tieshangjCarPiecesService.selectMoneyNullBorF("2",carModelTiema,"old_money");;//查询车型旧车件发动机总成价格是否为空
         String jiuBSXmoney=tieshangjCarPiecesService.selectMoneyNullBorF("18",carModelTiema,"old_money");//查询车型旧车件(自动)变速箱价格是否为空
