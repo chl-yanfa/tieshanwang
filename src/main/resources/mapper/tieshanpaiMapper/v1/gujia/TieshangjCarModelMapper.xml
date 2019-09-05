@@ -268,4 +268,9 @@
     from tieshangj_car_model
     where jyid = #{jyid}
   </select>
+  <select id="countByTieMa" parameterType="java.lang.String" resultType="java.lang.String">
+    select iron_code
+    from tieshangj_car_model
+    where iron_code = #{tiema}
+  </select>
 </mapper>

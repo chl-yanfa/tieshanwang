@@ -552,7 +552,7 @@
   </select>
   <select id="selectModelJyid" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
         SELECT
-	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year,m.vin_code,m.alias_id
+	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year,m.vin_code
         FROM
 	        chl_car_model m
 	    where m.alias_id=#{jyid}
