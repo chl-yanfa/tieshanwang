@@ -9,14 +9,15 @@ import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @author ningrz
@@ -83,7 +84,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         Integer pageNum = (page - 1)*size;
         paimai.setPage(pageNum);
 
-        ResultVO<Paimai> result = new ResultVO<Paimai>();
+        ResultVO<Paimai> result = new ResultVO<>();
         List<Paimai> paimaiList = carPmAuctionMapper.getPaimaiListByPage(paimai);
 //        List<Paimai> paimaiRealList = new ArrayList<Paimai>();
 //        for (int i=0;i<paimaiList.size();i++){
@@ -162,19 +163,16 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 int result = carPmAuctionMapper.getHeightPrice(list.get(i).getAuctionId());
                 list.get(i).setCurPrice(new BigDecimal(result>0?result:0));
             }
-//            for(int a=0; a<list.size(); a++){
-//                if(list.get(a).getOrderState()=="2" || list.get(a).getOrderState().equals("2")){
-//                    Date goRunTime = sdf.parse(list.get(a).getTimeCount());
-//                    long diff = (goRunTime.getTime()-systemDate.getTime())/1000;
-//                    if(diff>=0){
-//                        list.get(a).setOneSecond(String.valueOf(diff));
-//                    }else{
-//                        list.get(a).setOneSecond("-1");
-//                    }
-//                }else{
-//                    list.get(a).setOneSecond("-1");
-//                }
-//            }
+
+            //按照拍品开始时间进行正序
+            list.sort((item1,item2)->{
+                try {
+                    return sdf.parse(item1.getTimeCount()).compareTo(sdf.parse(item2.getTimeCount()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return 1;
+            });
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -186,7 +184,6 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
     @Override
     public Map<String,List<CarPmResultVo>> getEndResult() {
-
 
         //获取所有快要结束拍卖会
         List<CarPmResultVo> pmhList = carPmAuctionMapper.getIngPmh();
@@ -204,7 +201,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         Map<String, List<CarPmResultVo>> successResult = new HashMap<>();
 
         for (CarPmResultVo paipin: paipinList ) {
-            if(paipin.getThisPrice()>paipin.getRetainPrice()){
+            if(paipin.getThisPrice()>=paipin.getRetainPrice()){
                 chopPaipinList.add(paipin);
             }else{
                 outPaipinList.add(paipin);
@@ -216,5 +213,92 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
             return successResult;
         }
 
+    @Override
+    public Map<String, List<StartVO>> getStartTimeList() {
+        List<StartVO> startResult = carPmAuctionMapper.getStartResult();
+        //要启动的拍卖会列表
+        List<StartVO> nowstartPmh = new ArrayList<>();
+
+        //要启动的拍品列表_1
+        List<StartVO> startPaipin = new ArrayList<>();
+
+        //要启动的拍品列表_2 等于当前系统时间
+        List<StartVO> nowstartPaipin = new ArrayList<>();
+
+        Map<String,List<StartVO>> map =new HashMap<>();
+
+        SimpleDateFormat sb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String nowTime = sb.format(new Date());
+
+        String beforeOne = TimeAddSecond(nowTime,-1);
+        String beforeTwo = TimeAddSecond(nowTime,-2);
+        String beforeThree = TimeAddSecond(nowTime,-3);
+
+        String afterOne = TimeAddSecond(nowTime,1);
+        String afterTwo = TimeAddSecond(nowTime,2);
+        String afterThree = TimeAddSecond(nowTime,3);
+
+            for (int i=0; i<startResult.size(); i++){
+                //延迟5秒操作
+                startResult.get(i).setSingleTime(String.valueOf(Integer.parseInt(startResult.get(i).getSingleTime())*i));
+                String resultStr = TimeAddSecond(startResult.get(i).getAuctionStartTime(),Integer.parseInt(startResult.get(i).getSingleTime()));
+                String pmhStartTime = TimeAddSecond(startResult.get(i).getAuctionStartTime(),5);
+
+                if(pmhStartTime.equals(nowTime) ||
+                        pmhStartTime.equals(beforeOne) ||
+                        pmhStartTime.equals(beforeTwo) ||
+                        pmhStartTime.equals(beforeThree) ||
+                        pmhStartTime.equals(afterOne) ||
+                        pmhStartTime.equals(afterTwo) ||
+                        pmhStartTime.equals(afterThree)
+                  ){
+                    nowstartPmh.add(startResult.get(0));
+                }
+                startResult.get(i).setTimeCount(resultStr);
+                startPaipin.add(startResult.get(i));
+            }
+
+        for(int i=0; i<startPaipin.size(); i++){
+            String reStr = TimeAddSecond(startPaipin.get(i).getTimeCount(),5);
+            if(reStr.equals(nowTime) ||
+                    reStr.equals(beforeOne) ||
+                    reStr.equals(beforeTwo) ||
+                    reStr.equals(beforeThree) ||
+                    reStr.equals(afterOne) ||
+                    reStr.equals(afterTwo) ||
+                    reStr.equals(afterThree)
+              ){
+                nowstartPaipin.add(startPaipin.get(i));
+            }
+        }
+
+        //获得要开始的拍品
+        for (int i=0; i<nowstartPmh.size(); i++){
+            if(i>0){
+                nowstartPmh.remove(i);
+                i--;
+            }
+        }
+        map.put("nowpmh",nowstartPmh);
+        //map.put("paipin",startPaipin);
+        map.put("nowpaipin",nowstartPaipin);
+        return map;
     }
+
+    public String TimeAddSecond(String time,Integer addCount){
+        try{
+            Calendar rightNow = Calendar.getInstance();
+            SimpleDateFormat sb = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date yanchidate = sb.parse(time);
+            rightNow.setTime(yanchidate);
+            rightNow.add(Calendar.SECOND,addCount);
+            Date dt = rightNow.getTime();
+            String reStr = sb.format(dt);
+            return reStr;
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+}
 

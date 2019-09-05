@@ -5,6 +5,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -37,5 +38,6 @@ public interface CarPmAuctionMapper{
 
     List<CarPmResultVo> getIngPmh();
 
+    List<StartVO> getStartResult();
 
 }

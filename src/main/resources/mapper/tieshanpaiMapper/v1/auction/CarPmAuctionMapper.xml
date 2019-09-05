@@ -137,10 +137,19 @@
         <result column="other_price" 			property="otherPrice" />
         <result column="commission" 			property="commission" />
         <result column="total_price" 			property="totalPrice" />
-        <result column="time_count" 	        property="timeCount" />
         <result column="auction_start_time" 	property="auctionStartTime" />
         <association property="imgPath" column="auctionId=auction_id" javaType="String"
                      select="getHeadImgByAuctionId"/>
+    </resultMap>
+
+    <resultMap id="startMap" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO">
+        <id 	column="auction_id" 			property="auctionId" />
+        <result column="pmh_id" 	property="pmhId" />
+        <result column="auction_start_time" 	property="auctionStartTime" />
+        <result column="time_count" 	        property="timeCount" />
+        <result column="full_name" 				property="fullName" />
+        <result column="pm_order" 				property="pmOrder" />
+        <result column="single_time" 		    property="singleTime" />
     </resultMap>
 
     <sql id="ListIf">
@@ -207,109 +216,38 @@
 	    SIAS.joint_price,
 	    PMH.paimai_start_time as auction_start_time,
 	    SIAS.single_time,
-        '成交' AS time_count,
 	    SIAS.commission,
 	    SIAS.other_price,
 	    SIA.look_address park_address
 	</sql>
 
-    <sql id="getAuctionCarListSQLOne">
-		SIA.id AS auction_id,
-	    SIAS.id auction_set_id,
-	    SIA.auction_no,
-		SIA.auction_no as list_auction_one,
-		SIA.full_name,
-		case SIA.auction_type when 0 then CONCAT('全车配件')
-			when 1 then CONCAT('高价值配件')
-			when 2 then CONCAT('大宗物资') end AS full_type,
-		SIA.lot_areas,
-		SIA.vehicle_brand,
-	    SIA.vehicle_type,
-	    SIA.vehicle_system,
-	    SIA.license_number,
-	    SIAS.pmh_id,
-	    SIAS.pm_order,
-	    CASE
-            SIA.auction_state
-            WHEN '2' THEN
-            '等待竞拍'
-            WHEN '4' THEN
-            '正在竞拍'
-            WHEN '5' THEN
-            '已成交'
-            WHEN '8' THEN
-            '已流拍'
-        END AS order_state_s,
-	    SIA.auction_state as order_state,
-	    SIAS.starting_price,
-	    SIAS.reserve_price,
-	    SIAS.auction_cash_deposit,
-	    SIAS.deal_mid,
-	    SIAS.deal_member,
-	    SIA.vin,
-	    SIA.auction_type auction_type_flag,
-	    SPCI.phone,
-	    SPCI.id_card,
-	    SIAS.joint_price,
-	    PMH.paimai_start_time as auction_start_time,
-	    SIAS.single_time,
-        '竞拍中' AS time_count,
-	    SIAS.commission,
-	    SIAS.other_price,
-	    SIA.look_address park_address
-	</sql>
-
-    <sql id="getAuctionCarListSQLTwo">
-		SIA.id AS auction_id,
-	    SIAS.id auction_set_id,
-	    SIA.auction_no,
-		SIA.auction_no as list_auction_two,
-		SIA.full_name,
-		case SIA.auction_type when 0 then CONCAT('全车配件')
-			when 1 then CONCAT('高价值配件')
-			when 2 then CONCAT('大宗物资') end AS full_type,
-		SIA.lot_areas,
-		SIA.vehicle_brand,
-	    SIA.vehicle_type,
-	    SIA.vehicle_system,
-	    SIA.license_number,
-	    SIAS.pmh_id,
-	    SIAS.pm_order,
-	    CASE
-            SIA.auction_state
-            WHEN '2' THEN
-            '等待竞拍'
-            WHEN '4' THEN
-            '正在竞拍'
-            WHEN '5' THEN
-            '已成交'
-            WHEN '8' THEN
-            '已流拍'
-        END AS order_state_s,
-	    SIA.auction_state as order_state,
-	    SIAS.starting_price,
-	    SIAS.reserve_price,
-	    SIAS.auction_cash_deposit,
-	    SIAS.deal_mid,
-	    SIAS.deal_member,
-	    SIA.vin,
-	    SIA.auction_type auction_type_flag,
-	    SPCI.phone,
-	    SPCI.id_card,
-	    SIAS.joint_price,
-	    PMH.paimai_start_time as auction_start_time,
-	    SIAS.single_time,
-        DATE_ADD( SIAS.auction_start_time, INTERVAL SIAS.single_time SECOND ) AS time_count,
-	    SIAS.commission,
-	    SIAS.other_price,
-	    SIA.look_address park_address
-	</sql>
+    <select id="getStartResult" resultMap="startMap">
+        select
+            pm.pmh_id as pmh_id,
+            pm.paimai_start_time as auction_start_time,
+            ppset.auction_id as auction_id,
+            ppset.auction_start_time as time_count,
+            pp.full_name as full_name,
+            ppset.pm_order as pm_order,
+            ppset.single_time as single_time
+        from
+         car_pm_paimai as pm
+         inner join
+         car_pm_auction_set as ppset
+         on pm.pmh_id=ppset.pmh_id
+         inner join
+         car_pm_auction as pp
+         on ppset.auction_id = pp.id
+        where
+         DATE_FORMAT(paimai_start_time,'%Y-%m-%d')=DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+        order by ppset.pm_order
+    </select>
 
 
     <select id="getIngPmh" resultMap="resultEnd">
         SELECT
         v.pmh_id,
-        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count )+( v.time_interval * v.pp_count ) SECOND ) AS pmh_end_time
+        DATE_ADD( v.pm_start_time, INTERVAL ( v.time_single * v.pp_count ) SECOND ) AS pmh_end_time
         FROM
         (
         SELECT
@@ -982,7 +920,7 @@
         FROM
         (
         SELECT
-        <include refid="getAuctionCarListSQLOne"/>,
+        <include refid="getAuctionCarListSQL"/>,
         SPHB.MAXIMUM_PRICE highest_price,
         (SPHB.MAXIMUM_PRICE+SIAS.commission+SIAS.other_price) total_price
         FROM
@@ -1003,10 +941,9 @@
         SIAS.is_history = 0
         AND
         SIAS.pmh_id = #{pmhId}
-        AND
-        SIAS.order_state = '20'
+        AND SIA.auction_state= 4
         ORDER BY
-        substring(list_auction_one,12,3)
+        SIAS.update_time DESC
         ) AS list2
         )
         UNION
@@ -1016,7 +953,7 @@
         FROM
         (
         SELECT
-        <include refid="getAuctionCarListSQLTwo"/>,
+        <include refid="getAuctionCarListSQL"/>,
         0 highest_price,
         (0+SIAS.commission+SIAS.other_price) total_price
         FROM
@@ -1036,9 +973,10 @@
         AND
         SIAS.pmh_id = #{pmhId}
         AND
-        SIAS.order_state in ('0','10')
+        SIA.auction_state=2
         ORDER BY
-        substring(list_auction_two,12,3)) AS list3
+        SIAS.update_time DESC
+        ) AS list3
         )
         UNION
         (
@@ -1068,14 +1006,44 @@
         AND
         SIAS.pmh_id = #{pmhId}
         AND
-        SIAS.order_state = '50'
+        SIA.auction_state=5
+        ORDER BY
+        SIAS.update_time DESC) AS list4
+        )
+        UNION
+        (
+        SELECT
+        *
+        FROM
+        (
+        SELECT
+        <include refid="getAuctionCarListSQL"/>,
+        SIAS.highest_price,
+        (SIAS.highest_price+SIAS.commission+SIAS.other_price) total_price
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN
+        car_pm_auction SIA
+        ON SIAS.auction_id = SIA.id
+        AND SIA.is_delete = 0
+        LEFT JOIN
+        car_pm_highest_bid SPHB
+        ON SPHB.ORDER_ID = SIAS.id
+        LEFT JOIN
+        sys_client SPCI
+        ON SPCI.id = SIAS.deal_mid
+        LEFT JOIN car_pm_paimai PMH on PMH.pmh_id = SIAS.pmh_id
+        WHERE
+        SIAS.is_delete = 0
+        AND
+        SIAS.pmh_id = #{pmhId}
+        AND
+        SIA.auction_state=8
         ORDER BY
         SIAS.update_time DESC) AS list4
         )
         ) v
-        <if test="pmOrderBy != null">
-            ORDER BY #{pmOrderBy}
-        </if>
+        order by substring(auction_no,12,3),field(order_state,4,2,5,8)
     </select>
 
     <update id="updateSinglePiece" parameterType="map">

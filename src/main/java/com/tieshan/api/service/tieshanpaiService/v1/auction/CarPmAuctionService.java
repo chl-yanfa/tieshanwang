@@ -6,7 +6,9 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +30,6 @@ public interface CarPmAuctionService {
     ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
 
     Map<String,List<CarPmResultVo>> getEndResult();
+
+    Map<String,List<StartVO>> getStartTimeList();
 }
