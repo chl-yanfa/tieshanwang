@@ -200,17 +200,20 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
         Map<String, List<CarPmResultVo>> successResult = new HashMap<>();
 
-        for (CarPmResultVo paipin: paipinList ) {
-            if(paipin.getThisPrice()>=paipin.getRetainPrice()){
-                chopPaipinList.add(paipin);
+        paipinList.forEach(item->{
+            if(item.getThisPrice()>=item.getRetainPrice()){
+                chopPaipinList.add(item);
+                //向切拍列表添加数据后，向成交表添加数据
+
             }else{
-                outPaipinList.add(paipin);
+                outPaipinList.add(item);
             }
-        }
-            successResult.put("pmh", pmhList);
-            successResult.put("qiepai", chopPaipinList);
-            successResult.put("liupai", outPaipinList);
-            return successResult;
+        });
+
+        successResult.put("pmh", pmhList);
+        successResult.put("qiepai", chopPaipinList);
+        successResult.put("liupai", outPaipinList);
+        return successResult;
         }
 
     @Override
