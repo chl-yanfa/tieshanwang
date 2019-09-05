@@ -25,6 +25,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -43,6 +46,16 @@ public class JyModelController {
     private RedisTemplate redisTemplate;
     @Autowired
     private ExceljyidService exceljyidService;
+    @Autowired(required = false)
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        RedisSerializer stringSerializer = new StringRedisSerializer();//序列化为String
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);//序列化为Json
+        redisTemplate.setKeySerializer(stringSerializer);
+        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringSerializer);
+        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+        this.redisTemplate = redisTemplate;
+    }
     static Logger logger = Logger.getLogger(TieshanGuJiaController.class); //LogDemo为相关的类
     //根据vin查询车型
     @RequestMapping(value = "selectModelVin",method = RequestMethod.GET)
