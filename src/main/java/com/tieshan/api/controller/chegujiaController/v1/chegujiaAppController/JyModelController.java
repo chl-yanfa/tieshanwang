@@ -2,12 +2,14 @@ package com.tieshan.api.controller.chegujiaController.v1.chegujiaAppController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tieshan.api.po.chegujiaPo.v1.Exceljyid;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlAutoLogos;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelSeries;
 import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
 import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationsBO;
+import com.tieshan.api.service.chegujiaService.v1.ExceljyidService;
 import com.tieshan.api.service.chegujiaService.v1.JyModelService;
 import com.tieshan.api.util.jyInterfaceUtil.jySelectVin;
 import com.tieshan.api.util.resultUtil.ApiResult;
@@ -37,6 +39,8 @@ public class JyModelController {
     private JyModelService jyModelService;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private ExceljyidService exceljyidService;
     //根据vin查询车型
     @RequestMapping(value = "selectModelVin",method = RequestMethod.GET)
     @ResponseBody
@@ -283,6 +287,10 @@ public class JyModelController {
                 //查看该精友id的车型是否存在
                 ChlCarModel chlCarModel=jyModelService.selectModelJyid(sb2);
                 if(chlCarModel==null){
+                    Exceljyid exceljyid=exceljyidService.selectByJyid(sb2);
+                    if(exceljyid!=null){
+                        chlCarModel.setTiema(exceljyid.getTiema());
+                    }
                     //if该车型不存在，新增一条车型
                     chlCarModel.setVinCode(vin);
                     chlCarModel.setDisplacement(displacement);

@@ -45,6 +45,7 @@ public class TieshanGuJiaController {
     private TieshangjHistoryService tieshangjHistoryService;
     @Autowired
     private TieshangjCityInfoService tieshangjCityInfoService;
+
     @Autowired
     private JyModelService jyModelService;
     private String ip="http://api2.chehulian.com:";
