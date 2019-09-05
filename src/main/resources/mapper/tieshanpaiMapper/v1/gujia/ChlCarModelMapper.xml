@@ -564,7 +564,7 @@
 	        chl_car_model m
 	    INNER JOIN chl_car_model_group g ON m.sub_series_id = g.id
 	    INNER JOIN chl_car_model_series s ON s.id = g.vehice_system_id
-	    where s.id=#{serid}  order by car_year desc
+	    where s.id=#{serid}  order by car_year asc
   </select>
   <update id="updateVinByJyid" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
     update chl_car_model
