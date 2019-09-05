@@ -222,6 +222,8 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         //要启动的拍卖会列表
         List<StartVO> nowstartPmh = new ArrayList<>();
 
+        List<StartVO> newnowstartPmh = new ArrayList<>();
+
         //要启动的拍品列表_1
         List<StartVO> startPaipin = new ArrayList<>();
 
@@ -235,59 +237,78 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
         String beforeOne = TimeAddSecond(nowTime,-1);
         String beforeTwo = TimeAddSecond(nowTime,-2);
-        String beforeThree = TimeAddSecond(nowTime,-3);
 
         String afterOne = TimeAddSecond(nowTime,1);
         String afterTwo = TimeAddSecond(nowTime,2);
-        String afterThree = TimeAddSecond(nowTime,3);
 
-            for (int i=0; i<startResult.size(); i++){
-                //延迟5秒操作
-                startResult.get(i).setSingleTime(String.valueOf(Integer.parseInt(startResult.get(i).getSingleTime())*i));
-                String resultStr = TimeAddSecond(startResult.get(i).getAuctionStartTime(),Integer.parseInt(startResult.get(i).getSingleTime()));
-                String pmhStartTime = TimeAddSecond(startResult.get(i).getAuctionStartTime(),5);
+        /**
+         * 拍卖会优先执行，并设置6秒的误差
+         */
 
-                if(pmhStartTime.equals(nowTime) ||
-                        pmhStartTime.equals(beforeOne) ||
-                        pmhStartTime.equals(beforeTwo) ||
-                        pmhStartTime.equals(beforeThree) ||
-                        pmhStartTime.equals(afterOne) ||
-                        pmhStartTime.equals(afterTwo) ||
-                        pmhStartTime.equals(afterThree)
-                  ){
-                    nowstartPmh.add(startResult.get(0));
+        startResult.forEach(item->{
+            String pmhStartTime = TimeAddSecond(item.getAuctionStartTime(),5);
+            if(pmhStartTime.equals(nowTime) ||
+                pmhStartTime.equals(beforeOne) ||
+                pmhStartTime.equals(beforeTwo) ||
+                pmhStartTime.equals(afterOne) ||
+                pmhStartTime.equals(afterTwo)
+             ){
+                nowstartPmh.add(item);
+            }
+        });
+
+        for (int i=0;i<nowstartPmh.size();i++){
+            if(i!=nowstartPmh.size()-1){
+                if(!nowstartPmh.get(i).getPmhId().equals(nowstartPmh.get(i+1).getPmhId())){
+                    newnowstartPmh.add(nowstartPmh.get(i));
                 }
+            }else{
+                newnowstartPmh.add(nowstartPmh.get(i));
+            }
+        }
+
+
+
+        /**
+         * 定义各个拍品的开始时间
+         */
+        for (int i=0; i<startResult.size(); i++){
+                Integer result = Integer.parseInt(startResult.get(i).getPmOrder());
+                startResult.get(i).setSingleTime(String.valueOf(Integer.parseInt(startResult.get(i).getSingleTime())* (result-1)));
+
+                String resultStr = TimeAddSecond(startResult.get(i).getAuctionStartTime(),  Integer.parseInt(startResult.get(i).getSingleTime()));
                 startResult.get(i).setTimeCount(resultStr);
+                System.out.println();
                 startPaipin.add(startResult.get(i));
             }
 
+        /**
+         * 设置6秒的误差
+         */
         for(int i=0; i<startPaipin.size(); i++){
             String reStr = TimeAddSecond(startPaipin.get(i).getTimeCount(),5);
             if(reStr.equals(nowTime) ||
                     reStr.equals(beforeOne) ||
                     reStr.equals(beforeTwo) ||
-                    reStr.equals(beforeThree) ||
                     reStr.equals(afterOne) ||
-                    reStr.equals(afterTwo) ||
-                    reStr.equals(afterThree)
+                    reStr.equals(afterTwo)
               ){
                 nowstartPaipin.add(startPaipin.get(i));
             }
         }
 
-        //获得要开始的拍品
-        for (int i=0; i<nowstartPmh.size(); i++){
-            if(i>0){
-                nowstartPmh.remove(i);
-                i--;
-            }
-        }
-        map.put("nowpmh",nowstartPmh);
+        map.put("nowpmh",newnowstartPmh);
         //map.put("paipin",startPaipin);
         map.put("nowpaipin",nowstartPaipin);
         return map;
     }
 
+    /**
+     * 时间相加函数
+     * @param time 要添加秒数的时间
+     * @param addCount 秒数
+     * @return
+     */
     public String TimeAddSecond(String time,Integer addCount){
         try{
             Calendar rightNow = Calendar.getInstance();
