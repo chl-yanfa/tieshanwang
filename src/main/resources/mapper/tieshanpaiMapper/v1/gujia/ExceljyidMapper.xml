@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chegujiaMapper.v1.ExceljyidMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.chegujiaPo.v1.Exceljyid">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jyid" jdbcType="VARCHAR" property="jyid" />
+    <result column="tiema" jdbcType="VARCHAR" property="tiema" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, jyid, tiema
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exceljyid
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.Exceljyid">
+    insert into exceljyid
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="jyid != null">
+        jyid,
+      </if>
+      <if test="tiema != null">
+        tiema,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="jyid != null">
+        #{jyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tiema != null">
+        #{tiema,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.Exceljyid">
+    update exceljyid
+    <set>
+      <if test="jyid != null">
+        jyid = #{jyid,jdbcType=VARCHAR},
+      </if>
+      <if test="tiema != null">
+        tiema = #{tiema,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByJyid" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exceljyid
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+</mapper>
