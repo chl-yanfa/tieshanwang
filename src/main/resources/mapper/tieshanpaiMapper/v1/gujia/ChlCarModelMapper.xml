@@ -43,6 +43,9 @@
     <result column="car_type_id" jdbcType="INTEGER" property="carTypeId" />
     <result column="alias_id" jdbcType="VARCHAR" property="aliasId" />
     <result column="tiema" jdbcType="VARCHAR" property="tiema" />
+    <association property="chlCarModelSeries" javaType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelSeries">
+      <result column="vehicle_system_name" jdbcType="VARCHAR" property="vehicleSystemName"/>
+    </association>
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
     <result column="json" jdbcType="LONGVARCHAR" property="json" />
@@ -559,7 +562,7 @@
   </select>
   <select id="selectCheXiId" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
         SELECT
-	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year
+	        m.id,m.called,m.purchase_price,m.alias_id,m.tiema,m.car_year,s.vehicle_system_name,m.displacement,m.drive_type,m.configure_level
         FROM
 	        chl_car_model m
 	    INNER JOIN chl_car_model_group g ON m.sub_series_id = g.id
