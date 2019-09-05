@@ -11,6 +11,7 @@ import com.tieshan.api.util.httpUtil.HttpClient;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.LinkedMultiValueMap;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -51,7 +53,7 @@ public class TieshanGuJiaController {
     private String ip="http://api2.chehulian.com:";
     /*private String ip="http://10.0.0.210:";*/
     private String port="18061";
-
+    static Logger logger = Logger.getLogger(TieshanGuJiaController.class); //LogDemo为相关的类
     @RequestMapping(value = "gujia",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult gujia(HttpServletRequest request){
@@ -265,6 +267,13 @@ public class TieshanGuJiaController {
         System.out.println("废料旧："+oldfeiMoney);
         System.out.println("系数："+Profit);
         System.out.println("区域人工调整数："+arnums);
+        logger.debug("拆车件之和："+sumMoneyChais);
+        logger.debug("旧车件之和："+sumMoneyJius);
+        logger.debug("废料拆："+chaifeiMoney);
+        logger.debug("废料旧："+oldfeiMoney);
+        logger.debug("系数："+Profit);
+        logger.debug("区域人工调整数："+arnums);
+
         //计算公式：（（拆车件之和+废料拆+旧车件之和+废料旧）/2）*利润系数 土 区域调整数
         BigDecimal sum=((sumMoneyChais.add(chaifeiMoney).add(sumMoneyJius).add(oldfeiMoney)).divide(num,2,BigDecimal.ROUND_HALF_UP)).multiply(Profit).add(arnums);
         /*BigDecimal sum=((((sumMoneyChais.add(sumMoneyJius)).divide(num,2,BigDecimal.ROUND_HALF_UP)).add(moneyWastes)).multiply(Profit)).add(arnums);*/

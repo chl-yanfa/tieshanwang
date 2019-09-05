@@ -2,6 +2,7 @@ package com.tieshan.api.controller.chegujiaController.v1.chegujiaAppController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.tieshan.api.controller.chegujiaController.v1.TieshanGuJiaController;
 import com.tieshan.api.po.chegujiaPo.v1.Exceljyid;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlAutoLogos;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand;
@@ -20,6 +21,7 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
 import org.apache.commons.codec.binary.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -41,12 +43,13 @@ public class JyModelController {
     private RedisTemplate redisTemplate;
     @Autowired
     private ExceljyidService exceljyidService;
+    static Logger logger = Logger.getLogger(TieshanGuJiaController.class); //LogDemo为相关的类
     //根据vin查询车型
     @RequestMapping(value = "selectModelVin",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult selectModelVin(HttpServletRequest request){
         String vin=request.getParameter("vin");
-        vin="LFV2B21K9D3504459";
+        /*vin="LFV2B21K9D3504459";*/
         //查询该vin是否存在
         List<ChlCarModel>list=jyModelService.selectModelVin(vin);
         if(list.size()==0){
@@ -332,9 +335,11 @@ public class JyModelController {
                     }
                     jyModelService.insertSelective(chlCarModel);
                     System.out.println("该车型不存在，新增一条车型");
+                    logger.debug("该车型不存在，新增一条车型");
                 }else {
                     //if该车型存在，为车型添加vin(修改车型信息)
                     System.out.println("该车型存在，为车型添加vin:"+vin+"*精友id*"+sb2);
+                    logger.debug("该车型存在，为车型添加vin:"+vin+"*精友id*"+sb2);
                     ChlCarModel chlCarModel1=new ChlCarModel();
                     chlCarModel1.setAliasId(sb2);
                     chlCarModel1.setVinCode(vin);
