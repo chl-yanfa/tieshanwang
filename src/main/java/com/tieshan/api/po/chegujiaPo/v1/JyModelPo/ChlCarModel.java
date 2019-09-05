@@ -89,6 +89,8 @@ public class ChlCarModel implements Serializable {
 
     private String json;
 
+    private ChlCarModelSeries chlCarModelSeries;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -425,5 +427,13 @@ public class ChlCarModel implements Serializable {
 
     public void setJson(String json) {
         this.json = json == null ? null : json.trim();
+    }
+
+    public ChlCarModelSeries getChlCarModelSeries() {
+        return chlCarModelSeries;
+    }
+
+    public void setChlCarModelSeries(ChlCarModelSeries chlCarModelSeries) {
+        this.chlCarModelSeries = chlCarModelSeries;
     }
 }

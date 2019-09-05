@@ -348,11 +348,11 @@ public class JyModelController {
                     }
                     jyModelService.insertSelective(chlCarModel);
                     System.out.println("该车型不存在，新增一条车型");
-                    logger.debug("该车型不存在，新增一条车型");
+                    logger.info("该车型不存在，新增一条车型");
                 }else {
                     //if该车型存在，为车型添加vin(修改车型信息)
                     System.out.println("该车型存在，为车型添加vin:"+vin+"*精友id*"+sb2);
-                    logger.debug("该车型存在，为车型添加vin:"+vin+"*精友id*"+sb2);
+                    logger.info("该车型存在，为车型添加vin:"+vin+"*精友id*"+sb2);
                     ChlCarModel chlCarModel1=new ChlCarModel();
                     chlCarModel1.setAliasId(sb2);
                     chlCarModel1.setVinCode(vin);

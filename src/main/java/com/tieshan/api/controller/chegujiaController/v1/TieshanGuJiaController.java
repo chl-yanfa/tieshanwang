@@ -267,12 +267,12 @@ public class TieshanGuJiaController {
         System.out.println("废料旧："+oldfeiMoney);
         System.out.println("系数："+Profit);
         System.out.println("区域人工调整数："+arnums);
-        logger.debug("拆车件之和："+sumMoneyChais);
-        logger.debug("旧车件之和："+sumMoneyJius);
-        logger.debug("废料拆："+chaifeiMoney);
-        logger.debug("废料旧："+oldfeiMoney);
-        logger.debug("系数："+Profit);
-        logger.debug("区域人工调整数："+arnums);
+        logger.info("拆车件之和："+sumMoneyChais);
+        logger.info("旧车件之和："+sumMoneyJius);
+        logger.info("废料拆："+chaifeiMoney);
+        logger.info("废料旧："+oldfeiMoney);
+        logger.info("系数："+Profit);
+        logger.info("区域人工调整数："+arnums);
 
         //计算公式：（（拆车件之和+废料拆+旧车件之和+废料旧）/2）*利润系数 土 区域调整数
         BigDecimal sum=((sumMoneyChais.add(chaifeiMoney).add(sumMoneyJius).add(oldfeiMoney)).divide(num,2,BigDecimal.ROUND_HALF_UP)).multiply(Profit).add(arnums);
