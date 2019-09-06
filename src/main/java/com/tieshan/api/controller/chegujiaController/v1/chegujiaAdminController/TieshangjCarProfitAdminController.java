@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -62,5 +63,19 @@ public class TieshangjCarProfitAdminController {
             return ResultUtil.success("修改成功");
         }
         return ResultUtil.error(500,"修改失败");
+    }
+    //新增
+    @RequestMapping(value = "insertProfi",method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResult insertProfi(HttpServletRequest request,TieshangjCarProfit tieshangjCarProfit){
+        tieshangjCarProfit.setCreatedBy("测试人员");
+        tieshangjCarProfit.setCreatedTime(new Date());
+        tieshangjCarProfit.setUpdatedBy("测试人员");
+        tieshangjCarProfit.setUpdatedTime(new Date());
+        int num=tieshangjCarProfitService.insertSelective(tieshangjCarProfit);
+        if(num>0){
+            return ResultUtil.success("新增成功");
+        }
+        return ResultUtil.error(500,"新增失败");
     }
 }

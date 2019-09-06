@@ -24,4 +24,9 @@ public class TieshangjCarProfitServiceImpl implements TieshangjCarProfitService 
     public int updateByPrimaryKeySelective(TieshangjCarProfit record) {
         return tieshangjCarProfitMapper.updateByPrimaryKeySelective(record);
     }
+
+    @Override
+    public int insertSelective(TieshangjCarProfit record) {
+        return tieshangjCarProfitMapper.insertSelective(record);
+    }
 }

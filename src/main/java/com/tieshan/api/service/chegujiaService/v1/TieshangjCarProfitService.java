@@ -8,4 +8,5 @@ public interface TieshangjCarProfitService {
     //根据铁码查询数据
     TieshangjCarProfit selectTie(String tiema);
     int updateByPrimaryKeySelective(TieshangjCarProfit record);
+    int insertSelective(TieshangjCarProfit record);
 }

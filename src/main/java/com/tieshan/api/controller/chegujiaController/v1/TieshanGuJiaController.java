@@ -257,7 +257,6 @@ public class TieshanGuJiaController {
         logger.info("废料旧："+oldfeiMoney);
         logger.info("系数："+Profit);
         logger.info("区域人工调整数："+arnums);
-
         //计算公式：（（拆车件之和+废料拆+旧车件之和+废料旧）/2）*利润系数 土 区域调整数
         BigDecimal sum=((sumMoneyChais.add(chaifeiMoney).add(sumMoneyJius).add(oldfeiMoney)).divide(num,2,BigDecimal.ROUND_HALF_UP)).multiply(Profit).add(arnums);
         /*BigDecimal sum=((((sumMoneyChais.add(sumMoneyJius)).divide(num,2,BigDecimal.ROUND_HALF_UP)).add(moneyWastes)).multiply(Profit)).add(arnums);*/
