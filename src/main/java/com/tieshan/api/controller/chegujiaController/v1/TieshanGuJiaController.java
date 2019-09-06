@@ -181,41 +181,41 @@ public class TieshanGuJiaController {
         //第三步****************查询废料价格
         //1.查询废料价格
         TieshangjCarWaste tieshangjCarWaste1=tieshangjCarWasteService.selectByPrimaryKey(1);
-        BigDecimal feioldmoney1 = new BigDecimal(tieshangjCarWaste1.getOldMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feioldmoney1 = new BigDecimal(tieshangjCarWaste1.getOldMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
         BigDecimal feioldxi1 = new BigDecimal(tieshangjCarWaste1.getOldXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitimoney1 = new BigDecimal(tieshangjCarWaste1.getDemolitionMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitixi1 = new BigDecimal(tieshangjCarWaste1.getDemolitionXi()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitimoney1 = new BigDecimal(tieshangjCarWaste1.getDemolitionMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitixi1 = new BigDecimal(tieshangjCarWaste1.getDemolitionXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
 
         TieshangjCarWaste tieshangjCarWaste2=tieshangjCarWasteService.selectByPrimaryKey(2);
-        BigDecimal feioldmoney2 = new BigDecimal(tieshangjCarWaste2.getOldMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feioldmoney2 = new BigDecimal(tieshangjCarWaste2.getOldMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
         BigDecimal feioldxi2 = new BigDecimal(tieshangjCarWaste2.getOldXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitimoney2 = new BigDecimal(tieshangjCarWaste2.getDemolitionMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitixi2 = new BigDecimal(tieshangjCarWaste2.getDemolitionXi()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitimoney2 = new BigDecimal(tieshangjCarWaste2.getDemolitionMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitixi2 = new BigDecimal(tieshangjCarWaste2.getDemolitionXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
 
         TieshangjCarWaste tieshangjCarWaste3=tieshangjCarWasteService.selectByPrimaryKey(3);
-        BigDecimal feioldmoney3 = new BigDecimal(tieshangjCarWaste3.getOldMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feioldmoney3 = new BigDecimal(tieshangjCarWaste3.getOldMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
         BigDecimal feioldxi3 = new BigDecimal(tieshangjCarWaste3.getOldXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitimoney3 = new BigDecimal(tieshangjCarWaste3.getDemolitionMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitixi3 = new BigDecimal(tieshangjCarWaste3.getDemolitionXi()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitimoney3 = new BigDecimal(tieshangjCarWaste3.getDemolitionMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitixi3 = new BigDecimal(tieshangjCarWaste3.getDemolitionXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
 
         TieshangjCarWaste tieshangjCarWaste4=tieshangjCarWasteService.selectByPrimaryKey(4);
-        BigDecimal feioldmoney4 = new BigDecimal(tieshangjCarWaste4.getOldMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feioldmoney4 = new BigDecimal(tieshangjCarWaste4.getOldMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
         BigDecimal feioldxi4 = new BigDecimal(tieshangjCarWaste4.getOldXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitimoney4 = new BigDecimal(tieshangjCarWaste4.getDemolitionMoney()).setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal feidemolitixi4 = new BigDecimal(tieshangjCarWaste4.getDemolitionXi()).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitimoney4 = new BigDecimal(tieshangjCarWaste4.getDemolitionMoney()).setScale(3, BigDecimal.ROUND_HALF_UP);
+        BigDecimal feidemolitixi4 = new BigDecimal(tieshangjCarWaste4.getDemolitionXi()).setScale(3, BigDecimal.ROUND_HALF_UP);
         //废料旧相加
         BigDecimal feijiu=feioldmoney1.multiply(feioldxi1).add(feioldmoney2.multiply(feioldxi2)).add(feioldmoney3.multiply(feioldxi3));
         System.out.println(feijiu);
         //废料拆相加
-        BigDecimal feichai=feidemolitimoney1.multiply(feidemolitixi1).add(feidemolitimoney2.multiply(feidemolitixi2)).add(feidemolitimoney3.multiply(feidemolitixi3)).add(feidemolitimoney4.multiply(feidemolitixi4));
+        BigDecimal feichai=feidemolitimoney1.multiply(feidemolitixi1).add(feidemolitimoney2.multiply(feidemolitixi2)).add(feidemolitimoney3.multiply(feidemolitixi3));
         //根据铁码查看车型重量
         String carweight= tieshangjCarModelService.selectByPrimarytiema(carModelTiema);
         if(StringUtils.isBlank("carweight")||carweight==null){
             carweight="1";
         }
         BigDecimal zbzl = new BigDecimal(carweight).setScale(2, BigDecimal.ROUND_HALF_UP);
-        BigDecimal oldfeiMoney=zbzl.multiply(feijiu).add(feioldmoney4.multiply(feioldxi4));
-        BigDecimal chaifeiMoney=zbzl.multiply(feichai);
+        BigDecimal oldfeiMoney=zbzl.multiply(feijiu).add(feioldmoney4.multiply(feioldxi4)).setScale(2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal chaifeiMoney=zbzl.multiply(feichai).add(feidemolitimoney4.multiply(feidemolitixi4)).setScale(2, BigDecimal.ROUND_HALF_UP);
         //第四步****************计算利润系数
         String tieshangjCarProfit=tieshangjCarProfitService.selectLiRun(carModelTiema);
         System.out.println("lirunxishu:"+tieshangjCarProfit);
