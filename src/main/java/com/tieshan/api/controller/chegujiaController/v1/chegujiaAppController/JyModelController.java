@@ -16,6 +16,7 @@ import com.tieshan.api.service.chegujiaService.v1.JyModelService;
 import com.tieshan.api.util.jyInterfaceUtil.jySelectVin;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;
+import com.tieshan.api.util.toolUtil.Thousand;
 import net.sourceforge.pinyin4j.PinyinHelper;
 import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
@@ -121,6 +122,10 @@ public class JyModelController {
                 String Displacement="";
                 String DriveType="";
                 String ConfigureLevel="";
+                String money="";
+                if(chlCarModel.getPurchasePrice()!=null){
+                    money= Thousand.getNumberWanTwo(chlCarModel.getPurchasePrice());
+                }
                 ChlCarModelBo chlCarModelBo=new ChlCarModelBo();
                 if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCalled())){
                     Called=chlCarModel.getCalled();
@@ -144,9 +149,9 @@ public class JyModelController {
                 chlCarModelBo.setTiema(chlCarModel.getTiema());
                 if(org.apache.commons.lang3.StringUtils.isBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()!=null){
                     if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
-                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+chlCarModel.getPurchasePrice()+"元");
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+money+"万元");
                     }else{
-                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+chlCarModel.getPurchasePrice()+"元");
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+money+"万元");
                     }
                 }else if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()==null){
                     if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
@@ -156,9 +161,9 @@ public class JyModelController {
                     }
                 }else if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()!=null){
                     if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
-                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+chlCarModel.getPurchasePrice()+"元");
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+money+"万元");
                     }else{
-                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+chlCarModel.getPurchasePrice()+"元");
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+money+"万元");
                     }
                 }else if(org.apache.commons.lang3.StringUtils.isBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()==null){
                     if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
