@@ -9,6 +9,15 @@
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
+    <association property="tieshangjCarAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos">
+      <result column="a_name" jdbcType="VARCHAR" property="aName"/>
+    </association>
+    <association property="tieshangjCarBrand" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand">
+      <result column="b_name" jdbcType="VARCHAR" property="bName"/>
+    </association>
+    <association property="tieshangjCarVehicleSystem" javaType="com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem">
+      <result column="v_name" jdbcType="VARCHAR" property="vName"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     id, t_name, vehice_system_id, created_by, created_time, updated_by, updated_time
@@ -114,4 +123,70 @@
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectAll" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+        a.a_name,
+        b.b_name,
+        v.v_name,
+        t.t_name
+    FROM
+        tieshangj_car_auto_logos a
+    INNER JOIN tieshangj_car_brand b ON a.id = b.auto_logosz_id
+    INNER JOIN tieshangj_car_vehicle_system v ON b.id = v.brand_id
+    INNER JOIN tieshangj_car_train_crew t ON v.id = t.vehice_system_id
+    <where>
+      <if test="aId!=null and aId!=''">
+        and a.id = #{aId}
+      </if>
+      <if test="bId!=null and bId!=''">
+        and b.id = #{bId}
+      </if>
+      <if test="vId!=null and vId!=''">
+        and v.id = #{vId}
+      </if>
+      <if test="tId!=null and tId!=''">
+        and t.id = #{tId}
+      </if>
+    </where>
+    order by t.t_name
+    limit #{page},#{pagesize}
+  </select>
+  <select id="selectAllCount" parameterType="map" resultType="Integer">
+    SELECT
+    count(t.id)
+    FROM
+    tieshangj_car_auto_logos a
+    INNER JOIN tieshangj_car_brand b ON a.id = b.auto_logosz_id
+    INNER JOIN tieshangj_car_vehicle_system v ON b.id = v.brand_id
+    INNER JOIN tieshangj_car_train_crew t ON v.id = t.vehice_system_id
+    <where>
+      <if test="aId!=null and aId!=''">
+        and a.id = #{aId}
+      </if>
+      <if test="bId!=null and bId!=''">
+        and b.id = #{bId}
+      </if>
+      <if test="vId!=null and vId!=''">
+        and v.id = #{vId}
+      </if>
+      <if test="tId!=null and tId!=''">
+        and t.id = #{tId}
+      </if>
+    </where>
+  </select>
+  <select id="selectAll2" parameterType="map" resultMap="BaseResultMap">
+    SELECT
+    t.t_name
+    FROM
+    tieshangj_car_auto_logos a
+    INNER JOIN tieshangj_car_brand b ON a.id = b.auto_logosz_id
+    INNER JOIN tieshangj_car_vehicle_system v ON b.id = v.brand_id
+    INNER JOIN tieshangj_car_train_crew t ON v.id = t.vehice_system_id
+    <where>
+      <if test="vId!=null and vId!=''">
+        and v.id = #{vId}
+      </if>
+    </where>
+    order by t.t_name
+  </select>
 </mapper>

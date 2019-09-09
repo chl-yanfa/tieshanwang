@@ -124,4 +124,10 @@
       WHERE
           m.iron_code = #{tiema} and r.province_id=#{pid}
   </select>
+  <select id="selectArtifi2" resultType="java.lang.String">
+      SELECT
+          adjustment_num from tieshangj_car_regional_artificial
+      WHERE
+          car_tid = #{ctid} and province_id=#{pid}
+  </select>
 </mapper>
