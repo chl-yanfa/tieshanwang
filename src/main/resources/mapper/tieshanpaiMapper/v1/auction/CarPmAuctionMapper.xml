@@ -51,6 +51,7 @@
         <result column="pp_end_time" 	    property="ppEndTime" />
         <result column="retain_price" 	    property="retainPrice" />
         <result column="this_price" 	    property="thisPrice" />
+        <result column="pp_no" property="ppNo"/>
     </resultMap>
 
     <resultMap id="auction" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo">
@@ -152,6 +153,31 @@
         <result column="single_time" 		    property="singleTime" />
     </resultMap>
 
+    <resultMap id="dealMap" type="com.tieshan.api.vo.tieshanpaiVo.v1.auction.DealVO">
+        <result column="auction_id" property="auctionId" />
+        <result column="order_no"  property="orderNo"/>
+        <result column="commission"  property="commission"/>
+        <result column="other_price"  property="otherPrice"/>
+        <result column="highest_price"  property="highestPrice"/>
+        <result column="full_name"  property="fullName"/>
+        <result column="auction_type"  property="auctionType"/>
+        <result column="member_id"  property="dealerId"/>
+        <result column="member_name"  property="dealName"/>
+    </resultMap>
+
+
+    <resultMap id="dealPoMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal">
+        <id 	column="id" 			property="id" />
+        <result column="order_no" 	property="orderNo" />
+        <result column="auction_id" 	property="auctionId" />
+        <result column="pay_price" 	        property="payPrice" />
+        <result column="auction_name" 				property="auctionName" />
+        <result column="deal_time" 				property="dealTime" />
+        <result column="dealer_id" 		    property="dealerId" />
+        <result column="deal_way" 		    property="dealWay" />
+        <result column="auction_type" 		    property="auctionType" />
+    </resultMap>
+
     <sql id="ListIf">
         <if test="auctionTypeArr.size() > 0 ">
             AND cpa.auction_type in <foreach item="auction_type" index="index" collection="auctionTypeArr" open="(" separator="," close=")">#{auction_type}</foreach>
@@ -220,6 +246,24 @@
 	    SIAS.other_price,
 	    SIA.look_address park_address
 	</sql>
+
+    <select id="getMembers" parameterType="string" resultType="java.lang.String">
+    select
+       mid as member_id
+     from
+       car_pm_offer_water
+     where
+       bid_amount = (
+       SELECT
+            MAX(bid_amount)
+       FROM
+           car_pm_offer_water
+       WHERE
+           auction_no = #{ppNo}
+           )
+        and auction_no = #{ppNo}
+    </select>
+
 
     <select id="getStartResult" resultMap="startMap">
         select
@@ -304,7 +348,8 @@
         ) as this_price,
         cpa.id as pp_id,
         cpas.reserve_price as retain_price,
-        cpas.auction_end_time as pp_end_time
+        cpas.auction_end_time as pp_end_time,
+        cpa.auction_no as pp_no
         FROM
         car_pm_auction cpa
         LEFT JOIN car_pm_auction_set cpas ON cpa.id = cpas.auction_id
@@ -546,6 +591,52 @@
 			AND cpas.is_delete = 0
 			AND cpas.is_history = 0
 	</select>
+
+    <select id="getAuctionDealInfo" parameterType="java.lang.String" resultMap="dealMap">
+        SELECT
+            cpas.order_no as order_no,
+            cpa.id as auction_id,
+            cpas.commission as commission,
+            cpas.other_price as other_price,
+            ( SELECT MAX( HB.BID_AMOUNT ) FROM car_pm_offer_water HB WHERE HB.is_delete = 0 AND HB.ORDER_ID = cpas.id ) AS highest_price,
+            cpa.full_name,
+            cpa.auction_type
+        FROM
+            car_pm_auction cpa
+            LEFT JOIN car_pm_auction_set cpas
+            ON cpa.id = cpas.auction_id
+        WHERE
+            cpa.id = #{dealId}
+            AND cpas.is_delete = 0
+            AND cpas.is_history = 0
+    </select>
+
+    <insert id="addDealOrder" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal">
+        insert into car_pm_deal
+        (id,order_no,auction_id,pay_price,auction_name,deal_time,dealer_id,deal_way,auction_type)
+        values
+        (
+            #{id},
+            #{orderNo},
+            #{auctionId},
+            #{payPrice},
+            #{auctionName},
+            #{dealTime},
+            #{dealerId},
+            #{dealWay},
+            #{auctionType}
+        )
+    </insert>
+
+    <select id="getPmOrderByMemberId" parameterType="java.lang.String" resultMap="dealPoMap">
+        select
+	        *
+        from
+            car_pm_deal
+        where
+            dealer_id = #{mid}
+    </select>
+
 
     <select id="getAuctionInfo" resultMap="auction">
 		SELECT

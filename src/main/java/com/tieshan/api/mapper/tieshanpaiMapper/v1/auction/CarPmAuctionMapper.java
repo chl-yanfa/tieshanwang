@@ -1,15 +1,12 @@
 package com.tieshan.api.mapper.tieshanpaiMapper.v1.auction;
 
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.*;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -40,4 +37,11 @@ public interface CarPmAuctionMapper{
 
     List<StartVO> getStartResult();
 
+    String getMembers(@Param("ppNo")String dealTime);
+
+    DealVO getAuctionDealInfo(@Param("dealId")String id);
+
+    int addDealOrder(CarPmDeal cd);
+
+    List<CarPmDeal> getPmOrderByMemberId(@Param("mid")String mid);
 }

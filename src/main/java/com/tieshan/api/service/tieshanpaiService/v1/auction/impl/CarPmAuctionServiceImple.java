@@ -1,15 +1,14 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction.impl;
 
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
+import com.tieshan.api.common.tieshanpaiCommon.v1.Identities;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionMapper;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +29,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
     @Autowired
     CarPmAuctionMapper carPmAuctionMapper;
+
 
     @Override
     public List<CarPmAuctionVo> findAuction(CarPmAuctionVo auction) {
@@ -200,11 +200,30 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
         Map<String, List<CarPmResultVo>> successResult = new HashMap<>();
 
+        System.out.println(paipinList.size()+"aaaaaaa");
         paipinList.forEach(item->{
+            System.out.println(item.getThisPrice()+"       "+item.getRetainPrice());
             if(item.getThisPrice()>=item.getRetainPrice()){
-                chopPaipinList.add(item);
-                //向切拍列表添加数据后，向成交表添加数据
+                System.out.println("进入");
+                //根据切拍时间查询成交人的id
+                String members = carPmAuctionMapper.getMembers(item.getPpNo());
+                DealVO dealVO = carPmAuctionMapper.getAuctionDealInfo(item.getPpId());
 
+                //向切拍列表添加数据后，向成交表添加数据
+                CarPmDeal carPmDeal = new CarPmDeal();
+                carPmDeal.setId(Identities.uuid2());
+                carPmDeal.setOrderNo(dealVO.getOrderNo());
+                carPmDeal.setAuctionId(dealVO.getAuctionId());
+                BigDecimal dealPrice = dealVO.getCommission().add(dealVO.getOtherPrice()).add(dealVO.getHighestPrice());
+                carPmDeal.setPayPrice(dealPrice);
+                carPmDeal.setAuctionName(dealVO.getFullName());
+                carPmDeal.setDealTime(item.getPpEndTime());
+                carPmDeal.setDealerId(members);
+                carPmDeal.setDealWay(1);
+                carPmDeal.setAuctionType(dealVO.getAuctionType());
+                int result = carPmAuctionMapper.addDealOrder(carPmDeal);
+                System.out.println(result>0);
+                chopPaipinList.add(item);
             }else{
                 outPaipinList.add(item);
             }
@@ -301,6 +320,16 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         //map.put("paipin",startPaipin);
         map.put("nowpaipin",nowstartPaipin);
         return map;
+    }
+
+    @Override
+    public ResultVO<CarPmDeal> getPmOrderByMemberId(String mid) {
+        List<CarPmDeal> list = carPmAuctionMapper.getPmOrderByMemberId(mid);
+        ResultVO<CarPmDeal> res = new ResultVO<>();
+        res.setRows(list);
+        res.setReturnMsg("success");
+        res.setReturnCode("200");
+        return res;
     }
 
     /**

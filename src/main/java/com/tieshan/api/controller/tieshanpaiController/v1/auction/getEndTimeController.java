@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 获得所有结束的拍品和拍卖会
+ * 获得所有需要开始和结束的拍品和拍卖会
  * @author ningrz
  * @version 1.0
  * @date 2019/8/29 11:24

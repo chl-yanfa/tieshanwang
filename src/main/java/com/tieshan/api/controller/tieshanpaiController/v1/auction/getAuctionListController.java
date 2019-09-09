@@ -4,6 +4,7 @@ import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.SessionUtil;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
@@ -147,6 +148,18 @@ public class getAuctionListController {
     @ResponseBody
     public ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy) {
         return carPmAuctionService.getAuctionCarList(pmhId,pmOrderBy);
+    }
+
+
+    /**
+     * 获得用户铁扇拍成交信息
+     * @param mid
+     * @return
+     */
+    @RequestMapping(value = "/getPmOrderById", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVO<CarPmDeal> getPmOrderByMemberId(String mid){
+        return carPmAuctionService.getPmOrderByMemberId(mid);
     }
 
 }
