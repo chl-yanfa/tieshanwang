@@ -12,5 +12,7 @@ public interface TieshangjCarRegionalArtificialMapper {
     int updateByPrimaryKeySelective(TieshangjCarRegionalArtificial record);
     //根据车型铁码查询在某个省份的人工调整值
     String selectArtifi(@Param("tiema") String tiema, @Param("pid") String pid);
+    //根据车组id查询在某个省份的人工调整值
+    String selectArtifi2(@Param("ctid") String ctid, @Param("pid") String pid);
 
 }

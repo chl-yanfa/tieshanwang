@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -91,6 +90,17 @@ public class TieshanGuJiaController {
                    if(map.get("code").equals("200")){
                        return ResultUtil.success(map.get("data"));
                    }else if((map.get("code").equals("201"))){
+                       TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                       tieshangjHistory.setCarModelName(carModelName);
+                       tieshangjHistory.setCreateTime(new Date());
+                       tieshangjHistory.setCreateBy(createBy);
+                       tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityInfo.getCityNamecn());
+                       tieshangjHistory.setFruit("不可估值车型");
+                       tieshangjHistory.setType("3");
+                       tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
+                       tieshangjHistory.setJyid(jyid);
+                       tieshangjHistory.setPhone(phone);
+                       tieshangjHistoryService.insertSelective(tieshangjHistory);
                        return ResultUtil.error(201,"该车型尚不能估值");
                    }else if((map.get("code").equals("500"))){
                        return ResultUtil.error(500,"系统内部错误");
@@ -102,6 +112,17 @@ public class TieshanGuJiaController {
                 if(map.get("code").equals("200")){
                     return ResultUtil.success(map.get("data"));
                 }else if((map.get("code").equals("201"))){
+                    TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                    tieshangjHistory.setCarModelName(carModelName);
+                    tieshangjHistory.setCreateTime(new Date());
+                    tieshangjHistory.setCreateBy(createBy);
+                    tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityInfo.getCityNamecn());
+                    tieshangjHistory.setFruit("不可估值车型");
+                    tieshangjHistory.setType("3");
+                    tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
+                    tieshangjHistory.setJyid(jyid);
+                    tieshangjHistory.setPhone(phone);
+                    tieshangjHistoryService.insertSelective(tieshangjHistory);
                     return ResultUtil.error(201,"该车型尚不能估值");
                 }else if((map.get("code").equals("500"))){
                     return ResultUtil.error(500,"系统内部错误");

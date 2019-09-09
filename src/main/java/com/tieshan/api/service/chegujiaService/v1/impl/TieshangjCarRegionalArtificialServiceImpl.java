@@ -13,4 +13,9 @@ public class TieshangjCarRegionalArtificialServiceImpl implements TieshangjCarRe
     public String selectArtifi(String tiema, String pid) {
         return tieshangjCarRegionalArtificialMapper.selectArtifi(tiema,pid);
     }
+
+    @Override
+    public String selectArtifi2(String ctid, String pid) {
+        return tieshangjCarRegionalArtificialMapper.selectArtifi2(ctid,pid);
+    }
 }

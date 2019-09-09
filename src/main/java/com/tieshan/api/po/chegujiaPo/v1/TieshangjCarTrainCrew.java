@@ -18,6 +18,14 @@ public class TieshangjCarTrainCrew implements Serializable {
 
     private Date updatedTime;
 
+    private TieshangjCarAutoLogos tieshangjCarAutoLogos;
+
+    private TieshangjCarBrand tieshangjCarBrand;
+
+    private TieshangjCarVehicleSystem tieshangjCarVehicleSystem;
+
+
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -75,4 +83,30 @@ public class TieshangjCarTrainCrew implements Serializable {
     public void setUpdatedTime(Date updatedTime) {
         this.updatedTime = updatedTime;
     }
+
+    public TieshangjCarAutoLogos getTieshangjCarAutoLogos() {
+        return tieshangjCarAutoLogos;
+    }
+
+    public void setTieshangjCarAutoLogos(TieshangjCarAutoLogos tieshangjCarAutoLogos) {
+        this.tieshangjCarAutoLogos = tieshangjCarAutoLogos;
+    }
+
+    public TieshangjCarBrand getTieshangjCarBrand() {
+        return tieshangjCarBrand;
+    }
+
+    public void setTieshangjCarBrand(TieshangjCarBrand tieshangjCarBrand) {
+        this.tieshangjCarBrand = tieshangjCarBrand;
+    }
+
+    public TieshangjCarVehicleSystem getTieshangjCarVehicleSystem() {
+        return tieshangjCarVehicleSystem;
+    }
+
+    public void setTieshangjCarVehicleSystem(TieshangjCarVehicleSystem tieshangjCarVehicleSystem) {
+        this.tieshangjCarVehicleSystem = tieshangjCarVehicleSystem;
+    }
+
+
 }
