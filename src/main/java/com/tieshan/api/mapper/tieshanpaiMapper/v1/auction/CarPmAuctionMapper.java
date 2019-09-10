@@ -43,5 +43,7 @@ public interface CarPmAuctionMapper{
 
     int addDealOrder(CarPmDeal cd);
 
-    List<CarPmDeal> getPmOrderByMemberId(@Param("mid")String mid);
+    List<CarPmDeal> getPmOrderByMemberId(Map map);
+
+    Integer getTotalPmOrder(@Param("mid")String mid);
 }

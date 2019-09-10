@@ -158,8 +158,10 @@ public class getAuctionListController {
      */
     @RequestMapping(value = "/getPmOrderById", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVO<CarPmDeal> getPmOrderByMemberId(String mid){
-        return carPmAuctionService.getPmOrderByMemberId(mid);
+    public ResultVO<CarPmDeal> getPmOrderByMemberId(@RequestParam(value="page",required = true) Integer page,
+                                                    @RequestParam(value="rows",required = true) Integer rows,
+                                                    @RequestParam(value="mid",required = true) String mid){
+        return carPmAuctionService.getPmOrderByMemberId(page,rows,mid);
     }
 
 }

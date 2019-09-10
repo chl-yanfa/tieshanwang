@@ -221,6 +221,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 carPmDeal.setDealerId(members);
                 carPmDeal.setDealWay(1);
                 carPmDeal.setAuctionType(dealVO.getAuctionType());
+                carPmDeal.setDealCn("已成交");
                 int result = carPmAuctionMapper.addDealOrder(carPmDeal);
                 System.out.println(result>0);
                 chopPaipinList.add(item);
@@ -323,10 +324,17 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
     }
 
     @Override
-    public ResultVO<CarPmDeal> getPmOrderByMemberId(String mid) {
-        List<CarPmDeal> list = carPmAuctionMapper.getPmOrderByMemberId(mid);
+    public ResultVO<CarPmDeal> getPmOrderByMemberId(Integer page,Integer rows,String mid) {
+        Integer pageNum = (page-1) * rows;
+        Map<String,Object> map = new HashMap<>();
+        map.put("pageNum",pageNum);
+        map.put("rows",rows);
+        map.put("mid",mid);
+        List<CarPmDeal> list = carPmAuctionMapper.getPmOrderByMemberId(map);
+        Integer total = carPmAuctionMapper.getTotalPmOrder(mid);
         ResultVO<CarPmDeal> res = new ResultVO<>();
         res.setRows(list);
+        res.setTotal(total);
         res.setReturnMsg("success");
         res.setReturnCode("200");
         return res;

@@ -176,6 +176,8 @@
         <result column="dealer_id" 		    property="dealerId" />
         <result column="deal_way" 		    property="dealWay" />
         <result column="auction_type" 		    property="auctionType" />
+        <result column="deal_cn" 		    property="dealCn" />
+        <result column="img_path" 		    property="imgPath" />
     </resultMap>
 
     <sql id="ListIf">
@@ -613,7 +615,7 @@
 
     <insert id="addDealOrder" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal">
         insert into car_pm_deal
-        (id,order_no,auction_id,pay_price,auction_name,deal_time,dealer_id,deal_way,auction_type)
+        (id,order_no,auction_id,pay_price,auction_name,deal_time,dealer_id,deal_way,auction_type,deal_cn)
         values
         (
             #{id},
@@ -624,17 +626,38 @@
             #{dealTime},
             #{dealerId},
             #{dealWay},
-            #{auctionType}
+            #{auctionType},
+            #{dealCn}
         )
     </insert>
 
-    <select id="getPmOrderByMemberId" parameterType="java.lang.String" resultMap="dealPoMap">
-        select
-	        *
-        from
-            car_pm_deal
-        where
+    <select id="getPmOrderByMemberId" parameterType="java.util.Map" resultMap="dealPoMap">
+        SELECT
+            a.*,
+            (select storage_path from tb_attachment where id = b.attachment_id limit 1) as img_path
+        FROM
+            car_pm_deal a
+            left join car_pm_auction_file b on a.auction_id = b.auction_id
+        WHERE
             dealer_id = #{mid}
+        limit #{pageNum},#{rows}
+    </select>
+
+
+    <select id="getTotalPmOrder" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+           count(1)
+        from
+        (
+        SELECT
+            a.*,
+            (select storage_path from tb_attachment where id = b.attachment_id limit 1) as img_path
+        FROM
+            car_pm_deal a
+            left join car_pm_auction_file b on a.auction_id = b.auction_id
+        WHERE
+            dealer_id = #{mid}
+        ) v
     </select>
 
 
@@ -873,7 +896,7 @@
             SIP.pmh_id = SAB.pmh_id
         WHERE
             SIP.is_delete=0
-        and DATE(SIP.paimai_start_time) >= date(SYSDATE())
+        and (DATE(SIP.paimai_start_time) >= date(SYSDATE()) or SIP.paimai_state = 1)
         <include refid="ListIfPaiMai" />
         <if test="paimaiState != null">
             AND SIP.paimai_state = #{paimaiState}

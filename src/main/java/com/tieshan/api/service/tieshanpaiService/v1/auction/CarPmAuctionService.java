@@ -34,5 +34,5 @@ public interface CarPmAuctionService {
 
     Map<String,List<StartVO>> getStartTimeList();
 
-    ResultVO<CarPmDeal> getPmOrderByMemberId(String mid);
+    ResultVO<CarPmDeal> getPmOrderByMemberId(Integer page,Integer rows,String mid);
 }

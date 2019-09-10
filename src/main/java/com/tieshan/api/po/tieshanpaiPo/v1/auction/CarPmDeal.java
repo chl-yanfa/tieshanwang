@@ -20,4 +20,6 @@ public class CarPmDeal {
     private String dealerId;
     private Integer dealWay;
     private Integer auctionType;
+    private String dealCn;
+    private String imgPath;
 }
