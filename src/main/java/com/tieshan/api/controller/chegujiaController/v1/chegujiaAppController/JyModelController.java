@@ -420,56 +420,184 @@ public class JyModelController {
                         chlCarModel1.setVinCode(vin);
                         jyModelService.updateVinByJyid(chlCarModel1);
                     }
-
-
-                    /*System.out.println("answerConent:"+answerConent);
-                    System.out.println("answerValue:"+answerValue);
-                    System.out.println("question:"+question);
-                    System.out.println("antiTheft:"+antiTheft);
-                    System.out.println("arrayType:"+arrayType);
-                    System.out.println("bodyType:"+bodyType);
-                    System.out.println("brandCode:"+brandCode);
-                    System.out.println("brandId:"+brandId);
-                    System.out.println("brandName:"+brandName);
-                    System.out.println("cfgLevel:"+cfgLevel);
-                    System.out.println("cms:"+cms);
-                    System.out.println("companyCode:"+companyCode);
-                    System.out.println("companyName:"+companyName);
-                    System.out.println("cylinderNum:"+cylinderNum);//气缸数
-                    System.out.println("displacement:"+displacement);
-                    System.out.println("drivenType:"+drivenType);
-                    System.out.println("effluentStandard:"+effluentStandard);
-                    System.out.println("engineDesc:"+engineDesc);
-                    System.out.println("engineModel:"+engineModel);
-                    System.out.println("familyCode:"+familyCode);
-                    System.out.println("familyId:"+familyId);
-                    System.out.println("familyName:"+familyName);
-                    System.out.println("fuelJetType:"+fuelJetType);
-                    System.out.println("fullWeight:"+fullWeight);
-                    System.out.println("fullWeightMaxKg:"+fullWeightMaxKg);
-                    System.out.println("fullWeightMinKg:"+fullWeightMinKg);
-                    System.out.println("gearNum:"+gearNum);
-                    System.out.println("gearboxType:"+gearboxType);
-                    System.out.println("groupCode:"+groupCode);
-                    System.out.println("groupId:"+groupId);
-                    System.out.println("groupName:"+groupName);
-                    System.out.println("hasConfig:"+hasConfig);
-                    System.out.println("hltgg:"+hltgg);
-                    System.out.println("importFlag:"+importFlag);
-                    System.out.println("kindredPrice:"+kindredPrice);
-                    System.out.println("kindredPriceTax:"+kindredPriceTax);
-                    System.out.println("letStand:"+letStand);
-                    System.out.println("listPrice:"+listPrice);
-                    System.out.println("listPriceTax:"+listPriceTax);
-                    System.out.println("marketDate:"+marketDate);
-                    System.out.println("vehicleId:"+vehicleId);
-                    String sb = vehicleId;
-                    String sb2=sb.substring(3);
-                    System.out.println("sb2:"+sb2);*/
                 }
             }
         } catch (Exception e) {
 
         }
+    }
+
+    //查询车标-------缓存全部车型
+    @RequestMapping(value = "selectAutoLogosApp2",method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResult selectAutoLogosApp2()throws Exception{
+        List<EncapsulationBO> encapsulationBOS = new ArrayList<EncapsulationBO>();
+        List<ChlAutoLogos>list=jyModelService.selectAll();
+        if(list!=null){
+            for (ChlAutoLogos tieshangjCarAutoLogos : list) {
+                EncapsulationsBO encapsulationsBO=new EncapsulationsBO();
+                encapsulationsBO.setId(tieshangjCarAutoLogos.getAutoLogosId().toString());
+                encapsulationsBO.setName(tieshangjCarAutoLogos.getAutoLogosName());
+                String szm = ToFirstChar(tieshangjCarAutoLogos.getAutoLogosName());
+                Boolean flag = true;
+                if(encapsulationBOS != null && encapsulationBOS.size() >0) {
+                    for (int i = 0; i < encapsulationBOS.size(); i++) {
+                        EncapsulationBO dictionarySystemBO = encapsulationBOS.get(i);
+                        if(StringUtils.equals(dictionarySystemBO.getType(), szm)) {
+                            dictionarySystemBO.getChildren().add(encapsulationsBO);
+                            flag = false;
+                        }
+                    }
+                }
+                if(flag) {
+                    List<EncapsulationsBO> dictionaryBOs = new ArrayList<EncapsulationsBO>();
+                    dictionaryBOs.add(encapsulationsBO);
+                    EncapsulationBO dsbo = new EncapsulationBO();
+                    dsbo.setType(szm);
+                    dsbo.setChildren(dictionaryBOs);
+                    encapsulationBOS.add(dsbo);
+                }
+            }
+            Collections.sort(encapsulationBOS,new Comparator<EncapsulationBO>() {
+                @Override
+                public int compare(EncapsulationBO o1, EncapsulationBO o2) {
+                    return o1.getType().compareTo(o2.getType());
+                }
+
+            });
+        }
+        for (EncapsulationBO encapsulationBO : encapsulationBOS) {
+            for (EncapsulationsBO child : encapsulationBO.getChildren()) {
+                selectCarBrand2(Integer.parseInt(child.getId()));
+            }
+        }
+        return ResultUtil.success("缓存完成");
+    }
+    //redis---缓存车系
+    public String selectCarBrand2(Integer autoLogoId){
+        List<ChlBrand> list=jyModelService.selectCBId(autoLogoId);
+        List<EncapsulationBO> encapsulationBOS = new ArrayList<EncapsulationBO>();
+        //声明key
+        String key = "jybrandKey_" +autoLogoId;
+        //redis
+        ValueOperations<String, List<EncapsulationBO>> operations = redisTemplate.opsForValue();
+        for (ChlBrand tieshangjCarBrand : list) {
+            //判断key
+            boolean hasKey = redisTemplate.hasKey(key);
+            if (hasKey) {
+                List<EncapsulationBO> encapsulationBO = operations.get(key);
+                for (EncapsulationBO bo : encapsulationBO) {
+                    for (EncapsulationsBO child : bo.getChildren()) {
+                        selectCarModel3(Integer.parseInt(child.getId()));
+                    }
+                }
+                System.out.println("==========从缓存中获得数据=========");
+                return "a";
+            } else {
+                System.out.println("==========从数据库中获得数据=========");
+                EncapsulationBO dsbo = new EncapsulationBO();
+                dsbo.setType(tieshangjCarBrand.getBrname());
+                List<ChlCarModelSeries> lists= jyModelService.selectBrandId(tieshangjCarBrand.getId());
+                if (lists != null) {
+                    List<EncapsulationsBO> dictionaryBOs = new ArrayList<EncapsulationsBO>();
+                    for (ChlCarModelSeries tieshangjCarVehicleSystem : lists) {
+                        EncapsulationsBO encapsulationsBO=new EncapsulationsBO();
+                        encapsulationsBO.setId(tieshangjCarVehicleSystem.getId().toString());
+                        encapsulationsBO.setName(tieshangjCarVehicleSystem.getVehicleSystemName());
+                        dictionaryBOs.add(encapsulationsBO);
+                    }
+                    dsbo.setChildren(dictionaryBOs);
+                }
+                encapsulationBOS.add(dsbo);
+            }
+        }
+        for (EncapsulationBO encapsulationBO : encapsulationBOS) {
+            for (EncapsulationsBO child : encapsulationBO.getChildren()) {
+                selectCarModel3(Integer.parseInt(child.getId()));
+            }
+        }
+        // 写入缓存
+        operations.set(key, encapsulationBOS, 5, TimeUnit.HOURS);
+        return "b";
+    }
+    //redis--缓存车型
+    public ApiResult selectCarModel3(Integer chexiId){
+        //redis
+        ValueOperations<String,  List<ChlCarModelBo>> operations = redisTemplate.opsForValue();
+        //声明key
+        String key = "jychexiKey_" + chexiId;
+        //判断key
+        boolean hasKey = redisTemplate.hasKey(key);
+        if (hasKey) {
+            List<ChlCarModelBo> list= operations.get(key);
+            System.out.println("==========从缓存中获得数据=========");
+            return ResultUtil.success(list);
+        } else {
+            List<ChlCarModel> list=jyModelService.selectCheXiId(chexiId);
+            List<ChlCarModelBo>list1=new ArrayList<>();
+            for (ChlCarModel chlCarModel : list) {
+                String Called="";
+                String serName="";
+                String Displacement="";
+                String DriveType="";
+                String ConfigureLevel="";
+                String money="";
+                if(chlCarModel.getPurchasePrice()!=null){
+                    money= Thousand.getNumberWanTwo(chlCarModel.getPurchasePrice());
+                }
+                ChlCarModelBo chlCarModelBo=new ChlCarModelBo();
+                if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCalled())){
+                    Called=chlCarModel.getCalled();
+                }
+                if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getChlCarModelSeries().getVehicleSystemName())){
+                    serName=chlCarModel.getChlCarModelSeries().getVehicleSystemName();
+                }
+                if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getDisplacement())){
+                    Displacement=chlCarModel.getDisplacement();
+                }
+                if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getDriveType())){
+                    DriveType=chlCarModel.getDriveType();
+                }
+                if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getConfigureLevel())){
+                    ConfigureLevel=chlCarModel.getConfigureLevel();
+                }
+                chlCarModelBo.setId(chlCarModel.getId());
+                chlCarModelBo.setAliasId(chlCarModel.getAliasId());
+                chlCarModelBo.setCalled(Called);
+                chlCarModelBo.setCarYear(chlCarModel.getCarYear());
+                chlCarModelBo.setTiema(chlCarModel.getTiema());
+                if(org.apache.commons.lang3.StringUtils.isBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()!=null){
+                    if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+money+"万元");
+                    }else{
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+money+"万元");
+                    }
+                }else if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()==null){
+                    if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel);
+                    }else{
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+ConfigureLevel);
+                    }
+                }else if(org.apache.commons.lang3.StringUtils.isNotBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()!=null){
+                    if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+money+"万元");
+                    }else{
+                        chlCarModelBo.setModelName(chlCarModel.getCarYear()+"款 "+serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel+" "+money+"万元");
+                    }
+                }else if(org.apache.commons.lang3.StringUtils.isBlank(chlCarModel.getCarYear())&&chlCarModel.getPurchasePrice()==null){
+                    if(org.apache.commons.lang3.StringUtils.isBlank(ConfigureLevel)){
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType);
+                    }else{
+                        chlCarModelBo.setModelName(serName+" "+Displacement+" "+DriveType+" "+ConfigureLevel);
+                    }
+                }
+                list1.add(chlCarModelBo);
+            }
+            System.out.println("==========从数据表中获得数据=========");
+            // 写入缓存
+            operations.set(key, list1, 5, TimeUnit.HOURS);
+            return ResultUtil.success(list1);
+        }
+
     }
 }
