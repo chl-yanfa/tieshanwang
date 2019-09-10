@@ -117,7 +117,14 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectAll" resultMap="BaseResultMap">
-    select *
-    from tieshangj_history order by create_time desc limit 2
+    SELECT
+	    *
+    FROM
+	    tieshangj_history
+    WHERE
+	    type BETWEEN '1' AND '2'
+    ORDER BY
+	    create_time DESC
+	    LIMIT 2
   </select>
 </mapper>
