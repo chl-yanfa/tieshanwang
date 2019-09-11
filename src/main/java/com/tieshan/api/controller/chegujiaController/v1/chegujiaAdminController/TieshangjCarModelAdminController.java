@@ -35,11 +35,11 @@ public class TieshangjCarModelAdminController {
     @ResponseBody
     public Object selectCarModelHou(HttpServletRequest request, Map map){
         String carModelName=request.getParameter("carModelName");//车型名称
-        String brandId=request.getParameter("brandId");//车标id
+        String tiema=request.getParameter("tiema");//铁码
         String page=request.getParameter("page");//第几页数
         String pagesize=request.getParameter("pagesize");//每页显示数量
         map.put("carModelName",carModelName);
-        map.put("brandId",brandId);
+        map.put("tiema",tiema);
         map.put("page",(Integer.parseInt(page)-1)*Integer.parseInt(pagesize));
         map.put("pagesize",Integer.parseInt(pagesize));
         List<TieshangjCarModel> list=tieshangjCarModelService.selectAll(map);

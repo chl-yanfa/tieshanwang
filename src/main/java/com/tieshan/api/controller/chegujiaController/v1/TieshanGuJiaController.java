@@ -294,7 +294,16 @@ public class TieshanGuJiaController {
             tieshangjHistory.setJyid(jyid);
             tieshangjHistory.setPhone(phone);
             tieshangjHistoryService.insertSelective(tieshangjHistory);
-        }
+        }/*else if(type.equals("2")){
+            Map map=new HashMap();
+            map.put("sumMoneyChais",sumMoneyChais);
+            map.put("sumMoneyJius",sumMoneyJius);
+            map.put("chaifeiMoney",chaifeiMoney);
+            map.put("oldfeiMoney",oldfeiMoney);
+            map.put("Profit",Profit);
+            map.put("sum",sum);
+            return ResultUtil.success(map);
+        }*/
         return ResultUtil.success(sum);
 
     }
