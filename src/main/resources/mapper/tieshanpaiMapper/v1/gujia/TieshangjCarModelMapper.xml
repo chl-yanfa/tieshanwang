@@ -227,8 +227,8 @@
           INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
           INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
     <where>
-      <if test="brandId!=null and brandId!=''">
-        and l.id = #{brandId}
+      <if test="tiema!=null and tiema!=''">
+        and m.iron_code = #{tiema}
       </if>
       <if test="carModelName!=null and carModelName!=''">
         and m.car_name like CONCAT('%',#{carModelName},'%')
@@ -247,8 +247,8 @@
     INNER JOIN tieshangj_car_brand b ON b.id = s.brand_id
     INNER JOIN tieshangj_car_auto_logos l ON l.id = b.auto_logosz_id
     <where>
-      <if test="brandId!=null and brandId!=''">
-        and l.id = #{brandId}
+      <if test="tiema!=null and tiema!=''">
+        and m.iron_code = #{tiema}
       </if>
       <if test="carModelName!=null and carModelName!=''">
         and m.car_name like CONCAT('%',#{carModelName},'%')
