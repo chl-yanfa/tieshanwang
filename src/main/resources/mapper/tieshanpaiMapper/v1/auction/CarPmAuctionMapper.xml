@@ -550,7 +550,7 @@
 			cpa.lot_areas,
 			cpa.lot_areas_id,
 			cpa.production_date,
-			cpa.is_has_key,
+			coalesce(cpa.is_has_key,'无') as is_has_key,
 			cpa.description,
 			cpa.buy_requirement,
 			cpa.look_contacts,
@@ -640,6 +640,7 @@
             left join car_pm_auction_file b on a.auction_id = b.auction_id
         WHERE
             dealer_id = #{mid}
+        group by a.auction_id
         limit #{pageNum},#{rows}
     </select>
 
@@ -657,6 +658,7 @@
             left join car_pm_auction_file b on a.auction_id = b.auction_id
         WHERE
             dealer_id = #{mid}
+        group by a.auction_id
         ) v
     </select>
 
@@ -682,7 +684,7 @@
 			cpa.lot_areas,
 			cpa.lot_areas_id,
 			cpa.production_date,
-			cpa.is_has_key,
+			coalesce(cpa.is_has_key,'无') as is_has_key,
 			cpa.description,
 			cpa.buy_requirement,
 			cpa.look_contacts,
