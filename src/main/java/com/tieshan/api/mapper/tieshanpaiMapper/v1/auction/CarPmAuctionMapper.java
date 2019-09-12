@@ -46,4 +46,6 @@ public interface CarPmAuctionMapper{
     List<CarPmDeal> getPmOrderByMemberId(Map map);
 
     Integer getTotalPmOrder(@Param("mid")String mid);
+
+    String getUserName(@Param("name") String name);
 }

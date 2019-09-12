@@ -14,6 +14,7 @@ public class Constants {
 	public final static String RETURN_CODE_CODE_ERROR        = "000004";//
 	public final static String RETURN_CODE_PHONE_ERROR        = "000005";
 	public final static String RETURN_CODE_KAPTCHA_ERROR     = "000003";// 验证码错误
+	public final static String NO_AUTH_PEOPLE = "200001";	//未实名认证
 	/** 正常登录  */
 	public final static String MERCHANTS_FORCE_LOGIN_NORMAL = "0";
 	

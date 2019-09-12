@@ -18,4 +18,6 @@ public interface BidMapper {
     OrderInfoVo getOrderInfoResultByWS(@Param("auctionNo")String auctionNo);
 
     OrderInfoVo getOrderInfoByWS(@Param("orderId")String orderId);
+
+
 }

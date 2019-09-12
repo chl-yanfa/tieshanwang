@@ -30,6 +30,15 @@
         where ID = #{memberCode}
     </update>
 
+    <select id="getRealNameState" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+            certification_state
+        from
+            sys_client
+        where
+            id = #{mid}
+    </select>
+
     <select id="updateCusCustomerMarginByPro" parameterType="map" statementType="CALLABLE">
     	{CALL CUSTOMER_BID_MARGIN(
     	#{operatorCash,mode=IN,jdbcType=INTEGER},

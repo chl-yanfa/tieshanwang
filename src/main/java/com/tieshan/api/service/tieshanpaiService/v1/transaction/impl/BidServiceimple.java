@@ -67,11 +67,21 @@ public class BidServiceimple implements BidService {
 		bidDto.setFreezeAmount(FREEZEAMOUNT_MIN.intValue());
 		bidDto.setOrderNo(order.getOrderNo());
 
+		Integer realNameState = cusCustomerMarginMapper.getRealNameState(bidDto.getMemberCode());
+		if(realNameState!=2){
+			result.setReturnCode(Constants.NO_AUTH_PEOPLE);
+			result.setReturnMsg("该账户尚未实名认证，请先进行实名认证");
+			return result;
+		}
 		CusCustomerMargin cusCustomerMargin = new CusCustomerMargin();
 		cusCustomerMargin.setUid(bidDto.getMemberCode());
 		cusCustomerMargin.setDeleteTag("0"); //demo 手动设置为非冻结
 		cusCustomerMargin = cusCustomerMarginMapper.getCusCustomerMarginByMember(cusCustomerMargin);
-
+		if(cusCustomerMargin==null){
+			result.setReturnCode(Constants.MARGIN_LESS);
+			result.setReturnMsg("保证金余额不足！请充值！");
+			return result;
+		}
 		int cha = cusCustomerMargin.getWalletPledge().compareTo(FREEZEAMOUNT_MIN);  //判断用户拥有的保证金是否大于当前订单所需要的保证金
 		if(!bidDto.getMemberCode().equals(order.getMemberCode())){
 			if (null == cusCustomerMargin || cha == -1 ) {

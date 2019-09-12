@@ -1,10 +1,13 @@
 package com.tieshan.api.util.resultUtil;
 
+import lombok.Data;
+
 /**
  * @author ningrz
  * @version 1.0
  * @date 2019/8/26 18:32
  */
+@Data
 public class WebSocketResult {
 
     private String auction;
@@ -25,78 +28,6 @@ public class WebSocketResult {
 
     private String uid;
 
-
-    public String getAuction() {
-        return auction;
-    }
-
-    public void setAuction(String auction) {
-        this.auction = auction;
-    }
-
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public String getStartTimeCount() {
-        return startTimeCount;
-    }
-
-    public void setStartTimeCount(String startTimeCount) {
-        this.startTimeCount = startTimeCount;
-    }
-
-    public String getEndTimeCount() {
-        return endTimeCount;
-    }
-
-    public void setEndTimeCount(String endTimeCount) {
-        this.endTimeCount = endTimeCount;
-    }
-
-    public String getOrderState() {
-        return orderState;
-    }
-
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-
-    public String getOrderStateS() {
-        return orderStateS;
-    }
-
-    public void setOrderStateS(String orderStateS) {
-        this.orderStateS = orderStateS;
-    }
-
-    public String getCid() {
-        return cid;
-    }
-
-    public void setCid(String cid) {
-        this.cid = cid;
-    }
-
-    public String getUid() {
-        return uid;
-    }
-
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
-
-    public String getRealPrice() {
-        return realPrice;
-    }
-
-    public void setRealPrice(String realPrice) {
-        this.realPrice = realPrice;
-    }
 
     @Override
     public String toString() {

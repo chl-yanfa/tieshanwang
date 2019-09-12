@@ -18,9 +18,26 @@
     <properties>
         <java.version>1.8</java.version>
         <timestamp>${maven.build.timestamp}</timestamp>
-        <!--指定时间格式-->
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+        <org.mybatis.spring.boot>2.0.1</org.mybatis.spring.boot>
+        <org.mybatis.generator>1.3.5</org.mybatis.generator>
+        <log4j>1.2.17</log4j>
+        <mysql>5.1.41</mysql>
+        <opensymphony>2.2.4</opensymphony>
+        <httpclient>4.5.2</httpclient>
+        <org.eclipse.maven>3.8.0</org.eclipse.maven>
+        <fastjson>1.1.37</fastjson>
+        <pinyin4j>2.5.0</pinyin4j>
+        <springfox-core>2.6.1</springfox-core>
+        <aliyun-sdk-mns>1.1.8</aliyun-sdk-mns>
+        <aliyun-java-sdk-core>3.3.1</aliyun-java-sdk-core>
+        <aliyun-java-sdk-dysmsapi>1.0.0</aliyun-java-sdk-dysmsapi>
+        <lombok>1.16.10</lombok>
+        <swagger2.version>2.7.0</swagger2.version>
+        <persistence>1.0</persistence>
+        <redis.version>2.7.2</redis.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,13 +57,13 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.0.1</version>
+            <version>${org.mybatis.spring.boot}</version>
         </dependency>
         <!-- mybatis-generator-core 反向生成java代码-->
         <dependency>
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
-            <version>1.3.5</version>
+            <version>${org.mybatis.generator}</version>
         </dependency>
         <!-- log4j -->
         <dependency>
@@ -62,42 +79,42 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
+            <version>${log4j}</version>
         </dependency>
         <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.41</version>
+            <version>${mysql}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/opensymphony/oscore -->
+
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>oscore</artifactId>
-            <version>2.2.4</version>
+            <version>${opensymphony}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.2</version>
+            <version>${httpclient}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openanzo.dependencies/org.apache.commons.httpclient -->
+
         <dependency>
             <groupId>org.eclipse.maven</groupId>
             <artifactId>org.apache.commons.httpclient</artifactId>
-            <version>3.8.0</version>
+            <version>${org.eclipse.maven}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.1.37</version>
+            <version>${fastjson}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -106,12 +123,12 @@
         <dependency>
             <groupId>com.belerweb</groupId>
             <artifactId>pinyin4j</artifactId>
-            <version>2.5.0</version>
+            <version>${pinyin4j}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-core</artifactId>
-            <version>2.6.1</version>
+            <version>${springfox-core}</version>
         </dependency>
         <!-- redis-->
         <dependency>
@@ -122,18 +139,18 @@
         <dependency>
             <groupId>com.aliyun.mns</groupId>
             <artifactId>aliyun-sdk-mns</artifactId>
-            <version>1.1.8</version>
+            <version>${aliyun-sdk-mns}</version>
             <classifier>jar-with-dependencies</classifier>
         </dependency>
         <dependency>
             <groupId>com.aliyuncs</groupId>
             <artifactId>aliyun-java-sdk-core</artifactId>
-            <version>3.3.1</version>
+            <version>${aliyun-java-sdk-core}</version>
         </dependency>
         <dependency>
             <groupId>com.aliyuncs</groupId>
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
-            <version>1.0.0</version>
+            <version>${aliyun-java-sdk-dysmsapi}</version>
         </dependency>
         <!-- thymeleaf-->
         <dependency>
@@ -143,7 +160,29 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.10</version>
+            <version>${lombok}</version>
+        </dependency>
+        <!--   swagger开始                   -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger2.version}</version>
+        </dependency>
+        <!-- swagger结束                   -->
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>${persistence}</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${redis.version}</version>
         </dependency>
     </dependencies>
 
