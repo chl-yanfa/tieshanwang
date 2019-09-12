@@ -176,7 +176,7 @@ public class JyModelController {
             }
             System.out.println("==========从数据表中获得数据=========");
             // 写入缓存
-            operations.set(key, list1, 5, TimeUnit.HOURS);
+            operations.set(key, list1, 365, TimeUnit.DAYS);
             return ResultUtil.success(list1);
         }
 
@@ -218,7 +218,7 @@ public class JyModelController {
             }
         }
         // 写入缓存
-        operations.set(key, encapsulationBOS, 5, TimeUnit.HOURS);
+        operations.set(key, encapsulationBOS, 365, TimeUnit.DAYS);
         return ResultUtil.success(encapsulationBOS);
     }
     //查询车标
@@ -428,12 +428,13 @@ public class JyModelController {
     }
 
     //查询车标-------缓存全部车型
-    @RequestMapping(value = "selectAutoLogosApp2",method = RequestMethod.GET)
+    @RequestMapping(value = "selectAutoLogosAppRedis",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult selectAutoLogosApp2()throws Exception{
         List<EncapsulationBO> encapsulationBOS = new ArrayList<EncapsulationBO>();
         List<ChlAutoLogos>list=jyModelService.selectAll();
         if(list!=null){
+            //遍历所有list
             for (ChlAutoLogos tieshangjCarAutoLogos : list) {
                 EncapsulationsBO encapsulationsBO=new EncapsulationsBO();
                 encapsulationsBO.setId(tieshangjCarAutoLogos.getAutoLogosId().toString());
@@ -481,43 +482,35 @@ public class JyModelController {
         String key = "jybrandKey_" +autoLogoId;
         //redis
         ValueOperations<String, List<EncapsulationBO>> operations = redisTemplate.opsForValue();
-        for (ChlBrand tieshangjCarBrand : list) {
-            //判断key
-            boolean hasKey = redisTemplate.hasKey(key);
-            if (hasKey) {
-                List<EncapsulationBO> encapsulationBO = operations.get(key);
-                for (EncapsulationBO bo : encapsulationBO) {
-                    for (EncapsulationsBO child : bo.getChildren()) {
-                        selectCarModel3(Integer.parseInt(child.getId()));
+        boolean hasKey = redisTemplate.hasKey(key);
+        if(hasKey){
+            System.out.println("==========从缓存中获得数据=========");
+        }else{
+            for (ChlBrand tieshangjCarBrand : list) {
+                    System.out.println("==========从数据库中获得数据=========");
+                    EncapsulationBO dsbo = new EncapsulationBO();
+                    dsbo.setType(tieshangjCarBrand.getBrname());
+                    List<ChlCarModelSeries> lists= jyModelService.selectBrandId(tieshangjCarBrand.getId());
+                    if (lists != null) {
+                        List<EncapsulationsBO> dictionaryBOs = new ArrayList<EncapsulationsBO>();
+                        for (ChlCarModelSeries tieshangjCarVehicleSystem : lists) {
+                            EncapsulationsBO encapsulationsBO=new EncapsulationsBO();
+                            encapsulationsBO.setId(tieshangjCarVehicleSystem.getId().toString());
+                            encapsulationsBO.setName(tieshangjCarVehicleSystem.getVehicleSystemName());
+                            dictionaryBOs.add(encapsulationsBO);
+                        }
+                        dsbo.setChildren(dictionaryBOs);
                     }
+                    encapsulationBOS.add(dsbo);
+            }
+            // 写入缓存
+            operations.set(key, encapsulationBOS, 365, TimeUnit.DAYS);
+            for (EncapsulationBO encapsulationBO : encapsulationBOS) {
+                for (EncapsulationsBO child : encapsulationBO.getChildren()) {
+                    selectCarModel3(Integer.parseInt(child.getId()));
                 }
-                System.out.println("==========从缓存中获得数据=========");
-                return "a";
-            } else {
-                System.out.println("==========从数据库中获得数据=========");
-                EncapsulationBO dsbo = new EncapsulationBO();
-                dsbo.setType(tieshangjCarBrand.getBrname());
-                List<ChlCarModelSeries> lists= jyModelService.selectBrandId(tieshangjCarBrand.getId());
-                if (lists != null) {
-                    List<EncapsulationsBO> dictionaryBOs = new ArrayList<EncapsulationsBO>();
-                    for (ChlCarModelSeries tieshangjCarVehicleSystem : lists) {
-                        EncapsulationsBO encapsulationsBO=new EncapsulationsBO();
-                        encapsulationsBO.setId(tieshangjCarVehicleSystem.getId().toString());
-                        encapsulationsBO.setName(tieshangjCarVehicleSystem.getVehicleSystemName());
-                        dictionaryBOs.add(encapsulationsBO);
-                    }
-                    dsbo.setChildren(dictionaryBOs);
-                }
-                encapsulationBOS.add(dsbo);
             }
         }
-        for (EncapsulationBO encapsulationBO : encapsulationBOS) {
-            for (EncapsulationsBO child : encapsulationBO.getChildren()) {
-                selectCarModel3(Integer.parseInt(child.getId()));
-            }
-        }
-        // 写入缓存
-        operations.set(key, encapsulationBOS, 5, TimeUnit.HOURS);
         return "b";
     }
     //redis--缓存车型
@@ -529,9 +522,8 @@ public class JyModelController {
         //判断key
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
-            List<ChlCarModelBo> list= operations.get(key);
             System.out.println("==========从缓存中获得数据=========");
-            return ResultUtil.success(list);
+            return ResultUtil.success("");
         } else {
             List<ChlCarModel> list=jyModelService.selectCheXiId(chexiId);
             List<ChlCarModelBo>list1=new ArrayList<>();
@@ -595,7 +587,7 @@ public class JyModelController {
             }
             System.out.println("==========从数据表中获得数据=========");
             // 写入缓存
-            operations.set(key, list1, 5, TimeUnit.HOURS);
+            operations.set(key, list1, 365, TimeUnit.DAYS);
             return ResultUtil.success(list1);
         }
 

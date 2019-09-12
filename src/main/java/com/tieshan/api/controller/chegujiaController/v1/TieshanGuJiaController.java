@@ -88,7 +88,19 @@ public class TieshanGuJiaController {
                     //调用一次估价
                    Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid,phone);
                    if(map.get("code").equals("200")){
-                       return ResultUtil.success(map.get("data"));
+                       /*return ResultUtil.success(map.get("data"));*/
+                       TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                       tieshangjHistory.setCarModelName(carModelName);
+                       tieshangjHistory.setCreateTime(new Date());
+                       tieshangjHistory.setCreateBy(createBy);
+                       tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityInfo.getCityNamecn());
+                       tieshangjHistory.setFruit("不可估值车型");
+                       tieshangjHistory.setType("3");
+                       tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
+                       tieshangjHistory.setJyid(jyid);
+                       tieshangjHistory.setPhone(phone);
+                       tieshangjHistoryService.insertSelective(tieshangjHistory);
+                       return ResultUtil.error(201,"该车型尚不能估值");
                    }else if((map.get("code").equals("201"))){
                        TieshangjHistory tieshangjHistory=new TieshangjHistory();
                        tieshangjHistory.setCarModelName(carModelName);
@@ -110,7 +122,19 @@ public class TieshanGuJiaController {
                 //调用一次估价
                 Map map=oldGuJia(carNumberId,moderyers,cityId,Mileage,pid,carModelName,createBy,cityInfo.getCityNamecn(),jyid,phone);
                 if(map.get("code").equals("200")){
-                    return ResultUtil.success(map.get("data"));
+                    /*return ResultUtil.success(map.get("data"));*/
+                    TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                    tieshangjHistory.setCarModelName(carModelName);
+                    tieshangjHistory.setCreateTime(new Date());
+                    tieshangjHistory.setCreateBy(createBy);
+                    tieshangjHistory.setFactors(moderyers+"年 | "+Mileage+"万公里 | "+cityInfo.getCityNamecn());
+                    tieshangjHistory.setFruit("不可估值车型");
+                    tieshangjHistory.setType("3");
+                    tieshangjHistory.setTu("http://pic1.win4000.com/wallpaper/4/57cd2eaeeff03_860_710.jpg");
+                    tieshangjHistory.setJyid(jyid);
+                    tieshangjHistory.setPhone(phone);
+                    tieshangjHistoryService.insertSelective(tieshangjHistory);
+                    return ResultUtil.error(201,"该车型尚不能估值");
                 }else if((map.get("code").equals("201"))){
                     TieshangjHistory tieshangjHistory=new TieshangjHistory();
                     tieshangjHistory.setCarModelName(carModelName);
@@ -340,7 +364,7 @@ public class TieshanGuJiaController {
                         double results = result.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                         DecimalFormat df = new DecimalFormat("#0.00");
                         System.out.println("results:"+df.format(results));
-                        TieshangjHistory tieshangjHistory=new TieshangjHistory();
+                        /*TieshangjHistory tieshangjHistory=new TieshangjHistory();
                         tieshangjHistory.setCarModelName(carModelName);
                         tieshangjHistory.setCreateTime(new Date());
                         tieshangjHistory.setCreateBy(createBy);
@@ -350,7 +374,7 @@ public class TieshanGuJiaController {
                         tieshangjHistory.setTu("http://hbimg.b0.upaiyun.com/dc8cdc8d3569e7710f24e7e6dbeecf61d1a7100c34869-sgKcVk_fw658");
                         tieshangjHistory.setJyid(jyid);
                         tieshangjHistory.setPhone(phone);
-                        tieshangjHistoryService.insertSelective(tieshangjHistory);
+                        tieshangjHistoryService.insertSelective(tieshangjHistory);*/
                         map.put("code","200");
                         map.put("data",results);
                         return map;
@@ -358,49 +382,6 @@ public class TieshanGuJiaController {
                     System.out.println("结果："+jieguo3);
                 }
             }
-                     /*if(state.equals("1")){
-                         String xi=jobj.getJSONObject("data").getJSONObject("chlCarmodelGroupFixedvalueCt").get("value").toString();
-                         String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
-                         JSONObject jobj2 = JSON.parseObject(jieguo2);
-                         String code2=jobj2.get("code").toString();
-                         String data=jobj2.get("data").toString();
-                         if(code2.equals("200")){
-                            if(data.equals("0")){
-                                //该车型不能估值
-                                return ResultUtil.error(201,"该车型尚不能估值");
-                            }else{
-                                String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
-                                JSONObject jobj3 = JSON.parseObject(jieguo3);
-                                String code3=jobj3.get("code").toString();
-                                if(code3.equals("200")){
-                                    String data3=jobj3.getJSONObject("jobj3").get("bad").toString();
-                                    return ResultUtil.success(data3);
-                                }
-                                System.out.println("结果："+jieguo3);
-                            }
-                         }
-                     }else{
-                         String cheng=jobj.getJSONObject("data").get("cheng").toString();
-                         String jieguo2=HttpClient.sendGetRequest("http://10.0.0.210:18061/selectCountModelRatio?id="+carNumberId,params,headers);
-                         JSONObject jobj2 = JSON.parseObject(jieguo2);
-                         String code2=jobj2.get("code").toString();
-                         String data=jobj2.get("data").toString();
-                         if(code2.equals("200")){
-                             if(data.equals("0")){
-                                 //该车型不能估值
-                                 return ResultUtil.error(201,"该车型尚不能估值");
-                             }else{
-                                 String jieguo3=HttpClient.sendGetRequest("http://10.0.0.210:18061/calculation?carNumberId="+carNumberId+"&provinceId="+pid+"&cityId="+cityId+"&Mileage="+Mileage+"&time="+moderyers,params,headers);
-                                 JSONObject jobj3 = JSON.parseObject(jieguo3);
-                                 String code3=jobj3.get("code").toString();
-                                 if(code3.equals("200")){
-                                     String data3=jobj3.getJSONObject("jobj3").get("bad").toString();
-                                     return ResultUtil.success(data3);
-                                 }
-                                 System.out.println("结果："+jieguo3);
-                             }
-                         }
-                     }*/
         }
         map.put("code","500");
         map.put("data","系统出现错误");
