@@ -2,6 +2,7 @@ package com.tieshan.api.po.chebaofeiPo.v1;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +13,8 @@ import java.util.Date;
  * @date 2019/9/12 11:05
  */
 @Data
-public class BasePojo implements Serializable {
+@ApiIgnore
+public abstract class BasePojo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore

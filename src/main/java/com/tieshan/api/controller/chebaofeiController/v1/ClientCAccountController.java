@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @CrossOrigin
-@RequestMapping(value="/account")
+@RequestMapping(value="/carscraporder-applet/account")
 public class ClientCAccountController {
 
     @Autowired
@@ -37,7 +37,7 @@ public class ClientCAccountController {
     private RedisTemplate redisTemplate;
 
 
-    @RequestMapping(value = "doLogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/doLogin", method = RequestMethod.POST)
     public ResultBean<Map<String,Object>> doLogin(@RequestParam("username") String username,
                                                   @RequestParam("password") String password, HttpServletRequest request,
                                                   HttpServletResponse response) throws Exception {
