@@ -233,28 +233,28 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 carPmDeal.setDealCn("已成交");
                 int result = carPmAuctionMapper.addDealOrder(carPmDeal);
 
-//                try{
-//
-//                    OrderInfoVo order = bidMapper.getOrderInfoResultByWS(item.getPpNo());
-//                    CarPmAftersale caf = new CarPmAftersale();
-//                    caf.setId(Identities.uuid2());
-//                    caf.setAuctionId(item.getPpId());
-//                    caf.setAuctionSetId(order.getId());
-//                    caf.setDealTime(simpleDateFormat.parse( item.getPpEndTime()));
-//                    caf.setDealHandler(carPmAuctionMapper.getUserName(members));
-//                    caf.setPayState(0);
-//                    caf.setTakeCarState(0);
-//                    caf.setDeferState(0);
-//                    caf.setAdjustPriceState(0);
-//                    caf.setBackCarState(0);
-//                    caf.setIsHistory(false);
-//                    caf.setIsDelete(false);
-//                    caf.setCreateUser(members);
-//                    caf.setCreateTime(simpleDateFormat.parse( item.getPpEndTime()));
-//                    int addResult = carPmAftersaleMapper.insert(caf);
-//                }catch (Exception e){
-//                    e.printStackTrace();
-//                }
+                try{
+
+                    OrderInfoVo order = bidMapper.getOrderInfoResultByWS(item.getPpNo());
+                    CarPmAftersale caf = new CarPmAftersale();
+                    caf.setId(Identities.uuid2());
+                    caf.setAuctionId(item.getPpId());
+                    caf.setAuctionSetId(order.getId());
+                    caf.setDealTime(simpleDateFormat.parse( item.getPpEndTime()));
+                    caf.setDealHandler(carPmAuctionMapper.getUserName(members));
+                    caf.setPayState(0);
+                    caf.setTakeCarState(0);
+                    caf.setDeferState(0);
+                    caf.setAdjustPriceState(0);
+                    caf.setBackCarState(0);
+                    caf.setIsHistory(false);
+                    caf.setIsDelete(false);
+                    caf.setCreateUser(members);
+                    caf.setCreateTime(simpleDateFormat.parse( item.getPpEndTime()));
+                    int addResult = carPmAftersaleMapper.insert(caf);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 chopPaipinList.add(item);
             }else{
                 outPaipinList.add(item);

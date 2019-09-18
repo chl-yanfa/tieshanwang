@@ -903,7 +903,7 @@
             SIP.pmh_id = SAB.pmh_id
         WHERE
             SIP.is_delete=0
-        and (DATE(SIP.paimai_start_time) >= date(SYSDATE()) or SIP.paimai_state = 1)
+        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>
         <include refid="ListIfPaiMai" />
         <if test="paimaiState != null">
             AND SIP.paimai_state = #{paimaiState}
