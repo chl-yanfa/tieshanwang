@@ -29,7 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
 
 
-
     @Autowired
     private Mapper<T> mapper;
 
