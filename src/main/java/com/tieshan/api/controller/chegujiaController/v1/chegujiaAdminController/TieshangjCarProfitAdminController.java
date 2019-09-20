@@ -2,7 +2,7 @@ package com.tieshan.api.controller.chegujiaController.v1.chegujiaAdminController
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarProfit;
-import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
+import com.tieshan.api.bo.chegujiaBo.EncapsulationBO;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPieceService;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarPiecesService;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarProfitService;

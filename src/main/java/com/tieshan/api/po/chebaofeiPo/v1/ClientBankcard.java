@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name="tb_client_bankcard")
-public class ClientBankcard {
+public class ClientBankcard extends BasePojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

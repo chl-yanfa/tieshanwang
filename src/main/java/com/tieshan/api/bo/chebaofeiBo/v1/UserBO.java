@@ -16,17 +16,12 @@ import java.util.List;
 @Data
 public class UserBO extends User {
     private String roleName;
-
     private String areaName;
-
     //区域主键
     private String areasids;
     private String roleids;
     private String sessionId;
-
     @JsonIgnore
     private Boolean isAllDataPermisssion=false;
-
-
     private List<Permission> permissions = new ArrayList<Permission>();
 }

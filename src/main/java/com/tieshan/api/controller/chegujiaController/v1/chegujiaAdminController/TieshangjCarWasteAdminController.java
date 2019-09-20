@@ -1,9 +1,6 @@
 package com.tieshan.api.controller.chegujiaController.v1.chegujiaAdminController;
 
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPiece;
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarPieces;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarWaste;
-import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarWasteService;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;

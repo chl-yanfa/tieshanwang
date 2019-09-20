@@ -1,6 +1,7 @@
 package com.tieshan.api.po.chebaofeiPo.v1;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -45,6 +46,7 @@ public class SysClient extends BasePojo{
     private String passwordSalt;
 
     @ApiModelProperty(value = "大客户用户所属公司")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer companyid;
 
     @ApiModelProperty(value = "大客户用户角色类型（1:整车报废管理员 2:旧件回收管理员）")
@@ -55,15 +57,18 @@ public class SysClient extends BasePojo{
     private String idCard;
 
     @ApiModelProperty(value = "身份证正面图片ID")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer frontIdCard;
 
     @ApiModelProperty(value = "身份证背面图片ID")
     private Integer backIdCard;
 
     @ApiModelProperty(value = "手持身份证图片ID")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer handIdCard;
 
     @ApiModelProperty(value = "实名认证状态")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Integer certificationState;
 
     @ApiModelProperty(value = "实名认证提交时间")

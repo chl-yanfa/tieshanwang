@@ -6,6 +6,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -14,6 +15,7 @@ import javax.validation.constraints.Pattern;
  * @date 2019/9/18 13:46
  */
 @Data
+@Table(name="sys_user")
 public class User extends BasePojo {
     @Id
     private String id;

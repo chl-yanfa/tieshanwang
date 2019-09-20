@@ -1,7 +1,7 @@
 package com.tieshan.api.service.homePageService.v1.impl;
 
 import com.tieshan.api.mapper.homePageMapper.v1.CarScrapOrderDealMapper;
-import com.tieshan.api.po.homePagePo.bo.v1.CarScrapOrderDealBO;
+import com.tieshan.api.bo.homePageBo.CarScrapOrderDealBO;
 import com.tieshan.api.service.homePageService.v1.CarScrapOrderDealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

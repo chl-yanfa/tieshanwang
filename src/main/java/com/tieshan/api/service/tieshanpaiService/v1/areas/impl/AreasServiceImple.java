@@ -2,6 +2,7 @@ package com.tieshan.api.service.tieshanpaiService.v1.areas.impl;
 
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.areas.AreasMapper;
 import com.tieshan.api.po.tieshanpaiPo.v1.areas.Areas;
+import com.tieshan.api.service.Impl.BaseServiceImpl;
 import com.tieshan.api.service.tieshanpaiService.v1.areas.AreasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ import java.util.List;
  * @date 2019/8/19 9:36
  */
 @Service
-public class AreasServiceImple implements AreasService {
+public class AreasServiceImple extends BaseServiceImpl<Areas> implements
+        AreasService {
 
     @Autowired
     AreasMapper areasMapper;

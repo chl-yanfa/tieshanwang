@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 /**
+ * 缓存工具类
  * @author ningrz
  * @version 1.0
  * @date 2019/9/12 11:34

@@ -89,12 +89,12 @@
         <collection property="auctionFileList" ofType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo" column="auctionId=id"
                     select="getFileListByAuctionId">
         </collection>
-        <collection property="autopartsList" ofType="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVo" column="auctionId=id"
+        <collection property="autopartsList" ofType="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO" column="auctionId=id"
                     select="getCarScrapOrderAutopartsListByAuctionId">
         </collection>
     </resultMap>
 
-    <resultMap id="carScrapOrderAutopartsVo"  type="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVo">
+    <resultMap id="carScrapOrderAutopartsVo"  type="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO">
         <id  column="id"     property="id" />
         <result column="order_id"     property="orderId" />
         <result column="order_no"     property="orderNo" />

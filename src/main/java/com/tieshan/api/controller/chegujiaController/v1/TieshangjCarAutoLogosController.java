@@ -1,7 +1,7 @@
 package com.tieshan.api.controller.chegujiaController.v1;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarAutoLogos;
-import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationBO;
-import com.tieshan.api.po.chegujiaPo.v1.bo.EncapsulationsBO;
+import com.tieshan.api.bo.chegujiaBo.EncapsulationBO;
+import com.tieshan.api.bo.chegujiaBo.EncapsulationsBO;
 import com.tieshan.api.service.chegujiaService.v1.TieshangjCarAutoLogosService;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.resultUtil.ResultUtil;

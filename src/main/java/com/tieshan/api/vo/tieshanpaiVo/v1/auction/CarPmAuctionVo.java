@@ -1,7 +1,6 @@
 package com.tieshan.api.vo.tieshanpaiVo.v1.auction;
 
-import com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVo;
-import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo;
+import com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -110,7 +109,7 @@ public class CarPmAuctionVo {
 
     private BigDecimal realPrice=BigDecimal.ZERO;           //实际付款金额
 
-    private List<CarScrapOrderAutopartsVo> autopartsList;    //配件列表
+    private List<CarScrapOrderAutopartsVO> autopartsList;    //配件列表
 
     private Date sysDate;
 
@@ -451,10 +450,10 @@ public class CarPmAuctionVo {
     public void setSettlementTime(Date settlementTime) {
         this.settlementTime = settlementTime;
     }
-    public List<CarScrapOrderAutopartsVo> getAutopartsList() {
+    public List<CarScrapOrderAutopartsVO> getAutopartsList() {
         return autopartsList;
     }
-    public void setAutopartsList(List<CarScrapOrderAutopartsVo> autopartsList) {
+    public void setAutopartsList(List<CarScrapOrderAutopartsVO> autopartsList) {
         this.autopartsList = autopartsList;
     }
     public List<CarPmAuctionFileVo> getAuctionFileList() {

@@ -1,5 +1,5 @@
 package com.tieshan.api.controller.tieshanAppHomePage.v1;
-import com.tieshan.api.po.homePagePo.bo.v1.TbArticle;
+import com.tieshan.api.po.homePagePo.v1.TbArticle;
 import com.tieshan.api.service.homePageService.v1.TbArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -36,7 +36,7 @@ public interface ClientCUserService {
 
     Boolean addBankCard(ClientAddBankVO clientVO)throws Exception;
 
-    Boolean verifyValidateCode(String phone,String validateCode)throws Exception;
+    String verifyValidateCode(String phone)throws Exception;
 
     Boolean forgetPwd(String id, String newPwd,String operator)throws Exception;
 

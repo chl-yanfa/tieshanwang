@@ -1,5 +1,5 @@
 package com.tieshan.api.service.homePageService.v1;
-import com.tieshan.api.po.homePagePo.bo.v1.PaimaiBO;
+import com.tieshan.api.bo.homePageBo.PaimaiBO;
 
 import java.util.List;
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tieshan.api.mapper.chebaofeiMapper.v1.ClientBankcardMapper" >
+
+    <update id="updateBankCard" parameterType="com.tieshan.api.po.chebaofeiPo.v1.ClientBankcard">
+        update tb_client_bankcard
+        <set>
+            <if test="isvalid!=null">
+                isvalid = #{isvalid,jdbcType=BOOLEAN},
+            </if>
+            <if test="operator!=null">
+                operator = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="operatortime!=null">
+                operatortime = #{operatortime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creater!=null">
+                creater = #{creater,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime!=null">
+                createtime = #{createtime,jdbcType=TIMESTAMP}
+            </if>
+        </set>
+        where
+           id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

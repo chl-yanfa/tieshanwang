@@ -1,7 +1,7 @@
 package com.tieshan.api.service.homePageService.v1.impl;
 
 import com.tieshan.api.mapper.homePageMapper.v1.CarPmAuctionOrderDealSerachMapper;
-import com.tieshan.api.po.homePagePo.bo.v1.CarPmAuctionOrderDealSerach;
+import com.tieshan.api.po.homePagePo.v1.CarPmAuctionOrderDealSerach;
 import com.tieshan.api.service.homePageService.v1.CarPmAuctionOrderDealSerachService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

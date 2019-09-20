@@ -8,7 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author ningrz
+ * @author ningrz 立即询价
  * @version 1.0
  * @date 2019/9/18 13:25
  */
@@ -31,9 +31,7 @@ public class CarScrapInquiryPriceController {
     @RequestMapping(value = "/addInquiryprice",method = RequestMethod.POST)
     public ResultBean<Boolean> addOrder(@RequestBody CarScrapInquiryPriceVO inquiryPriceVO, BindingResult bindingResult)
             throws Exception {
-
-        return new ResultBean<Boolean>(carScrapInquiryPriceService.save(inquiryPriceVO)==1);
-
+        return new ResultBean<>(carScrapInquiryPriceService.save(inquiryPriceVO) == 1);
     }
 }
 

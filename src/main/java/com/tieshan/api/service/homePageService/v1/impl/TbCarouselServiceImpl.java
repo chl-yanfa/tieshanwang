@@ -1,7 +1,7 @@
 package com.tieshan.api.service.homePageService.v1.impl;
 
 import com.tieshan.api.mapper.homePageMapper.v1.TbCarouselMapper;
-import com.tieshan.api.po.homePagePo.bo.v1.TbCarousel;
+import com.tieshan.api.po.homePagePo.v1.TbCarousel;
 import com.tieshan.api.service.homePageService.v1.TbCarouselService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
