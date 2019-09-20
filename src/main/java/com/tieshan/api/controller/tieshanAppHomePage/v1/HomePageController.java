@@ -21,6 +21,8 @@ public class HomePageController {
     private CarPmAuctionOrderDealSerachService carPmAuctionOrderDealSerachService;
     @Autowired
     private TbArticleService  tbArticleService;
+    @Autowired
+    private TbCarouselService tbCarouselService;
     @RequestMapping(value = "homePages",method = RequestMethod.GET)
     @ResponseBody
     public ApiResult homePages(HttpServletRequest request, Map map){
@@ -36,10 +38,13 @@ public class HomePageController {
         TbVersion queryOne = tbVersionService.selectByPrimaryKey(Integer.parseInt(oc));
         map.put("vesion",queryOne);
         //4.轮播图
+        Map map1=new HashMap();
+        map1.put("type","1");
+        List<TbCarousel>lists=tbCarouselService.select(map1);
         List<String>list=new ArrayList<>();
-        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B3.jpg");
-        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B4.jpg");
-        list.add("https://chl-res.oss-cn-beijing.aliyuncs.com/B5.jpg");
+        for (TbCarousel listz : lists) {
+            list.add(listz.getImg());
+        }
         map.put("carousel",list);
         //5.新闻公告
         Map xinwen=new HashMap();
