@@ -6,6 +6,8 @@ import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarVehicleSystem;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface ChlCarModelSeriesMapper {
 
@@ -21,4 +23,6 @@ public interface ChlCarModelSeriesMapper {
     List<ChlCarModelSeries> selectChlCarModelSeries(TbCarSystem tbCarSystem);
 
     List<String> selectCategory(String brandId);
+
+    List<ChlCarModelSeries> selectSearch(Map map);
 }

@@ -32,4 +32,6 @@ public class ChlCarModelSeries implements Serializable {
     private Integer bid;
 
     private String brname;
+
+    private ChlAutoLogos chlAutoLogos;
 }
