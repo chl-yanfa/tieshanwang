@@ -1,9 +1,12 @@
 package com.tieshan.api.controller.chebaofeiController.v1;
 
+import com.github.pagehelper.PageInfo;
 import com.tieshan.api.bo.chebaofeiBo.v1.CarScrapOrderMyTradeBO;
+import com.tieshan.api.bo.chebaofeiBo.v1.CarScrapOrderMyTradeInfoBO;
 import com.tieshan.api.bo.chebaofeiBo.v1.ClientBO;
 import com.tieshan.api.bo.chebaofeiBo.v1.ClientBankCardBO;
 import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
+import com.tieshan.api.common.chebaofeiCommon.PageResult;
 import com.tieshan.api.common.chebaofeiCommon.ResultBean;
 import com.tieshan.api.common.chebaofeiCommon.SystemParameter;
 import com.tieshan.api.service.chebaofeiService.v1.CarScrapOrderService;
@@ -255,10 +258,36 @@ public class ClientCAccountController {
         return new ResultBean<>(clientUserService.addBankCard(clientVO));
     }
 
-
+    /**
+     * 根据id获取订单审核进度详情
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "myTrade", method = RequestMethod.GET)
     public ResultBean<CarScrapOrderMyTradeBO> myTrade() throws Exception {
-        return new ResultBean<CarScrapOrderMyTradeBO>(carScrapOrderService.myTrade(ClientUtil.getUser().getId()));
+        return new ResultBean<>(carScrapOrderService.myTrade(ClientUtil.getUser().getId()));
+    }
+
+
+    /**
+     * 获取我的交易详情列表
+     * @param page
+     * @param rows
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "myTradeInfo", method = RequestMethod.GET)
+    public ResultBean<PageResult<CarScrapOrderMyTradeInfoBO>> myTradeInfo(@RequestParam(value="page",required = true,defaultValue="1")Integer page,
+                                                                          @RequestParam(value="rows",required = true,defaultValue="10")Integer rows) throws Exception {
+
+        PageResult<CarScrapOrderMyTradeInfoBO> pageResult = null;
+        PageInfo<CarScrapOrderMyTradeInfoBO> pageInfo = carScrapOrderService.myTradeInfo(page, rows, ClientUtil.getUser().getId());
+        if (pageInfo != null) {
+            pageResult = new PageResult<>();
+            pageResult.setRows(pageInfo.getList());
+            pageResult.setTotal(pageInfo.getTotal());
+        }
+        return new ResultBean<>(pageResult);
     }
 
 
@@ -268,7 +297,14 @@ public class ClientCAccountController {
      */
     @Autowired(required = false)
     public void setRedisTemplate(RedisTemplate redisTemplate) {
-        RedisSerializer stringSerializer = new StringRedisSerializer();//序列化为String
+//        RedisSerializer stringSerializer = new StringRedisSerializer();//序列化为String
+//        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);//序列化为Json
+//        redisTemplate.setKeySerializer(stringSerializer);
+//        redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
+//        redisTemplate.setHashKeySerializer(stringSerializer);
+//        redisTemplate.setHashValueSerializer(jackson2JsonRedisSerializer);
+//        this.redisTemplate = redisTemplate;
+        StringRedisSerializer stringSerializer = new StringRedisSerializer();//序列化为String
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);//序列化为Json
         redisTemplate.setKeySerializer(stringSerializer);
         redisTemplate.setValueSerializer(jackson2JsonRedisSerializer);
@@ -277,3 +313,4 @@ public class ClientCAccountController {
         this.redisTemplate = redisTemplate;
     }
 }
+

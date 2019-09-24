@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginWaterMapper">
-    <resultMap id="cusCustomerMarginWater" type="CusCustomerMarginWater" >
+    <resultMap id="cusCustomerMarginWater" type="com.tieshan.api.po.tieshanpaiPo.v1.customer.CusCustomerMarginWater" >
         <result property="operatorType" column="OPERATOR_TYPE" />
         <result property="chargeOrder" column="CHARGE_ORDER" />
         <result property="chargeSource" column="CHARGE_SOURCE" />

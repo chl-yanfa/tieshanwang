@@ -144,9 +144,6 @@ public class CookieUtils {
     private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response,
                                           String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
 
-        System.out.println(cookieName);
-        System.out.println(cookieValue);
-        System.out.println("cookie失效时间大于0吗？ "+(cookieMaxage>0));
         try {
             if (cookieValue == null) {
                 cookieValue = "";
@@ -155,7 +152,6 @@ public class CookieUtils {
             }
             Cookie cookie = new Cookie(cookieName, cookieValue);
             if (cookieMaxage > 0){
-                System.out.println("当前登陆用户的cookie失效时间为:"+cookieMaxage);
                 cookie.setMaxAge(cookieMaxage);
             }
             if (null != request)// 设置域名的cookie

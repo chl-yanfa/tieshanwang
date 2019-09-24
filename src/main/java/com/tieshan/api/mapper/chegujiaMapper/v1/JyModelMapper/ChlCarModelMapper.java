@@ -1,10 +1,10 @@
 package com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper;
 
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
-import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarModel;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ChlCarModelMapper {
 
     int insertSelective(ChlCarModel record);
@@ -24,4 +24,6 @@ public interface ChlCarModelMapper {
     ChlCarModel selectModelJyid(String jyid);
     //根据精友id修改车型vin()
     int updateVinByJyid(ChlCarModel record);
+    //查询车型（参数：车系id）
+    List<ChlCarModel> selectCarModelSerid(Integer serid);
 }

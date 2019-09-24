@@ -50,23 +50,23 @@
 
     <sql id="Example_Where_Clause">
         <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
+            <foreach collection="oredCriteria" item="Bcriteria" separator="or">
+                <if test="Bcriteria.valid">
                     <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
+                        <foreach collection="Bcriteria.criteria" item="Ecriterion">
                             <choose>
-                                <when test="criterion.noValue">
+                                <when test="Ecriterion.noValue">
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="Ecriterion.singleValue">
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="Ecriterion.betweenValue">
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="Ecriterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="Ecriterion.value" item="listItem" open="(" separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -79,23 +79,23 @@
     </sql>
     <sql id="Update_By_Example_Where_Clause">
         <where>
-            <foreach collection="example.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
+            <foreach collection="example.oredCriteria" item="Acriteria" separator="or">
+                <if test="Acriteria.valid">
                     <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
+                        <foreach collection="Acriteria.criteria" item="Fcriterion">
                             <choose>
-                                <when test="criterion.noValue">
+                                <when test="Fcriterion.noValue">
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue">
+                                <when test="Fcriterion.singleValue">
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue">
+                                <when test="Fcriterion.betweenValue">
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue">
+                                <when test="Fcriterion.listValue">
                                     and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                    <foreach close=")" collection="Fcriterion.value" item="listItem" open="(" separator=",">
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -124,7 +124,7 @@
         </if>
     </select>
 
-    <select id="queryPageListByPush" parameterType="java.lang.String" resultType="com.tieshan.api.bo.chebaofeiBo.v1.CarScrapOrderPageBO">
+    <select id="queryPageListByPush" parameterType="java.lang.String" resultType="CarScrapOrderPageBO">
         select
             car.order_no,
             car.order_time,

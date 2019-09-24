@@ -9,6 +9,7 @@ import java.util.List;
  * @date 2019/9/20 11:27
  */
 public class CarScrapOrderAttachmentExample {
+
     protected String orderByClause;
 
     protected boolean distinct;
@@ -16,7 +17,7 @@ public class CarScrapOrderAttachmentExample {
     protected List<Criteria> oredCriteria;
 
     public CarScrapOrderAttachmentExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -68,10 +69,10 @@ public class CarScrapOrderAttachmentExample {
         distinct = false;
     }
 
-    protected abstract static class GeneratedCriteria {
+    protected abstract static class AGeneratedCriteria {
         protected List<Criterion> criteria;
 
-        protected GeneratedCriteria() {
+        protected AGeneratedCriteria() {
             super();
             criteria = new ArrayList<Criterion>();
         }
@@ -560,7 +561,7 @@ public class CarScrapOrderAttachmentExample {
         }
     }
 
-    public static class Criteria extends GeneratedCriteria {
+    public static class Criteria extends AGeneratedCriteria {
 
         protected Criteria() {
             super();

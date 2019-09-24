@@ -24,23 +24,23 @@
 
     <sql id="Example_Where_Clause" >
         <where >
-            <foreach collection="oredCriteria" item="criteria" separator="or" >
-                <if test="criteria.valid" >
+            <foreach collection="oredCriteria" item="Bcriteria" separator="or" >
+                <if test="Bcriteria.valid" >
                     <trim prefix="(" suffix=")" prefixOverrides="and" >
-                        <foreach collection="criteria.criteria" item="criterion" >
+                        <foreach collection="Bcriteria.criteria" item="Acriterion" >
                             <choose >
-                                <when test="criterion.noValue" >
+                                <when test="Acriterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue" >
-                                    and ${criterion.condition} #{criterion.value}
+                                <when test="Acriterion.singleValue" >
+                                    and ${criterion.condition} #{Acriterion.value}
                                 </when>
-                                <when test="criterion.betweenValue" >
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                <when test="Acriterion.betweenValue" >
+                                    and ${criterion.condition} #{Acriterion.value} and #{Acriterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue" >
+                                <when test="Acriterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                    <foreach collection="Acriterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>
@@ -53,23 +53,23 @@
     </sql>
     <sql id="Update_By_Example_Where_Clause" >
         <where >
-            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-                <if test="criteria.valid" >
+            <foreach collection="example.oredCriteria" item="Icriteria" separator="or" >
+                <if test="Icriteria.valid" >
                     <trim prefix="(" suffix=")" prefixOverrides="and" >
-                        <foreach collection="criteria.criteria" item="criterion" >
+                        <foreach collection="Icriteria.criteria" item="Dcriterion" >
                             <choose >
-                                <when test="criterion.noValue" >
+                                <when test="Dcriterion.noValue" >
                                     and ${criterion.condition}
                                 </when>
-                                <when test="criterion.singleValue" >
+                                <when test="Dcriterion.singleValue" >
                                     and ${criterion.condition} #{criterion.value}
                                 </when>
-                                <when test="criterion.betweenValue" >
+                                <when test="Dcriterion.betweenValue" >
                                     and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                                 </when>
-                                <when test="criterion.listValue" >
+                                <when test="Dcriterion.listValue" >
                                     and ${criterion.condition}
-                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                    <foreach collection="Dcriterion.value" item="listItem" open="(" close=")" separator="," >
                                         #{listItem}
                                     </foreach>
                                 </when>

@@ -25,6 +25,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -86,6 +89,9 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
 
     @Autowired
     private CarScrapOrderMyTradeMapper carScrapOrderMyTradeMapper;
+
+
+
 
 
     /**
@@ -264,7 +270,6 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
      * @throws Exception
      */
     public CarScrapOrderBO queryBOById(String id) throws Exception{
-
         //查询订单信息
         CarScrapOrderBO bo = carScrapOrderMapper.queryBOById(id);
 
@@ -276,7 +281,6 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
             }else{
                 fillPrictureToOrder(bo);
             }
-
             //根据订单id查询审核历史记录
             Example example = new Example(CarScrapOrderAudit.class);
             example.setOrderByClause("auditTime");
@@ -303,7 +307,6 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
                     bo.setSettlementDate(audit.getAuditTime());
                 }
             }
-
             List<CarScrapOrderSettlementBO> settlementList = carScrapOrderSettlementService.getCarScrapOrderSettlementByOrderId(id);
             bo.setSettlementList(settlementList);
         }
@@ -794,7 +797,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
      * @throws NumberFormatException
      */
     private String getOrderNo(Integer areaid,String orderType) throws  Exception{
-        ValueOperations<String, String> operations = redisTemplate.opsForValue();
+        ValueOperations<String, Integer> operations = redisTemplate.opsForValue();
         StringBuffer sbuff = new StringBuffer();
         if(StringUtils.equals(orderType, CommonSystemParamter.BUSINESS_TYPE_AUTOPARTS)){
             sbuff.append("P");
@@ -814,14 +817,20 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
 
 //        String num = redisService.get(dateStr);
         //每天从1开始的编码
-        String num = operations.get(dateStr);
+        Integer num = operations.get(dateStr);
         Long serialNumber = null;
         if(StringUtils.isNotBlank(num)){
+            System.out.println("num "+num);
 //            serialNumber = redisService.incr(dateStr);
             serialNumber = operations.increment(dateStr);
+            System.out.println(dateStr+"1");
+            System.out.println("这是serialNumber 1："+serialNumber);
         }else{
-            operations.set(dateStr, "0",86400,TimeUnit.SECONDS);//一天有效
+            System.out.println("num2 "+num);
+            System.out.println(dateStr+"2");
+            operations.set(dateStr, 0,86400,TimeUnit.SECONDS);//一天有效
             serialNumber=operations.increment(dateStr);
+            System.out.println("这是serialNumber 2："+serialNumber);
         }
         sbuff.append(formatserialNumber(serialNumber));
         return sbuff.toString();
@@ -838,9 +847,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
         }else{
             sbuff.append(serialNumber);
         }
-
         return sbuff.toString();
-
     }
 
     /**
@@ -854,7 +861,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
     public PageInfo<CarScrapOrderPageBO> queryPageListByWhere(Integer page, Integer rows, CarScrapOrderWhereParamterVO paramter) {
         PageHelper.startPage(page, rows);
         CarScrapOrderExample example = new CarScrapOrderExample();
-        CarScrapOrderExample.Criteria criteria = example.createCriteria();
+        CarScrapOrderExample.OrderCriteria criteria = example.createCriteria();
 
         if(paramter.getOrderStatus()!=null){
             criteria.andOrderStatusEqualTo(paramter.getOrderStatus());
@@ -1203,7 +1210,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
                         partsvo.getAmountIsaccept();
                         sorder = new CarScrapOrderAutoparts();
                         sorder.setId(partsvo.getId());
-                        Integer orderStatus=null;
+                        Integer orderStatus;
                         if(isaccept == 0) {//接受
                             orderStatus = CommonSystemParamter.PARTS_CREATE_STATUS;
                         }else {//不接受
@@ -1323,7 +1330,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
     public PageInfo<CarScrapOrderMyTradeInfoBO> myTradeInfo(Integer page, Integer rows, String clientId) throws Exception {
         PageHelper.startPage(page, rows);
         List<CarScrapOrderMyTradeInfoBO> data = carScrapOrderMyTradeMapper.queryPageMyTradeInfo(clientId);
-        return new PageInfo<CarScrapOrderMyTradeInfoBO>(data);
+        return new PageInfo<>(data);
     }
     @Override
     public Boolean quote(CarScrapOrderQuoteVO quoteVO) throws Exception {

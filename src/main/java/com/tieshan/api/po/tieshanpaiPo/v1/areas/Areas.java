@@ -8,6 +8,7 @@ import lombok.Data;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * @author ningrz
@@ -15,6 +16,7 @@ import javax.persistence.Id;
  * @date 2019/8/19 9:22
  */
 @Data
+@Table(name="sys_areas")
 public class Areas extends BasePojo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

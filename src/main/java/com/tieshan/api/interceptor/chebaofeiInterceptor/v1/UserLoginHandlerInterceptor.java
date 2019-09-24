@@ -38,8 +38,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest arg0,
-                                HttpServletResponse arg1, Object arg2, Exception arg3)
-            throws Exception {
+                                HttpServletResponse arg1, Object arg2, Exception arg3) {
         // 由于tomcat线程重用，记得清空
         clearAllUserInfo();
     }
@@ -77,10 +76,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
         }
 
         //将user保存到ThreadLocal中
-        System.out.println(11111111);
         ClientUtil.setUser(user);
-
-
 
         // 语言信息
         String locale = getLocaleFromCookies(request);

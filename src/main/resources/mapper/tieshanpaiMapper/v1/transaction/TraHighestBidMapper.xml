@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.TraHighestBidMapper">
-    <resultMap id="TraHighestBid" type="TraHighestBid" >
+    <resultMap id="TraHighestBid" type="com.tieshan.api.po.tieshanpaiPo.v1.transaction.TraHighestBid" >
         <id property="id" column="ID" />
         <result property="orderId" column="ORDER_ID" />
         <result property="carCode" column="CAR_CODE" />
@@ -41,7 +41,7 @@
     <!--
         交易大厅-查询某个订单的最高价（本外区分，不区分出价类型）
     -->
-    <select id="getTraHighestBidByOrder" parameterType="TraHighestBid" resultMap="TraHighestBid" >
+    <select id="getTraHighestBidByOrder" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.transaction.TraHighestBid" resultMap="TraHighestBid" >
 	    SELECT
 	    	ORDER_ID,
 	    	CAR_CODE,

@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name="tb_data_dic")
-public class TbDataDic {
+public class TbDataDic extends BasePojo {
     @JsonIgnore
     private Integer id;
 

@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.TraOfferWaterMapper">
-    <resultMap id="traOfferWater" type="TraOfferWater">
+    <resultMap id="traOfferWater" type="com.tieshan.api.po.tieshanpaiPo.v1.transaction.TraOfferWater">
         <result property="id" column="ID" />
         <result property="memberCode" column="MEMBER_CODE" />
         <result property="carCode" column="CAR_CODE" />

@@ -1,7 +1,9 @@
 package com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper;
 
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelGroup;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ChlCarModelGroupMapper {
     int deleteByPrimaryKey(Integer id);
 

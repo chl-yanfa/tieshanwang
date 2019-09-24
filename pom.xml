@@ -47,6 +47,7 @@
         <jiguang>1.0.3</jiguang>
         <jiguangapi>3.2.17</jiguangapi>
         <netty>4.1.6.Final</netty>
+        <sendmail>1.0.0</sendmail>
     </properties>
 
     <dependencies>
@@ -241,11 +242,11 @@
             <artifactId>core</artifactId>
             <version>${com.google.zxing}</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${com.google.code.gson}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.google.code.gson</groupId>-->
+<!--            <artifactId>gson</artifactId>-->
+<!--            <version>${com.google.code.gson}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
@@ -266,6 +267,11 @@
             <artifactId>netty-all</artifactId>
             <version>${netty}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.tcw.common</groupId>
+            <artifactId>sendMailUtils</artifactId>
+            <version>${sendmail}</version>
         </dependency>
     </dependencies>
 

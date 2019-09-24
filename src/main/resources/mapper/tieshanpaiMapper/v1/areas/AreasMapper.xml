@@ -4,7 +4,7 @@
 
 <mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.areas.AreasMapper">
 
-    <select id="getAreas" resultType="Areas">
+    <select id="getAreas" resultType="com.tieshan.api.po.tieshanpaiPo.v1.areas.Areas">
 		select
 			id as id,areas_code as areasCode,areas_name as areasName
 		from

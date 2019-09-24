@@ -13,7 +13,7 @@
         </collection>
     </resultMap>
 
-    <resultMap id="picMap" type="CarPhoto">
+    <resultMap id="picMap" type="com.tieshan.api.po.tieshanpaiPo.v1.transaction.CarPhoto">
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="order1" jdbcType="INTEGER" property="order1" />
         <result column="driving_no" jdbcType="VARCHAR" property="drivingNo" />

@@ -1,5 +1,6 @@
 package com.tieshan.api.mapper.chebaofeiMapper.v1;
 
+import com.github.abel533.mapper.Mapper;
 import com.tieshan.api.bo.chebaofeiBo.v1.CarScrapOrderAttachmentBO;
 import com.tieshan.api.bo.chebaofeiBo.v1.OrderAttachmentBO;
 import com.tieshan.api.po.chebaofeiPo.v1.CarScrapOrderAttachment;

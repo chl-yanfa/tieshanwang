@@ -12,7 +12,6 @@ import com.github.abel533.entity.Example;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -25,11 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
  *
  */
 @Service
-@Transactional
 public abstract class BaseServiceImpl<T extends BasePojo> implements BaseService<T> {
 
-
-    @Autowired
+    @Autowired(required = false)
     private Mapper<T> mapper;
 
     /**

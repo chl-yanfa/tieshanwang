@@ -13,10 +13,10 @@ public class CarScrapMailingAddressExample {
 
     protected boolean distinct;
 
-    protected List<Criteria> oredCriteria;
+    protected List<MailCriteria> oredCriteria;
 
     public CarScrapMailingAddressExample() {
-        oredCriteria = new ArrayList<Criteria>();
+        oredCriteria = new ArrayList<MailCriteria>();
     }
 
     public void setOrderByClause(String orderByClause) {
@@ -35,30 +35,30 @@ public class CarScrapMailingAddressExample {
         return distinct;
     }
 
-    public List<Criteria> getOredCriteria() {
+    public List<MailCriteria> getOredCriteria() {
         return oredCriteria;
     }
 
-    public void or(Criteria criteria) {
+    public void or(MailCriteria criteria) {
         oredCriteria.add(criteria);
     }
 
-    public Criteria or() {
-        Criteria criteria = createCriteriaInternal();
+    public MailCriteria or() {
+        MailCriteria criteria = createCriteriaInternal();
         oredCriteria.add(criteria);
         return criteria;
     }
 
-    public Criteria createCriteria() {
-        Criteria criteria = createCriteriaInternal();
+    public MailCriteria createCriteria() {
+        MailCriteria criteria = createCriteriaInternal();
         if (oredCriteria.size() == 0) {
             oredCriteria.add(criteria);
         }
         return criteria;
     }
 
-    protected Criteria createCriteriaInternal() {
-        Criteria criteria = new Criteria();
+    protected MailCriteria createCriteriaInternal() {
+        MailCriteria criteria = new MailCriteria();
         return criteria;
     }
 
@@ -68,23 +68,23 @@ public class CarScrapMailingAddressExample {
         distinct = false;
     }
 
-    protected abstract static class GeneratedCriteria {
-        protected List<Criterion> criteria;
+    protected abstract static class MailGeneratedCriteria {
+        protected List<MailCriterion> criteria;
 
-        protected GeneratedCriteria() {
+        protected MailGeneratedCriteria() {
             super();
-            criteria = new ArrayList<Criterion>();
+            criteria = new ArrayList<MailCriterion>();
         }
 
         public boolean isValid() {
             return criteria.size() > 0;
         }
 
-        public List<Criterion> getAllCriteria() {
+        public List<MailCriterion> getAllCriteria() {
             return criteria;
         }
 
-        public List<Criterion> getCriteria() {
+        public List<MailCriterion> getCriteria() {
             return criteria;
         }
 
@@ -92,482 +92,482 @@ public class CarScrapMailingAddressExample {
             if (condition == null) {
                 throw new RuntimeException("Value for condition cannot be null");
             }
-            criteria.add(new Criterion(condition));
+            criteria.add(new MailCriterion(condition));
         }
 
         protected void addCriterion(String condition, Object value, String property) {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            criteria.add(new Criterion(condition, value));
+            criteria.add(new MailCriterion(condition, value));
         }
 
         protected void addCriterion(String condition, Object value1, Object value2, String property) {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            criteria.add(new Criterion(condition, value1, value2));
+            criteria.add(new MailCriterion(condition, value1, value2));
         }
 
-        public Criteria andIdIsNull() {
+        public MailCriteria andIdIsNull() {
             addCriterion("id is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdIsNotNull() {
+        public MailCriteria andIdIsNotNull() {
             addCriterion("id is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdEqualTo(Integer value) {
+        public MailCriteria andIdEqualTo(Integer value) {
             addCriterion("id =", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdNotEqualTo(Integer value) {
+        public MailCriteria andIdNotEqualTo(Integer value) {
             addCriterion("id <>", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdGreaterThan(Integer value) {
+        public MailCriteria andIdGreaterThan(Integer value) {
             addCriterion("id >", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdGreaterThanOrEqualTo(Integer value) {
+        public MailCriteria andIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("id >=", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdLessThan(Integer value) {
+        public MailCriteria andIdLessThan(Integer value) {
             addCriterion("id <", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdLessThanOrEqualTo(Integer value) {
+        public MailCriteria andIdLessThanOrEqualTo(Integer value) {
             addCriterion("id <=", value, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdIn(List<Integer> values) {
+        public MailCriteria andIdIn(List<Integer> values) {
             addCriterion("id in", values, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdNotIn(List<Integer> values) {
+        public MailCriteria andIdNotIn(List<Integer> values) {
             addCriterion("id not in", values, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdBetween(Integer value1, Integer value2) {
+        public MailCriteria andIdBetween(Integer value1, Integer value2) {
             addCriterion("id between", value1, value2, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andIdNotBetween(Integer value1, Integer value2) {
+        public MailCriteria andIdNotBetween(Integer value1, Integer value2) {
             addCriterion("id not between", value1, value2, "id");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameIsNull() {
+        public MailCriteria andAddresseeNameIsNull() {
             addCriterion("addressee_name is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameIsNotNull() {
+        public MailCriteria andAddresseeNameIsNotNull() {
             addCriterion("addressee_name is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameEqualTo(String value) {
+        public MailCriteria andAddresseeNameEqualTo(String value) {
             addCriterion("addressee_name =", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameNotEqualTo(String value) {
+        public MailCriteria andAddresseeNameNotEqualTo(String value) {
             addCriterion("addressee_name <>", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameGreaterThan(String value) {
+        public MailCriteria andAddresseeNameGreaterThan(String value) {
             addCriterion("addressee_name >", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameGreaterThanOrEqualTo(String value) {
+        public MailCriteria andAddresseeNameGreaterThanOrEqualTo(String value) {
             addCriterion("addressee_name >=", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameLessThan(String value) {
+        public MailCriteria andAddresseeNameLessThan(String value) {
             addCriterion("addressee_name <", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameLessThanOrEqualTo(String value) {
+        public MailCriteria andAddresseeNameLessThanOrEqualTo(String value) {
             addCriterion("addressee_name <=", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameLike(String value) {
+        public MailCriteria andAddresseeNameLike(String value) {
             addCriterion("addressee_name like", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameNotLike(String value) {
+        public MailCriteria andAddresseeNameNotLike(String value) {
             addCriterion("addressee_name not like", value, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameIn(List<String> values) {
+        public MailCriteria andAddresseeNameIn(List<String> values) {
             addCriterion("addressee_name in", values, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameNotIn(List<String> values) {
+        public MailCriteria andAddresseeNameNotIn(List<String> values) {
             addCriterion("addressee_name not in", values, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameBetween(String value1, String value2) {
+        public MailCriteria andAddresseeNameBetween(String value1, String value2) {
             addCriterion("addressee_name between", value1, value2, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeNameNotBetween(String value1, String value2) {
+        public MailCriteria andAddresseeNameNotBetween(String value1, String value2) {
             addCriterion("addressee_name not between", value1, value2, "addresseeName");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneIsNull() {
+        public MailCriteria andAddresseeTelephoneIsNull() {
             addCriterion("addressee_telephone is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneIsNotNull() {
+        public MailCriteria andAddresseeTelephoneIsNotNull() {
             addCriterion("addressee_telephone is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneEqualTo(String value) {
+        public MailCriteria andAddresseeTelephoneEqualTo(String value) {
             addCriterion("addressee_telephone =", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneNotEqualTo(String value) {
+        public MailCriteria andAddresseeTelephoneNotEqualTo(String value) {
             addCriterion("addressee_telephone <>", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneGreaterThan(String value) {
+        public MailCriteria andAddresseeTelephoneGreaterThan(String value) {
             addCriterion("addressee_telephone >", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneGreaterThanOrEqualTo(String value) {
+        public MailCriteria andAddresseeTelephoneGreaterThanOrEqualTo(String value) {
             addCriterion("addressee_telephone >=", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneLessThan(String value) {
+        public MailCriteria andAddresseeTelephoneLessThan(String value) {
             addCriterion("addressee_telephone <", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneLessThanOrEqualTo(String value) {
+        public MailCriteria andAddresseeTelephoneLessThanOrEqualTo(String value) {
             addCriterion("addressee_telephone <=", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneLike(String value) {
+        public MailCriteria andAddresseeTelephoneLike(String value) {
             addCriterion("addressee_telephone like", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneNotLike(String value) {
+        public MailCriteria andAddresseeTelephoneNotLike(String value) {
             addCriterion("addressee_telephone not like", value, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneIn(List<String> values) {
+        public MailCriteria andAddresseeTelephoneIn(List<String> values) {
             addCriterion("addressee_telephone in", values, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneNotIn(List<String> values) {
+        public MailCriteria andAddresseeTelephoneNotIn(List<String> values) {
             addCriterion("addressee_telephone not in", values, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneBetween(String value1, String value2) {
+        public MailCriteria andAddresseeTelephoneBetween(String value1, String value2) {
             addCriterion("addressee_telephone between", value1, value2, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andAddresseeTelephoneNotBetween(String value1, String value2) {
+        public MailCriteria andAddresseeTelephoneNotBetween(String value1, String value2) {
             addCriterion("addressee_telephone not between", value1, value2, "addresseeTelephone");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceIsNull() {
+        public MailCriteria andProvinceIsNull() {
             addCriterion("province is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceIsNotNull() {
+        public MailCriteria andProvinceIsNotNull() {
             addCriterion("province is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceEqualTo(Integer value) {
+        public MailCriteria andProvinceEqualTo(Integer value) {
             addCriterion("province =", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceNotEqualTo(Integer value) {
+        public MailCriteria andProvinceNotEqualTo(Integer value) {
             addCriterion("province <>", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceGreaterThan(Integer value) {
+        public MailCriteria andProvinceGreaterThan(Integer value) {
             addCriterion("province >", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceGreaterThanOrEqualTo(Integer value) {
+        public MailCriteria andProvinceGreaterThanOrEqualTo(Integer value) {
             addCriterion("province >=", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceLessThan(Integer value) {
+        public MailCriteria andProvinceLessThan(Integer value) {
             addCriterion("province <", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceLessThanOrEqualTo(Integer value) {
+        public MailCriteria andProvinceLessThanOrEqualTo(Integer value) {
             addCriterion("province <=", value, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceIn(List<Integer> values) {
+        public MailCriteria andProvinceIn(List<Integer> values) {
             addCriterion("province in", values, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceNotIn(List<Integer> values) {
+        public MailCriteria andProvinceNotIn(List<Integer> values) {
             addCriterion("province not in", values, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceBetween(Integer value1, Integer value2) {
+        public MailCriteria andProvinceBetween(Integer value1, Integer value2) {
             addCriterion("province between", value1, value2, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andProvinceNotBetween(Integer value1, Integer value2) {
+        public MailCriteria andProvinceNotBetween(Integer value1, Integer value2) {
             addCriterion("province not between", value1, value2, "province");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityIsNull() {
+        public MailCriteria andCityIsNull() {
             addCriterion("city is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityIsNotNull() {
+        public MailCriteria andCityIsNotNull() {
             addCriterion("city is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityEqualTo(Integer value) {
+        public MailCriteria andCityEqualTo(Integer value) {
             addCriterion("city =", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityNotEqualTo(Integer value) {
+        public MailCriteria andCityNotEqualTo(Integer value) {
             addCriterion("city <>", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityGreaterThan(Integer value) {
+        public MailCriteria andCityGreaterThan(Integer value) {
             addCriterion("city >", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityGreaterThanOrEqualTo(Integer value) {
+        public MailCriteria andCityGreaterThanOrEqualTo(Integer value) {
             addCriterion("city >=", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityLessThan(Integer value) {
+        public MailCriteria andCityLessThan(Integer value) {
             addCriterion("city <", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityLessThanOrEqualTo(Integer value) {
+        public MailCriteria andCityLessThanOrEqualTo(Integer value) {
             addCriterion("city <=", value, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityIn(List<Integer> values) {
+        public MailCriteria andCityIn(List<Integer> values) {
             addCriterion("city in", values, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityNotIn(List<Integer> values) {
+        public MailCriteria andCityNotIn(List<Integer> values) {
             addCriterion("city not in", values, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityBetween(Integer value1, Integer value2) {
+        public MailCriteria andCityBetween(Integer value1, Integer value2) {
             addCriterion("city between", value1, value2, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCityNotBetween(Integer value1, Integer value2) {
+        public MailCriteria andCityNotBetween(Integer value1, Integer value2) {
             addCriterion("city not between", value1, value2, "city");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyIsNull() {
+        public MailCriteria andCountyIsNull() {
             addCriterion("county is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyIsNotNull() {
+        public MailCriteria andCountyIsNotNull() {
             addCriterion("county is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyEqualTo(Integer value) {
+        public MailCriteria andCountyEqualTo(Integer value) {
             addCriterion("county =", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyNotEqualTo(Integer value) {
+        public MailCriteria andCountyNotEqualTo(Integer value) {
             addCriterion("county <>", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyGreaterThan(Integer value) {
+        public MailCriteria andCountyGreaterThan(Integer value) {
             addCriterion("county >", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyGreaterThanOrEqualTo(Integer value) {
+        public MailCriteria andCountyGreaterThanOrEqualTo(Integer value) {
             addCriterion("county >=", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyLessThan(Integer value) {
+        public MailCriteria andCountyLessThan(Integer value) {
             addCriterion("county <", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyLessThanOrEqualTo(Integer value) {
+        public MailCriteria andCountyLessThanOrEqualTo(Integer value) {
             addCriterion("county <=", value, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyIn(List<Integer> values) {
+        public MailCriteria andCountyIn(List<Integer> values) {
             addCriterion("county in", values, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyNotIn(List<Integer> values) {
+        public MailCriteria andCountyNotIn(List<Integer> values) {
             addCriterion("county not in", values, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyBetween(Integer value1, Integer value2) {
+        public MailCriteria andCountyBetween(Integer value1, Integer value2) {
             addCriterion("county between", value1, value2, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andCountyNotBetween(Integer value1, Integer value2) {
+        public MailCriteria andCountyNotBetween(Integer value1, Integer value2) {
             addCriterion("county not between", value1, value2, "county");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressIsNull() {
+        public MailCriteria andDetailedAddressIsNull() {
             addCriterion("detailed_address is null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressIsNotNull() {
+        public MailCriteria andDetailedAddressIsNotNull() {
             addCriterion("detailed_address is not null");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressEqualTo(String value) {
+        public MailCriteria andDetailedAddressEqualTo(String value) {
             addCriterion("detailed_address =", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressNotEqualTo(String value) {
+        public MailCriteria andDetailedAddressNotEqualTo(String value) {
             addCriterion("detailed_address <>", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressGreaterThan(String value) {
+        public MailCriteria andDetailedAddressGreaterThan(String value) {
             addCriterion("detailed_address >", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressGreaterThanOrEqualTo(String value) {
+        public MailCriteria andDetailedAddressGreaterThanOrEqualTo(String value) {
             addCriterion("detailed_address >=", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressLessThan(String value) {
+        public MailCriteria andDetailedAddressLessThan(String value) {
             addCriterion("detailed_address <", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressLessThanOrEqualTo(String value) {
+        public MailCriteria andDetailedAddressLessThanOrEqualTo(String value) {
             addCriterion("detailed_address <=", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressLike(String value) {
+        public MailCriteria andDetailedAddressLike(String value) {
             addCriterion("detailed_address like", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressNotLike(String value) {
+        public MailCriteria andDetailedAddressNotLike(String value) {
             addCriterion("detailed_address not like", value, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressIn(List<String> values) {
+        public MailCriteria andDetailedAddressIn(List<String> values) {
             addCriterion("detailed_address in", values, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressNotIn(List<String> values) {
+        public MailCriteria andDetailedAddressNotIn(List<String> values) {
             addCriterion("detailed_address not in", values, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressBetween(String value1, String value2) {
+        public MailCriteria andDetailedAddressBetween(String value1, String value2) {
             addCriterion("detailed_address between", value1, value2, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
 
-        public Criteria andDetailedAddressNotBetween(String value1, String value2) {
+        public MailCriteria andDetailedAddressNotBetween(String value1, String value2) {
             addCriterion("detailed_address not between", value1, value2, "detailedAddress");
-            return (Criteria) this;
+            return (MailCriteria) this;
         }
     }
 
-    public static class Criteria extends GeneratedCriteria {
+    public static class MailCriteria extends MailGeneratedCriteria {
 
-        protected Criteria() {
+        protected MailCriteria() {
             super();
         }
     }
 
-    public static class Criterion {
+    public static class MailCriterion {
         private String condition;
 
         private Object value;
@@ -616,14 +616,14 @@ public class CarScrapMailingAddressExample {
             return typeHandler;
         }
 
-        protected Criterion(String condition) {
+        protected MailCriterion(String condition) {
             super();
             this.condition = condition;
             this.typeHandler = null;
             this.noValue = true;
         }
 
-        protected Criterion(String condition, Object value, String typeHandler) {
+        protected MailCriterion(String condition, Object value, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
@@ -635,11 +635,11 @@ public class CarScrapMailingAddressExample {
             }
         }
 
-        protected Criterion(String condition, Object value) {
+        protected MailCriterion(String condition, Object value) {
             this(condition, value, null);
         }
 
-        protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {
+        protected MailCriterion(String condition, Object value, Object secondValue, String typeHandler) {
             super();
             this.condition = condition;
             this.value = value;
@@ -648,7 +648,7 @@ public class CarScrapMailingAddressExample {
             this.betweenValue = true;
         }
 
-        protected Criterion(String condition, Object value, Object secondValue) {
+        protected MailCriterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
         }
     }

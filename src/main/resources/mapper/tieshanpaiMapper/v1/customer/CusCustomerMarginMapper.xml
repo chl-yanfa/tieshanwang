@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.customer.CusCustomerMarginMapper">
-    <resultMap id="cusCustomerMargin" type="CusCustomerMargin" >
+    <resultMap id="cusCustomerMargin" type="com.tieshan.api.po.tieshanpaiPo.v1.customer.CusCustomerMargin" >
         <id property="id" column="ID" />
         <result property="memberCode" column="MEMBER_CODE" />
         <result property="buyerMoney" column="BUYER_MONEY" />

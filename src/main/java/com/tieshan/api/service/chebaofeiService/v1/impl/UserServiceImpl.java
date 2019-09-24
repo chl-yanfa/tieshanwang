@@ -152,8 +152,6 @@ public class UserServiceImpl extends BaseServiceImpl<User> implements UserServic
 
 
     public User queryById(String id)throws Exception{
-
-
         return userMapper.selectByPrimaryKey(id);
     }
 

@@ -2,12 +2,11 @@ package com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper;
 
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlBrand;
 import com.tieshan.api.po.chegujiaPo.v1.TieshangjCarBrand;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
+@Repository
 public interface ChlBrandMapper {
-
-
 
     ChlBrand selectByPrimaryKey(Integer id);
 
