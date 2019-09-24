@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class JyModelServiceImpl implements JyModelService {
@@ -78,5 +79,8 @@ public class JyModelServiceImpl implements JyModelService {
         return chlCarModelMapper.selectByCarModelName(carmodelName);
     }
 
-
+    @Override
+    public List<ChlCarModelSeries> selectSearch(Map map) {
+        return chlCarModelSeriesMapper.selectSearch(map);
+    }
 }
