@@ -22,7 +22,6 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.exception.BadHanyuPinyinOutputFormatCombination;
-import org.apache.commons.codec.binary.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,7 +37,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-
+import org.apache.commons.lang3.StringUtils;
 @RestController
 @RequestMapping(value = "v1/jyCarModel/")
 public class JyModelController {
@@ -82,14 +81,18 @@ public class JyModelController {
     public ApiResult selectServiceSearch(HttpServletRequest request,Map map){
 
         String conditionName=request.getParameter("conditionName");
-        map.put("conditionName",conditionName);
-        map.put("fieldName","a.auto_logos_name");
-        List<ChlCarModelSeries>list=jyModelService.selectSearch(map);
-        if(list.size()==0){
-            map.put("fieldName","s.vehicle_system_name");
+        List<ChlCarModelSeries>list=new ArrayList<>();
+        if(StringUtils.isNotBlank(conditionName)){
+            map.put("conditionName",conditionName);
+            map.put("fieldName","a.auto_logos_name");
             list=jyModelService.selectSearch(map);
+            if(list.size()==0){
+                map.put("fieldName","s.vehicle_system_name");
+                list=jyModelService.selectSearch(map);
+            }
+            return  ResultUtil.success(list);
         }
-        return  ResultUtil.success(list);
+        return ResultUtil.success(list);
     }
     //查询车型
     @RequestMapping(value = "selectCarModelApp",method = RequestMethod.GET)
