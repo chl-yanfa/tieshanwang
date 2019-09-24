@@ -76,27 +76,20 @@ public class JyModelController {
         }
         return ResultUtil.success(list);
     }
-    //查询年份
-    @RequestMapping(value = "selectYearApp",method = RequestMethod.GET)
+    //搜索
+    @RequestMapping(value = "selectServiceSearch",method = RequestMethod.GET)
     @ResponseBody
-    public ApiResult selectYearApp(HttpServletRequest request){
-        String year=request.getParameter("year");
-        if(org.apache.commons.lang3.StringUtils.isBlank(year)){
-            year="2012";
-        }
-        Integer yearr=Integer.parseInt(year);
-        Calendar date = Calendar.getInstance();
-        String years = String.valueOf(date.get(Calendar.YEAR));
-        Integer num=Integer.parseInt(years)-yearr;
-        List<Integer>list=new ArrayList<>();
-        for (int i=0;i<=num;i++){
-            System.out.println(yearr);
-            list.add(yearr);
-            yearr++;
+    public ApiResult selectServiceSearch(HttpServletRequest request,Map map){
+
+        String conditionName=request.getParameter("conditionName");
+        map.put("conditionName",conditionName);
+        map.put("fieldName","a.auto_logos_name");
+        List<ChlCarModelSeries>list=jyModelService.selectSearch(map);
+        if(list.size()==0){
+            map.put("fieldName","s.vehicle_system_name");
+            list=jyModelService.selectSearch(map);
         }
         return  ResultUtil.success(list);
-
-
     }
     //查询车型
     @RequestMapping(value = "selectCarModelApp",method = RequestMethod.GET)

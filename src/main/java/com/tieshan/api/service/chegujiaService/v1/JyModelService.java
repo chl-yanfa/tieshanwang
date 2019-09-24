@@ -6,6 +6,7 @@ import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelSeries;
 
 import java.util.List;
+import java.util.Map;
 
 public interface JyModelService {
     //查询所有车标
@@ -26,4 +27,5 @@ public interface JyModelService {
     Integer selectByName(String name);
     int insertSelective(ChlCarModel record);
     ChlCarModel selectByPrimaryKey(Integer id);
+    List<ChlCarModelSeries> selectSearch(Map map);
 }
