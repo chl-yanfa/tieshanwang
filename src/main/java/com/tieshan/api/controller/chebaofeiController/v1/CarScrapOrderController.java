@@ -9,8 +9,10 @@ import com.tieshan.api.common.chebaofeiCommon.*;
 import com.tieshan.api.mapper.chebaofeiMapper.v1.UserMapper;
 import com.tieshan.api.po.chebaofeiPo.v1.CarPush;
 import com.tieshan.api.po.chebaofeiPo.v1.CarScrapOrder;
+import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
 import com.tieshan.api.service.chebaofeiService.v1.CarPushService;
 import com.tieshan.api.service.chebaofeiService.v1.CarScrapOrderService;
+import com.tieshan.api.service.chegujiaService.v1.JyModelService;
 import com.tieshan.api.util.httpUtil.HttpClient;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.toolUtil.ClientUtil;
@@ -34,10 +36,8 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.util.*;
 
-import static com.tieshan.api.common.chebaofeiCommon.SystemParameter.MAPPER;
 
 /**
  * @author ningrz
@@ -59,6 +59,9 @@ public class CarScrapOrderController {
 
     @Autowired
     CarPushService carPushService;
+
+    @Autowired
+    JyModelService jyModelService;
 
     @Autowired
     UserMapper userMapper;
@@ -116,10 +119,6 @@ public class CarScrapOrderController {
         carScrapOrderVO.setCreater(ClientUtil.getUser().getId());
         carScrapOrderVO.setClientId(ClientUtil.getUser().getId());
 
-        //判断登录人是个人用户还是大客户
-        carScrapOrderVO.setClientType(ClientUtil.getUser().getUserType());
-        int result = carScrapOrderService.save(carScrapOrderVO);
-
         HttpHeaders headers=new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
@@ -128,9 +127,9 @@ public class CarScrapOrderController {
         String cityId = carScrapOrderVO.getCityId();
 
         //根据传递的车型查询jyid和carNumberId
-        carScrapOrderVO.getCarModelNumber();
-        String jyid = "4028b2883d8518f1013dae9baaca1e5b";
-        String carNumberId = "6743";
+        ChlCarModel chlCarModel = jyModelService.selectByCarModelName(carScrapOrderVO.getCarModelNumber());
+        String jyid = chlCarModel.getAliasId();
+        Integer carNumberId = chlCarModel.getId();
 
         String moderyers = carScrapOrderVO.getCarAge();
         String Mileage = carScrapOrderVO.getDrivingMileage();
@@ -156,10 +155,16 @@ public class CarScrapOrderController {
             String code=jobj.get("data").toString();
             if(code!=null){
                 System.out.println("估价结果为:"+code);
+                carScrapOrderVO.setReferPrice(new BigDecimal(code));
             }
         }catch (NullPointerException e){
             System.err.println("该车型暂且不能估值!");
         }
+
+        //判断登录人是个人用户还是大客户
+        carScrapOrderVO.setClientType(ClientUtil.getUser().getUserType());
+        int result = carScrapOrderService.save(carScrapOrderVO);
+
         if(result==1){
             //订单新增完毕后通知所有的业务员
             UserVO userParam = new UserVO();

@@ -26,4 +26,5 @@ public interface JyModelService {
     Integer selectByName(String name);
     int insertSelective(ChlCarModel record);
     ChlCarModel selectByPrimaryKey(Integer id);
+    ChlCarModel selectByCarModelName(String carmodelName);
 }

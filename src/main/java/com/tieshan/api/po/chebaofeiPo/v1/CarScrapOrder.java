@@ -184,4 +184,7 @@ public class CarScrapOrder extends BasePojo {
 
     //派单人手机号
     private String pdPhone;
+
+    //估价参考价
+    private BigDecimal referPrice;
 }

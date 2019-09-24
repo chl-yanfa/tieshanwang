@@ -1,6 +1,7 @@
 package com.tieshan.api.mapper.chegujiaMapper.v1.JyModelMapper;
 
 import com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -10,6 +11,8 @@ public interface ChlCarModelMapper {
     int insertSelective(ChlCarModel record);
 
     ChlCarModel selectByPrimaryKey(Integer id);
+
+    ChlCarModel selectByCarModelName(String carmodelName);
 
     int updateByPrimaryKeySelective(ChlCarModel record);
 

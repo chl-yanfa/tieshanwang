@@ -113,6 +113,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
             //生产订单id
             String id = UUIDUtil.getUUID();
 
+
             record.setId(id);
             //生产订单编号
             record.setOrderNo(getOrderNo(record.getOrderAreasId(),record.getOrderType()));
@@ -127,8 +128,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
             }
             record.setOrderStatus(orderStatus);
             record.setIsremove(false);
-
-
+            record.setReferPrice(carScrapOrderVO.getReferPrice());
             //判断订单类型
             if(StringUtils.equals(carScrapOrderVO.getOrderType(), CommonSystemParamter.ORDER_OLDPARTS_TYPE)){
                 //获取配件数据

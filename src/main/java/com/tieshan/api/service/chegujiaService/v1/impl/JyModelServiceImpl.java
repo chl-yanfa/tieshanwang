@@ -73,5 +73,10 @@ public class JyModelServiceImpl implements JyModelService {
         return chlCarModelMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public ChlCarModel selectByCarModelName(String carmodelName) {
+        return chlCarModelMapper.selectByCarModelName(carmodelName);
+    }
+
 
 }

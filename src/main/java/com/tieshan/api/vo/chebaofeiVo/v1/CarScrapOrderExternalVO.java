@@ -2,6 +2,8 @@ package com.tieshan.api.vo.chebaofeiVo.v1;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * @author ningrz
  * @version 1.0
@@ -22,4 +24,6 @@ public class CarScrapOrderExternalVO extends CarScrapOrderVO {
     private String cityId;
 
     private String carNumberId;
+
+
 }

@@ -69,6 +69,16 @@
     from chl_car_model
     where id = #{id,jdbcType=INTEGER}
   </select>
+
+  <select id="selectByCarModelName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from chl_car_model
+    where called = #{carmodelName,jdbcType=INTEGER}
+  </select>
+
   <insert id="insertSelective" parameterType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModel">
     insert into chl_car_model
     <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -135,5 +135,8 @@ public class CarScrapOrderVO {
     //是否设置常用收件人
     private Boolean isSetUpMailing=false;
 
+    //估价参考价
+    private BigDecimal referPrice;
+
     private List<CarScrapOrderPictureVO> pictures = new ArrayList<CarScrapOrderPictureVO>();
 }
