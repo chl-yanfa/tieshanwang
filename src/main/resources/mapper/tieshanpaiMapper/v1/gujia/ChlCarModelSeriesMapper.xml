@@ -11,6 +11,9 @@
     <result column="updated_by" jdbcType="VARCHAR" property="updatedBy" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
     <result column="vehicle_system_code" jdbcType="VARCHAR" property="vehicleSystemCode" />
+    <association property="chlAutoLogos" javaType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlAutoLogos">
+      <result column="auto_logos_name" jdbcType="VARCHAR" property="autoLogosName"/>
+    </association>
   </resultMap>
   <sql id="Base_Column_List">
     id, vehicle_system_name, brand_id, state, created_time, created_by, updated_by, updated_time, 
@@ -120,5 +123,16 @@
         chl_car_model_series
       WHERE
         brand_id = #{brandId}
+  </select>
+  <select id="selectSearch" parameterType="map" resultMap="BaseResultMap">
+   SELECT
+	    a.auto_logos_name,s.vehicle_system_name,s.id
+    FROM
+	    chl_car_model_series s
+	INNER JOIN chl_brand b ON s.brand_id = b.ID
+	INNER JOIN chl_auto_logos a ON a.auto_logos_id = b.auto_logosz_id
+    WHERE
+	    ${fieldName} like CONCAT('%',#{conditionName},'%')
+	   ORDER BY a.auto_logos_alias asc
   </select>
 </mapper>
