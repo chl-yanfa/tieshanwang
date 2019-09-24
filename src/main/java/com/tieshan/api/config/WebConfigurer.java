@@ -28,7 +28,27 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userLoginHandlerInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/carscraporder-applet/account/doLogin", "/carscraporder-applet/account/doRegister","/carscraporder-applet/dictionary/*");
+                .excludePathPatterns(
+                        "/carscraporder-applet/account/doLogin",
+                        "/carscraporder-applet/account/doRegister",
+                        "/carscraporder-applet/dictionary/*",
+                        "/v1/jyCarModel/*",
+                        "/v1/gu/*",
+                        "/v1/autologos/*",
+                        "/v1/brand/*",
+                        "/v1/carmodel/*",
+                        "/v1/city/*",
+                        "/v1/cargjHistory/*",
+                        "/v1/province/*",
+                        "/v1/carmodelAdmin/*",
+                        "/v1/carprofi/*",
+                        "/v1/carRegionalArtificial/*",
+                        "/v1/carTrainCrewAdmin/*",
+                        "/v1/carwaste/*",
+                        "/v1/vercode/*",
+                        "/v1/home/*",
+                        "/v1/notice/*"
+                        );
     }
 
 }

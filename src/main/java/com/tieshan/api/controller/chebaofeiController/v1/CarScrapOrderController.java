@@ -1,5 +1,7 @@
 package com.tieshan.api.controller.chebaofeiController.v1;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.pagehelper.PageInfo;
 import com.tieshan.api.bo.chebaofeiBo.v1.*;
@@ -9,6 +11,7 @@ import com.tieshan.api.po.chebaofeiPo.v1.CarPush;
 import com.tieshan.api.po.chebaofeiPo.v1.CarScrapOrder;
 import com.tieshan.api.service.chebaofeiService.v1.CarPushService;
 import com.tieshan.api.service.chebaofeiService.v1.CarScrapOrderService;
+import com.tieshan.api.util.httpUtil.HttpClient;
 import com.tieshan.api.util.resultUtil.ApiResult;
 import com.tieshan.api.util.toolUtil.ClientUtil;
 import com.tieshan.api.util.toolUtil.JYyPushUtil;
@@ -20,6 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.tcw.common.SendMailUtils;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +34,7 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 import static com.tieshan.api.common.chebaofeiCommon.SystemParameter.MAPPER;
@@ -47,7 +52,7 @@ public class CarScrapOrderController {
 
     public static ResourceBundle CONFIG = ResourceBundle.getBundle("application");
 
-    private static final String GUJIAURL = "localhost:8090/v1/gu/gujia";
+    private static final String GUJIAURL = "http://127.0.0.1:8090/v1/gu/gujia";
 
     @Autowired
     CarScrapOrderService carScrapOrderService;
@@ -115,35 +120,46 @@ public class CarScrapOrderController {
         carScrapOrderVO.setClientType(ClientUtil.getUser().getUserType());
         int result = carScrapOrderService.save(carScrapOrderVO);
 
-        Map<String,Object> paramMap = new HashMap<>();
-        paramMap.put("pid","1");
-        paramMap.put("type","1");
-        paramMap.put("jyid","4028b2883d8518f1013dae9baaca1e5b");
-        paramMap.put("carNumberId","628");
-        paramMap.put("moderyers","2011");
-        paramMap.put("cityId","1");
-        paramMap.put("Mileage","10");
-        paramMap.put("carModelName","2013款 奥迪 奥迪A6 三厢 4.0T 双离合变速器  (AUDI S6 4.0TFSI QUATTRO)");
-        paramMap.put("createBy","admin");
-        paramMap.put("phone","18512454251");
+        HttpHeaders headers=new HttpHeaders();
+        headers.add("Content-Type", "application/json");
 
-        interfaceUtil(GUJIAURL,paramMap);
+        String pid = carScrapOrderVO.getPid();
+        String type = carScrapOrderVO.getType();
+        String cityId = carScrapOrderVO.getCityId();
 
-//        StringBuffer sb = new StringBuffer();
-//        sb.append("?pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
-//        sb.append("&pid=1");
+        //根据传递的车型查询jyid和carNumberId
+        carScrapOrderVO.getCarModelNumber();
+        String jyid = "4028b2883d8518f1013dae9baaca1e5b";
+        String carNumberId = "6743";
 
+        String moderyers = carScrapOrderVO.getCarAge();
+        String Mileage = carScrapOrderVO.getDrivingMileage();
 
+        String carModelName = carScrapOrderVO.getCarModelNumber();
+        String createBy = "admin";
+        String phone = carScrapOrderVO.getTakeCarContactNumber();
 
-
+        try{
+            String jieguo= HttpClient.sendGetRequest(GUJIAURL+"?pid="+pid
+                            +"&"+"type="+type
+                            +"&"+"jyid="+jyid
+                            +"&"+"carNumberId="+carNumberId
+                            +"&"+"moderyers="+moderyers
+                            +"&"+"cityId="+cityId
+                            +"&"+"Mileage="+Mileage
+                            +"&"+"carModelName="+carModelName
+                            +"&"+"createBy="+createBy
+                            +"&"+"phone="+phone,
+                    null,headers);
+            System.out.println("结果"+jieguo);
+            JSONObject jobj = JSON.parseObject(jieguo);
+            String code=jobj.get("data").toString();
+            if(code!=null){
+                System.out.println("估价结果为:"+code);
+            }
+        }catch (NullPointerException e){
+            System.err.println("该车型暂且不能估值!");
+        }
         if(result==1){
             //订单新增完毕后通知所有的业务员
             UserVO userParam = new UserVO();
@@ -323,14 +339,14 @@ public class CarScrapOrderController {
         }
     }
 
-    public static void interfaceUtil(String path,Map data) {
+    public static void interfaceUtil(String path,String data) {
         try {
             URL url = new URL(path);
             //打开和url之间的连接
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             PrintWriter out = null;
             //请求方式
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("GET");
 //           //设置通用的请求属性
             conn.setRequestProperty("accept", "*/*");
             conn.setRequestProperty("connection", "Keep-Alive");

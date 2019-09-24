@@ -14,4 +14,12 @@ public class CarScrapOrderExternalVO extends CarScrapOrderVO {
 
     //申请客户类型（1：个人 2：大客户）,系统根据登录人判断
     private String clientType;
+
+    private String pid;
+
+    private String type;
+
+    private String cityId;
+
+    private String carNumberId;
 }
