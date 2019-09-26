@@ -1,5 +1,6 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction;
 
+import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
@@ -28,6 +29,8 @@ public interface CarPmAuctionService {
 
     ResultVO<Paimai> getPaimaiList(PaimaiVo paimai);
 
+    ResultVO<PaimaiOrderByBO> getPaimaiListOrderBy(PaimaiVo paimai);
+
     ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
 
     Map<String,List<CarPmResultVo>> getEndResult();
@@ -35,4 +38,6 @@ public interface CarPmAuctionService {
     Map<String,List<StartVO>> getStartTimeList();
 
     ResultVO<CarPmDeal> getPmOrderByMemberId(Integer page,Integer rows,String mid);
+
+
 }

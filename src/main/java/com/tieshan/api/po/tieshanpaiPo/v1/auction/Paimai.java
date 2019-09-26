@@ -197,4 +197,36 @@ public class Paimai {
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
+
+    @Override
+    public String toString() {
+        return "Paimai{" +
+                "id='" + id + '\'' +
+                ", pmhId='" + pmhId + '\'' +
+                ", paimaiName='" + paimaiName + '\'' +
+                ", paimaiStartTime=" + paimaiStartTime +
+                ", intervalTime=" + intervalTime +
+                ", paimaiFinishTime=" + paimaiFinishTime +
+                ", singleTime=" + singleTime +
+                ", remark='" + remark + '\'' +
+                ", paimaiState=" + paimaiState +
+                ", paimaiStates='" + paimaiStates + '\'' +
+                ", publishTime=" + publishTime +
+                ", auctionCount=" + auctionCount +
+                ", dealCount=" + dealCount +
+                ", abortiveCount=" + abortiveCount +
+                ", revokeCount=" + revokeCount +
+                ", jointPriceTotal=" + jointPriceTotal +
+                ", commissionTotal=" + commissionTotal +
+                ", otherPriceTotal=" + otherPriceTotal +
+                ", transferDepositTotal=" + transferDepositTotal +
+                ", selAuctionCarStr='" + selAuctionCarStr + '\'' +
+                ", createUser='" + createUser + '\'' +
+                ", createTime=" + createTime +
+                ", isDelete=" + isDelete +
+                ", weekDay='" + weekDay + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", imgPath='" + imgPath + '\'' +
+                '}';
+    }
 }

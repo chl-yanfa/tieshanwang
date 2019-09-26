@@ -64,6 +64,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
             return false;
         }
 
+        //去缓存中查询用户
         ClientBO user = this.clientUserService.queryUserByTicket(ticket);
 
         if (user == null) {

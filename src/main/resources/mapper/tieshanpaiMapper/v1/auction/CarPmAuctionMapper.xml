@@ -855,13 +855,13 @@
             SIP.publish_time,
             case
                 date_format(SIP.paimai_start_time,'%w')
-                when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
-                when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),'-0',MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+                when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
             END	as weekday,
             SIP.create_user,
             SIP.create_time,
@@ -903,7 +903,7 @@
             SIP.pmh_id = SAB.pmh_id
         WHERE
             SIP.is_delete=0
-        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>
+<!--        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>-->
         <include refid="ListIfPaiMai" />
         <if test="paimaiState != null">
             AND SIP.paimai_state = #{paimaiState}
@@ -1181,4 +1181,339 @@
         </set>
         where auction_id = #{smap.sid}
     </update>
+
+
+    <select id="getInglist" resultMap="BaseResultMap">
+        SELECT
+        SIP.id,
+        SIP.pmh_id,
+        SIP.paimai_name,
+        SIP.paimai_start_time,
+        SIP.interval_time,
+        SIP.paimai_finish_time,
+        SIP.single_time,
+        SIP.remark,
+        SIP.paimai_state,
+        (
+        SELECT
+        ta.storage_path
+        FROM
+        car_pm_auction_file cpf
+        LEFT JOIN tb_attachment ta ON cpf.attachment_id = ta.id
+        WHERE
+        cpf.auction_id = (
+        SELECT
+        auction_id
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN car_pm_auction SIA ON SIAS.auction_id = SIA.id
+        AND SIA.is_delete = 0
+        LEFT JOIN car_pm_highest_bid SPHB ON SPHB.ORDER_ID = SIAS.id
+        LEFT JOIN sys_client SPCI ON SPCI.id = SIAS.deal_mid
+        WHERE
+        SIAS.is_delete = 0
+        AND SIAS.is_history = 0
+        AND SIAS.pmh_id = SIP.pmh_id
+        ORDER BY SIAS.auction_start_time desc
+        LIMIT 1
+        )
+        AND cpf.is_delete = 0
+        AND ta.isvalid = 1
+        ORDER BY
+        cpf.sort
+        LIMIT 1
+        ) as imgPath,
+        case
+        SIP.paimai_state
+        when 0 then '等待发布'
+        when 1 then '正在竞拍'
+        when 2 then '竞拍结束'
+        when 3 then '等待竞拍'
+        end
+        AS paimai_states,
+        DATE_FORMAT(SIP.paimai_start_time, '%H:%i') as starttime,
+        SIP.publish_time,
+        case
+        date_format(SIP.paimai_start_time,'%w')
+        when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        END	as weekday,
+        SIP.create_user,
+        SIP.create_time,
+        SIP.is_delete,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        WHERE
+        SIAS.is_delete = 0
+        AND
+        SIAS.pmh_id = SIP.pmh_id
+        )AS auction_count,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN
+        car_pm_aftersale SIAA
+        on SIAS.id = SIAA.auction_set_id
+        AND SIAA.is_delete = 0
+        AND SIAA.is_history = 0
+        WHERE
+        SIAS.pmh_id = SIP.pmh_id
+        AND
+        SIAA.id is not null
+        AND
+        SIAS.is_delete = 0
+        AND
+        SIAS.is_history = 0
+        )AS deal_count
+        FROM
+        car_pm_paimai SIP
+        left join
+        car_pm_auction_set SAB
+        on
+        SIP.pmh_id = SAB.pmh_id
+        WHERE
+        SIP.is_delete=0
+
+        <!--        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>-->
+        <include refid="ListIfPaiMai" />
+        AND SIP.paimai_state = 1
+        group by SIP.pmh_id
+        having auction_count>0
+        order by SIP.paimai_start_time
+        limit
+        ${page}, ${rows}
+    </select>
+
+
+    <select id="getWaitlist" resultMap="BaseResultMap">
+        SELECT
+        SIP.id,
+        SIP.pmh_id,
+        SIP.paimai_name,
+        SIP.paimai_start_time,
+        SIP.interval_time,
+        SIP.paimai_finish_time,
+        SIP.single_time,
+        SIP.remark,
+        SIP.paimai_state,
+        (
+        SELECT
+        ta.storage_path
+        FROM
+        car_pm_auction_file cpf
+        LEFT JOIN tb_attachment ta ON cpf.attachment_id = ta.id
+        WHERE
+        cpf.auction_id = (
+        SELECT
+        auction_id
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN car_pm_auction SIA ON SIAS.auction_id = SIA.id
+        AND SIA.is_delete = 0
+        LEFT JOIN car_pm_highest_bid SPHB ON SPHB.ORDER_ID = SIAS.id
+        LEFT JOIN sys_client SPCI ON SPCI.id = SIAS.deal_mid
+        WHERE
+        SIAS.is_delete = 0
+        AND SIAS.is_history = 0
+        AND SIAS.pmh_id = SIP.pmh_id
+        ORDER BY SIAS.auction_start_time desc
+        LIMIT 1
+        )
+        AND cpf.is_delete = 0
+        AND ta.isvalid = 1
+        ORDER BY
+        cpf.sort
+        LIMIT 1
+        ) as imgPath,
+        case
+        SIP.paimai_state
+        when 0 then '等待发布'
+        when 1 then '正在竞拍'
+        when 2 then '竞拍结束'
+        when 3 then '等待竞拍'
+        end
+        AS paimai_states,
+        DATE_FORMAT(SIP.paimai_start_time, '%H:%i') as starttime,
+        SIP.publish_time,
+        case
+        date_format(SIP.paimai_start_time,'%w')
+        when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        END	as weekday,
+        SIP.create_user,
+        SIP.create_time,
+        SIP.is_delete,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        WHERE
+        SIAS.is_delete = 0
+        AND
+        SIAS.pmh_id = SIP.pmh_id
+        )AS auction_count,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN
+        car_pm_aftersale SIAA
+        on SIAS.id = SIAA.auction_set_id
+        AND SIAA.is_delete = 0
+        AND SIAA.is_history = 0
+        WHERE
+        SIAS.pmh_id = SIP.pmh_id
+        AND
+        SIAA.id is not null
+        AND
+        SIAS.is_delete = 0
+        AND
+        SIAS.is_history = 0
+        )AS deal_count
+        FROM
+        car_pm_paimai SIP
+        left join
+        car_pm_auction_set SAB
+        on
+        SIP.pmh_id = SAB.pmh_id
+        WHERE
+        SIP.is_delete=0
+
+        <!--        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>-->
+        <include refid="ListIfPaiMai" />
+        AND SIP.paimai_state = 3
+        group by SIP.pmh_id
+        having auction_count>0
+        order by SIP.paimai_start_time
+        limit
+        ${page}, ${rows}
+    </select>
+
+    <select id="getEndlist" resultMap="BaseResultMap">
+        SELECT
+        SIP.id,
+        SIP.pmh_id,
+        SIP.paimai_name,
+        SIP.paimai_start_time,
+        SIP.interval_time,
+        SIP.paimai_finish_time,
+        SIP.single_time,
+        SIP.remark,
+        SIP.paimai_state,
+        (
+        SELECT
+        ta.storage_path
+        FROM
+        car_pm_auction_file cpf
+        LEFT JOIN tb_attachment ta ON cpf.attachment_id = ta.id
+        WHERE
+        cpf.auction_id = (
+        SELECT
+        auction_id
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN car_pm_auction SIA ON SIAS.auction_id = SIA.id
+        AND SIA.is_delete = 0
+        LEFT JOIN car_pm_highest_bid SPHB ON SPHB.ORDER_ID = SIAS.id
+        LEFT JOIN sys_client SPCI ON SPCI.id = SIAS.deal_mid
+        WHERE
+        SIAS.is_delete = 0
+        AND SIAS.is_history = 0
+        AND SIAS.pmh_id = SIP.pmh_id
+        ORDER BY SIAS.auction_start_time desc
+        LIMIT 1
+        )
+        AND cpf.is_delete = 0
+        AND ta.isvalid = 1
+        ORDER BY
+        cpf.sort
+        LIMIT 1
+        ) as imgPath,
+        case
+        SIP.paimai_state
+        when 0 then '等待发布'
+        when 1 then '正在竞拍'
+        when 2 then '竞拍结束'
+        when 3 then '等待竞拍'
+        end
+        AS paimai_states,
+        DATE_FORMAT(SIP.paimai_start_time, '%H:%i') as starttime,
+        SIP.publish_time,
+        case
+        date_format(SIP.paimai_start_time,'%w')
+        when 1 then CONCAT('周一',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 2 then CONCAT('周二',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 3 then CONCAT('周三',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 4 then CONCAT('周四',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 5 then CONCAT('周五',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 6 then CONCAT('周六',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        when 7 then CONCAT('周日',' ',SUBSTRING(paimai_start_time,3,2),if(length(MONTH(paimai_start_time))>1,'-','-0'),MONTH(paimai_start_time),'-', if(LENGTH(DAY(paimai_start_time))>1,DAY(paimai_start_time),CONCAT('0',DAY(paimai_start_time))))
+        END	as weekday,
+        SIP.create_user,
+        SIP.create_time,
+        SIP.is_delete,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        WHERE
+        SIAS.is_delete = 0
+        AND
+        SIAS.pmh_id = SIP.pmh_id
+        )AS auction_count,
+        (
+        SELECT
+        COUNT(1)
+        FROM
+        car_pm_auction_set SIAS
+        LEFT JOIN
+        car_pm_aftersale SIAA
+        on SIAS.id = SIAA.auction_set_id
+        AND SIAA.is_delete = 0
+        AND SIAA.is_history = 0
+        WHERE
+        SIAS.pmh_id = SIP.pmh_id
+        AND
+        SIAA.id is not null
+        AND
+        SIAS.is_delete = 0
+        AND
+        SIAS.is_history = 0
+        )AS deal_count
+        FROM
+        car_pm_paimai SIP
+        left join
+        car_pm_auction_set SAB
+        on
+        SIP.pmh_id = SAB.pmh_id
+        WHERE
+        SIP.is_delete=0
+
+        <!--        and <![CDATA[ (DATE(SIP.paimai_start_time) <= date(SYSDATE()) or SIP.paimai_state = 1) ]]>-->
+        <include refid="ListIfPaiMai" />
+        AND SIP.paimai_state = 2
+        group by SIP.pmh_id
+        having auction_count>0
+        order by SIP.paimai_start_time desc
+        limit
+        ${page}, ${rows}
+    </select>
 </mapper>

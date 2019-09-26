@@ -16,6 +16,7 @@ import com.tieshan.api.po.chebaofeiPo.v1.SysClient;
 import com.tieshan.api.service.chebaofeiService.v1.ClientCUserService;
 import com.tieshan.api.util.shortMessage.SmsSender;
 import com.tieshan.api.util.toolUtil.CheckUtil;
+import com.tieshan.api.util.toolUtil.DemoUtil;
 import com.tieshan.api.util.toolUtil.StringUtils;
 import com.tieshan.api.util.toolUtil.UUIDUtil;
 import com.tieshan.api.vo.chebaofeiVo.v1.ClientAddBankVO;
@@ -115,6 +116,8 @@ public class ClientCUserServiceImpl implements ClientCUserService {
             client.setPassword(StringUtils.createPassword(newPassword, salt, 2));
             client.setOperator(operator);
             clientMapper.updatePwd(client);
+            //更新件交易密码
+            DemoUtil.TestResetPwd(loginName,newPassword);
             return true;
         }else{
             throw new UserNamePasswordException("密码输入错误");
@@ -312,6 +315,8 @@ public class ClientCUserServiceImpl implements ClientCUserService {
         client.setPassword(StringUtils.createPassword(newPwd, salt, 2));
         client.setOperator(operator);
         clientMapper.updatePwd(client);
+        //顺带更新件交易密码
+        DemoUtil.TestResetPwd(client.getLoginName(),newPwd);
         return true;
     }
 }

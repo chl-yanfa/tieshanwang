@@ -126,10 +126,8 @@ public class CarScrapOrderController {
         String type = carScrapOrderVO.getType();
         String cityId = carScrapOrderVO.getCityId();
 
-        //根据传递的车型查询jyid和carNumberId
-        ChlCarModel chlCarModel = jyModelService.selectByCarModelName(carScrapOrderVO.getCarModelNumber());
-        String jyid = chlCarModel.getAliasId();
-        Integer carNumberId = chlCarModel.getId();
+        String jyid = carScrapOrderVO.getJyid();
+        String carNumberId = carScrapOrderVO.getCarNumberId();
 
         String moderyers = carScrapOrderVO.getCarAge();
         String Mileage = carScrapOrderVO.getDrivingMileage();
@@ -163,6 +161,8 @@ public class CarScrapOrderController {
 
         //判断登录人是个人用户还是大客户
         carScrapOrderVO.setClientType(ClientUtil.getUser().getUserType());
+
+        //save
         int result = carScrapOrderService.save(carScrapOrderVO);
 
         if(result==1){

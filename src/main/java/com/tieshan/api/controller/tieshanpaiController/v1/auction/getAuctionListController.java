@@ -1,5 +1,7 @@
 package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
+import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
+import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.SessionUtil;
@@ -8,6 +10,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
+import com.tieshan.api.util.toolUtil.ClientUtil;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
@@ -17,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,13 +44,12 @@ public class getAuctionListController {
     /**
      *
      * @param auction 根据条件获取拍品列表 CarPmAuctionVo auction
-     * @param request
      * @return
      */
     @RequestMapping(value = "/queryList", method = RequestMethod.POST)
-    public Object ListPage(@RequestBody CarPmAuctionVo auction, HttpServletRequest request){
-        ResultVO<CarPmAuctionVo> res = new ResultVO<CarPmAuctionVo>();
-        List<CarPmAuctionVo> list = new ArrayList<CarPmAuctionVo>();
+    public Object ListPage(@RequestBody CarPmAuctionVo auction) throws DataException {
+        ResultVO<CarPmAuctionVo> res = new ResultVO<>();
+        List<CarPmAuctionVo> list = new ArrayList<>();
         try{
             list = carPmAuctionService.findAuction(auction);
             if (null != list && list.size() > 0) {
@@ -76,7 +77,7 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/getAuctionInfo", method = RequestMethod.GET)
-    public ResultVO<CarPmAuctionVo> getAuctionInfo(String id,String timeCount,String timeEndCount){
+    public ResultVO<CarPmAuctionVo> getAuctionInfo(String id) throws DataException {
         ResultVO<CarPmAuctionVo> cvo = carPmAuctionService.getAuctionInfo(id);
         return cvo;
     }
@@ -86,11 +87,10 @@ public class getAuctionListController {
      *
      * @param bidVo 竞价传递参数
      * @param request
-     * @param response
      * @return
      */
     @RequestMapping(value = "/quoteprice", method = RequestMethod.POST)
-    public synchronized Object quoteprice_new(BidVo bidVo, HttpServletRequest request, HttpServletResponse response){
+    public synchronized Object quoteprice_new(BidVo bidVo, HttpServletRequest request) {
         long s = System.currentTimeMillis();
         ResultVO<String> res = new ResultVO<String>();
         try{
@@ -140,6 +140,16 @@ public class getAuctionListController {
 
     /**
      *
+     * @param paimai 根据条件获取拍卖会列表信息-排序后
+     * @return
+     */
+    @RequestMapping(value = "/getPaimaiListByPX", method = RequestMethod.POST)
+    public ResultVO<PaimaiOrderByBO> getPaimaiListByOrder(PaimaiVo paimai) {
+        return carPmAuctionService.getPaimaiListOrderBy(paimai);
+    }
+
+    /**
+     *
      * @param pmhId 拍卖会id
      * @param pmOrderBy 排序参数
      * @return
@@ -158,9 +168,9 @@ public class getAuctionListController {
      */
     @RequestMapping(value = "/getPmOrderById", method = RequestMethod.POST)
     @ResponseBody
-    public ResultVO<CarPmDeal> getPmOrderByMemberId(@RequestParam(value="page",required = true) Integer page,
-                                                    @RequestParam(value="rows",required = true) Integer rows,
-                                                    @RequestParam(value="mid",required = true) String mid){
+    public ResultVO<CarPmDeal> getPmOrderByMemberId(@RequestParam(value="page") Integer page,
+                                                    @RequestParam(value="rows") Integer rows,
+                                                    @RequestParam(value="mid") String mid) {
         return carPmAuctionService.getPmOrderByMemberId(page,rows,mid);
     }
 

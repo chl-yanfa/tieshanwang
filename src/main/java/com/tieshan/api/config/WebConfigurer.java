@@ -47,8 +47,11 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/v1/carwaste/*",
                         "/v1/vercode/*",
                         "/v1/home/*",
-                        "/v1/notice/*"
+                        "/v1/notice/*",
+                        "/getStartTimeList",
+                        "/getEndTimeList",
+                        "/v1/newapi_tieshanpai/auction/*",
+                        "/carscraporder-attachment/ali/upload/*"
                         );
-    }
-
+            }
 }

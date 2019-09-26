@@ -138,5 +138,7 @@ public class CarScrapOrderVO {
     //估价参考价
     private BigDecimal referPrice;
 
+    private String jyid;
+
     private List<CarScrapOrderPictureVO> pictures = new ArrayList<CarScrapOrderPictureVO>();
 }

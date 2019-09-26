@@ -48,4 +48,13 @@ public interface CarPmAuctionMapper{
     Integer getTotalPmOrder(@Param("mid")String mid);
 
     String getUserName(@Param("name") String name);
+
+    //获取正在竞拍
+    List<Paimai> getInglist(PaimaiVo paimai);
+
+    //获取等待竞拍
+    List<Paimai> getWaitlist(PaimaiVo paimai);
+
+    //获取竞拍结束
+    List<Paimai> getEndlist(PaimaiVo paimai);
 }

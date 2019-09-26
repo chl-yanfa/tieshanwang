@@ -1,7 +1,9 @@
 package com.tieshan.api.common.tieshanpaiCommon.v1;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class ResultVO<T> {
@@ -16,6 +18,8 @@ public class ResultVO<T> {
 	private List<T> rows1 = new ArrayList<T>();
 	
 	private List<T> rows2 = new ArrayList<T>();
+
+	private Map<String,List<T>> rows3 = new HashMap<>();
 	
 	private int price;				  //当前订单价格
 	private String memberCode = "";		 //当前订单最高价用户
@@ -109,5 +113,11 @@ public class ResultVO<T> {
 		this.memberCode = memberCode;
 	}
 
+	public Map<String, List<T>> getRows3() {
+		return rows3;
+	}
 
+	public void setRows3(Map<String, List<T>> rows3) {
+		this.rows3 = rows3;
+	}
 }
