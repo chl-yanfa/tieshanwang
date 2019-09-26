@@ -78,6 +78,9 @@ public class TieshanGuJiaController {
             //APP
             //根据精友id查询对应铁码
              ChlCarModel chlCarModel =jyModelService.selectByPrimaryKey(Integer.parseInt(carNumberId));
+             if(StringUtils.isNotBlank(chlCarModel.getResultGThree())){
+                return ResultUtil.success(chlCarModel.getResultGThree());
+             }
             carModelTiema=tieshangjCarModelService.countByTieMa(chlCarModel.getTiema());
             //if铁码不为空
             if(StringUtils.isNotBlank(carModelTiema)){

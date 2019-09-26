@@ -29,4 +29,5 @@ public interface JyModelService {
     ChlCarModel selectByPrimaryKey(Integer id);
     ChlCarModel selectByCarModelName(String carmodelName);
     List<ChlCarModelSeries> selectSearch(Map map);
+
 }

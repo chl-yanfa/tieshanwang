@@ -43,6 +43,7 @@
     <result column="car_type_id" jdbcType="INTEGER" property="carTypeId" />
     <result column="alias_id" jdbcType="VARCHAR" property="aliasId" />
     <result column="tiema" jdbcType="VARCHAR" property="tiema" />
+    <result column="result_g_three" jdbcType="VARCHAR" property="resultGThree" />
     <association property="chlCarModelSeries" javaType="com.tieshan.api.po.chegujiaPo.v1.JyModelPo.ChlCarModelSeries">
       <result column="vehicle_system_name" jdbcType="VARCHAR" property="vehicleSystemName"/>
     </association>
@@ -56,7 +57,7 @@
     status, created_time, created_by, updated_by, updated_time, delete_state, part_num, 
     called, car_alias, car_year, dynamic, drives, seat_num, emission_standard, configure_level, 
     cylinder, engine_valve_num, transmission, wheelbase, cardoorNum, supply, inlet, power, 
-    remarks, car_type_id, alias_id, tiema
+    remarks, car_type_id, alias_id, tiema,result_g_three
   </sql>
   <sql id="Blob_Column_List">
     json
