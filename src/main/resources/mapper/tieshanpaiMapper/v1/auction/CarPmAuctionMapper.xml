@@ -1290,8 +1290,6 @@
         group by SIP.pmh_id
         having auction_count>0
         order by SIP.paimai_start_time
-        limit
-        ${page}, ${rows}
     </select>
 
 
@@ -1402,8 +1400,6 @@
         group by SIP.pmh_id
         having auction_count>0
         order by SIP.paimai_start_time
-        limit
-        ${page}, ${rows}
     </select>
 
     <select id="getEndlist" resultMap="BaseResultMap">
@@ -1513,7 +1509,5 @@
         group by SIP.pmh_id
         having auction_count>0
         order by SIP.paimai_start_time desc
-        limit
-        ${page}, ${rows}
     </select>
 </mapper>

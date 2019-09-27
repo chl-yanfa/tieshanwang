@@ -1,16 +1,19 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction;
 
 import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
+import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
+import com.tieshan.api.util.toolUtil.OrderByUtils;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +32,7 @@ public interface CarPmAuctionService {
 
     ResultVO<Paimai> getPaimaiList(PaimaiVo paimai);
 
-    ResultVO<PaimaiOrderByBO> getPaimaiListOrderBy(PaimaiVo paimai);
+    ResultVO<OrderByUtils> getPaimaiListOrderBy(PaimaiVo paimai);
 
     ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy);
 

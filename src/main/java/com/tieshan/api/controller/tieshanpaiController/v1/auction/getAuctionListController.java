@@ -1,6 +1,7 @@
 package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
 import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
+import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
 import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
@@ -11,6 +12,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
 import com.tieshan.api.util.toolUtil.ClientUtil;
+import com.tieshan.api.util.toolUtil.OrderByUtils;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
@@ -144,7 +146,7 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/getPaimaiListByPX", method = RequestMethod.POST)
-    public ResultVO<PaimaiOrderByBO> getPaimaiListByOrder(PaimaiVo paimai) {
+    public ResultVO<OrderByUtils> getPaimaiListByOrder(PaimaiVo paimai) {
         return carPmAuctionService.getPaimaiListOrderBy(paimai);
     }
 
@@ -155,7 +157,6 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/getAuctionCarList", method = RequestMethod.POST)
-    @ResponseBody
     public ResultVO<AuctionCar> getAuctionCarList(String pmhId,String pmOrderBy) {
         return carPmAuctionService.getAuctionCarList(pmhId,pmOrderBy);
     }
@@ -167,7 +168,6 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/getPmOrderById", method = RequestMethod.POST)
-    @ResponseBody
     public ResultVO<CarPmDeal> getPmOrderByMemberId(@RequestParam(value="page") Integer page,
                                                     @RequestParam(value="rows") Integer rows,
                                                     @RequestParam(value="mid") String mid) {

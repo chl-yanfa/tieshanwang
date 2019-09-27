@@ -63,7 +63,7 @@ public class SmsSender {
         //必填:待发送手机号
         request.setPhoneNumbers(mobile);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("车互联");
+        request.setSignName("铁扇网");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(templeCope);
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为//"{ \"code\":\"123\"}"
@@ -88,7 +88,7 @@ public class SmsSender {
         //必填:待发送手机号
         request.setPhoneNumbers(mobile);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("车互联");
+        request.setSignName("铁扇网");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(templeCope);
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为//"{ \"code\":\"123\"}"
@@ -120,7 +120,7 @@ public class SmsSender {
         //必填:待发送手机号
         request.setPhoneNumbers(mobile);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("车互联");
+        request.setSignName("铁扇网");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(templeCope);
         request.setTemplateParam("{\"yewuyuan_name\":\"" + saleName + "\", \"dianhua\":\"" + salePhone + "\"}");
@@ -152,7 +152,7 @@ public class SmsSender {
         //必填:待发送手机号
         request.setPhoneNumbers(mobile);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("车互联");
+        request.setSignName("铁扇网");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(templeCope);
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为//"{ \"code\":\"123\"}"

@@ -20,6 +20,8 @@ public class ResultVO<T> {
 	private List<T> rows2 = new ArrayList<T>();
 
 	private Map<String,List<T>> rows3 = new HashMap<>();
+
+	private List<List<T>> rows4 = new ArrayList<>();
 	
 	private int price;				  //当前订单价格
 	private String memberCode = "";		 //当前订单最高价用户
@@ -119,5 +121,13 @@ public class ResultVO<T> {
 
 	public void setRows3(Map<String, List<T>> rows3) {
 		this.rows3 = rows3;
+	}
+
+	public List<List<T>> getRows4() {
+		return rows4;
+	}
+
+	public void setRows4(List<List<T>> rows4) {
+		this.rows4 = rows4;
 	}
 }

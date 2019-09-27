@@ -1,9 +1,8 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction.impl;
 
 import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
-import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
-import com.tieshan.api.common.tieshanpaiCommon.v1.Identities;
-import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
+import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
+import com.tieshan.api.common.tieshanpaiCommon.v1.*;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAftersaleMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper;
@@ -12,6 +11,7 @@ import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersale;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
+import com.tieshan.api.util.toolUtil.OrderByUtils;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.*;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.OrderInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -62,7 +63,6 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         CarPmAuctionVo auctionDto = carPmAuctionMapper.getAuctionInfo(id);
         auctionDto.setStartDate(sd.format(auctionDto.getAuctionStartTime()));
         auctionDto.setEndDate(sd.format(auctionDto.getAuctionEndTime()));
-
 
 
         sd.format(auctionDto.getAuctionStartTime());
@@ -116,50 +116,53 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
     }
 
     @Override
-    public ResultVO<PaimaiOrderByBO> getPaimaiListOrderBy(PaimaiVo paimai) {
+    public ResultVO<OrderByUtils> getPaimaiListOrderBy(PaimaiVo paimai) {
+
+        Integer pageOld = paimai.getPage();
+        Integer rowsOld = paimai.getRows();
+
         Integer size = paimai.getRows(); //获得每页显示的条数
         Integer page = paimai.getPage(); //获得页码
         Integer pageNum = (page - 1)*size;
         paimai.setPage(pageNum);
 
-        ResultVO<PaimaiOrderByBO> paimaiOrderByBOResultVO = new ResultVO<>();
-        List<PaimaiOrderByBO> paimaiOrderByBOList = new ArrayList<>();
+        ResultVO<OrderByUtils> paimaiOrderByBOResultVO = new ResultVO<>();
+        sortClass sort = new sortClass(); //正序
+        DesClass des = new DesClass(); //倒序
+
+        ArrayList<OrderByUtils> paimdemo = new ArrayList<>();
 
         List<Paimai> inglist = carPmAuctionMapper.getInglist(paimai);
+        ArrayList<OrderByUtils> ingArr = OrderByUtils.getData(inglist);
+        Collections.sort(ingArr,sort);
+
         List<Paimai> waitlist = carPmAuctionMapper.getWaitlist(paimai);
+        ArrayList<OrderByUtils> waitArr = OrderByUtils.getData(waitlist);
+        Collections.sort(waitArr,sort);
+
         List<Paimai> endlist = carPmAuctionMapper.getEndlist(paimai);
-        System.out.println("正在竞拍:"+inglist);
-        System.out.println("等待竞拍:"+waitlist);
-        System.out.println("竞拍结束:"+endlist);
+        ArrayList<OrderByUtils> endArr = OrderByUtils.getData(endlist);
+        Collections.sort(endArr,des);
 
-//        List<List<Paimai>> allList = new ArrayList<>();
-//        allList.add(waitlist);
+        for (OrderByUtils a:ingArr) {
+            paimdemo.add(a);
+        }
+        for (OrderByUtils b:waitArr) {
+            paimdemo.add(b);
+        }
+        for (OrderByUtils c:endArr) {
+            paimdemo.add(c);
+        }
 
-        int ingCount = inglist.size(); //要创建的对象数量
-        PaimaiOrderByBO[] ing = new PaimaiOrderByBO[ingCount];
-        for(int i=0;i<ingCount;i++){
-            ing[i] = new PaimaiOrderByBO();
-            ing[i].setWeekDay(inglist.get(i).getWeekDay());
-            ing[i].setPaimai(inglist.get(i));
-            paimaiOrderByBOList.add(ing[i]);
-        }
-        int waitCount = waitlist.size();
-        PaimaiOrderByBO[] wait = new PaimaiOrderByBO[waitCount];
-        for(int i=0;i<waitCount;i++){
-            wait[i] = new PaimaiOrderByBO();
-            wait[i].setWeekDay(waitlist.get(i).getWeekDay());
-            wait[i].setPaimai(waitlist.get(i));
-            paimaiOrderByBOList.add(wait[i]);
-        }
-        int endCount = endlist.size();
-        PaimaiOrderByBO[] end = new PaimaiOrderByBO[endCount];
-        for(int i=0;i<endCount;i++){
-            end[i] = new PaimaiOrderByBO();
-            end[i].setWeekDay(endlist.get(i).getWeekDay());
-            end[i].setPaimai(endlist.get(i));
-            paimaiOrderByBOList.add(end[i]);
-        }
-        paimaiOrderByBOResultVO.setRows(paimaiOrderByBOList);
+        System.out.println("页码："+pageOld);
+        System.out.println("条数："+rowsOld);
+
+        List<OrderByUtils> collect = paimdemo.stream().skip((pageOld-1) * rowsOld).limit(rowsOld).collect(Collectors.toList());
+
+        paimaiOrderByBOResultVO.setRows(collect);
+        paimaiOrderByBOResultVO.setTotal(paimdemo.size());
+        paimaiOrderByBOResultVO.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+        paimaiOrderByBOResultVO.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
         return paimaiOrderByBOResultVO;
     }
 

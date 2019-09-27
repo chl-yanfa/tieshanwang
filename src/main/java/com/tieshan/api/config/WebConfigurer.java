@@ -51,7 +51,8 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/getStartTimeList",
                         "/getEndTimeList",
                         "/v1/newapi_tieshanpai/auction/*",
-                        "/carscraporder-attachment/ali/upload/*"
+                        "/carscraporder-attachment/ali/upload/*",
+                        "/carscraporder-applet/account/getValidateCode"
                         );
             }
 }

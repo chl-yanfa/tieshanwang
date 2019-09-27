@@ -9,12 +9,13 @@ import java.util.List;
 /**
  * @author ningrz
  * @version 1.0
- * @date 2019/9/25 19:21
+ * @date 2019/9/26 10:39
  */
 @Data
-public class PaimaiOrderByBO {
+public class PaimaiOrderTieshanBO {
 
     private String weekDay;
 
-    private Paimai paimai;
+    private List<Paimai> paimais = new ArrayList<>();
+
 }
