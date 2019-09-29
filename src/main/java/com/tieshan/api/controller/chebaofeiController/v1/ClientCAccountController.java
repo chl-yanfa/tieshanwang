@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.bind.annotation.*;
 import shaded.org.apache.commons.lang3.StringUtils;
@@ -102,16 +101,17 @@ public class ClientCAccountController {
         if (user != null) {
             // 登录成功
             String ticket = DigestUtils.md5Hex(user.getLoginName() + System.currentTimeMillis());
+            System.out.println("这是登陆后的ticket:"+ticket);
             String userstr = SystemParameter.MAPPER.writeValueAsString(user);
-
-            //放入缓存,设置缓存过期时间为一月
-            ValueOperations<String, String> operations = redisTemplate.opsForValue();
-
-            operations.set(SystemParameter.TICKET+ticket, userstr,3600 * 24 * 30, TimeUnit.SECONDS);
 
             // 将ticket写入到cookie中
             CookieUtils.setCookie(request, response, SystemParameter.COOKIE_TICKET, ticket);
+            String aaa = CookieUtils.getCookieValue(request, SystemParameter.COOKIE_TICKET,false);
+            System.out.println(aaa+"aaaaaacnmb");
 
+            //放入缓存,设置缓存过期时间为一月
+            ValueOperations<String, String> operations = redisTemplate.opsForValue();
+            operations.set(SystemParameter.TICKET+ticket, userstr,3600 * 24 * 30, TimeUnit.SECONDS);
             Map<String,Object> map = new HashMap<String,Object>();
             map.put("state", true);
             map.put("session", ticket);

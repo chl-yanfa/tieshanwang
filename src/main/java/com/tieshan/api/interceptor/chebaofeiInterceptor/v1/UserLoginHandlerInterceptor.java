@@ -57,6 +57,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
         String ticket = CookieUtils.getCookieValue(request, SystemParameter.COOKIE_TICKET,false);
 
         if (StringUtils.isBlank(ticket)) {
+            System.out.println(ticket+"cookie为空！您处于未登录状态!");
             ResultBean result = new ResultBean();
             result.setCode(201);
             result.setMsg("未登陆系统1");
@@ -68,6 +69,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
         ClientBO user = this.clientUserService.queryUserByTicket(ticket);
 
         if (user == null) {
+            System.out.println("redis为空！您处于未登录状态!");
             // 登录超时
             ResultBean result = new ResultBean();
             result.setCode(201);
