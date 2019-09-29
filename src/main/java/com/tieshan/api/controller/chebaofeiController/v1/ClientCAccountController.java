@@ -94,7 +94,8 @@ public class ClientCAccountController {
      */
     @RequestMapping(value = "doLogin", method = RequestMethod.POST)
     public ResultBean<Map<String,Object>> doLogin(@RequestParam("username") String username,
-                                                  @RequestParam("password") String password, HttpServletRequest request,
+                                                  @RequestParam("password") String password,
+                                                  HttpServletRequest request,
                                                   HttpServletResponse response) throws Exception {
 
         ClientBO user = this.clientUserService.doLogin(username, password);
@@ -106,8 +107,6 @@ public class ClientCAccountController {
 
             // 将ticket写入到cookie中
             CookieUtils.setCookie(request, response, SystemParameter.COOKIE_TICKET, ticket);
-            String aaa = CookieUtils.getCookieValue(request, SystemParameter.COOKIE_TICKET,false);
-            System.out.println(aaa+"aaaaaacnmb");
 
             //放入缓存,设置缓存过期时间为一月
             ValueOperations<String, String> operations = redisTemplate.opsForValue();

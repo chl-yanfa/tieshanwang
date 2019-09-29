@@ -53,6 +53,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object arg2) throws Exception {
+
         // 如何检查用户是否登录
         String ticket = CookieUtils.getCookieValue(request, SystemParameter.COOKIE_TICKET,false);
 

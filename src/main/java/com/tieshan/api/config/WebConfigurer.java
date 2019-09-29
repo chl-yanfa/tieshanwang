@@ -3,6 +3,7 @@ package com.tieshan.api.config;
 import com.tieshan.api.interceptor.chebaofeiInterceptor.v1.UserLoginHandlerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -54,6 +55,19 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/carscraporder-attachment/ali/upload/*",
                         "/carscraporder-applet/account/getValidateCode",
                         "/carscraporder-applet/inquiryprice/*"
-                        );
-            }
+                );
+    }
+
+
+    /**
+     * 跨域支持
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*")
+                .allowCredentials(true)
+                .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH")
+                .maxAge(3600 * 24 * 30);
+    }
 }

@@ -1,8 +1,12 @@
 package com.tieshan.api.util.toolUtil;
 
+import org.apache.catalina.Context;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.LegacyCookieProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
+import org.springframework.context.annotation.Bean;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +46,6 @@ public class CookieUtils {
     public static String getCookieValue(HttpServletRequest request, String cookieName, boolean isDecoder) {
         Cookie[] cookieList = request.getCookies();
         if (cookieList == null || cookieName == null) {
-            System.out.println("未发现有存储的cookie"+cookieList);
             return null;
         }
         String retValue = null;
@@ -155,13 +158,19 @@ public class CookieUtils {
             }
             Cookie cookie = new Cookie(cookieName, cookieValue);
             if (cookieMaxage > 0){
-                System.out.println("进入过期时间设置");
                 cookie.setMaxAge(cookieMaxage);
             }
-            if (null != request)// 设置域名的cookie
-                cookie.setDomain(getDomainName(request));
+            if (null != request){
+                System.out.println("最终的domainName为:"+getDomainName(request));
+                cookie.setDomain(getDomainName(request));//设置域名的cookie
+            }
             cookie.setPath("/");
             response.addCookie(cookie);
+            response.setHeader("Access-Control-Allow-Origin", "*");
+            response.setHeader("Access-Control-Allow-Methods", "*");
+            response.setHeader("Access-Control-Max-Age", "3600");
+            response.setHeader("Access-Control-Allow-Headers",
+                    "Origin, X-Requested-With, Content-Type, Accept,token");
         } catch (Exception e) {
             logger.error("Cookie Encode Error.", e);
         }
@@ -199,11 +208,9 @@ public class CookieUtils {
      * 得到cookie的域名
      */
     private static final String getDomainName(HttpServletRequest request) {
-        System.out.println("我进入了设置DomainName");
         String domainName = null;
 
         String serverName = request.getRequestURL().toString();
-        System.out.println("地址为:"+serverName);
         if (serverName == null || serverName.equals("")) {
             domainName = "";
         } else {
@@ -233,7 +240,7 @@ public class CookieUtils {
             String[] ary = domainName.split("\\:");
             domainName = ary[0];
         }
-        System.out.println("最终的domainName为:"+domainName);
         return domainName;
     }
+
 }
