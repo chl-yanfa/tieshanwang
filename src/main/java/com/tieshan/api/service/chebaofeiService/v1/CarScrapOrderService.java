@@ -66,4 +66,6 @@ public interface CarScrapOrderService extends BaseService<CarScrapOrder> {
     Boolean TellUserTakeCar(String clientId,String salePhone,String saleName,String orderId);
 
     Boolean TellMoneyByUser(String carNumber,String orderId);
+
+    void addScrapOrder(Integer orderType, String orderId, String auctionId, String userId);
 }

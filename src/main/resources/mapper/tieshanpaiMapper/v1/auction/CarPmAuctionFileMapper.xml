@@ -139,4 +139,16 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <insert id="addAuctionFileBatch" parameterType="java.util.List">
+    insert into car_pm_auction_file (
+    auction_id, file_type, attachment_id, sort,
+    pic_type, is_delete, create_user, create_time
+    )values
+    <foreach collection="list" item="item" index="index" separator=",">
+      (
+      #{item.auctionId}, #{item.fileType}, #{item.attachmentId}, #{item.sort},
+      #{item.picType}, 0, #{item.createUser}, now()
+      )
+    </foreach>
+  </insert>
 </mapper>

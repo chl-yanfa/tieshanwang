@@ -14,7 +14,7 @@ import java.util.Locale;
  */
 public class ClientUtil {
 
-    private final static ThreadLocal<ClientBO> tlUser = new ThreadLocal<ClientBO>();
+    private final static ThreadLocal<ClientBO> tlUser = new ThreadLocal<>();
 
     private final static ThreadLocal<Locale> tlLocale = new ThreadLocal<Locale>() {
         protected Locale initialValue() {
@@ -45,6 +45,7 @@ public class ClientUtil {
      */
     public static ClientBO getUser() throws DataException {
         ClientBO user = tlUser.get();
+        System.out.println("ClientUtil里的:"+user);
         if (user == null) {
             throw new DataException("未登录系统");
         }

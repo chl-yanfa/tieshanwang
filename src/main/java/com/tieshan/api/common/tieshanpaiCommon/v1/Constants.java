@@ -98,4 +98,53 @@ public class Constants {
 	/** 出价-推送时使用 */
 	public final static String COMET_TYPE_NEWPRICE = "newprice";
 
+	/**
+	 * ScrapOrderStatus 报废订单状态
+	 */
+	public static final class ScrapOrderStatus{
+		/**SCRAP_CAR 整车  1 */
+		public static final Integer SCRAP_CAR = 1;
+		/**SCRAP_AUTOPARTS 旧件  2 */
+		public static final Integer SCRAP_AUTOPARTS = 2;
+		/**CAR_FINISH 整车:已完成 7 */
+		public static final Integer CAR_FINISH = 7;
+		/**AUTOPARTS_FINISH 旧件:已完成 8 */
+		public static final Integer AUTOPARTS_FINISH = 8;
+		/**ORDER_AUCTION 拍卖  91 */
+		public static final Integer ORDER_AUCTION = 91;
+		/**ORDER_DEL_AUCTION 删除拍品  92 */
+		public static final Integer ORDER_DEL_AUCTION = 92;
+	}
+
+	/**
+	 * OrderStatus 订单状态
+	 */
+	public static final class OrderStatus{
+		/**HAS_NOT_AUCTION 未上拍 0 */
+		public static final String HAS_NO_AUCTION = "0";
+		/**TO_AUCTION 待竞拍 10 */
+		public static final String TO_AUCTION = "10";
+		/**COMPETE 竞拍中 20 */
+		public static final String COMPETE = "20";
+		/**TO_COMPETE 待处理 30*/
+		public static final String TO_COMPETE = "30";
+		/**TO_SETTLE 待付款 50*/
+		public static final String TO_SETTLE = "50";
+		/**TO_ABORTIVE 流拍 40*/
+		public static final String TO_ABORTIVE = "40";
+		/**TO_TAKECAR 待提货 60*/
+		public static final String TO_TAKECAR = "60";
+		/**TO_TRANSFER 待过户 70*/
+		public static final String TO_TRANSFER = "70";
+		/**TRANSFERED 已过户 71*/
+		public static final String TRANSFERED = "71";
+		/**FINISHED 已完成 80*/
+		public static final String FINISHED = "80";
+		/**DUPLICATE_AUCTION 已复拍 -8*/
+		public static final String DUPLICATE_AUCTION = "-8";
+		/**OVERTURN_AUCTION 已撤拍 -9*/
+		public static final String OVERTURN_AUCTION = "-9";
+		/**RETURNCAR_AUCTION 已退货 -10*/
+		public static final String RETURNCAR_AUCTION = "-10";
+	}
 }

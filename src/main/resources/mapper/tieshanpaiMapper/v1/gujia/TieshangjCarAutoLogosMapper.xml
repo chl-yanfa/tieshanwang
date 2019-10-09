@@ -104,6 +104,11 @@
         a_alias
     FROM
         tieshangj_car_auto_logos
+    where
+        a_name not in
+     (
+      select brand_name_not from carbrand_not_show group by brand_name_not
+	 )
     ORDER BY
         a_alias ASC
   </select>

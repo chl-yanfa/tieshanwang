@@ -239,6 +239,7 @@ public class JyModelController {
                         }
                     }
                 }
+
                 if(flag) {
                     List<EncapsulationsBO> dictionaryBOs = new ArrayList<EncapsulationsBO>();
                     dictionaryBOs.add(encapsulationsBO);
@@ -253,7 +254,6 @@ public class JyModelController {
                 public int compare(EncapsulationBO o1, EncapsulationBO o2) {
                     return o1.getType().compareTo(o2.getType());
                 }
-
             });
         }
         return ResultUtil.success(encapsulationBOS);
@@ -265,16 +265,22 @@ public class JyModelController {
         defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);
         defaultFormat.setToneType(HanyuPinyinToneType.WITHOUT_TONE);
         if (newChar > 128) {
-            try {
-                pinyinStr = PinyinHelper.toHanyuPinyinStringArray(newChar, defaultFormat)[0].charAt(0)+"";
-            } catch (BadHanyuPinyinOutputFormatCombination e) {
-                e.printStackTrace();
+            if(newChar=='长'){
+                pinyinStr="C";
+                return pinyinStr.toUpperCase();
+            }else{
+                try {
+                    pinyinStr = PinyinHelper.toHanyuPinyinStringArray(newChar, defaultFormat)[0].charAt(0)+"";
+                } catch (BadHanyuPinyinOutputFormatCombination e) {
+                    e.printStackTrace();
+                }
             }
         } else {
             pinyinStr = newChar+"";
         }
         return pinyinStr.toUpperCase();
     }
+
     public   void vinjson(String json,String vin){
         try {
             List<String>list=new ArrayList<>();

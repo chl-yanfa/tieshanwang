@@ -1,25 +1,25 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction.impl;
 
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.*;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAftersaleMapper;
+import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionFileMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionMapper;
+import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionSetMapper;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper;
-import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
-import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAftersale;
-import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
-import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.*;
+import com.tieshan.api.service.chebaofeiService.v1.CarScrapOrderService;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
+import com.tieshan.api.service.tieshanpaiService.v1.auction.PMNumberService;
 import com.tieshan.api.util.toolUtil.OrderByUtils;
+import com.tieshan.api.util.toolUtil.UUIDUtil;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.*;
 import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.OrderInfoVo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -42,6 +42,18 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
     @Autowired
     CarPmAftersaleMapper carPmAftersaleMapper;
+
+    @Autowired
+    PMNumberService pmNumberService;
+
+    @Autowired
+    CarPmAuctionFileMapper carPmAuctionFileMapper;
+
+    @Autowired
+    CarScrapOrderService carScrapOrderService;
+
+    @Autowired
+    CarPmAuctionSetMapper auctionSetMapper;
 
 
     @Override
@@ -423,6 +435,82 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         res.setTotal(total);
         res.setReturnMsg("success");
         res.setReturnCode("200");
+        return res;
+    }
+
+    @Override
+    public ResultVO<String> addAuction(CarPmAuctionVo auction){
+        ResultVO<String> res = new ResultVO<>();
+        //获取用户信息，便于标识是谁添加的该拍品
+        if(null == auction.getClientUserId()) {
+            res.setReturnCode(RtnMsgConstants.RETURN_CODE_LOGIN_NULL);
+            res.setReturnMsg(RtnMsgConstants.RETURN_MSG_LOGIN_NULL);
+            return res;
+        }
+        if(null == auction){
+            res.setReturnCode(RtnMsgConstants.RETURN_CODE_PARAMETER_NULL);
+            res.setReturnMsg(RtnMsgConstants.RETURN_MSG_PARAMETER_NULL);
+            return res;
+        }
+        Integer auctionType = auction.getAuctionType();
+        //对VIN中字母转换大写
+        if(StringUtils.isNotBlank(auction.getVin())) {
+            auction.setVin(auction.getVin().toUpperCase());
+        }
+        String auctionNo = pmNumberService.getAuctionNo();
+        auction.setAuctionNo(auctionNo);
+        //新增拍品信息
+        auction.setId(UUIDUtil.getUUID());
+        auction.setAuctionState(10);
+
+        //用户设置出售价格
+        CarPmAuctionSet carPmAuctionSet = new CarPmAuctionSet();
+        carPmAuctionSet.setReservePrice(auction.getReservePrice());  //App内预期保留价
+        carPmAuctionSet.setAuctionCashDeposit(auction.getAuctionCashDeposit()); //App内设置参拍保证金
+        if(null == carPmAuctionSet){
+            res.setReturnCode(RtnMsgConstants.RETURN_CODE_DATA_NULL);
+            res.setReturnMsg(RtnMsgConstants.RETURN_MSG_DATA_NULL);
+            return res;
+        }
+        carPmAuctionSet.setCreateUser(auction.getClientUserId());
+        carPmAuctionSet.setOrderState(Constants.OrderStatus.HAS_NO_AUCTION);
+        carPmAuctionSet.setId(UUIDUtil.getUUID());
+        String orderNo = pmNumberService.getOrderNo();
+        carPmAuctionSet.setOrderNo(orderNo);
+        auctionSetMapper.addAuctionSet(carPmAuctionSet);  //向参拍设置表新增数据
+        carPmAuctionMapper.insertAuction(auction); //向拍品表新增数据
+        //新增图片
+        if(StringUtils.isNotBlank(auction.getFileIds())) {
+            List<String> asList = Arrays.asList(auction.getFileIds().split(","));
+            if(asList!=null && asList.size()>0) {
+                List<Integer> fileIdList = asList.stream().map(Integer::parseInt).collect(Collectors.toList());
+                if(fileIdList!=null && fileIdList.size()>0) {
+                    List<CarPmAuctionFile> list =new ArrayList<CarPmAuctionFile>();
+                    CarPmAuctionFile file;
+                    for (int i = 0;i<fileIdList.size();i++) {
+                        file = new CarPmAuctionFile( auction.getId(), 0, fileIdList.get(i), i, 0, null);
+                        list.add(file);
+                    }
+                    carPmAuctionFileMapper.addAuctionFileBatch(list);
+                }
+            }
+        }
+        //设置整车/配件
+        if(auctionType == 0) {
+            String scrapOrderId = auction.getScrapOrderId();
+            if(StringUtils.isNotBlank(scrapOrderId)) {
+                //修改状态以及绑定id
+                carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_CAR, scrapOrderId, auction.getId(),auction.getClientUserId());
+            }
+        }else {
+            List<String> autopartsIdList = auction.getAutopartsIdList();
+            if(autopartsIdList != null && autopartsIdList.size()>0) {
+                for (String autopartsId : autopartsIdList) {
+                    //修改状态以及绑定id
+                    carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_AUTOPARTS, autopartsId, auction.getId(),auction.getClientUserId());
+                }
+            }
+        }
         return res;
     }
 

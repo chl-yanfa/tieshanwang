@@ -54,6 +54,8 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
                              Object arg2) throws Exception {
 
+        System.out.println("我进入了拦截器");
+
         // 如何检查用户是否登录
         String ticket = CookieUtils.getCookieValue(request, SystemParameter.COOKIE_TICKET,false);
 
@@ -80,6 +82,7 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
         }
 
         //将user保存到ThreadLocal中
+        System.out.println("存储了用户"+user);
         ClientUtil.setUser(user);
 
         // 语言信息
@@ -124,7 +127,6 @@ public class UserLoginHandlerInterceptor implements HandlerInterceptor {
                 return cookies[i].getValue();
             }
         }
-
         return null;
     }
 

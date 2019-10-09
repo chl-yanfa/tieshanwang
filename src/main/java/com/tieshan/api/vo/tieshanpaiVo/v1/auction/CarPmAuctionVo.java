@@ -1,6 +1,8 @@
 package com.tieshan.api.vo.tieshanpaiVo.v1.auction;
 
 import com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -11,9 +13,34 @@ import java.util.List;
  * @version 1.0
  * @date 2019/8/16 9:33
  */
+@Data
 public class CarPmAuctionVo {
 
     private String id;
+
+    private Integer auctionType;        //拍品类型(0:全车配件,1:高价值配件,2:大宗物资)
+
+    private String auctionTypeS;    //拍品类型文字描述(全车配件、高价值配件)
+
+    private String vin;             //车架号
+
+    private String vehicleType;     //车型
+
+    private String lotAreas;            //所在地区
+
+    private Integer lotAreasId;            //所在地区Id
+
+    private Integer isDrive;           //能否行驶 0.不可以 1.可以
+
+    private BigDecimal reservePrice;   //预期保留价
+
+    private BigDecimal auctionCashDeposit;  //参拍保证金
+
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")
+    private Date getCardTime;            //上牌时间
+
+    private String description;           //描述
 
     private String dealMid;             //商户id
 
@@ -27,21 +54,11 @@ public class CarPmAuctionVo {
 
     private Date takeCarTime;           //提货时间
 
-    private Integer auctionType;        //拍品类型(0:全车配件,1:高价值配件,2:大宗物资)
-
-    private String auctionTypeS;    //拍品类型文字描述(全车配件、高价值配件)
-
     private String auctionNo;            //拍品编号
-
-    private String vin;                    //车架号
 
     private String fullName;            //拍品名称
 
     private String licenseNumber;        //车牌号
-
-    private String lotAreas;            //所在地区
-
-    private Integer lotAreasId;            //所在地区
 
     private List<Integer> lotAreasArr;
 
@@ -50,8 +67,6 @@ public class CarPmAuctionVo {
     private Date productionDate;        //出厂日期
 
     private String isHasKey;            //是否有钥匙 0-没有,1-有
-
-    private String description;            //描述
 
     private String buyRequirement;        //购买要求
 
@@ -123,7 +138,6 @@ public class CarPmAuctionVo {
 
     private Date settlementTime;             //结算时间
 
-
     private String startDate;  //拍品开始时间_字符串
 
     private String endDate; //拍品结束时间_字符串
@@ -136,439 +150,15 @@ public class CarPmAuctionVo {
 
     private String ppEndTime;
 
+    private Integer auctionState; //拍品状态(0:保存,10:未上拍,2:进入拍卖会,3:待发布,4:拍卖中,5:成交,6:售后,7:完结,-10:已退货)
 
+    private Integer registState;		//登记状态(0:未登记,1:已登记,2:已驳回)
 
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-    public String getDealMid() {
-        return dealMid;
-    }
-    public void setDealMid(String dealMid) {
-        this.dealMid = dealMid;
-    }
-    public String getOrderId() {
-        return orderId;
-    }
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
-    }
-    public String getOrderNo() {
-        return orderNo;
-    }
-    public void setOrderNo(String orderNo) {
-        this.orderNo = orderNo;
-    }
-    public Date getDealTime() {
-        return dealTime;
-    }
-    public void setDealTime(Date dealTime) {
-        this.dealTime = dealTime;
-    }
-    public Date getPayTime() {
-        return payTime;
-    }
-    public void setPayTime(Date payTime) {
-        this.payTime = payTime;
-    }
-    public Date getTakeCarTime() {
-        return takeCarTime;
-    }
-    public void setTakeCarTime(Date takeCarTime) {
-        this.takeCarTime = takeCarTime;
-    }
-    public Integer getAuctionType() {
-        return auctionType;
-    }
-    public void setAuctionType(Integer auctionType) {
-        this.auctionType = auctionType;
-    }
-    public String getAuctionTypeS() {
-        return auctionTypeS;
-    }
-    public void setAuctionTypeS(String auctionTypeS) {
-        this.auctionTypeS = auctionTypeS;
-    }
-    public String getAuctionNo() {
-        return auctionNo;
-    }
-    public void setAuctionNo(String auctionNo) {
-        this.auctionNo = auctionNo;
-    }
-    public String getVin() {
-        return vin;
-    }
-    public void setVin(String vin) {
-        this.vin = vin;
-    }
-    public String getFullName() {
-        return fullName;
-    }
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-    public String getLicenseNumber() {
-        return licenseNumber;
-    }
-    public void setLicenseNumber(String licenseNumber) {
-        this.licenseNumber = licenseNumber;
-    }
-    public String getLotAreas() {
-        return lotAreas;
-    }
-    public void setLotAreas(String lotAreas) {
-        this.lotAreas = lotAreas;
-    }
-    public Integer getLotAreasId() {
-        return lotAreasId;
-    }
-    public void setLotAreasId(Integer lotAreasId) {
-        this.lotAreasId = lotAreasId;
-    }
-    public List<Integer> getLotAreasArr() {
-        return lotAreasArr;
-    }
-    public void setLotAreasArr(List<Integer> lotAreasArr) {
-        this.lotAreasArr = lotAreasArr;
-    }
-    public List<Integer> getAuctionTypeArr() {
-        return auctionTypeArr;
-    }
-    public void setAuctionTypeArr(List<Integer> auctionTypeArr) {
-        this.auctionTypeArr = auctionTypeArr;
-    }
-    public Date getProductionDate() {
-        return productionDate;
-    }
-    public void setProductionDate(Date productionDate) {
-        this.productionDate = productionDate;
-    }
-    public String getIsHasKey() {
-        return isHasKey;
-    }
-    public void setIsHasKey(String isHasKey) {
-        this.isHasKey = isHasKey;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public String getBuyRequirement() {
-        return buyRequirement;
-    }
-    public void setBuyRequirement(String buyRequirement) {
-        this.buyRequirement = buyRequirement;
-    }
-    public String getLookContacts() {
-        return lookContacts;
-    }
-    public void setLookContacts(String lookContacts) {
-        this.lookContacts = lookContacts;
-    }
-    public String getLookContactNumber() {
-        return lookContactNumber;
-    }
-    public void setLookContactNumber(String lookContactNumber) {
-        this.lookContactNumber = lookContactNumber;
-    }
-    public String getLookAddress() {
-        return lookAddress;
-    }
-    public void setLookAddress(String lookAddress) {
-        this.lookAddress = lookAddress;
-    }
-    public String getLookCoordinate() {
-        return lookCoordinate;
-    }
-    public void setLookCoordinate(String lookCoordinate) {
-        this.lookCoordinate = lookCoordinate;
-    }
-    public String getBidNotice() {
-        return bidNotice;
-    }
-    public void setBidNotice(String bidNotice) {
-        this.bidNotice = bidNotice;
-    }
-    public String getSpecialNotice() {
-        return specialNotice;
-    }
-    public void setSpecialNotice(String specialNotice) {
-        this.specialNotice = specialNotice;
-    }
-    public Integer getIsDelete() {
-        return isDelete;
-    }
-    public void setIsDelete(Integer isDelete) {
-        this.isDelete = isDelete;
-    }
-    public Date getCreateTime() {
-        return createTime;
-    }
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    public String getCreateUser() {
-        return createUser;
-    }
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-    public BigDecimal getStartingPrice() {
-        return startingPrice;
-    }
-    public void setStartingPrice(BigDecimal startingPrice) {
-        this.startingPrice = startingPrice;
-    }
-    public String getOrderState() {
-        return orderState;
-    }
-    public void setOrderState(String orderState) {
-        this.orderState = orderState;
-    }
-    public String getOrderStateS() {
-        return orderStateS;
-    }
-    public void setOrderStateS(String orderStateS) {
-        this.orderStateS = orderStateS;
-    }
-    public BigDecimal getCommission() {
-        return commission;
-    }
-    public void setCommission(BigDecimal commission) {
-        this.commission = commission;
-    }
-    public BigDecimal getOtherPrice() {
-        return otherPrice;
-    }
-    public void setOtherPrice(BigDecimal otherPrice) {
-        this.otherPrice = otherPrice;
-    }
-    public String getImgPath() {
-        return imgPath;
-    }
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
-    }
-    public Integer getPageNum() {
-        return pageNum;
-    }
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-    public Integer getRows() {
-        return rows;
-    }
-    public void setRows(Integer rows) {
-        this.rows = rows;
-    }
-    public Date getAuctionStartTime() {
-        return auctionStartTime;
-    }
-    public void setAuctionStartTime(Date auctionStartTime) {
-        this.auctionStartTime = auctionStartTime;
-    }
-    public Date getAuctionEndTime() {
-        return auctionEndTime;
-    }
-    public void setAuctionEndTime(Date auctionEndTime) {
-        this.auctionEndTime = auctionEndTime;
-    }
-    public int getType() {
-        return type;
-    }
-    public void setType(int type) {
-        this.type = type;
-    }
-    public Integer getLotPartsCount() {
-        return lotPartsCount;
-    }
-    public void setLotPartsCount(Integer lotPartsCount) {
-        this.lotPartsCount = lotPartsCount;
-    }
-    public String getPartsWeight() {
-        return partsWeight;
-    }
-    public void setPartsWeight(String partsWeight) {
-        this.partsWeight = partsWeight;
-    }
-    public Integer getDelaySecond() {
-        return delaySecond;
-    }
-    public void setDelaySecond(Integer delaySecond) {
-        this.delaySecond = delaySecond;
-    }
-    public BigDecimal getHighestPrice() {
-        return highestPrice;
-    }
-    public void setHighestPrice(BigDecimal highestPrice) {
-        this.highestPrice = highestPrice;
-    }
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-    public Date getSysDate() {
-        return sysDate;
-    }
-    public void setSysDate(Date sysDate) {
-        this.sysDate = sysDate;
-    }
-    public String getCarNumber() {
-        return carNumber;
-    }
-    public void setCarNumber(String carNumber) {
-        this.carNumber = carNumber;
-    }
-    public Integer getPartsCount() {
-        return partsCount;
-    }
-    public void setPartsCount(Integer partsCount) {
-        this.partsCount = partsCount;
-    }
-    public BigDecimal getOrderAmount() {
-        return orderAmount;
-    }
-    public void setOrderAmount(BigDecimal orderAmount) {
-        this.orderAmount = orderAmount;
-    }
-    public Date getRecoveryTime() {
-        return recoveryTime;
-    }
-    public void setRecoveryTime(Date recoveryTime) {
-        this.recoveryTime = recoveryTime;
-    }
-    public Date getSettlementTime() {
-        return settlementTime;
-    }
-    public void setSettlementTime(Date settlementTime) {
-        this.settlementTime = settlementTime;
-    }
-    public List<CarScrapOrderAutopartsVO> getAutopartsList() {
-        return autopartsList;
-    }
-    public void setAutopartsList(List<CarScrapOrderAutopartsVO> autopartsList) {
-        this.autopartsList = autopartsList;
-    }
-    public List<CarPmAuctionFileVo> getAuctionFileList() {
-        return auctionFileList;
-    }
-    public void setAuctionFileList(List<CarPmAuctionFileVo> auctionFileList) {
-        this.auctionFileList = auctionFileList;
-    }
-    public BigDecimal getRealPrice() {
-        return realPrice;
-    }
-    public void setRealPrice(BigDecimal realPrice) {
-        this.realPrice = realPrice;
-    }
-    public String getStartDate() {
-        return startDate;
-    }
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
-    }
-    public String getEndDate() {
-        return endDate;
-    }
-    public void setEndDate(String endDate) {
-        this.endDate = endDate;
-    }
-    public String getPmhId() {
-        return pmhId;
-    }
-    public void setPmhId(String pmhId) {
-        this.pmhId = pmhId;
-    }
-    public String getPmhEndTime() {
-        return pmhEndTime;
-    }
-    public void setPmhEndTime(String pmhEndTime) {
-        this.pmhEndTime = pmhEndTime;
-    }
-    public String getPpId() {
-        return ppId;
-    }
-    public void setPpId(String ppId) {
-        this.ppId = ppId;
-    }
-    public String getPpEndTime() {
-        return ppEndTime;
-    }
-    public void setPpEndTime(String ppEndTime) {
-        this.ppEndTime = ppEndTime;
-    }
+    private String fileIds;
 
-    @Override
-    public String toString() {
-        return "CarPmAuctionVo{" +
-                "id='" + id + '\'' +
-                ", dealMid='" + dealMid + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", orderNo='" + orderNo + '\'' +
-                ", dealTime=" + dealTime +
-                ", payTime=" + payTime +
-                ", takeCarTime=" + takeCarTime +
-                ", auctionType=" + auctionType +
-                ", auctionTypeS='" + auctionTypeS + '\'' +
-                ", auctionNo='" + auctionNo + '\'' +
-                ", vin='" + vin + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                ", lotAreas='" + lotAreas + '\'' +
-                ", lotAreasId=" + lotAreasId +
-                ", lotAreasArr=" + lotAreasArr +
-                ", auctionTypeArr=" + auctionTypeArr +
-                ", productionDate=" + productionDate +
-                ", isHasKey='" + isHasKey + '\'' +
-                ", description='" + description + '\'' +
-                ", buyRequirement='" + buyRequirement + '\'' +
-                ", lookContacts='" + lookContacts + '\'' +
-                ", lookContactNumber='" + lookContactNumber + '\'' +
-                ", lookAddress='" + lookAddress + '\'' +
-                ", lookCoordinate='" + lookCoordinate + '\'' +
-                ", bidNotice='" + bidNotice + '\'' +
-                ", specialNotice='" + specialNotice + '\'' +
-                ", isDelete=" + isDelete +
-                ", createTime=" + createTime +
-                ", createUser='" + createUser + '\'' +
-                ", startingPrice=" + startingPrice +
-                ", orderState='" + orderState + '\'' +
-                ", orderStateS='" + orderStateS + '\'' +
-                ", commission=" + commission +
-                ", otherPrice=" + otherPrice +
-                ", auctionFileList=" + auctionFileList +
-                ", imgPath='" + imgPath + '\'' +
-                ", pageNum=" + pageNum +
-                ", rows=" + rows +
-                ", auctionStartTime=" + auctionStartTime +
-                ", auctionEndTime=" + auctionEndTime +
-                ", type=" + type +
-                ", lotPartsCount=" + lotPartsCount +
-                ", partsWeight='" + partsWeight + '\'' +
-                ", delaySecond=" + delaySecond +
-                ", highestPrice=" + highestPrice +
-                ", totalPrice=" + totalPrice +
-                ", realPrice=" + realPrice +
-                ", autopartsList=" + autopartsList +
-                ", sysDate=" + sysDate +
-                ", carNumber='" + carNumber + '\'' +
-                ", partsCount=" + partsCount +
-                ", orderAmount=" + orderAmount +
-                ", recoveryTime=" + recoveryTime +
-                ", settlementTime=" + settlementTime +
-                ", startDate='" + startDate + '\'' +
-                ", endDate='" + endDate + '\'' +
-                ", pmhId='" + pmhId + '\'' +
-                ", pmhEndTime='" + pmhEndTime + '\'' +
-                ", ppId='" + ppId + '\'' +
-                ", ppEndTime='" + ppEndTime + '\'' +
-                '}';
-    }
+    private String scrapOrderId;
+
+    private List<String> autopartsIdList;
+
+    private String clientUserId;
 }

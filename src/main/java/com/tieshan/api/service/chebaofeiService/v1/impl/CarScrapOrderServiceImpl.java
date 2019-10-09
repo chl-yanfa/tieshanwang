@@ -7,10 +7,8 @@ import com.tieshan.api.bo.chebaofeiBo.v1.*;
 import com.tieshan.api.common.chebaofeiCommon.CommonSystemParamter;
 import com.tieshan.api.common.chebaofeiCommon.DateUtil;
 import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
-import com.tieshan.api.mapper.chebaofeiMapper.v1.CarScrapOrderAutopartsDelMapper;
-import com.tieshan.api.mapper.chebaofeiMapper.v1.CarScrapOrderMapper;
-import com.tieshan.api.mapper.chebaofeiMapper.v1.CarScrapOrderMyTradeMapper;
-import com.tieshan.api.mapper.chebaofeiMapper.v1.UserMapper;
+import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
+import com.tieshan.api.mapper.chebaofeiMapper.v1.*;
 import com.tieshan.api.po.chebaofeiPo.v1.*;
 import com.tieshan.api.po.chebaofeiPo.v1.Example.CarScrapOrderExample;
 import com.tieshan.api.po.tieshanpaiPo.v1.areas.Areas;
@@ -25,10 +23,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-import org.springframework.data.redis.serializer.RedisSerializer;
-import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -90,9 +86,11 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
     @Autowired
     private CarScrapOrderMyTradeMapper carScrapOrderMyTradeMapper;
 
+    @Autowired
+    CarScrapOrderAutopartsMapper carScrapOrderAutopartsMapper;
 
-
-
+    @Autowired
+    CarScrapOrderAuditMapper carScrapOrderAuditMapper;
 
     /**
      * 新增订单
@@ -1671,4 +1669,30 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
         return false;
     }
 
+    @Transactional
+    public void addScrapOrder(Integer orderType, String orderId, String auctionId, String userId) {
+        Date date = new Date();
+        if (orderType == Constants.ScrapOrderStatus.SCRAP_CAR) {
+            //整车
+            CarScrapOrder order = new CarScrapOrder();
+            order.setId(orderId);
+            order.setAuctionId(auctionId);
+            order.setOrderStatus(Constants.ScrapOrderStatus.ORDER_AUCTION);
+            order.setOperatortime(date);
+            order.setOperator(userId);
+            carScrapOrderMapper.updateCarScrapOrder(order);
+        } else {
+            //旧件
+            CarScrapOrderAutoparts autoparts = new CarScrapOrderAutoparts();
+            autoparts.setId(orderId);
+            autoparts.setAuctionId(auctionId);
+            autoparts.setOrderAutopartsStatus(Constants.ScrapOrderStatus.ORDER_AUCTION);
+            autoparts.setOperatortime(date);
+            autoparts.setOperator(userId);
+            carScrapOrderAutopartsMapper.updateCarScrapOrderAutoparts(autoparts);
+        }
+        CarScrapOrderAudit audit = new CarScrapOrderAudit(orderId, null,
+                orderType + "", Constants.ScrapOrderStatus.ORDER_AUCTION, "拍卖", userId, date, userId, userId, date, date);
+        carScrapOrderAuditMapper.addCarScrapOrderAudit(audit);
+    }
 }

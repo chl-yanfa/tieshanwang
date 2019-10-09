@@ -2,7 +2,6 @@ package com.tieshan.api.po.chebaofeiPo.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.Id;
@@ -22,169 +21,116 @@ public class CarScrapOrder extends BasePojo {
     @Id
     private String id;
 
-    @ApiModelProperty(value = "订单号,系统生产订单号")
-    //@NotEmpty(message="用户名不能为空")
-    //@Pattern(regexp = "[0-9a-zA-Z]{4,23}", message = "用户名只能输入字母或数字")
-    private String orderNo;
+    private String orderNo;     //订单号,系统生产订单号
 
-    @ApiModelProperty(value = "报案号")
-    private String reportNo;
+    private String reportNo;       //报案号
 
-    @ApiModelProperty(value = "订单产生时间,系统当前时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date orderTime;
+    private Date orderTime;         //订单产生时间,系统当前时间
 
-    @ApiModelProperty(value = "报案时间")
-    private Date reportTime;
+    private Date reportTime;        //报案时间
 
-    @ApiModelProperty(value = "车牌号")
-    private String carNumber;
+    private String carNumber;       //车牌号
 
-    @ApiModelProperty(value = "车架号")
-    private String carFrameNumber;
+    private String carFrameNumber;      //车架号
 
-    @ApiModelProperty(value = "车辆型号(数据来源车型号数据字典)")
-    private String carModelNumber;
+    private String carModelNumber;      //车辆型号(数据来源车型号数据字典)
 
-    @ApiModelProperty(value = "车辆年限")
-    private String carAge;
+    private String carAge;          //车辆年限
 
-    @ApiModelProperty(value = "行驶里程")
-    private String drivingMileage;
+    private String drivingMileage;  //行驶里程
 
-    @ApiModelProperty(value = "车辆归属(1:个人,2:客户)")
-    private String carAscription="1";
+    private String carAscription="1";   //车辆归属(1:个人,2:客户)
 
-    @ApiModelProperty(value = "车主姓名")
-    private String carOwner;
+    private String carOwner;  //车主姓名
 
-    //@ApiModelProperty(value = "下单所在区域")
-    private Integer orderAreasId;
+    private Integer orderAreasId;  //下单所在区域Id
 
-    @ApiModelProperty(value = "能否行驶(1:否,2:是 3:严重事故)")
-    private String isdrive;
+    private String isdrive;  //能否行驶(1:否,2:是 3:严重事故)
 
-    @ApiModelProperty(value = "订单状态（1.未接单(提交订单)、2.接单派单、3.业务员接收车辆、4.入场、5.报废(出库)、6.邮寄手续证明(入场后订单结束前填写)、7.财务结算、8.订单结束、9、订单异常）")
-    private Integer orderStatus;
+    private Integer orderStatus; //订单状态（1.未接单(提交订单)、2.接单派单、3.业务员接收车辆、4.入场、5.报废(出库)、6.邮寄手续证明(入场后订单结束前填写)、7.财务结算、8.订单结束、9、订单异常）
 
-    @ApiModelProperty(value = "订单派单业务员id")
-    //@JsonIgnore
-    private String agentUserid;
+    private String agentUserid;  //订单派单业务员id
 
-    @ApiModelProperty(value = "车辆证明日期")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private String carScrapDate;
+    private String carScrapDate;   //车辆证明日期
 
-    @ApiModelProperty(value = "订单类型（1:整车，2:旧件）")
-    private String orderType;
+    private String orderType;   //订单类型（1:整车，2:旧件）
 
-    @ApiModelProperty(value = "取车人联系人")
-    private String takeCarContacts;
+    private String takeCarContacts; //取车人联系人
 
-    @ApiModelProperty(value = "取车联系电话")
-    private String takeCarContactNumber;
+    private String takeCarContactNumber;    //取车联系电话
 
-    @ApiModelProperty(value = "取车时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date takeCarTime;
+    private Date takeCarTime;  //取车时间
 
-    @ApiModelProperty(value = "取车地址")
-    private String takeCarAddress;
+    private String takeCarAddress;  //取车地址
 
-    @ApiModelProperty(value = "取车地址经纬度",hidden = true)
-    private String coordinate;
+    private String coordinate;  //取车地址经纬度
 
+    private String expressCompany;      //快递公司
 
-    @ApiModelProperty(value = "快递公司")
-    private String expressCompany;
+    private String expressNumber;   //快递单号
 
-    @ApiModelProperty(value = "快递单号")
-    private String expressNumber;
+    private String mailingAddressName;      //快递邮递人明细(收件人姓名)
 
-    @ApiModelProperty(value = "快递邮递人明细(收件人姓名)")
-    private String mailingAddressName;
+    private String mailingAddressTelephone;     //快递邮寄电话(收件人电话)
 
-    @ApiModelProperty(value = "快递邮寄电话(收件人电话)")
-    private String mailingAddressTelephone;
+    private Integer province;       //快递邮递省份主键
 
-    @ApiModelProperty(value = "快递邮递省份主键")
-    private Integer province;
+    private Integer city;       //快递邮寄市区主键
 
-    @ApiModelProperty(value = "快递邮寄市区主键")
-    private Integer city;
+    private Integer county;     //快递邮递县/地区之间
 
-    @ApiModelProperty(value = "快递邮递县/地区之间")
-    private Integer county;
+    private String detailedAddress;     //快递详细地址(收件人详细地址)
 
-    @ApiModelProperty(value = "快递详细地址(收件人详细地址)")
-    private String detailedAddress;
+    private BigDecimal subQuote;        //分总报价金额
 
-    @ApiModelProperty(value = "分总报价金额")
-    private BigDecimal subQuote;
+    private BigDecimal orderAmount;    //订单金额
 
-    @ApiModelProperty(value = "订单金额")
-    private BigDecimal orderAmount;
+    private BigDecimal sinceQuote;  //二次报价金额
 
-    @ApiModelProperty(value = "二次报价金额")
-    private BigDecimal sinceQuote;
+    private String clientId;       //委托方(当前登录用户id)
 
-    //@ApiModelProperty(value = "委托方(当前登录用户id)")
-
-    private String clientId;
-
-    //"申请订单客户类型（1：各人 2：大客户）")
     @JsonIgnore
-    private String clientType;
+    private String clientType;      //申请订单客户类型（1：各人 2：大客户）
 
-    @ApiModelProperty(value = "收款人姓名")
-    private String payeeName;
+    private String payeeName;       //收款人姓名
 
-    @ApiModelProperty(value = "银行账户")
-    private String bankAccount;
+    private String bankAccount;    //银行账户
 
-    @ApiModelProperty(value = "所属银行")
-    private String bank;
+    private String bank;        //所属银行
 
-    @ApiModelProperty(value = "开户行")
-    private String openingBank;
+    private String openingBank;     //开户行
 
-    @ApiModelProperty(value = "取消原因")
-    private String cancelMemo;
+    private String cancelMemo;      //取消原因
 
-    //@ApiModelProperty(value = "客户账户是否删除，默认是：false 有效账户")
     @JsonIgnore
-    private Boolean isremove=false;
+    private Boolean isremove=false;  //客户账户是否删除，默认是：false 有效账户
 
-    //@ApiModelProperty(value = "数据来源（1.web 2.小程序,3：其他）")
     @JsonIgnore
-    private String sourceType;
+    private String sourceType;  //数据来源（1.web 2.小程序,3：其他）
+
     private String auditRemark;
 
-    @ApiModelProperty(value = "数据操作人")
-    private String operator;
+    private String operator;     //数据操作人
 
-    //业务员现场调整价格原因
-    private String adjustWhy;
+    private String adjustWhy;   //业务员现场调整价格原因
 
-    //派单时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date operatortime;
+    private Date operatortime;          //派单时间
 
-    //解体厂ID
-    private Integer factoryId;
+    private Integer factoryId;      //解体厂ID
 
-    //判断用户端是否点击了同意
-    private Integer isAgree;
+    private Integer isAgree;    //判断用户端是否点击了同意
 
-    //判断用户端是否点击了去取车
-    private Integer isTake;
+    private Integer isTake;     //判断用户端是否点击了去取车
 
-    //派单人姓名
-    private String pdName;
+    private String pdName;      //派单人姓名
 
-    //派单人手机号
-    private String pdPhone;
+    private String pdPhone;         //派单人手机号
 
-    //估价参考价
-    private BigDecimal referPrice;
+    private BigDecimal referPrice;  //估价参考价
+
+    private String auctionId;
 }

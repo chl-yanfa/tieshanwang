@@ -51,13 +51,13 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/v1/notice/*",
                         "/getStartTimeList",
                         "/getEndTimeList",
-                        "/v1/newapi_tieshanpai/auction/*",
                         "/carscraporder-attachment/ali/upload/*",
                         "/carscraporder-applet/account/getValidateCode",
-                        "/carscraporder-applet/inquiryprice/*"
+                        "/carscraporder-applet/inquiryprice/*",
+                        "/v1/newapi_tieshanpai/auction/addAuction"
                 );
     }
-
+//        "/v1/newapi_tieshanpai/auction/*",
 
     /**
      * 跨域支持

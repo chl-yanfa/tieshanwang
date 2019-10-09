@@ -35,4 +35,6 @@ public interface CarScrapOrderAutopartsMapper extends Mapper<CarScrapOrderAutopa
     Integer queryPendingOrder(@Param("agentUserid")String agentUserid,@Param("partsStauts")Integer partsStauts,@Param("areasids")List<String> areasids,@Param("isSorting")Boolean isSorting);
 
     Integer selectPartCount(@Param("vo")CarScrapOrderKeywordVO paramter);
+
+    int updateCarScrapOrderAutoparts(CarScrapOrderAutoparts carScrapOrderAutoparts);
 }

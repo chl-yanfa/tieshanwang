@@ -30,7 +30,13 @@
   <select id="selectAll"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from chl_auto_logos
+    from
+        chl_auto_logos
+    where
+    auto_logos_name not in
+    (
+    select brand_name_not from carbrand_not_show group by brand_name_not
+    )
     ORDER BY
     auto_logos_alias ASC
   </select>

@@ -1,7 +1,5 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction;
 
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
@@ -12,8 +10,8 @@ import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmResultVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.PaimaiVo;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.StartVO;
 
-import java.text.ParseException;
-import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +40,5 @@ public interface CarPmAuctionService {
 
     ResultVO<CarPmDeal> getPmOrderByMemberId(Integer page,Integer rows,String mid);
 
-
+    ResultVO<String> addAuction(CarPmAuctionVo auction);
 }

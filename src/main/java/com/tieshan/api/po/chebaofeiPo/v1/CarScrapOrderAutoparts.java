@@ -1,6 +1,4 @@
 package com.tieshan.api.po.chebaofeiPo.v1;
-
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -21,52 +19,39 @@ public class CarScrapOrderAutoparts extends BasePojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @ApiModelProperty(value = "订单id")
-    private String orderId;
+    private String orderId;     //订单id
 
-    @ApiModelProperty(value = "配件类型")
-    private Integer partsType;
+    private Integer partsType;      //配件类型
 
-    @ApiModelProperty(value = "配件名称")
-    private String partsName;
+    private String partsName;       //配件名称
 
-    @ApiModelProperty(value = "配件编号")
-    private String partsNum;
+    private String partsNum;       //配件编号
 
-    @ApiModelProperty(value = "配件数量")
-    private Integer partsCount;
+    private Integer partsCount;     //配件数量
 
-    @ApiModelProperty(value = "纯拆")
-    private String isDismantle;
+    private String isDismantle;     //纯拆
 
-    @ApiModelProperty(value = "碰撞")
-    private String isCollision;
+    private String isCollision;     //碰撞
 
-    @ApiModelProperty(value = "自然磨损")
-    private String isWear;
+    private String isWear;      //自然磨损
 
-    @ApiModelProperty(value = "水淹")
-    private String isFlood;
+    private String isFlood;     //水淹
 
-    @ApiModelProperty(value = "配件备注")
-    private String remark;
+    private String remark;      //配件备注
 
-    @ApiModelProperty(value = "分总报价金额")
-    private BigDecimal subQuote;
+    private BigDecimal subQuote;    //分总报价金额
 
-    @ApiModelProperty(value = "配件金额")
-    private BigDecimal amount;
+    private BigDecimal amount;      //配件金额
 
-    @ApiModelProperty(value = "配件状态")
-    private Integer orderAutopartsStatus;
+    private Integer orderAutopartsStatus;   //配件状态
 
-    @ApiModelProperty(value = "分拣状态")
-    private Integer sortingState;
+    private Integer sortingState;       //分拣状态
 
-    @ApiModelProperty(value = "无法接收原因")
-    private Integer unableReceiveReason;
+    private Integer unableReceiveReason;    //无法接收原因
 
     private String qrPic;
+
+    private String auctionId;
 
     private Boolean isValid=true;
 }

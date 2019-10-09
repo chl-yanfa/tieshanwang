@@ -106,7 +106,7 @@
         <result column="car_number"    property="carNumber" />
     </resultMap>
 
-    <resultMap id="auctionCar" type="AuctionCar">
+    <resultMap id="auctionCar" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar">
         <id 	column="auction_id" 			property="auctionId" />
         <result column="auction_set_id" 		property="auctionSetId" />
         <result column="auction_no" 			property="auctionNo" />
@@ -1510,4 +1510,173 @@
         having auction_count>0
         order by SIP.paimai_start_time desc
     </select>
+
+    <insert id="insertAuction" parameterType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionVo">
+        insert into car_pm_auction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="auctionType != null">
+                auction_type,
+            </if>
+            <if test="auctionNo != null">
+                auction_no,
+            </if>
+            <if test="fullName != null">
+                full_name,
+            </if>
+            <if test="vin != null">
+                vin,
+            </if>
+            <if test="vehicleBrand != null">
+                vehicle_brand,
+            </if>
+            <if test="vehicleType != null">
+                vehicle_type,
+            </if>
+            <if test="vehicleSystem != null">
+                vehicle_system,
+            </if>
+            <if test="licenseNumber != null">
+                license_number,
+            </if>
+            <if test="lotAreas != null">
+                lot_areas,
+            </if>
+            <if test="lotAreasId != null">
+                lot_areas_id,
+            </if>
+            <if test="partsCount != null">
+                parts_count,
+            </if>
+            <if test="partsWeight != null">
+                parts_weight,
+            </if>
+            <if test="productionDate != null">
+                production_date,
+            </if>
+            <if test="isHasKey != null">
+                is_has_key,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="buyRequirement != null">
+                buy_requirement,
+            </if>
+            <if test="lookContacts != null">
+                look_contacts,
+            </if>
+            <if test="lookContactNumber != null">
+                look_contact_number,
+            </if>
+            <if test="lookAddress != null">
+                look_address,
+            </if>
+            <if test="lookCoordinate != null">
+                look_coordinate,
+            </if>
+            <if test="bidNotice != null">
+                bid_notice,
+            </if>
+            <if test="specialNotice != null">
+                special_notice,
+            </if>
+            <if test="auctionState != null">
+                auction_state,
+            </if>
+            <if test="registState != null">
+                regist_state,
+            </if>
+            <if test="createUser != null">
+                create_user,
+            </if>
+            audit_state,set_state,auction_audit_state,
+            procedure_state,stock_state,aftersale_state,
+            abortive_state,is_delete,
+            create_time,
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="auctionType != null">
+                #{auctionType},
+            </if>
+            <if test="auctionNo != null">
+                #{auctionNo},
+            </if>
+            <if test="fullName != null">
+                #{fullName},
+            </if>
+            <if test="vin != null">
+                #{vin},
+            </if>
+            <if test="vehicleBrand != null">
+                #{vehicleBrand},
+            </if>
+            <if test="vehicleType != null">
+                #{vehicleType},
+            </if>
+            <if test="vehicleSystem != null">
+                #{vehicleSystem},
+            </if>
+            <if test="licenseNumber != null">
+                #{licenseNumber},
+            </if>
+            <if test="lotAreas != null">
+                #{lotAreas},
+            </if>
+            <if test="lotAreasId != null">
+                #{lotAreasId},
+            </if>
+            <if test="partsCount != null">
+                #{partsCount},
+            </if>
+            <if test="partsWeight != null">
+                #{partsWeight},
+            </if>
+            <if test="productionDate != null">
+                #{productionDate},
+            </if>
+            <if test="isHasKey != null">
+                #{isHasKey},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="buyRequirement != null">
+                #{buyRequirement},
+            </if>
+            <if test="lookContacts != null">
+                #{lookContacts},
+            </if>
+            <if test="lookContactNumber != null">
+                #{lookContactNumber},
+            </if>
+            <if test="lookAddress != null">
+                #{lookAddress},
+            </if>
+            <if test="lookCoordinate != null">
+                #{lookCoordinate},
+            </if>
+            <if test="bidNotice != null">
+                #{bidNotice},
+            </if>
+            <if test="specialNotice != null">
+                #{specialNotice},
+            </if>
+            <if test="auctionState != null">
+                #{auctionState},
+            </if>
+            <if test="registState != null">
+                #{registState},
+            </if>
+            <if test="createUser != null">
+                #{createUser},
+            </if>
+            0,1,0,0,0,0,0,0,now(),
+        </trim>
+    </insert>
 </mapper>

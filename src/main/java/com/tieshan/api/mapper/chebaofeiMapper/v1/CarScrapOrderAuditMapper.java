@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface CarScrapOrderAuditMapper extends Mapper<CarScrapOrderAudit> {
+
+    int addCarScrapOrderAudit(CarScrapOrderAudit audit);
 }

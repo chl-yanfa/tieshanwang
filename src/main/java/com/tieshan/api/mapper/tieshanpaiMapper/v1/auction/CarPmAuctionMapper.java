@@ -57,4 +57,8 @@ public interface CarPmAuctionMapper{
 
     //获取竞拍结束
     List<Paimai> getEndlist(PaimaiVo paimai);
+
+    //App新增拍品
+    int insertAuction(CarPmAuctionVo auction);
+
 }

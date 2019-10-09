@@ -1,7 +1,7 @@
 package com.tieshan.api.po.chebaofeiPo.v1;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModelProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.GeneratedValue;
@@ -22,25 +22,49 @@ public class CarScrapOrderAudit extends BasePojo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ApiModelProperty(value = "订单id")
-    private String orderId;
+    private String orderId;  //订单id
 
-    @ApiModelProperty(value = "上次审核id")
-    private Integer lasttimeId;
+    private Integer lasttimeId;  //上次审核id
 
-    @ApiModelProperty(value = "订单状态")
-    private Integer stauts;
+    private Integer stauts;  //订单状态
 
-    @ApiModelProperty(value = "审核备注")
-    private String remark;
+    private String remark;  //审核备注
 
-    @ApiModelProperty(value = "审核人")
-    private String auditor;
+    private String auditor;  //审核人
 
-    @ApiModelProperty(value = "审核时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date auditTime;
+    private Date auditTime;  //审核时间
 
-    @ApiModelProperty(value = "业务类型")
-    private String businessType;
+    private String businessType; //业务类型
+
+    @JsonIgnore
+    private Date createtime;
+
+    @JsonIgnore
+    private Date operatortime;
+
+    @JsonIgnore
+    private String creater;
+
+    @JsonIgnore
+    private String operator;
+
+    public CarScrapOrderAudit(){
+
+    }
+    public CarScrapOrderAudit(String orderId, Integer lasttimeId, String businessType, Integer stauts,
+                              String remark, String auditor, Date auditTime, String creater, String operator, Date createtime,
+                              Date operatortime) {
+        this.orderId = orderId;
+        this.lasttimeId = lasttimeId;
+        this.businessType = businessType;
+        this.stauts = stauts;
+        this.remark = remark;
+        this.auditor = auditor;
+        this.auditTime = auditTime;
+        this.creater = creater;
+        this.operator = operator;
+        this.createtime = createtime;
+        this.operatortime = operatortime;
+    }
 }

@@ -1,7 +1,5 @@
 package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderByBO;
-import com.tieshan.api.bo.chebaofeiBo.v1.PaimaiOrderTieshanBO;
 import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
@@ -172,6 +170,18 @@ public class getAuctionListController {
                                                     @RequestParam(value="rows") Integer rows,
                                                     @RequestParam(value="mid") String mid) {
         return carPmAuctionService.getPmOrderByMemberId(page,rows,mid);
+    }
+
+    /**
+     * 新增拍品
+     * @param auction
+     * @return
+     */
+    @RequestMapping(value = "/addAuction", method = RequestMethod.POST)
+    @ResponseBody
+    public ResultVO<String> addAuction(CarPmAuctionVo auction) throws DataException {
+        auction.setClientUserId(ClientUtil.getUser().getId());
+        return carPmAuctionService.addAuction(auction);
     }
 
 }

@@ -120,45 +120,4 @@ public class AuctionCar {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String oneSecond; //距离单个拍品开始的秒数
 
-    @Override
-    public String toString() {
-        return "AuctionCar{" +
-                "auctionId='" + auctionId + '\'' +
-                ", auctionSetId='" + auctionSetId + '\'' +
-                ", auctionNo='" + auctionNo + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", fullType='" + fullType + '\'' +
-                ", singleTime='" + singleTime + '\'' +
-                ", lotAreas='" + lotAreas + '\'' +
-                ", vehicleBrand='" + vehicleBrand + '\'' +
-                ", vehicleType='" + vehicleType + '\'' +
-                ", vehicleSystem='" + vehicleSystem + '\'' +
-                ", licenseNumber='" + licenseNumber + '\'' +
-                ", pmhId='" + pmhId + '\'' +
-                ", pmOrder=" + pmOrder +
-                ", orderStateS='" + orderStateS + '\'' +
-                ", orderState='" + orderState + '\'' +
-                ", dealMid='" + dealMid + '\'' +
-                ", dealMember='" + dealMember + '\'' +
-                ", startingPrice=" + startingPrice +
-                ", curPrice=" + curPrice +
-                ", reservePrice=" + reservePrice +
-                ", auctionCashDeposit=" + auctionCashDeposit +
-                ", imgPath='" + imgPath + '\'' +
-                ", auctionTypeFlag=" + auctionTypeFlag +
-                ", vin='" + vin + '\'' +
-                ", parkAddress='" + parkAddress + '\'' +
-                ", phone='" + phone + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", jointPrice=" + jointPrice +
-                ", highestPrice=" + highestPrice +
-                ", otherPrice=" + otherPrice +
-                ", commission=" + commission +
-                ", totalPrice=" + totalPrice +
-                ", timeCount='" + timeCount + '\'' +
-                ", timeEndCount='" + timeEndCount + '\'' +
-                ", auctionStartTime='" + auctionStartTime + '\'' +
-                ", oneSecond='" + oneSecond + '\'' +
-                '}';
-    }
 }

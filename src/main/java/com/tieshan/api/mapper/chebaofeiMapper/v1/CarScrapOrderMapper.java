@@ -47,4 +47,6 @@ public interface CarScrapOrderMapper extends Mapper<CarScrapOrder> {
     CarScrapOrderBO queryBOById(String id);
 
     List<CarScrapOrderQuotePageBO>  queryQuotePageListByKeyword(@Param("vo")CarScrapOrderKeywordVO vo);
+
+    int updateCarScrapOrder(CarScrapOrder carScrapOrder);
 }

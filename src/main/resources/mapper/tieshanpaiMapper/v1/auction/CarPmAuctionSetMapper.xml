@@ -362,4 +362,152 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <insert id="addAuctionSet">
+    insert into car_pm_auction_set
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
+      </if>
+      <if test="startingPrice != null">
+        starting_price,
+      </if>
+      <if test="reservePrice != null">
+        reserve_price,
+      </if>
+      <if test="auctionCashDeposit != null">
+        auction_cash_deposit,
+      </if>
+      <if test="commission != null">
+        commission,
+      </if>
+      <if test="otherPrice != null">
+        other_price,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="pmhId != null">
+        pmh_id,
+      </if>
+      <if test="pmOrder != null">
+        pm_order,
+      </if>
+      <if test="auctionStartTime != null">
+        auction_start_time,
+      </if>
+      <if test="auctionEndTime != null">
+        auction_end_time,
+      </if>
+      <if test="intervalTime != null">
+        interval_time,
+      </if>
+      <if test="singleTime != null">
+        single_time,
+      </if>
+      <if test="dealTime != null">
+        deal_time,
+      </if>
+      <if test="dealType != null">
+        deal_type,
+      </if>
+      <if test="dealMid != null">
+        deal_mid,
+      </if>
+      <if test="dealMember != null">
+        deal_member,
+      </if>
+      <if test="jointPrice != null">
+        joint_price,
+      </if>
+      <if test="highestPrice != null">
+        highest_price,
+      </if>
+      <if test="orderState != null">
+        order_state,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      is_delete,is_history,create_time,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo},
+      </if>
+      <if test="auctionId != null">
+        #{auctionId},
+      </if>
+      <if test="startingPrice != null">
+        #{startingPrice},
+      </if>
+      <if test="reservePrice != null">
+        #{reservePrice},
+      </if>
+      <if test="auctionCashDeposit != null">
+        #{auctionCashDeposit},
+      </if>
+      <if test="commission != null">
+        #{commission},
+      </if>
+      <if test="otherPrice != null">
+        #{otherPrice},
+      </if>
+      <if test="remark != null">
+        #{remark},
+      </if>
+      <if test="pmhId != null">
+        #{pmhId},
+      </if>
+      <if test="pmOrder != null">
+        #{pmOrder},
+      </if>
+      <if test="auctionStartTime != null">
+        #{auctionStartTime},
+      </if>
+      <if test="auctionEndTime != null">
+        #{auctionEndTime},
+      </if>
+      <if test="intervalTime != null">
+        #{intervalTime},
+      </if>
+      <if test="singleTime != null">
+        #{singleTime},
+      </if>
+      <if test="dealTime != null">
+        #{dealTime},
+      </if>
+      <if test="dealType != null">
+        #{dealType},
+      </if>
+      <if test="dealMid != null">
+        #{dealMid},
+      </if>
+      <if test="dealMember != null">
+        #{dealMember},
+      </if>
+      <if test="jointPrice != null">
+        #{jointPrice},
+      </if>
+      <if test="highestPrice != null">
+        #{highestPrice},
+      </if>
+      <if test="orderState != null">
+        #{orderState},
+      </if>
+      <if test="createUser != null">
+        #{createUser},
+      </if>
+      0,0,now(),
+    </trim>
+  </insert>
+
 </mapper>
