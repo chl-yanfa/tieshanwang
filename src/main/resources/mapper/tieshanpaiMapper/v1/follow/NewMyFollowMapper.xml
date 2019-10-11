@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.follow.NewMyFollowMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.follow.NewMyFollow">
+    <result column="id" jdbcType="INTEGER" property="id" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="type_id" jdbcType="VARCHAR" property="typeId" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.follow.NewMyFollow">
+    insert into new_my_follow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectMap" parameterType="map" resultMap="BaseResultMap">
+        SELECT * FROM  new_my_follow
+        <where>
+          <if test="userId!=null and userId!=''">
+            and user_id = #{userId}
+          </if>
+        </where>
+  </select>
+  <select id="select" parameterType="String" resultType="com.tieshan.api.po.tieshanpaiPo.v1.follow.FollowSelect">
+    SELECT
+	a.id as full_id,
+	a.full_name,
+	a.lot_areas,
+	ta.storage_path,
+CASE
+		a.auction_type
+		WHEN 0 THEN
+		CONCAT( '全车配件' )
+		WHEN 1 THEN
+		CONCAT( '高价值配件' )
+		WHEN 2 THEN
+		CONCAT( '大宗物资' )
+	END AS auction_types,
+CASE
+		a.auction_state
+		WHEN '2' THEN
+		'等待竞拍'
+		WHEN '4' THEN
+		'正在竞拍'
+		WHEN '5' THEN
+		'已成交'
+		WHEN '8' THEN
+		'已流拍'
+	END AS auction_states,
+	(
+	SELECT COALESCE
+		( MAX( HB.BID_AMOUNT ), '0' )
+	FROM
+		car_pm_offer_water HB
+	WHERE
+		HB.is_delete = 0
+		AND HB.ORDER_ID = cpas.id
+	) AS money
+FROM
+	car_pm_auction a
+	INNER JOIN car_pm_auction_file af ON a.id = af.auction_id
+	INNER JOIN tb_attachment ta ON ta.id = af.attachment_id
+	LEFT JOIN car_pm_auction_set cpas ON a.id = cpas.auction_id
+WHERE
+	a.id = #{userId}
+	AND cpas.is_delete = 0
+	AND cpas.is_history = 0
+	LIMIT 1
+  </select>
+</mapper>
