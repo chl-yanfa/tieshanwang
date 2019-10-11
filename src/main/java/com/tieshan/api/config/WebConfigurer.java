@@ -24,7 +24,7 @@ public class WebConfigurer implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     }
 
-    // 这个方法用来注册拦截器，我们自己写好的拦截器需要通过这里添加注册才能生效
+    // 这个方法用来注册拦截器，我们自己写好的拦截器需要通过这里添加注册才能生效,此处添加白名单
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userLoginHandlerInterceptor)
@@ -54,10 +54,11 @@ public class WebConfigurer implements WebMvcConfigurer {
                         "/carscraporder-attachment/ali/upload/*",
                         "/carscraporder-applet/account/getValidateCode",
                         "/carscraporder-applet/inquiryprice/*",
-                        "/v1/newapi_tieshanpai/auction/addAuction"
+                        "/carPartsCategory"
                 );
     }
-//        "/v1/newapi_tieshanpai/auction/*",
+
+    //                        "/v1/newapi_tieshanpai/auction/*",
 
     /**
      * 跨域支持

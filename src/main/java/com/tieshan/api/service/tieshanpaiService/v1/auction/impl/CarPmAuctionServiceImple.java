@@ -73,9 +73,10 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
         SimpleDateFormat sd = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         CarPmAuctionVo auctionDto = carPmAuctionMapper.getAuctionInfo(id);
+        System.out.println("auctionDto_List"+auctionDto);
+
         auctionDto.setStartDate(sd.format(auctionDto.getAuctionStartTime()));
         auctionDto.setEndDate(sd.format(auctionDto.getAuctionEndTime()));
-
 
         sd.format(auctionDto.getAuctionStartTime());
         if(auctionDto.getHighestPrice()==null){
@@ -299,9 +300,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 carPmDeal.setAuctionType(dealVO.getAuctionType());
                 carPmDeal.setDealCn("已成交");
                 int result = carPmAuctionMapper.addDealOrder(carPmDeal);
-
                 try{
-
                     OrderInfoVo order = bidMapper.getOrderInfoResultByWS(item.getPpNo());
                     CarPmAftersale caf = new CarPmAftersale();
                     caf.setId(Identities.uuid2());
@@ -442,7 +441,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
     public ResultVO<String> addAuction(CarPmAuctionVo auction){
         ResultVO<String> res = new ResultVO<>();
         //获取用户信息，便于标识是谁添加的该拍品
-        if(null == auction.getClientUserId()) {
+        if(null == auction.getCreateUser()) {
             res.setReturnCode(RtnMsgConstants.RETURN_CODE_LOGIN_NULL);
             res.setReturnMsg(RtnMsgConstants.RETURN_MSG_LOGIN_NULL);
             return res;
@@ -472,46 +471,58 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
             res.setReturnMsg(RtnMsgConstants.RETURN_MSG_DATA_NULL);
             return res;
         }
-        carPmAuctionSet.setCreateUser(auction.getClientUserId());
+        carPmAuctionSet.setCreateUser(auction.getCreateUser());
         carPmAuctionSet.setOrderState(Constants.OrderStatus.HAS_NO_AUCTION);
         carPmAuctionSet.setId(UUIDUtil.getUUID());
         String orderNo = pmNumberService.getOrderNo();
         carPmAuctionSet.setOrderNo(orderNo);
+        carPmAuctionSet.setAuctionId(auction.getId());
         auctionSetMapper.addAuctionSet(carPmAuctionSet);  //向参拍设置表新增数据
         carPmAuctionMapper.insertAuction(auction); //向拍品表新增数据
-        //新增图片
+        //新增拍品图片
         if(StringUtils.isNotBlank(auction.getFileIds())) {
             List<String> asList = Arrays.asList(auction.getFileIds().split(","));
-            if(asList!=null && asList.size()>0) {
-                List<Integer> fileIdList = asList.stream().map(Integer::parseInt).collect(Collectors.toList());
-                if(fileIdList!=null && fileIdList.size()>0) {
-                    List<CarPmAuctionFile> list =new ArrayList<CarPmAuctionFile>();
-                    CarPmAuctionFile file;
-                    for (int i = 0;i<fileIdList.size();i++) {
-                        file = new CarPmAuctionFile( auction.getId(), 0, fileIdList.get(i), i, 0, null);
-                        list.add(file);
-                    }
-                    carPmAuctionFileMapper.addAuctionFileBatch(list);
-                }
-            }
+            SetImg(auction, asList,0);
         }
+        //新增手续图片
+        if(StringUtils.isNotBlank(auction.getDocFiles())) {
+            List<String> asList = Arrays.asList(auction.getDocFiles().split(","));
+            SetImg(auction, asList,7);
+        }
+
         //设置整车/配件
         if(auctionType == 0) {
             String scrapOrderId = auction.getScrapOrderId();
             if(StringUtils.isNotBlank(scrapOrderId)) {
                 //修改状态以及绑定id
-                carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_CAR, scrapOrderId, auction.getId(),auction.getClientUserId());
+                carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_CAR, scrapOrderId, auction.getId(),auction.getCreateUser());
             }
         }else {
             List<String> autopartsIdList = auction.getAutopartsIdList();
             if(autopartsIdList != null && autopartsIdList.size()>0) {
                 for (String autopartsId : autopartsIdList) {
                     //修改状态以及绑定id
-                    carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_AUTOPARTS, autopartsId, auction.getId(),auction.getClientUserId());
+                    carScrapOrderService.addScrapOrder(Constants.ScrapOrderStatus.SCRAP_AUTOPARTS, autopartsId, auction.getId(),auction.getCreateUser());
                 }
             }
         }
         return res;
+    }
+
+    private void SetImg(CarPmAuctionVo auction, List<String> asList,Integer state) {
+        if(asList!=null && asList.size()>0) {
+            List<Integer> fileIdList = asList.stream().map(Integer::parseInt).collect(Collectors.toList());
+            if(fileIdList!=null && fileIdList.size()>0) {
+                List<CarPmAuctionFile> list = new ArrayList<>();
+                CarPmAuctionFile file;
+                for (int i = 0;i<fileIdList.size();i++) {
+                    file = new CarPmAuctionFile( auction.getId(), 0, fileIdList.get(i), i, 0, null);
+                    file.setFileType(state);
+                    list.add(file);
+                }
+                carPmAuctionFileMapper.addAuctionFileBatch(list);
+            }
+        }
     }
 
     /**

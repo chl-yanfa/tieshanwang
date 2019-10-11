@@ -92,6 +92,10 @@
         <collection property="autopartsList" ofType="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO" column="auctionId=id"
                     select="getCarScrapOrderAutopartsListByAuctionId">
         </collection>
+<!--      手续照片集合 ofType代表映射到docFileList的里的类型 -->
+        <collection property="docFileList" ofType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo" column="auctionId=id"
+                    select="getDocListByAuctionId">
+        </collection>
     </resultMap>
 
     <resultMap id="carScrapOrderAutopartsVo"  type="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO">
@@ -775,6 +779,33 @@
 		    cpf.sort
 	</select>
 
+
+    <select id="getDocListByAuctionId" resultType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo">
+		select
+			cpf.id,
+			cpf.auction_id,
+			cpf.file_type,
+			cpf.attachment_id,
+			cpf.sort,
+			cpf.create_time,
+			ta.storage_path imgPath
+		from
+			car_pm_auction_file cpf
+		left join
+		    tb_attachment ta
+		on
+		    cpf.attachment_id = ta.id
+		where
+			cpf.auction_id = #{auctionId}
+		and
+			cpf.is_delete = 0
+		and
+			ta.isvalid = 1
+        and
+            cpf.file_type = 7
+		order by
+		    cpf.sort
+	</select>
 
     <select id="getCarScrapOrderAutopartsListByAuctionId" resultMap="carScrapOrderAutopartsVo">
 	  SELECT
@@ -1529,15 +1560,15 @@
             <if test="vin != null">
                 vin,
             </if>
-            <if test="vehicleBrand != null">
-                vehicle_brand,
-            </if>
+<!--            <if test="vehicleBrand != null">-->
+<!--                vehicle_brand,-->
+<!--            </if>-->
             <if test="vehicleType != null">
                 vehicle_type,
             </if>
-            <if test="vehicleSystem != null">
-                vehicle_system,
-            </if>
+<!--            <if test="vehicleSystem != null">-->
+<!--                vehicle_system,-->
+<!--            </if>-->
             <if test="licenseNumber != null">
                 license_number,
             </if>
@@ -1613,15 +1644,15 @@
             <if test="vin != null">
                 #{vin},
             </if>
-            <if test="vehicleBrand != null">
-                #{vehicleBrand},
-            </if>
+<!--            <if test="vehicleBrand != null">-->
+<!--                #{vehicleBrand},-->
+<!--            </if>-->
             <if test="vehicleType != null">
                 #{vehicleType},
             </if>
-            <if test="vehicleSystem != null">
-                #{vehicleSystem},
-            </if>
+<!--            <if test="vehicleSystem != null">-->
+<!--                #{vehicleSystem},-->
+<!--            </if>-->
             <if test="licenseNumber != null">
                 #{licenseNumber},
             </if>

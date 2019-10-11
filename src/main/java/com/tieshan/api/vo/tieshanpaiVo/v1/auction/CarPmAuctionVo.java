@@ -1,5 +1,6 @@
 package com.tieshan.api.vo.tieshanpaiVo.v1.auction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -18,7 +19,7 @@ public class CarPmAuctionVo {
 
     private String id;
 
-    private Integer auctionType;        //拍品类型(0:全车配件,1:高价值配件,2:大宗物资)
+    private Integer auctionType;        //拍品类型(0:全车配件,1:auction高价值配件,2:大宗物资)
 
     private String auctionTypeS;    //拍品类型文字描述(全车配件、高价值配件)
 
@@ -38,6 +39,7 @@ public class CarPmAuctionVo {
 
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:ss:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:ss:mm")
     private Date getCardTime;            //上牌时间
 
     private String description;           //描述
@@ -98,7 +100,9 @@ public class CarPmAuctionVo {
 
     private BigDecimal otherPrice=BigDecimal.ZERO;        //其他费用
 
-    private List<CarPmAuctionFileVo> auctionFileList;    //图片集合
+    private List<CarPmAuctionFileVo> auctionFileList;    //图片集合_车辆图片_拍品使用
+
+    private List<CarPmAuctionFileVo> docFileList;  //图片集合_手续照片_拍品使用
 
     private String imgPath;                //列表头像
 
@@ -154,11 +158,15 @@ public class CarPmAuctionVo {
 
     private Integer registState;		//登记状态(0:未登记,1:已登记,2:已驳回)
 
-    private String fileIds;
+    private String  fileIds;
+
+    private String docFiles;
 
     private String scrapOrderId;
 
     private List<String> autopartsIdList;
 
-    private String clientUserId;
+    private List<String> txtImg;   //图片路径集合_车辆图片
+
+    private List<String> docImg;  //图片路径集合_手续图片
 }

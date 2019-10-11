@@ -93,7 +93,6 @@ public class ClientCAccountController {
         if (user != null) {
             // 登录成功
             String ticket = DigestUtils.md5Hex(user.getLoginName() + System.currentTimeMillis());
-            System.out.println("这是登陆后的ticket:"+ticket);
             String userstr = SystemParameter.MAPPER.writeValueAsString(user);
 
             // 将ticket写入到cookie中

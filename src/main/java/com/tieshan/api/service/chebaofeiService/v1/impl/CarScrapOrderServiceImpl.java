@@ -274,7 +274,7 @@ public class CarScrapOrderServiceImpl extends BaseServiceImpl<CarScrapOrder> imp
         if(bo!=null){
             //判断订单类型
             if(StringUtils.equals(bo.getOrderType(), CommonSystemParamter.BUSINESS_TYPE_AUTOPARTS)){
-                List<CarScrapOrderAutopartsBO>   autopartsBoList = carScrapOrderAutopartsService.queryListByOrderId(id);
+                List<CarScrapOrderAutopartsBO>  autopartsBoList = carScrapOrderAutopartsService.queryListByOrderId(id);
                 bo.setCarScrapOrderAutopartsList(autopartsBoList);
             }else{
                 fillPrictureToOrder(bo);

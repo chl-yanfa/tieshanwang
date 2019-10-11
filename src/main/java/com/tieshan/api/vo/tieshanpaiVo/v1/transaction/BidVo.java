@@ -172,4 +172,33 @@ public class BidVo {
 	public void setOrderNo(String orderNo) {
 		this.orderNo = orderNo;
 	}
+
+	@Override
+	public String toString() {
+		return "BidVo{" +
+				"id='" + id + '\'' +
+				", memberCode='" + memberCode + '\'' +
+				", memberNum='" + memberNum + '\'' +
+				", orderId='" + orderId + '\'' +
+				", orderNo='" + orderNo + '\'' +
+				", promisesType='" + promisesType + '\'' +
+				", bidAmount=" + bidAmount +
+				", bidTime=" + bidTime +
+				", bidWay='" + bidWay + '\'' +
+				", deleteTag='" + deleteTag + '\'' +
+				", ts=" + ts +
+				", timeliness='" + timeliness + '\'' +
+				", addExtent=" + addExtent +
+				", margin=" + margin +
+				", waterSize=" + waterSize +
+				", bidType='" + bidType + '\'' +
+				", carCode='" + carCode + '\'' +
+				", license='" + license + '\'' +
+				", sysDate=" + sysDate +
+				", delaySecond=" + delaySecond +
+				", endsecond=" + endsecond +
+				", freezeAmount=" + freezeAmount +
+				", realName='" + realName + '\'' +
+				'}';
+	}
 }

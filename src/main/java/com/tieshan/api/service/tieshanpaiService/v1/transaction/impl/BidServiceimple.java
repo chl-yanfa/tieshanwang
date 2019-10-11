@@ -54,8 +54,9 @@ public class BidServiceimple implements BidService {
 	@Override
 	public ResultVO<String> bid(BidVo bidDto) {
 		String dd = DateUtil.formatDate(new Date(), "yyyy/MM/dd HH:mm:ss:SSS");
-		ResultVO<String> result = new ResultVO<String>();
+		ResultVO<String> result = new ResultVO<>();
 		OrderInfoVo order = bidMapper.getOrderInfo(bidDto);
+		System.out.println("这是订单的对象所有信息:"+order);
 
 		if(order ==null){
 			result.setReturnCode(Constants.RETURN_CODE_DATA_NULL);
@@ -123,18 +124,24 @@ public class BidServiceimple implements BidService {
 			//是否已暂停
 
 			//不是现场拍检查出价次数
-
 			int newPrice = bidDto.getBidAmount();
+
 			int maxPrice = 0;
 			maxPrice = order.getBidMaxpriceUnlimited();
 			//最小加价幅度
 			int addExtent = Integer.valueOf(AuthorizationUtil.getInstance().getString("ADD_EXTENT"));
 			//新价和最高价比较
+			System.out.println("这是newPrice:"+newPrice);
+			System.out.println("这是maxPrice:"+maxPrice);
+			order.setMemberCode(bidDto.getMemberCode());
+			System.out.println("这是订单membercode:"+order.getMemberCode());
+			System.out.println("这是订单membercode substr:"+(order.getMemberCode()).substring(1));
 			if(newPrice <= maxPrice){
 				result.setReturnCode(Constants.PRICE_VERY_LOW);
 				result.setReturnMsg("当前报价过低!");
 				result.setPrice(maxPrice);
-				result.setMemberCode((order.getMemberCode()).substring(1));
+//				result.setMemberCode((order.getMemberCode()).substring(1));
+				result.setMemberCode((order.getMemberCode()));
 				return result;
 				//最小加价幅度判断
 			}else if((newPrice-maxPrice) < addExtent){

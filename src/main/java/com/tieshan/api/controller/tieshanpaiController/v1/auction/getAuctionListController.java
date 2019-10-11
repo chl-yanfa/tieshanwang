@@ -4,9 +4,11 @@ import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.SessionUtil;
+import com.tieshan.api.po.chebaofeiPo.v1.TbAttachment;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
+import com.tieshan.api.service.chebaofeiService.v1.TbAttachmentService;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
 import com.tieshan.api.service.tieshanpaiService.v1.transaction.BidService;
 import com.tieshan.api.util.toolUtil.ClientUtil;
@@ -35,6 +37,9 @@ public class getAuctionListController {
 
     @Autowired
     CarPmAuctionService carPmAuctionService;
+
+    @Autowired
+    TbAttachmentService tbAttachmentService;
 
     @Autowired
     private BidService bidService;
@@ -91,6 +96,9 @@ public class getAuctionListController {
      */
     @RequestMapping(value = "/quoteprice", method = RequestMethod.POST)
     public synchronized Object quoteprice_new(BidVo bidVo, HttpServletRequest request) {
+
+        System.out.println("接收到用户的报价参数为11111:"+bidVo);
+
         long s = System.currentTimeMillis();
         ResultVO<String> res = new ResultVO<String>();
         try{
@@ -117,6 +125,7 @@ public class getAuctionListController {
             }
             bidVo.setMemberCode(memberCode);
             bidVo.setRealName(realName);
+            System.out.println("接收到用户的报价参数为22222:"+bidVo);
             res = bidService.bid(bidVo);  //进入service
         }catch(Exception e){
             log.error("出价错误："+e.toString());
@@ -178,10 +187,25 @@ public class getAuctionListController {
      * @return
      */
     @RequestMapping(value = "/addAuction", method = RequestMethod.POST)
-    @ResponseBody
-    public ResultVO<String> addAuction(CarPmAuctionVo auction) throws DataException {
-        auction.setClientUserId(ClientUtil.getUser().getId());
+    public ResultVO<String> addAuction(@RequestBody CarPmAuctionVo auction) throws Exception {
+        auction.setCreateUser(ClientUtil.getUser().getId());
+        //前台传递一个图片路径集合
+        List<String> imgPathList = auction.getTxtImg();
+        System.out.println("图片List:"+imgPathList.size());
+
+        StringBuilder stringBuffer = new StringBuilder();
+        for (String s : imgPathList) {
+            System.out.println("单独的imgPath:" + s);
+            TbAttachment tb = new TbAttachment();
+            tb.setStoragePath(s);
+            TbAttachment tbAttachment = tbAttachmentService.queryOne(tb);
+            System.out.println("单独对象:" + tbAttachment);
+            stringBuffer.append(tbAttachment.getId());
+            stringBuffer.append(",");
+        }
+        System.out.println("图片的id:"+stringBuffer);
+        String newFields = stringBuffer.toString();
+        auction.setFileIds(newFields.substring(0,newFields.lastIndexOf(",")));
         return carPmAuctionService.addAuction(auction);
     }
-
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.chebaofeiMapper.v1.TbCarPartsCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.tieshan.api.po.chebaofeiPo.v1.TbCarPartsCategory">
+        <id column="id" property="id" />
+        <result column="partsCategoryName" property="partsCategoryName" />
+        <result column="isvalid" property="isvalid" />
+    </resultMap>
+
+    <select id="queryMyPageListByWhere" resultMap="BaseResultMap">
+        select
+        id as id,
+        parts_category_name as partsCategoryName,
+        isvalid as isvalid
+        from
+        tb_car_parts_category
+        where
+        isvalid = 1
+        <if test="paramter.partsCategoryName!=null and paramter.partsCategoryName!=''">
+            and parts_category_name like concat('%',#{paramter.partsCategoryName},'%')
+        </if>
+    </select>
+</mapper>

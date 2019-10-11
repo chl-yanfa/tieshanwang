@@ -147,9 +147,6 @@ public class CookieUtils {
      */
     private static final void doSetCookie(HttpServletRequest request, HttpServletResponse response,
                                           String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
-        System.out.println("cookie名称为:"+cookieName);
-        System.out.println("cookie值为:"+cookieValue);
-        System.out.println("请求域为:"+(request==null));
         try {
             if (cookieValue == null) {
                 cookieValue = "";
@@ -161,7 +158,6 @@ public class CookieUtils {
                 cookie.setMaxAge(cookieMaxage);
             }
             if (null != request){
-                System.out.println("最终的domainName为:"+getDomainName(request));
                 cookie.setDomain(getDomainName(request));//设置域名的cookie
             }
             cookie.setPath("/");

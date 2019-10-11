@@ -16,23 +16,23 @@ public class ClientUtil {
 
     private final static ThreadLocal<ClientBO> tlUser = new ThreadLocal<>();
 
-    private final static ThreadLocal<Locale> tlLocale = new ThreadLocal<Locale>() {
-        protected Locale initialValue() {
-            // 语言的默认值
-            return Locale.CHINESE;
-        };
-    };
+    private final static ThreadLocal<Locale> tlLocale = ThreadLocal.withInitial(() -> {
+        // 语言的默认值
+        return Locale.CHINESE;
+    });
 
 
 
 
     public static final String KEY_USER = "user";
     public static final String KEY_LANG = "lang";
+    public static final String KEY_CLIENT_LANG = "TT_TICKET_APPLET";
 
     public static void setUser(ClientBO user) {
         tlUser.set(user);
+//        MDC.put(KEY_USER, user.getId());
         // 把用户信息放到log4j
-        MDC.put(KEY_USER, user.getId());
+        MDC.put(KEY_CLIENT_LANG, user.getId());
     }
 
 
@@ -70,8 +70,7 @@ public class ClientUtil {
 
     public static void clearAllUserInfo() {
         tlUser.remove();
-
-
-        MDC.remove(KEY_USER);
+//        MDC.remove(KEY_USER);
+        MDC.remove(KEY_CLIENT_LANG);
     }
 }
