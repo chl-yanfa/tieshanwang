@@ -12,7 +12,6 @@ public class ResultVO<T> {
 	
 	private String returnMsg;
 	
-	
 	private List<T> rows = new ArrayList<T>();
 	
 	private List<T> rows1 = new ArrayList<T>();

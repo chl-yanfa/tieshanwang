@@ -1,5 +1,6 @@
 package com.tieshan.api.controller.tieshanpaiController.v1.auction;
 
+import com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO;
 import com.tieshan.api.common.chebaofeiCommon.Exception.DataException;
 import com.tieshan.api.common.tieshanpaiCommon.v1.Constants;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
@@ -19,7 +20,6 @@ import com.tieshan.api.vo.tieshanpaiVo.v1.transaction.BidVo;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -222,16 +222,34 @@ public class getAuctionListController {
 
         auction.setFileIds(newFields.substring(0,newFields.lastIndexOf(",")));
         auction.setDocFiles(newDocImgFields.substring(0,newDocImgFields.lastIndexOf(",")));
-        return carPmAuctionService.addAuction(auction);
+        ResultVO<String> resultVO = carPmAuctionService.addAuction(auction);
+        resultVO.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+        resultVO.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
+        return resultVO;
     }
 
 
     /**
-     * 获取待审核列表
+     * 获取待审核、已审核、审核未通过列表
      */
-    @RequestMapping("/getWaitCheckList")
-    public ResultVO<String> getWaitCheckList() throws Exception {
-        return null;
+    @RequestMapping(value = "/getAuctionListByState",method = RequestMethod.POST)
+    public ResultVO<CarPmAuctionBO> getWaitCheckList(@RequestParam(value = "aucationState")String auctionState) throws Exception {
+        String mid = ClientUtil.getUser().getId();
+        List<CarPmAuctionBO> auctionStateList = carPmAuctionService.getAuctionState(mid, auctionState);
+        ResultVO<CarPmAuctionBO> resultVO = new ResultVO<>();
+        resultVO.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+        resultVO.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
+        resultVO.setRows(auctionStateList);
+        return resultVO;
     }
 
+    /**
+     * 根据拍品id获取待审核、已审核、审核未通过详情
+     * @return
+     */
+    @RequestMapping(value = "/getAuctionDetailById",method = RequestMethod.GET)
+    public ResultVO<CarPmAuctionBO> getAuctionDetailById(@RequestParam("auctionId") String auctionId){
+
+        return null;
+    }
 }

@@ -188,6 +188,33 @@
         <result column="img_path" 		    property="imgPath" />
     </resultMap>
 
+    <resultMap id="getAuctionStateMap" type="com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO">
+          <id column="id"  property="id"/>
+          <result column="lot_areas" property="lotAreas"/>
+          <result column="lot_areas_id" property="lotAreaId"/>
+          <result column="auction_type" property="auctionType"/>
+          <result column="full_name" property="auctionName"/>
+          <result column="auction_audit_state" property="auctionAuditState"/>
+          <result column="vin" property="vin"/>
+          <result column="description" property="description"/>
+          <association property="imgPath" column="auctionId=id" javaType="String" select="getHeadImgByAuctionId"/>
+    </resultMap>
+
+<!--    待审核详情展示 -->
+    <resultMap id="getAuctionStateWaitMap" type="com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO">
+        <id column="id"  property="id"/>
+        <result column="lot_areas" property="lotAreas"/>
+        <result column="lot_areas_id" property="lotAreaId"/>
+        <result column="auction_type" property="auctionType"/>
+        <result column="full_name" property="auctionName"/>
+        <result column="auction_audit_state" property="auctionAuditState"/>
+        <result column="vin" property="vin"/>
+        <result column="description" property="description"/>
+        <collection property="auctionFileList" ofType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo" column="auctionId=id"
+                    select="getFileListByAuctionIdWait">
+        </collection>
+    </resultMap>
+
     <sql id="ListIf">
         <if test="auctionTypeArr.size() > 0 ">
             AND cpa.auction_type in <foreach item="auction_type" index="index" collection="auctionTypeArr" open="(" separator="," close=")">#{auction_type}</foreach>
@@ -779,6 +806,34 @@
 			cpf.is_delete = 0
 		and
 			ta.isvalid = 1
+		order by
+		    cpf.sort
+	</select>
+
+<!-- 不包含手续图片的拍品集合   -->
+    <select id="getFileListByAuctionIdWait" resultType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo">
+		select
+			cpf.id,
+			cpf.auction_id,
+			cpf.file_type,
+			cpf.attachment_id,
+			cpf.sort,
+			cpf.create_time,
+			ta.storage_path imgPath
+		from
+			car_pm_auction_file cpf
+		left join
+		    tb_attachment ta
+		on
+		    cpf.attachment_id = ta.id
+		where
+			cpf.auction_id = #{auctionId}
+		and
+			cpf.is_delete = 0
+		and
+			ta.isvalid = 1
+		and
+		    file_type=6
 		order by
 		    cpf.sort
 	</select>
@@ -1750,7 +1805,7 @@
         </trim>
     </insert>
 
-    <select id="getAuctionState" parameterType="java.lang.String" resultMap="">
+    <select id="getAuctionState" parameterType="java.lang.String" resultMap="getAuctionStateMap">
         select
             cpa.id as id,
             cpa.lot_areas as lot_areas,
@@ -1784,5 +1839,25 @@
         where
             sc.id = #{mid}
 	        and cpa.auction_audit_state = #{auctionState}
+    </select>
+
+
+    <select id="getAuctionDetailByIdIsWait" parameterType="java.lang.String" resultMap="getAuctionStateWaitMap">
+        select
+            id as auction_id,
+            lot_areas,
+            lot_areas_id,
+            case
+                when auction_type = '0' then '全车配件'
+                when auction_type = '1' then '高价值配件'
+                when auction_type = '0' then '大宗物资'
+            end as auction_type,
+            full_name,
+            vin,
+            description
+        from
+         car_pm_auction
+        where
+          id = #{auctionId}
     </select>
 </mapper>

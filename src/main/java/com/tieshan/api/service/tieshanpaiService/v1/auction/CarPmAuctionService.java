@@ -1,5 +1,6 @@
 package com.tieshan.api.service.tieshanpaiService.v1.auction;
 
+import com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.ResultVO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
@@ -42,4 +43,7 @@ public interface CarPmAuctionService {
 
     ResultVO<String> addAuction(CarPmAuctionVo auction);
 
+    List<CarPmAuctionBO> getAuctionState(String mid,String auctionState);
+
+    List<CarPmAuctionBO> getAuctionDetailByIdIsWait(String auctionId);
 }

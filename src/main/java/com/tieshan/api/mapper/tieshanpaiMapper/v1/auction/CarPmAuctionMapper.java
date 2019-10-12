@@ -1,6 +1,8 @@
 package com.tieshan.api.mapper.tieshanpaiMapper.v1.auction;
 
+import com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.AuctionCar;
+import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmAuction;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.CarPmDeal;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.Paimai;
 import com.tieshan.api.vo.tieshanpaiVo.v1.auction.*;
@@ -62,6 +64,9 @@ public interface CarPmAuctionMapper{
     int insertAuction(CarPmAuctionVo auction);
 
     //获取待审核、审核未通过、已审核列表
-    List<AuctionCar> getAuctionState(String mid,String auctionState);
+    List<CarPmAuctionBO> getAuctionState(@Param("mid") String mid, @Param("auctionState") String auctionState);
+
+    //获取待审核详情
+    List<CarPmAuctionBO> getAuctionDetailByIdIsWait(@Param("auctionId")String auctionId);
 
 }

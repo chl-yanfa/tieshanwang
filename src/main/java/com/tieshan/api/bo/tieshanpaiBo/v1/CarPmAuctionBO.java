@@ -1,6 +1,9 @@
 package com.tieshan.api.bo.tieshanpaiBo.v1;
 
+import com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author ningrz
@@ -25,4 +28,8 @@ public class CarPmAuctionBO {
     private String vin; //vin码
 
     private String description; //拍品描述
+
+    private String imgPath; //拍品列表显示缩略图
+
+    private List<CarPmAuctionFileVo> auctionFileList;    //图片集合_拍品详情图片轮播图集合
 }
