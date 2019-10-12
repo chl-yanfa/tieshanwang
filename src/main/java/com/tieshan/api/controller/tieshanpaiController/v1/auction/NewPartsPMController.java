@@ -80,6 +80,20 @@ public class NewPartsPMController {
             stringBuffer.append(",");
         }
         System.out.println("图片的id:"+stringBuffer);
+
+        List<String> auctionIdList = auction.getAujianIds();
+        if(auctionIdList.size()>0){
+            System.out.println("件拍卖idList:"+auctionIdList.size());
+            StringBuilder jianld = new StringBuilder();
+            for (String docImgPath:auctionIdList) {
+                jianld.append(docImgPath);
+                jianld.append(",");
+            }
+            System.out.println("件拍卖的id:"+jianld);
+            String jianlds = jianld.toString();
+            auction.setAujianId(jianlds);
+        }
+
         String newFields = stringBuffer.toString();
         auction.setFileIds(newFields.substring(0,newFields.lastIndexOf(",")));
         ResultVO<String> resultVO = carPmAuctionService.addAuction(auction);

@@ -216,22 +216,6 @@ public class getAuctionListController {
             sbuild.append(",");
         }
         System.out.println("手续图片的id:"+sbuild);
-
-
-        List<String> auctionIdList = auction.getAujianIds();
-        if(auctionIdList.size()>0){
-            System.out.println("件拍卖idList:"+auctionIdList.size());
-            StringBuilder jianld = new StringBuilder();
-            for (String docImgPath:auctionIdList) {
-                jianld.append(docImgPath);
-                jianld.append(",");
-            }
-            System.out.println("件拍卖的id:"+jianld);
-            String jianlds = jianld.toString();
-            auction.setAujianId(jianlds);
-        }
-
-
         String newFields = stringBuffer.toString();
         String newDocImgFields = sbuild.toString();
 
