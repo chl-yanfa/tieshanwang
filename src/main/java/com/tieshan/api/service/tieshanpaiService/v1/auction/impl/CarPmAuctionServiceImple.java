@@ -2,14 +2,12 @@ package com.tieshan.api.service.tieshanpaiService.v1.auction.impl;
 
 import com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO;
 import com.tieshan.api.common.tieshanpaiCommon.v1.*;
-import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAftersaleMapper;
-import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionFileMapper;
-import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionMapper;
-import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.CarPmAuctionSetMapper;
+import com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.*;
 import com.tieshan.api.mapper.tieshanpaiMapper.v1.transaction.BidMapper;
 import com.tieshan.api.po.tieshanpaiPo.v1.auction.*;
 import com.tieshan.api.service.chebaofeiService.v1.CarScrapOrderService;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.CarPmAuctionService;
+import com.tieshan.api.service.tieshanpaiService.v1.auction.NewPartsPmService;
 import com.tieshan.api.service.tieshanpaiService.v1.auction.PMNumberService;
 import com.tieshan.api.util.toolUtil.OrderByUtils;
 import com.tieshan.api.util.toolUtil.UUIDUtil;
@@ -55,7 +53,8 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
     @Autowired
     CarPmAuctionSetMapper auctionSetMapper;
-
+    @Autowired
+    private NewPartsPmMapper newPartsPmMapper;
 
     @Override
     public List<CarPmAuctionVo> findAuction(CarPmAuctionVo auction) {
@@ -510,6 +509,17 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
                 }
             }
         }
+        //修改件拍卖的拍品id
+        if(StringUtils.isNotBlank(auction.getAujianId())) {
+            List<String> asList = Arrays.asList(auction.getAujianId().split(","));
+            for (String s : asList) {
+                NewPartsPm newPartsPm=new NewPartsPm();
+                newPartsPm.setAuctionId(auction.getId());
+                newPartsPm.setId(Integer.parseInt(s));
+                newPartsPmMapper.updateByPrimaryKeySelective(newPartsPm);
+            }
+        }
+
         return res;
     }
 

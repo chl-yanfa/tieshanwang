@@ -810,7 +810,7 @@
 		    cpf.sort
 	</select>
 
-<!-- 不包含手续图片的拍品集合   -->
+<!-- 不包含手续图片的拍品图片集合   -->
     <select id="getFileListByAuctionIdWait" resultType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo">
 		select
 			cpf.id,
@@ -1844,7 +1844,7 @@
 
     <select id="getAuctionDetailByIdIsWait" parameterType="java.lang.String" resultMap="getAuctionStateWaitMap">
         select
-            id as auction_id,
+            id,
             lot_areas,
             lot_areas_id,
             case

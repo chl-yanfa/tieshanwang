@@ -217,8 +217,25 @@ public class getAuctionListController {
         }
         System.out.println("手续图片的id:"+sbuild);
 
+
+        List<String> auctionIdList = auction.getAujianIds();
+        if(auctionIdList.size()>0){
+            System.out.println("件拍卖idList:"+auctionIdList.size());
+            StringBuilder jianld = new StringBuilder();
+            for (String docImgPath:auctionIdList) {
+                jianld.append(docImgPath);
+                jianld.append(",");
+            }
+            System.out.println("件拍卖的id:"+jianld);
+            String jianlds = jianld.toString();
+            auction.setAujianId(jianlds);
+        }
+
+
         String newFields = stringBuffer.toString();
         String newDocImgFields = sbuild.toString();
+
+
 
         auction.setFileIds(newFields.substring(0,newFields.lastIndexOf(",")));
         auction.setDocFiles(newDocImgFields.substring(0,newDocImgFields.lastIndexOf(",")));
@@ -249,7 +266,11 @@ public class getAuctionListController {
      */
     @RequestMapping(value = "/getAuctionDetailById",method = RequestMethod.GET)
     public ResultVO<CarPmAuctionBO> getAuctionDetailById(@RequestParam("auctionId") String auctionId){
-
-        return null;
+        List<CarPmAuctionBO> auctionDetailByIdIsWait = carPmAuctionService.getAuctionDetailByIdIsWait(auctionId);
+        ResultVO<CarPmAuctionBO> resultVO = new ResultVO<>();
+        resultVO.setReturnCode(Constants.RETURN_CODE_SUCCESS);
+        resultVO.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
+        resultVO.setRows(auctionDetailByIdIsWait);
+        return resultVO;
     }
 }

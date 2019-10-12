@@ -173,4 +173,8 @@ public class CarPmAuctionVo {
     private List<String> docImg;  //图片路径集合_手续图片
 
     private Integer uploadType; //上传类型 0:用户 1：公司内部人员
+
+    private List<String> aujianIds;   //拍品id集合（件）
+
+    private String aujianId;
 }
