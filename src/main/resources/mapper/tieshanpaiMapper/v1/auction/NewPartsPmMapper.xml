@@ -11,10 +11,11 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="auction_id" jdbcType="VARCHAR" property="auctionId" />
   </resultMap>
   <sql id="Base_Column_List">
     id, parts_name, parts_num, parts_weight, parts_describe, create_by, create_time, 
-    update_by, update_time
+    update_by, update_time,auction_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,14 +30,14 @@
   <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
     insert into new_parts_pm (id, parts_name, parts_num, 
       parts_weight, parts_describe, create_by, 
-      create_time, update_by, update_time
+      create_time, update_by, update_time,auction_id
       )
     values (#{id,jdbcType=INTEGER}, #{partsName,jdbcType=VARCHAR}, #{partsNum,jdbcType=INTEGER}, 
       #{partsWeight,jdbcType=VARCHAR}, #{partsDescribe,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP},#{auctionId,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm" useGeneratedKeys="true" keyProperty="id">
     insert into new_parts_pm
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -65,6 +66,9 @@
       </if>
       <if test="updateTime != null">
         update_time,
+      </if>
+      <if test="auctionId != null">
+        auction_id,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -95,6 +99,9 @@
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="auctionId != null">
+        #{auctionId,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
@@ -124,6 +131,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="auctionId != null">
+        auction_id = #{auctionId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -136,7 +146,8 @@
       create_by = #{createBy,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_by = #{updateBy,jdbcType=VARCHAR},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      auction_id = #{auctionId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
