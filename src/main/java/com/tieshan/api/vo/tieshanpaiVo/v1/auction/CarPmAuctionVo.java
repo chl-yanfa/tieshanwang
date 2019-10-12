@@ -100,7 +100,9 @@ public class CarPmAuctionVo {
 
     private BigDecimal otherPrice=BigDecimal.ZERO;        //其他费用
 
-    private List<CarPmAuctionFileVo> auctionFileList;    //图片集合_车辆图片_拍品使用
+    private List<CarPmAuctionFileVo> auctionFileList;    //图片集合_所有图片
+
+    private List<CarPmAuctionFileVo> carFileList;    //图片集合_车辆图片_拍品使用
 
     private List<CarPmAuctionFileVo> docFileList;  //图片集合_手续照片_拍品使用
 
@@ -169,4 +171,6 @@ public class CarPmAuctionVo {
     private List<String> txtImg;   //图片路径集合_车辆图片
 
     private List<String> docImg;  //图片路径集合_手续图片
+
+    private Integer uploadType; //上传类型 0:用户 1：公司内部人员
 }

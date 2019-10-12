@@ -92,6 +92,10 @@
         <collection property="autopartsList" ofType="com.tieshan.api.vo.chebaofeiVo.v1.CarScrapOrderAutopartsVO" column="auctionId=id"
                     select="getCarScrapOrderAutopartsListByAuctionId">
         </collection>
+<!--      拍品照片集合 ofType代表映射到docFileList的里的类型 -->
+        <collection property="carFileList" ofType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo" column="auctionId=id"
+                    select="getCarListByAuctionId">
+        </collection>
 <!--      手续照片集合 ofType代表映射到docFileList的里的类型 -->
         <collection property="docFileList" ofType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo" column="auctionId=id"
                     select="getDocListByAuctionId">
@@ -806,6 +810,35 @@
 		order by
 		    cpf.sort
 	</select>
+
+
+    <select id="getCarListByAuctionId" resultType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo">
+		select
+			cpf.id,
+			cpf.auction_id,
+			cpf.file_type,
+			cpf.attachment_id,
+			cpf.sort,
+			cpf.create_time,
+			ta.storage_path imgPath
+		from
+			car_pm_auction_file cpf
+		left join
+		    tb_attachment ta
+		on
+		    cpf.attachment_id = ta.id
+		where
+			cpf.auction_id = #{auctionId}
+		and
+			cpf.is_delete = 0
+		and
+			ta.isvalid = 1
+        and
+            cpf.file_type = 6
+		order by
+		    cpf.sort
+	</select>
+
 
     <select id="getCarScrapOrderAutopartsListByAuctionId" resultMap="carScrapOrderAutopartsVo">
 	  SELECT
@@ -1623,6 +1656,9 @@
             <if test="createUser != null">
                 create_user,
             </if>
+            <if test="uploadType != null">
+                upload_type,
+            </if>
             audit_state,set_state,auction_audit_state,
             procedure_state,stock_state,aftersale_state,
             abortive_state,is_delete,
@@ -1707,7 +1743,46 @@
             <if test="createUser != null">
                 #{createUser},
             </if>
+            <if test="uploadType != null">
+                #{uploadType},
+            </if>
             0,1,0,0,0,0,0,0,now(),
         </trim>
     </insert>
+
+    <select id="getAuctionState">
+        select
+            cpa.id as id,
+            cpa.lot_areas as lot_areas,
+            case
+                when cpa.auction_type = '0' then '全车配件'
+                when cpa.auction_type = '1' then '高价值配件'
+                when cpa.auction_type = '0' then '大宗物资'
+            end as auction_type,
+            cpa.lot_areas_id as lot_areas_id,
+            cpa.full_name as full_name,
+            cpa.vehicle_type as vehicle_type,
+            case
+                when cpa.auction_audit_state = '0' then '待审核'
+                when cpa.auction_audit_state = '1' then '审核通过'
+                when cpa.auction_audit_state = '-1' then '未通过'
+            end
+            as auction_audit_state,
+            cpa.vin as vin,
+            cpa.vehicle_brand as vehicle_brand,
+            cpa.vehicle_system as vehicle_system,
+            cpa.license_number as license_number,
+            cpa.parts_count as parts_count,
+            cpa.parts_weight as parts_weight,
+            cpa.production_date as production_date,
+            cpa.is_has_key as is_has_key,
+            cpa.description as description
+        from
+            car_pm_auction as cpa
+            left join sys_client as sc
+            on cpa.create_user = sc.id
+        where
+            sc.id = #{mid}
+	        and cpa.auction_audit_state = #{auctionState}
+    </select>
 </mapper>

@@ -61,4 +61,7 @@ public interface CarPmAuctionMapper{
     //App新增拍品
     int insertAuction(CarPmAuctionVo auction);
 
+    //获取待审核、审核未通过、已审核列表
+    List<AuctionCar> getAuctionState(String mid,String auctionState);
+
 }

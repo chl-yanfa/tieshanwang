@@ -195,17 +195,42 @@ public class getAuctionListController {
 
         StringBuilder stringBuffer = new StringBuilder();
         for (String s : imgPathList) {
-            System.out.println("单独的imgPath:" + s);
             TbAttachment tb = new TbAttachment();
             tb.setStoragePath(s);
             TbAttachment tbAttachment = tbAttachmentService.queryOne(tb);
-            System.out.println("单独对象:" + tbAttachment);
             stringBuffer.append(tbAttachment.getId());
             stringBuffer.append(",");
         }
         System.out.println("图片的id:"+stringBuffer);
+
+
+        List<String> docImgPathList = auction.getDocImg();
+        System.out.println("手续List:"+docImgPathList.size());
+        StringBuilder sbuild = new StringBuilder();
+        for (String docImgPath:docImgPathList) {
+            TbAttachment tb = new TbAttachment();
+            tb.setStoragePath(docImgPath);
+            TbAttachment tbAttachment = tbAttachmentService.queryOne(tb);
+            sbuild.append(tbAttachment.getId());
+            sbuild.append(",");
+        }
+        System.out.println("手续图片的id:"+sbuild);
+
         String newFields = stringBuffer.toString();
+        String newDocImgFields = sbuild.toString();
+
         auction.setFileIds(newFields.substring(0,newFields.lastIndexOf(",")));
+        auction.setDocFiles(newDocImgFields.substring(0,newDocImgFields.lastIndexOf(",")));
         return carPmAuctionService.addAuction(auction);
     }
+
+
+    /**
+     * 获取待审核列表
+     */
+    @RequestMapping("/getWaitCheckList")
+    public ResultVO<String> getWaitCheckList() throws Exception {
+        return null;
+    }
+
 }

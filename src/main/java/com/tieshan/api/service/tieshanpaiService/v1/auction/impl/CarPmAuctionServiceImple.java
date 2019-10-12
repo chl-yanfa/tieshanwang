@@ -461,7 +461,10 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         //新增拍品信息
         auction.setId(UUIDUtil.getUUID());
         auction.setAuctionState(10);
-
+        if(!StringUtils.isNotBlank(auction.getFullName())){
+            auction.setFullName(auction.getVehicleType());
+        }
+        auction.setUploadType(0);
         //用户设置出售价格
         CarPmAuctionSet carPmAuctionSet = new CarPmAuctionSet();
         carPmAuctionSet.setReservePrice(auction.getReservePrice());  //App内预期保留价
@@ -482,7 +485,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         //新增拍品图片
         if(StringUtils.isNotBlank(auction.getFileIds())) {
             List<String> asList = Arrays.asList(auction.getFileIds().split(","));
-            SetImg(auction, asList,0);
+            SetImg(auction, asList,6);
         }
         //新增手续图片
         if(StringUtils.isNotBlank(auction.getDocFiles())) {

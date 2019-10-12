@@ -41,4 +41,5 @@ public interface CarPmAuctionService {
     ResultVO<CarPmDeal> getPmOrderByMemberId(Integer page,Integer rows,String mid);
 
     ResultVO<String> addAuction(CarPmAuctionVo auction);
+
 }
