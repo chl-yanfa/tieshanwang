@@ -11,7 +11,7 @@
     <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.follow.NewMyFollow">
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.follow.NewMyFollow" useGeneratedKeys="true" keyProperty="id">
     insert into new_my_follow
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -120,4 +120,8 @@ WHERE
 	AND cpas.is_history = 0
 	LIMIT 1
   </select>
+    <delete id="delete" parameterType="Integer" >
+       delete FROM  new_my_follow
+        where id=#{id}
+    </delete>
 </mapper>

@@ -31,7 +31,8 @@ public class NewMyFollowController {
         newMyFollow.setUpdateTime(new Date());
         int num=newMyFollowService.insertSelective(newMyFollow);
         if(num>0){
-           return ResultUtil.success("新增成功");
+            int id = newMyFollow.getId(); //获取到的即为新插入记录的ID
+           return ResultUtil.success(id);
         }
         return ResultUtil.error(501,"新增失败");
     }
