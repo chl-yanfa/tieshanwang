@@ -512,6 +512,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
         return res;
     }
 
+
     private void SetImg(CarPmAuctionVo auction, List<String> asList,Integer state) {
         if(asList!=null && asList.size()>0) {
             List<Integer> fileIdList = asList.stream().map(Integer::parseInt).collect(Collectors.toList());

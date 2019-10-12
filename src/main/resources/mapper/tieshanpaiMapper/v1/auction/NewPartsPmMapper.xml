@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tieshan.api.mapper.tieshanpaiMapper.v1.auction.NewPartsPmMapper">
+  <resultMap id="BaseResultMap" type="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="parts_name" jdbcType="VARCHAR" property="partsName" />
+    <result column="parts_num" jdbcType="INTEGER" property="partsNum" />
+    <result column="parts_weight" jdbcType="VARCHAR" property="partsWeight" />
+    <result column="parts_describe" jdbcType="VARCHAR" property="partsDescribe" />
+    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_by" jdbcType="VARCHAR" property="updateBy" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, parts_name, parts_num, parts_weight, parts_describe, create_by, create_time, 
+    update_by, update_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from new_parts_pm
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from new_parts_pm
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+    insert into new_parts_pm (id, parts_name, parts_num, 
+      parts_weight, parts_describe, create_by, 
+      create_time, update_by, update_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{partsName,jdbcType=VARCHAR}, #{partsNum,jdbcType=INTEGER}, 
+      #{partsWeight,jdbcType=VARCHAR}, #{partsDescribe,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateBy,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+    insert into new_parts_pm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="partsName != null">
+        parts_name,
+      </if>
+      <if test="partsNum != null">
+        parts_num,
+      </if>
+      <if test="partsWeight != null">
+        parts_weight,
+      </if>
+      <if test="partsDescribe != null">
+        parts_describe,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="partsName != null">
+        #{partsName,jdbcType=VARCHAR},
+      </if>
+      <if test="partsNum != null">
+        #{partsNum,jdbcType=INTEGER},
+      </if>
+      <if test="partsWeight != null">
+        #{partsWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDescribe != null">
+        #{partsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+    update new_parts_pm
+    <set>
+      <if test="partsName != null">
+        parts_name = #{partsName,jdbcType=VARCHAR},
+      </if>
+      <if test="partsNum != null">
+        parts_num = #{partsNum,jdbcType=INTEGER},
+      </if>
+      <if test="partsWeight != null">
+        parts_weight = #{partsWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="partsDescribe != null">
+        parts_describe = #{partsDescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tieshan.api.po.tieshanpaiPo.v1.auction.NewPartsPm">
+    update new_parts_pm
+    set parts_name = #{partsName,jdbcType=VARCHAR},
+      parts_num = #{partsNum,jdbcType=INTEGER},
+      parts_weight = #{partsWeight,jdbcType=VARCHAR},
+      parts_describe = #{partsDescribe,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_by = #{updateBy,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
