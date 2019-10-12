@@ -1750,7 +1750,7 @@
         </trim>
     </insert>
 
-    <select id="getAuctionState">
+    <select id="getAuctionState" parameterType="java.lang.String" resultMap="">
         select
             cpa.id as id,
             cpa.lot_areas as lot_areas,
