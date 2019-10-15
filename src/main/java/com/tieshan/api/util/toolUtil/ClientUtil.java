@@ -45,7 +45,6 @@ public class ClientUtil {
      */
     public static ClientBO getUser() throws DataException {
         ClientBO user = tlUser.get();
-        System.out.println("ClientUtil里的:"+user);
         if (user == null) {
             throw new DataException("未登录系统");
         }

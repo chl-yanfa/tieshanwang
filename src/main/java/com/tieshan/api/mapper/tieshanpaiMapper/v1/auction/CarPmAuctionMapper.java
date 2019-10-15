@@ -63,8 +63,10 @@ public interface CarPmAuctionMapper{
     //App新增拍品
     int insertAuction(CarPmAuctionVo auction);
 
-    //获取待审核、审核未通过、已审核列表
-    List<CarPmAuctionBO> getAuctionState(@Param("mid") String mid, @Param("auctionState") String auctionState);
+    //根据状态和登陆人id获取列表
+    List<CarPmAuctionBO> getAuctionState(@Param("mid") String mid, @Param("auctionState") String auctionState,@Param("joinState")String joinState);
+
+    List<CarPmAuctionBO> getAuctionStateParts(@Param("mid") String mid, @Param("auctionState") String auctionState,@Param("joinState")String joinState);
 
     //获取待审核详情
     List<CarPmAuctionBO> getAuctionDetailByIdIsWait(@Param("auctionId")String auctionId);

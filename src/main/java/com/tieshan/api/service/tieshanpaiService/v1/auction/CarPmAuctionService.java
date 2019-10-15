@@ -43,7 +43,7 @@ public interface CarPmAuctionService {
 
     ResultVO<String> addAuction(CarPmAuctionVo auction);
 
-    List<CarPmAuctionBO> getAuctionState(String mid,String auctionState);
+    List<CarPmAuctionBO> getAuctionState(String mid,String auctionState,String joinState);
 
     List<CarPmAuctionBO> getAuctionDetailByIdIsWait(String auctionId);
 }

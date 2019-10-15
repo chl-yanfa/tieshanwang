@@ -231,12 +231,14 @@ public class getAuctionListController {
 
 
     /**
-     * 获取待审核、已审核、审核未通过列表
+     * 获取待审核、已审核、审核未通过列表 aucationState 对应 auction_audit_state
+     * 待审核 auctionState=0 审核未通过 auctionState=-1 待上拍 auctionState=1
+     * 已上拍 joinState=2 and auctionState=1
      */
     @RequestMapping(value = "/getAuctionListByState",method = RequestMethod.POST)
-    public ResultVO<CarPmAuctionBO> getWaitCheckList(@RequestParam(value = "aucationState")String auctionState) throws Exception {
+    public ResultVO<CarPmAuctionBO> getWaitCheckList(@RequestParam(value = "aucationState")String auctionState,@RequestParam(value = "joinState",required = false)String joinState) throws Exception {
         String mid = ClientUtil.getUser().getId();
-        List<CarPmAuctionBO> auctionStateList = carPmAuctionService.getAuctionState(mid, auctionState);
+        List<CarPmAuctionBO> auctionStateList = carPmAuctionService.getAuctionState(mid, auctionState,joinState);
         ResultVO<CarPmAuctionBO> resultVO = new ResultVO<>();
         resultVO.setReturnCode(Constants.RETURN_CODE_SUCCESS);
         resultVO.setReturnMsg(Constants.RETURN_MSG_SUCCESS);
@@ -246,6 +248,9 @@ public class getAuctionListController {
 
     /**
      * 根据拍品id获取待审核、已审核、审核未通过详情
+     * 待审核 0
+     * 已审核/审核通过 1
+     * 未通过审核/审核拒绝 -1
      * @return
      */
     @RequestMapping(value = "/getAuctionDetailById",method = RequestMethod.GET)

@@ -188,6 +188,7 @@
         <result column="img_path" 		    property="imgPath" />
     </resultMap>
 
+<!--   获取拍品状态列表_整车 -->
     <resultMap id="getAuctionStateMap" type="com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO">
           <id column="id"  property="id"/>
           <result column="lot_areas" property="lotAreas"/>
@@ -198,6 +199,19 @@
           <result column="vin" property="vin"/>
           <result column="description" property="description"/>
           <association property="imgPath" column="auctionId=id" javaType="String" select="getHeadImgByAuctionId"/>
+    </resultMap>
+
+<!-- 获取拍品状态列表_配件 -->
+    <resultMap id="getAuctionStatePartsMap" type="com.tieshan.api.bo.tieshanpaiBo.v1.CarPmAuctionBO">
+        <id column="id"  property="id"/>
+        <result column="lot_areas" property="lotAreas"/>
+        <result column="lot_areas_id" property="lotAreaId"/>
+        <result column="auction_type" property="auctionType"/>
+        <result column="full_name" property="auctionName"/>
+        <result column="auction_audit_state" property="auctionAuditState"/>
+        <result column="vin" property="vin"/>
+        <result column="description" property="description"/>
+        <association property="imgPath" column="auctionId=id" javaType="String" select="getHeadImgByAuctionIdParts"/>
     </resultMap>
 
 <!--    待审核详情展示 -->
@@ -784,6 +798,21 @@
 		order by
 			cpf.sort limit 1
 	</select>
+
+
+    <select id="getHeadImgByAuctionIdParts" resultType="String">
+        SELECT
+	        t.storage_path
+        FROM
+            `car_pm_auction` a
+            INNER JOIN new_parts_pm p ON a.id = p.auction_id
+            INNER JOIN new_parts_pm_file pf ON p.id = pf.new_parts_pm_id
+            INNER JOIN tb_attachment t ON pf.attachment_id = t.id
+        WHERE
+            a.id = #{auctionId}
+            limit 1
+    </select>
+
 
     <select id="getFileListByAuctionId" resultType="com.tieshan.api.vo.tieshanpaiVo.v1.auction.CarPmAuctionFileVo">
 		select
@@ -1805,6 +1834,7 @@
         </trim>
     </insert>
 
+<!--   整车列表展示 -->
     <select id="getAuctionState" parameterType="java.lang.String" resultMap="getAuctionStateMap">
         select
             cpa.id as id,
@@ -1839,8 +1869,53 @@
         where
             sc.id = #{mid}
 	        and cpa.auction_audit_state = #{auctionState}
+	        <if test="joinState!=null">
+                and auction_state = #{joinState}
+            </if>
+	        and cpa.auction_type = 0
     </select>
 
+<!-- 配件列表展示 -->
+    <select id="getAuctionStateParts" parameterType="java.lang.String" resultMap="getAuctionStatePartsMap">
+        select
+            cpa.id as id,
+            cpa.lot_areas as lot_areas,
+            case
+                when cpa.auction_type = '0' then '全车配件'
+                when cpa.auction_type = '1' then '高价值配件'
+                when cpa.auction_type = '0' then '大宗物资'
+            end as auction_type,
+            cpa.lot_areas_id as lot_areas_id,
+            cpa.full_name as full_name,
+            cpa.vehicle_type as vehicle_type,
+            case
+                when cpa.auction_audit_state = '0' then '待审核'
+                when cpa.auction_audit_state = '1' then '审核通过'
+                when cpa.auction_audit_state = '-1' then '未通过'
+            end
+            as auction_audit_state,
+            cpa.vin as vin,
+            cpa.vehicle_brand as vehicle_brand,
+            cpa.vehicle_system as vehicle_system,
+            cpa.license_number as license_number,
+            cpa.parts_count as parts_count,
+            cpa.parts_weight as parts_weight,
+            cpa.production_date as production_date,
+            cpa.is_has_key as is_has_key,
+            cpa.description as description
+        from
+            car_pm_auction as cpa
+            left join sys_client as sc
+            on cpa.create_user = sc.id
+        where
+            sc.id = #{mid}
+	        and cpa.auction_audit_state = #{auctionState}
+            <if test="joinState!=null">
+                and auction_state = #{joinState}
+            </if>
+	        and (cpa.auction_type = 1 or cpa.auction_type = 2)
+	        limit 1
+    </select>
 
     <select id="getAuctionDetailByIdIsWait" parameterType="java.lang.String" resultMap="getAuctionStateWaitMap">
         select

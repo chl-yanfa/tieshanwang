@@ -53,6 +53,7 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
 
     @Autowired
     CarPmAuctionSetMapper auctionSetMapper;
+
     @Autowired
     private NewPartsPmMapper newPartsPmMapper;
 
@@ -540,8 +541,20 @@ public class CarPmAuctionServiceImple implements CarPmAuctionService {
     }
 
     @Override
-    public List<CarPmAuctionBO> getAuctionState(String mid, String auctionState) {
-        return carPmAuctionMapper.getAuctionState(mid,auctionState);
+    public List<CarPmAuctionBO> getAuctionState(String mid, String auctionState,String joinState) {
+        //将配件与整车的List糅合到一起
+        List<CarPmAuctionBO> allList = new ArrayList<>();
+        List<CarPmAuctionBO> carList = carPmAuctionMapper.getAuctionState(mid,auctionState,joinState);
+        List<CarPmAuctionBO> partList = carPmAuctionMapper.getAuctionStateParts(mid, auctionState,joinState);
+        if(carList.size()>0){
+            System.out.println(carList.size());
+            allList.addAll(carList);
+        }
+        if(partList.size()>0){
+            System.out.println(partList.size());
+            allList.addAll(partList);
+        }
+        return allList;
     }
 
     @Override
