@@ -28,4 +28,9 @@ public class TbCarPartsServiceImpl extends BaseServiceImpl<TbCarParts> implement
         List<TbCarParts> data = tbCarPartsMapper.queryByIdPageListByWhere(paramter);
         return new PageInfo<>(data);
     }
+
+    @Override
+    public List<TbCarParts> selectLike(String partsName) {
+        return tbCarPartsMapper.selectLike(partsName);
+    }
 }

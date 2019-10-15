@@ -27,9 +27,12 @@ public class NewPartsPm implements Serializable {
 
     private List<String> txtImg;   //图片路径集合_车辆图片
 
+    private List<String> fileId;   //图片路径集合_车辆图片
+
     private String  fileIds;
 
     private String auctionId;
+
 
     private static final long serialVersionUID = 1L;
 

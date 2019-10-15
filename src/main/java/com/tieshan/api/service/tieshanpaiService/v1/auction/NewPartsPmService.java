@@ -9,4 +9,5 @@ public interface NewPartsPmService {
     //新增拍品-件 and 新增图片
     int insertJianFile(NewPartsPm record);
     ResultVO<String> addAuction(CarPmAuctionVo auction);
+    int updateByPrimaryKeySelective(NewPartsPm record);
 }

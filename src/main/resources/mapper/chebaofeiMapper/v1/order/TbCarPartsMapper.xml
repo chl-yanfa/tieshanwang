@@ -23,4 +23,13 @@
             and parts_name like concat('%',#{paramter.partsName},'%')
         </if>
     </select>
+    <select id="selectLike" resultMap="BaseResultMap">
+        select
+        parts_name as partsName
+        from
+        tb_car_parts
+        where
+        isvalid = 1
+        and parts_name like concat('%',#{name},'%')
+    </select>
 </mapper>

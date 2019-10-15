@@ -4,6 +4,8 @@ import com.github.pagehelper.PageInfo;
 import com.tieshan.api.po.chebaofeiPo.v1.TbCarParts;
 import com.tieshan.api.service.BaseService;
 
+import java.util.List;
+
 /**
  * @author ningrz
  * @version 1.0
@@ -11,4 +13,5 @@ import com.tieshan.api.service.BaseService;
  */
 public interface TbCarPartsService extends BaseService<TbCarParts> {
     PageInfo<TbCarParts> queryByIdPageListByWhere(int page, int rows, TbCarParts paramter)throws Exception;
+    List<TbCarParts> selectLike(String partsName);
 }

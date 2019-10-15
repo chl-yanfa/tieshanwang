@@ -16,4 +16,5 @@ import java.util.List;
 public interface TbCarPartsMapper extends Mapper<TbCarParts> {
 
     List<TbCarParts> queryByIdPageListByWhere(@Param("paramter")TbCarParts paramter)throws Exception;
+    List<TbCarParts> selectLike(String partsName);
 }

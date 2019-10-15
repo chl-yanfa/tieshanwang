@@ -122,4 +122,31 @@ public class NewPartsPmServiceImpl implements NewPartsPmService {
         return res;
     }
 
+    @Override
+    public int updateByPrimaryKeySelective(NewPartsPm record) {
+        //修改拍品-件
+        int num=newPartsPmMapper.updateByPrimaryKeySelective(record);
+        //修改拍品图片
+        if(StringUtils.isNotBlank(record.getFileIds())) {
+            List<String> asList = Arrays.asList(record.getFileIds().split(","));
+            List<String> asList2 = record.getFileId();
+            for (int i=0;i<asList.size();i++){
+                System.out.println(asList.get(i));
+                NewPartsPmFile newPartsPmFile=new NewPartsPmFile();
+                newPartsPmFile.setId(Integer.parseInt(asList2.get(i)));
+                //newPartsPmFile.setNewPartsPmId(record.getId());//件拍卖id
+                //newPartsPmFile.setFileType(0);//附件类型
+                newPartsPmFile.setAttachmentId(Integer.parseInt(asList.get(i)));//附件存储id
+                //newPartsPmFile.setCreateTime(new Date());
+                newPartsPmFile.setUpdateTime(new Date());
+                //newPartsPmFile.setCreateBy(record.getCreateBy());
+                newPartsPmFile.setUpdateBy(record.getUpdateBy());
+                //newPartsPmFile.setSort(i);
+                //newPartsPmFile.setPicType(0);
+                newPartsPmFileMapper.updateByPrimaryKeySelective(newPartsPmFile);
+            }
+        }
+        return num;
+    }
+
 }
