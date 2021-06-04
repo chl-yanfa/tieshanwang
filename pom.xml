@@ -24,7 +24,7 @@
         <log4j>1.2.17</log4j>
         <mysql>5.1.41</mysql>
         <opensymphony>2.2.4</opensymphony>
-        <httpclient>4.5.2</httpclient>
+        <httpclient>4.5.13</httpclient>
         <org.eclipse.maven>3.8.0</org.eclipse.maven>
         <fastjson>1.1.37</fastjson>
         <pinyin4j>2.5.0</pinyin4j>
