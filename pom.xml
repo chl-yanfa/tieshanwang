@@ -36,7 +36,7 @@
         <swagger2.version>2.7.0</swagger2.version>
         <persistence>1.0</persistence>
         <redis.version>2.7.2</redis.version>
-        <shiro.version>1.2.3</shiro.version>
+        <shiro.version>1.8.0</shiro.version>
         <json-lib>2.4</json-lib>
         <joda-time.version>2.5</joda-time.version>
         <com.github.abel533>2.3.4</com.github.abel533>
