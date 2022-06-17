@@ -26,7 +26,7 @@
         <opensymphony>2.2.4</opensymphony>
         <httpclient>4.5.2</httpclient>
         <org.eclipse.maven>3.8.0</org.eclipse.maven>
-        <fastjson>1.1.37</fastjson>
+        <fastjson>1.2.83</fastjson>
         <pinyin4j>2.5.0</pinyin4j>
         <springfox-core>2.6.1</springfox-core>
         <aliyun-sdk-mns>1.1.8</aliyun-sdk-mns>
