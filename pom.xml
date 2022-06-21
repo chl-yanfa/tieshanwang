@@ -22,7 +22,7 @@
         <org.mybatis.spring.boot>2.0.1</org.mybatis.spring.boot>
         <org.mybatis.generator>1.3.5</org.mybatis.generator>
         <log4j>1.2.17</log4j>
-        <mysql>5.1.41</mysql>
+        <mysql>8.0.28</mysql>
         <opensymphony>2.2.4</opensymphony>
         <httpclient>4.5.2</httpclient>
         <org.eclipse.maven>3.8.0</org.eclipse.maven>
